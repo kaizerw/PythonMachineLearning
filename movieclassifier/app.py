@@ -8,6 +8,9 @@ import numpy as np
 # import HashingVectorizer from local dir
 from vectorizer import vect
 
+# import update function from local dir
+from update import update_model
+
 app = Flask(__name__)
 
 ######## Preparing the Classifier
@@ -74,4 +77,5 @@ def feedback():
     return render_template('thanks.html')
 
 if __name__ == '__main__':
+    clf = update_model(db_path=db, model=clf, batch_size=10000)
     app.run()
