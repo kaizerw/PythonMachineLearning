@@ -1,0 +1,1861 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{5\_Compressing\_Data\_Via\_Dimensionality\_Reduction}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Compressing Data via Dimensionality
+Reduction}\label{compressing-data-via-dimensionality-reduction}
+
+    In previous chapter we learned about the different approaches for
+reducing the dimensionality of a dataset using different feature
+selection techniques. An alternative approach to feature selection for
+dimensionality reduction is \textbf{feature extraction}. In this
+chapter, you will learn about three fundamental techniques that will
+help us to summarize the information content of a dataset by
+transforming it onto a new feature subspace of lower dimensionality than
+the original one. Data compression is an important topic in machine
+learning, and it helps us to store and analyse the increasing amount of
+data that are produced and collected in the modern age of technology.
+
+In this chapter, we will cover the folloing topics: * \textbf{Principal
+Component Analysis (PCA)} for unsupervised data compression. *
+\textbf{Linear Discriminant Analysis (LDA)} as a supervised
+dimensionality reduction technique for maximizing class separability. *
+Non dimensionality reduction via \textbf{Kernel Principal Component
+Analysis (KPCA)}.
+
+    \subsection{Unsupervised dimensionality reduction via principal
+component
+analysis}\label{unsupervised-dimensionality-reduction-via-principal-component-analysis}
+
+    Similar to feature selection, we can use different feature extraction
+techniques to reduce the number of features in the dataset. The
+difference between feature selection and feature extraction is that
+while we maintain the original features when we used feature selection
+algorithms, such as \emph{sequential backward selection}, we use feature
+extraction to transform or project the data onto a new feature space. In
+the context of dimensionality reduction, feature extraction can be
+understood as an approach to data compression with the goal of
+maintaning most of the relevant information. In practice, feature
+extraction is not only used to improve storage space or the
+computational efficiency of the learning algorithm, but can also improve
+the predictive performance by reducing the \emph{curse of
+dimensionality}; especially if we are working with non-regularized
+models.
+
+    \subsection{The main steps behind principal component
+analysis}\label{the-main-steps-behind-principal-component-analysis}
+
+    In this section, we will discuss PCA, an unsupervised linear
+transformation technique that is widely used across different fields,
+most prominently for feature extraction and dimensionality reduction.
+Other popular applications of PCA include exploratory data analyses and
+de-noising of signals in stock market trading, and the analysis of
+genome data and gene expression levels in the field of bioinformatics.
+
+PCA helps us to identify patters in data based on the correlation
+between features. In a nutshell, PCA aims to find the directions of
+maximum variance in high-dimensional data and projects it onto a new
+subspace with equal or fewer dimensions than the original one. The
+orthogonal axes (principal components) of the new subspace can be
+interpreted as the directions of maximum variance ginve the constraint
+that the new feature axes are orthogonal to each other, as illustrated
+in the following figure:
+
+    In the preceding figure, \(x_1\) and \(x_2\) are the original features
+axes and \textbf{PC1} and \textbf{PC2} are the principal components.
+
+If we use PCA for dimensionality reduction, we construct a
+\(d \times k\)-dimensional transformation matrix \textbf{W} that allows
+us to map a sample vector \textbf{x} onto a new \(k\)-dimensional
+feature subspace that has fewer dimensions than then original
+\(d\)-dimensional feature.
+
+As a result of transforming the original \(d\)-dimensional data onto
+this new \(k\)-dimensional subspace (typically \(k << d\)), the first
+principal component will have the largest possible variance, and all
+consequent principal component will have the largest variance given the
+constraint that these components are uncorrelated (orthogonal) to the
+other principal component; even if the input features are correlated,
+the resulting principal components will be mutually orthogonal
+(uncorrelated). Note that the PCA directions are highly sensitive to
+data scaling, and we need to standardize the features \textbf{prior} to
+PCA if the features were measured on different scales and we want to
+assign equal importance to all features.
+
+Before looking at the PCA algorithm for dimensionality reduction in more
+detail, let's summarize the approach in a few simple steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Standardize the \(d\)-dimensional dataset.
+\item
+  Construct the covariance matrix.
+\item
+  Decompose the covariance matrix into its eigenvectors and eigenvalues.
+\item
+  Sort the eigenvalues by decreasing order to rank the corresponding
+  eigenvectors.
+\item
+  Select \(k\) eigenvectors which correspond to the \(k\) largest
+  eigenvalues, where \(k\) is the dimensionality of the new feature
+  subspace (\(k \le d\)).
+\item
+  Construct a projection matrix \textbf{W} from the "top" \(k\)
+  eigenvectors.
+\item
+  Transform the \(d\)-dimensional input dataset \textbf{X} using the
+  projection matrix \textbf{W} to obtain the new \(k\)-dimensional
+  feature subspace.
+\end{enumerate}
+
+In the following sections, we will perform a PCA step by step, using
+Python as a learning exercise. Then, we will see how perform a PCA more
+conveniently using scikit-learn.
+
+    \subsection{Extracting the principal components step by
+step}\label{extracting-the-principal-components-step-by-step}
+
+    In this subsection, we will tackle the first four steps of a PCA:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Standardize the data.
+\item
+  Constructing the covariance matrix.
+\item
+  Obtaining the eigenvalues and eigenvectors of the covariance matrix.
+\item
+  Sorting the eigenvalues by decreasing order to rank the eigenvectors.
+\end{enumerate}
+
+First, we will start by loading the Wine dataset that we have been
+working with:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{n}{df\PYZus{}wine} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wine.data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    Next, we will process the Wine data into separate training and test
+sets; using 70 percent and 30 percent of the data, respectively, and
+stardardize it to unit variance:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        
+        \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}wine}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{df\PYZus{}wine}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PYZbs{}
+            \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} 
+                             \PY{n}{stratify}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+            
+        \PY{c+c1}{\PYZsh{} standardize the features}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        \PY{n}{sc} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+        \PY{n}{X\PYZus{}train\PYZus{}std} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+        \PY{n}{X\PYZus{}test\PYZus{}std} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    After completing the mandatory preprocessing by executing the preceding
+code, let's advance to the second step: constructing the covariance
+matrix. The symmetric \(d \times d\)-dimensional covariance matrix,
+where \(d\) is the number of dimensions in the dataset, stores the
+pairwise covariances between the different features.
+
+A positive covariance between two features indicates that the features
+increase or decrease together, whereas a negative covariance indicates
+that the features vary in opposite directions.
+
+The eigenvectors of the covariance matrix represent the principal
+components (the directions of maximum variance), whereas the
+corresponding eigenvalues will define their magnitude. In the case of
+the Wine dataset, we would obtain 13 eigenvectors and eigenvalues from
+the \(13 \times 13\)-dimensional covariance matrix.
+
+Now, for our third step, let's obtain the eigenpairs of the covariance
+matrix. Since the manual computation of eigenvectors and eigenvalues is
+a somewhat tedious and elaborate task, we will use the \emph{linalg.eig}
+function from NumPy to obtain the eigenpairs of the Wine covariance
+matrix:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{cov\PYZus{}mat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+        \PY{n}{eigen\PYZus{}vals}\PY{p}{,} \PY{n}{eigen\PYZus{}vecs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{cov\PYZus{}mat}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Eigenvalues }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{eigen\PYZus{}vals}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Eigenvalues 
+[4.84274532 2.41602459 1.54845825 0.96120438 0.84166161 0.6620634
+ 0.51828472 0.34650377 0.3131368  0.10754642 0.21357215 0.15362835
+ 0.1808613 ]
+
+    \end{Verbatim}
+
+    Using the \emph{numpy.cov} function, we computed the covariance matrix
+of standardized training dataset. Using the \emph{linalg.eig} function,
+we performed the eigendecomposition, which yielded a vector
+(\emph{eigen\_vals}) consisting of 13 eigenvalues and the corresponding
+eigenvectors stored as columns in a \(13 \times 13\)-dimensional matrix
+(\emph{eigen\_vec}).
+
+    \subsection{Total and explained
+variance}\label{total-and-explained-variance}
+
+    Since we want to reduce the dimensionality of our dataset by compressing
+it onto a new feature subspace, we only select the subset of the
+eigenvectors (principal components) that contains most of the
+information (variance). The eigenvalues define the magnitude of the
+eigenvectors, so we have to sort the eigenvalues by decreasing
+magnitude; we are interested in the top \(k\) eigenvectors based on the
+values of their corresponding eigenvalues. But before we collect those
+\(k\) most informative eigenvectors, let us plot the \emph{variance
+explained ratios} of the eigenvalues. Using the NumPy \emph{cumsum}
+function, we can then calculate the cumulative sum of explained
+variances, which we will then plot via Matplotlib's \emph{step}
+function:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{tot} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{eigen\PYZus{}vals}\PY{p}{)}
+        \PY{n}{var\PYZus{}exp} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{i} \PY{o}{/} \PY{n}{tot}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{eigen\PYZus{}vals}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+        \PY{n}{cum\PYZus{}var\PYZus{}exp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{var\PYZus{}exp}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{)}\PY{p}{,} \PY{n}{var\PYZus{}exp}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{individual explained variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{)}\PY{p}{,} \PY{n}{cum\PYZus{}var\PYZus{}exp}\PY{p}{,} \PY{n}{where}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cumulative explained variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Explained variance ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal component index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The resulting plot indicates that the first principal component alone
+accounts for approximately 40 percent of the variance. Also, we can see
+that the first two principal components combined explain almost 60
+percent of the variance in the dataset.
+
+Although the explained variance plot reminds us of the feature
+importance values that we computed via random forests, we should remind
+ourselves that PCA is an unsupervised method, which means that
+information about the class labels are ignored. Whereas a random forest
+uses the class membership information to compute the node impurities,
+variance measures the spread of values along the feature axis.
+
+    \subsection{Feature transformation}\label{feature-transformation}
+
+    After we have successfully decomposed the covariance matrix into
+eigenpairs, let's now proceed with the last three steps to transform the
+Wine dataset onto the new principal component axes. The remaining steps
+we are going to tackle in this section are the following ones: * Select
+\(k\) eigenvectors, which correspond to the \(k\) largest eigenvalues,
+where \(k\) is the dimensionality of the new feature subspace
+(\(k \le d\)). * Construct a project matrix \textbf{W} from the "top"
+\(k\) eigenvectors. * Transform the \(d\)-dimensional input dataset
+\textbf{X} using the projection matrix \textbf{W} to obtain the new
+\(k\)-dimensional feature subspace.
+
+Or, in less technical terms, we will sort the eigenpairs by descending
+order of the eigenvalues, construct a projection matrix from the
+selected eigenvectors, and use the projection matrix to transform the
+data onto the lower-dimensional subspace.
+
+We start by sorting the eigenpairs by decreasing order of the
+eigenvalues:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Make a list of the (eigenvalue, eigenvector) tuples}
+        \PY{n}{eigen\PYZus{}pairs} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{eigen\PYZus{}vals}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{eigen\PYZus{}vecs}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{)} 
+                       \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{eigen\PYZus{}vals}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Sort the (eigenvalue, eigenvector) tuples from high to low}
+        \PY{n}{eigen\PYZus{}pairs}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{k}\PY{p}{:} \PY{n}{k}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    Next, we collect the two eigenvectors that correspond to the two largest
+eigenvalues, to capture about 60 percent of the variance in this
+dataset. Note that we only chose two eigenvectors for the purpose of
+illustration, since we are going to plot the data via a two-dimensional
+scatter plot later in this subsection. In practice, the number of
+principal components has to be determined by a trade-off between
+computational efficiency and the performance of the classifier:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{eigen\PYZus{}pairs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{p}{,} 
+                       \PY{n}{eigen\PYZus{}pairs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Matrix W:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{w}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Matrix W:
+ [[-0.13724218  0.50303478]
+ [ 0.24724326  0.16487119]
+ [-0.02545159  0.24456476]
+ [ 0.20694508 -0.11352904]
+ [-0.15436582  0.28974518]
+ [-0.39376952  0.05080104]
+ [-0.41735106 -0.02287338]
+ [ 0.30572896  0.09048885]
+ [-0.30668347  0.00835233]
+ [ 0.07554066  0.54977581]
+ [-0.32613263 -0.20716433]
+ [-0.36861022 -0.24902536]
+ [-0.29669651  0.38022942]]
+
+    \end{Verbatim}
+
+    By executing the preceding code, we have created a
+\(13 \times 2\)-dimensional projection matrix \textbf{W} from the top
+two eigenvectors.
+
+Using the projection matrix, we can now transform a sample \textbf{x}
+(represented as a \(1 \times 13\)-dimensional row vector) onto the PCA
+subspace (the principal components one and two) obtaining
+\(\boldsymbol{x'}\), now a two-dimensional sample vector consisting of
+two new features:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} array([2.38299011, 0.45458499])
+\end{Verbatim}
+            
+    Similarly, we can transform the entire \(124 \times 13\)-dimensional
+training dataset onto the two principal components by calculating the
+matrix dot product:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{X\PYZus{}train\PYZus{}pca} \PY{o}{=} \PY{n}{X\PYZus{}train\PYZus{}std}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w}\PY{p}{)}
+\end{Verbatim}
+
+
+    Lastly, let us visualize the transformed Wine training set, now stored
+as an \(124 \times 2\)-dimensional matrix, in a two-dimensional
+scatterplot:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{markers} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{k}{for} \PY{n}{l}\PY{p}{,} \PY{n}{c}\PY{p}{,} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{colors}\PY{p}{,} \PY{n}{markers}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{n}{l}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                        \PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{n}{l}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                        \PY{n}{c}\PY{o}{=}\PY{n}{c}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{l}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{n}{m}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting plot, the data is more spread along the
+\emph{x}-axis; the first principal component; than the second principal
+component (\emph{y}-axis), which is consistent with the explained
+variance ratio plot that we created in the previous subsection. However,
+we can intuitively see that a linear classifier will likely be able to
+separate the class well.
+
+Although we encoded the class label information for the purpose of
+illustration in the preceding scatter plot, we have to keep in mind that
+PCA is an unsupervised technique that doesn't use any class label
+information.
+
+    \subsection{Principal component analysis in
+scikit-learn}\label{principal-component-analysis-in-scikit-learn}
+
+    Although the verbose approach in the previous subsection helped us to
+follow the inner workings of PCA, we will now discuss how to use the
+\emph{PCA} class implemented in scikit-learn. The \emph{PCA} class is
+another one of scikit-learn's transformer classes, where we first fit
+the model using the training data before we transform both the training
+and test dataset using the same model paramters. Now, let's use the
+\emph{PCA} class from scikit-learn on the Wine training dataset,
+classify the transformed samples via logistic regression, and visualize
+the decision regions via the \emph{plot\_decision\_region} function:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{colors} \PY{k}{import} \PY{n}{ListedColormap}
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}decision\PYZus{}regions}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{classifier}\PY{p}{,} \PY{n}{resolution}\PY{o}{=}\PY{l+m+mf}{0.02}\PY{p}{)}\PY{p}{:}
+             
+             \PY{c+c1}{\PYZsh{} setup marker generator and color map}
+             \PY{n}{markers} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{colors} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{cmap} \PY{o}{=} \PY{n}{ListedColormap}\PY{p}{(}\PY{n}{colors}\PY{p}{[}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} plot the decision surface}
+             \PY{n}{x1\PYZus{}min}\PY{p}{,} \PY{n}{x1\PYZus{}max} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+             \PY{n}{x2\PYZus{}min}\PY{p}{,} \PY{n}{x2\PYZus{}max} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+             \PY{n}{xx1}\PY{p}{,} \PY{n}{xx2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{x1\PYZus{}min}\PY{p}{,} \PY{n}{x1\PYZus{}max}\PY{p}{,} \PY{n}{resolution}\PY{p}{)}\PY{p}{,} 
+                                    \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{x2\PYZus{}min}\PY{p}{,} \PY{n}{x2\PYZus{}max}\PY{p}{,} \PY{n}{resolution}\PY{p}{)}\PY{p}{)}
+             \PY{n}{Z} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{xx1}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{xx2}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+             \PY{n}{Z} \PY{o}{=} \PY{n}{Z}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{xx1}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{xx1}\PY{p}{,} \PY{n}{xx2}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{xx1}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{xx1}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{xx2}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{xx2}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} plot class samples}
+             \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{cl} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{n}{cl}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{n}{cl}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                             \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{cmap}\PY{p}{(}\PY{n}{idx}\PY{p}{)}\PY{p}{,} 
+                             \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{n}{markers}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{,} 
+                             \PY{n}{label}\PY{o}{=}\PY{n}{cl}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+         
+         \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{lr} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}train\PYZus{}pca} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{)}
+         \PY{n}{X\PYZus{}test\PYZus{}pca} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}std}\PY{p}{)}
+         \PY{n}{lr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{plot\PYZus{}decision\PYZus{}regions}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{classifier}\PY{o}{=}\PY{n}{lr}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    When we compare PCA projections via scikit-learn with our own PCA
+implementation, it can happen that the resulting plots are mirror images
+of each other. Note that this is not due to an error in either of those
+two implementations, but the reason of this difference is that,
+depending on the eigensolver, eigenvectors can have either negative or
+positive signs. Not that it matters, but we could simply revert the
+mirror image by multiplying the data by \emph{-1} if we wanted to; note
+that eigenvectors are typically scaled to unit length 1. For the sake of
+completeness, let's plot the decision regions of the logistic regression
+on the transformed test dataset to see if it can separate the classes
+well:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{plot\PYZus{}decision\PYZus{}regions}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}pca}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{classifier}\PY{o}{=}\PY{n}{lr}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    If we are interested in the explained variance ratios of the different
+principal components, we can simply initialize the \emph{PCA} class with
+the \emph{n\_components} parameter set to \emph{None}, so all principal
+components are kept and the explained variance ratio can then be
+accessed via the \emph{explained\_variance\_ratio\_} attribute:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{X\PYZus{}train\PYZus{}pca} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{)}
+         \PY{n}{pca}\PY{o}{.}\PY{n}{explained\PYZus{}variance\PYZus{}ratio\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} array([0.36951469, 0.18434927, 0.11815159, 0.07334252, 0.06422108,
+                0.05051724, 0.03954654, 0.02643918, 0.02389319, 0.01629614,
+                0.01380021, 0.01172226, 0.00820609])
+\end{Verbatim}
+            
+    Note that we set \emph{n\_components=None} when we initialized the
+\emph{PCA} class so that it will return all principal components in a
+sorted order instead of performing a dimensionality reduction.
+
+    \subsection{Supervised data compression via linear discriminant
+analysis}\label{supervised-data-compression-via-linear-discriminant-analysis}
+
+    \textbf{Linear Discriminant Analysis (LDA)} can be used as a technique
+for feature extraction to increase the computational efficiency and
+reduce the degree of overfitting due to the curse of dimensionality in
+non-regularized models.
+
+The general concept behind LDA is very similar to PCA. Whereas PCA
+attempts to find the orthogonal component axes of maximum variance in a
+dataset, the goal in LDA is to find the feature subspace that optimizes
+class separability. In the following sections, we will discuss the
+similarities between LDA and PCA in more detail and walk through the LDA
+approach step by step.
+
+    \subsection{Principal component analysis versus linear discriminant
+analysis}\label{principal-component-analysis-versus-linear-discriminant-analysis}
+
+    Both LDA and PCA are linear transformation techniques that can be used
+to reduce the number of dimensions in a dataset; the former is an
+unsupervised algorithm, whereas the latter is supervised. Thus, we might
+intuitively think that LDA is a superior feature extraction technique
+for classification tasks compared to PCA. However, A.M. Martinez
+reported that preprocessing via PCA tends to result in better
+classification results in an image recognition task in certain cases,
+for instance if each class consists of only a small number of samples.
+
+The following figure summarizes the concept of LDA for a two-class
+problem. Samples from class 1 are shown as circles, and samples from
+class 2 are shown as crosses.
+
+    A linear discriminant, as shown on the \(x\)-axis (LD 1), would separate
+the two normal distributed classes well. Although the exemplary linear
+discriminant shown on the \(y\)-axis (LD 2) captures a lot of the
+variance in the dataset, it would fail as a good linear discriminant
+since it does not capture any of the class-discriminatory information.
+
+Once assumption in LDA is that the data is normally distributed. Also,
+we assume that the classes have identical covariance matrices and that
+the features are statistically independent for each other. However, even
+if one or more of those assumptions are (slightly) violated, LDA for
+dimensionality reduction can still work reasonably well.
+
+    \subsection{The inner workings of linear discriminant
+analysis}\label{the-inner-workings-of-linear-discriminant-analysis}
+
+    Before we dive into the code implementation, let's briefly summarize the
+main steps that are required to perform LDA:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Standardize the \emph{d}-dimensional dataset (\emph{d} is the number
+  of features).
+\item
+  For each class, compute the \emph{d}-dimensional mean vector.
+\item
+  Construct the between-class scatter matrix \(S_B\) and the
+  within-class scatter matrix \(S_w\).
+\item
+  Compute the eigenvectors and corresponding eigenvalues of the matrix
+  \(S_w^{-1}S_B\).
+\item
+  Sort the eigenvalues by decreasing order to rank the corresponding
+  eigenvectors.
+\item
+  Choose the \emph{k} eigenvectors that correspond to the \emph{k}
+  largest eigenvalues to construct a \(d \times k\)-dimensional
+  transformation matrix \(W\); the eigenvectors are the columns of this
+  matrix.
+\item
+  Project the samples onto the new feature subspace using the
+  transformation matrix \(W\).
+\end{enumerate}
+
+As we can see, LDA is quite similar to PCA in the sense that we are
+decomposing matrices into eigenvalues and eigenvectors, which will form
+the new lower-dimensional feature space. However, as mentioned before,
+LDA takes class label information into account, which is represented in
+the form of the mean vectors computed in step 2. In the following
+sections, we will discuss these seven steps in more detail, accompanied
+by illustrative code implementations.
+
+    \subsection{Computing the scatter
+matrices}\label{computing-the-scatter-matrices}
+
+    Since we already standardized the features of the Wine dataset in the
+PCA section at the beginning of this chapter, we can skip the first step
+and proceed with the calculation of the mean vectors, which we will use
+to construct the within-class scatter matrix and between-class scatter
+matrix, respectively.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{np}\PY{o}{.}\PY{n}{set\PYZus{}printoptions}\PY{p}{(}\PY{n}{precision}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         
+         \PY{n}{mean\PYZus{}vecs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+             \PY{n}{mean\PYZus{}vecs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{n}{label}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MV }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{n}{mean\PYZus{}vecs}\PY{p}{[}\PY{n}{label}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MV 1: [ 0.9066 -0.3497  0.3201 -0.7189  0.5056  0.8807  0.9589 -0.5516  0.5416
+  0.2338  0.5897  0.6563  1.2075]
+
+MV 2: [-0.8749 -0.2848 -0.3735  0.3157 -0.3848 -0.0433  0.0635 -0.0946  0.0703
+ -0.8286  0.3144  0.3608 -0.7253]
+
+MV 3: [ 0.1992  0.866   0.1682  0.4148 -0.0451 -1.0286 -1.2876  0.8287 -0.7795
+  0.9649 -1.209  -1.3622 -0.4013]
+
+
+    \end{Verbatim}
+
+    Using the mean vectors, we can now compute the within-class scatter
+matrix \(S_W\). This is calculated by summing up the individual scatter
+matrices \(S_i\) of each individual class \(i\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{13} \PY{c+c1}{\PYZsh{} number of features}
+         \PY{n}{S\PYZus{}W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n}{d}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{label}\PY{p}{,} \PY{n}{mv} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}vecs}\PY{p}{)}\PY{p}{:}
+             \PY{n}{class\PYZus{}scatter} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n}{d}\PY{p}{)}\PY{p}{)}
+             \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{n}{label}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{row}\PY{p}{,} \PY{n}{mv} \PY{o}{=} \PY{n}{row}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{mv}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{class\PYZus{}scatter} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{row}\PY{o}{\PYZhy{}}\PY{n}{mv}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{p}{(}\PY{n}{row}\PY{o}{\PYZhy{}}\PY{n}{mv}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+             \PY{n}{S\PYZus{}W} \PY{o}{+}\PY{o}{=} \PY{n}{class\PYZus{}scatter}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Within\PYZhy{}class scatter matrix: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{x}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{S\PYZus{}W}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{S\PYZus{}W}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Within-class scatter matrix: 13x13
+
+    \end{Verbatim}
+
+    The assumption that we are making when we are computing the scatter
+matrices is that the class labels in the training set are uniformly
+distributed. However, if we print the number of class labels, we see
+that this assumption is violated:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class label distribution: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{np}\PY{o}{.}\PY{n}{bincount}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Class label distribution: [41 50 33]
+
+    \end{Verbatim}
+
+    Thus, we want to scale the individual scatter matrices \(S_i\) before we
+sum them up as scatter matrix \(S_W\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{13} \PY{c+c1}{\PYZsh{} number of features}
+         \PY{n}{S\PYZus{}W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n}{d}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{label}\PY{p}{,} \PY{n}{mv} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{mean\PYZus{}vecs}\PY{p}{)}\PY{p}{:}
+             \PY{n}{class\PYZus{}scatter} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{n}{label}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+             \PY{n}{S\PYZus{}W} \PY{o}{+}\PY{o}{=} \PY{n}{class\PYZus{}scatter}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaled within\PYZhy{}class scatter matrix: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{x}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{S\PYZus{}W}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{S\PYZus{}W}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Scaled within-class scatter matrix: 13x13
+
+    \end{Verbatim}
+
+    After we computed the scaled within-class scatter matrix (or covariance
+matrix), we can move on to the next step and compute the between-class
+scatter matrix \(S_B\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{mean\PYZus{}overall} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{d} \PY{o}{=} \PY{l+m+mi}{13} \PY{c+c1}{\PYZsh{} number of features}
+         \PY{n}{S\PYZus{}B} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n}{d}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{mean\PYZus{}vec} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{mean\PYZus{}vecs}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{mean\PYZus{}vec} \PY{o}{=} \PY{n}{mean\PYZus{}vec}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} make column vector}
+             \PY{n}{mean\PYZus{}overall} \PY{o}{=} \PY{n}{mean\PYZus{}overall}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{S\PYZus{}B} \PY{o}{+}\PY{o}{=} \PY{n}{n} \PY{o}{*} \PY{p}{(}\PY{n}{mean\PYZus{}vec}\PY{o}{\PYZhy{}}\PY{n}{mean\PYZus{}overall}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{p}{(}\PY{n}{mean\PYZus{}vec}\PY{o}{\PYZhy{}}\PY{n}{mean\PYZus{}overall}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Between\PYZhy{}class scatter matrix: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{x}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{S\PYZus{}B}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{S\PYZus{}B}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Between-class scatter matrix: 13x13
+
+    \end{Verbatim}
+
+    \subsection{Selecting linear discriminants for the new feature
+subspace}\label{selecting-linear-discriminants-for-the-new-feature-subspace}
+
+    The remaining steps of the LDA are similar to the steps of the PCA.
+However, instead of performing the eigendecomposition on the covariance
+matrix, we solve the generalized eigenvalue problem of the matrix
+\(S_W^{-1}S_B\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{eigen\PYZus{}vals}\PY{p}{,} \PY{n}{eigen\PYZus{}vecs} \PY{o}{=} \PYZbs{}
+             \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{S\PYZus{}W}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{S\PYZus{}B}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    After we computed the eigenpairs, we can now sor the eigenvalues in
+descending order:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{eigen\PYZus{}pairs} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{eigen\PYZus{}vals}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{eigen\PYZus{}vecs}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{)} 
+                         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{eigen\PYZus{}vals}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{eigen\PYZus{}pairs} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{eigen\PYZus{}pairs}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{k}\PY{p}{:} \PY{n}{k}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eigenvalues in descending order:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{eigen\PYZus{}val} \PY{o+ow}{in} \PY{n}{eigen\PYZus{}pairs}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{eigen\PYZus{}val}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eigenvalues in descending order:
+
+349.617808905994
+172.76152218979382
+5.684341886080802e-14
+3.5026863076942224e-14
+3.5026863076942224e-14
+2.4609617976034685e-14
+2.2650510874656552e-14
+2.2650510874656552e-14
+1.236312904979785e-14
+7.0959968494931394e-15
+7.0959968494931394e-15
+3.1534557665199304e-15
+3.1534557665199304e-15
+
+    \end{Verbatim}
+
+    In LDA, the number of linear discriminants is at most \(c-1\), where
+\emph{c} is the number of class labels, since the in-between scatter
+matrix \(S_B\) is the sum of \emph{c} matrices with rank 1 or less. We
+can indeed see that we only have two nonzero eigenvalues (the
+eigenvalues 3-13 are not exactly zero, but this is due to the floating
+point arithmetic in NumPy).
+
+    Note that in the rare case of perfect collinearity (all aligned sample
+points fall on a straight line), the covariance matrix would have rank
+one, which would result in only one eigenvector with a nonzero
+eigenvalue.
+
+To measure how much of the class-discriminatory information is captured
+by the linear discriminants (eigenvectors), let's plot the linear
+discriminants by decreasing eigenvalues similar to the explained
+variance plot that we created in the PCA section. For simplicity, we
+will call the content of class-discriminatory information
+\textbf{discriminability}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{tot} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{eigen\PYZus{}vals}\PY{o}{.}\PY{n}{real}\PY{p}{)}
+         \PY{n}{discr} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{i}\PY{o}{/}\PY{n}{tot}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{eigen\PYZus{}vals}\PY{o}{.}\PY{n}{real}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{]}
+         \PY{n}{cum\PYZus{}discr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{discr}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{)}\PY{p}{,} \PY{n}{discr}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{individual }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{discriminability}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{)}\PY{p}{,} \PY{n}{cum\PYZus{}discr}\PY{p}{,} \PY{n}{where}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cumulative }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{discriminability}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{discriminability}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear Discriminants}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{1.1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_65_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting figure, the first two linear
+discriminants alone capture 100 percent of the useful information in the
+Wine training dataset.
+
+    Let's now stack the two most discriminative eigenvector columns to
+create the transformation matrix \(W\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{eigen\PYZus{}pairs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{o}{.}\PY{n}{real}\PY{p}{,} 
+                        \PY{n}{eigen\PYZus{}pairs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{o}{.}\PY{n}{real}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Matrix W:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{w}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Matrix W:
+ [[-0.1481 -0.4092]
+ [ 0.0908 -0.1577]
+ [-0.0168 -0.3537]
+ [ 0.1484  0.3223]
+ [-0.0163 -0.0817]
+ [ 0.1913  0.0842]
+ [-0.7338  0.2823]
+ [-0.075  -0.0102]
+ [ 0.0018  0.0907]
+ [ 0.294  -0.2152]
+ [-0.0328  0.2747]
+ [-0.3547 -0.0124]
+ [-0.3915 -0.5958]]
+
+    \end{Verbatim}
+
+    \subsection{Projecting samples onto the new feature
+space}\label{projecting-samples-onto-the-new-feature-space}
+
+    Using the transformation matrix \(W\) that we created in the previous
+subsection, we can now transform the training dataset by multiplying the
+matrices \(X\) and \(W\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{X\PYZus{}train\PYZus{}lda} \PY{o}{=} \PY{n}{X\PYZus{}train\PYZus{}std}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w}\PY{p}{)}
+         \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{markers} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{l}\PY{p}{,} \PY{n}{c}\PY{p}{,} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{colors}\PY{p}{,} \PY{n}{markers}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}lda}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{n}{l}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                         \PY{n}{X\PYZus{}train\PYZus{}lda}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{n}{l}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} 
+                         \PY{n}{c}\PY{o}{=}\PY{n}{c}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{l}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{n}{m}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LD 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LD 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_71_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting pot, the three wine classes are now
+perfectly linearly separable in the new feature subspace.
+
+    \subsection{LDA via scikit-learn}\label{lda-via-scikit-learn}
+
+    The step-by-step implementation was a good exercise to understand the
+inner workings of an LDA and understand the differentes between LDA and
+PCA. Now, let's look at the \emph{LDA} class implemented in
+scikit-learn:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{discriminant\PYZus{}analysis} \PY{k}{import} \PY{n}{LinearDiscriminantAnalysis} \PY{k}{as} \PY{n}{LDA}
+         
+         \PY{n}{lda} \PY{o}{=} \PY{n}{LDA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{X\PYZus{}train\PYZus{}lda} \PY{o}{=} \PY{n}{lda}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    Next, let's see how the logistic regressino handles the
+lower-dimensional training dataset after the LDA transformation:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{lr} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{lr} \PY{o}{=} \PY{n}{lr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}lda}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{plot\PYZus{}decision\PYZus{}regions}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}lda}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{classifier}\PY{o}{=}\PY{n}{lr}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LD 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LD 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Looking at the resulting plot we see that the logistic regression model
+misclassifies one of the samples from class 2.
+
+By lowering the regularization strength, we could probably shift the
+decision boundaries so that the logistic regression model classifies all
+samples in the training dataset correctly. However, and more
+importantly, let us take a look at the results on the test set:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{X\PYZus{}test\PYZus{}lda} \PY{o}{=} \PY{n}{lda}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}std}\PY{p}{)}
+         \PY{n}{plot\PYZus{}decision\PYZus{}regions}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}lda}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{classifier}\PY{o}{=}\PY{n}{lr}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LD 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LD 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_79_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting plot, the logistic regression classifier
+is able to get a perfect accuracy score for classifying the samples in
+the test dataset by only using a two-dimensional feature subspace
+instead of the original 13 Wine features.
+
+    \subsection{Using kernel principal component analysis for nonlinear
+mappings}\label{using-kernel-principal-component-analysis-for-nonlinear-mappings}
+
+    Many machine learning algorithms make assumptions about the linear
+separability of the input data. You learned that the perceptron even
+requires perfectly linearly separable training data to converge. Other
+algorithms that we have covered so far assume that the lack of perfect
+linear separability is due to noise: Adaline, logistic regression, and
+the (standard) SVM just to name a few.
+
+However, if we are dealing with nonlinear problems, which we may
+encounter rather frequently in real-world applications, linear
+transformation techniques for dimensionality reduction, such as PCA and
+LDA, may not be the best choice. In this section, we will take a look at
+a kernelized version of PCA, or KPCA, which relates to the concepts of
+kernel SVM. Using kernel PCA, we will learn how to transform data that
+is not linearly separable onto a new, lower-dimensional subspace that is
+suitable for linear classifiers.
+
+    \subsection{Kernel functions and the kernel
+trick}\label{kernel-functions-and-the-kernel-trick}
+
+    As we remember from our discussion about kernel SVMs, we can tackle
+nonlinear problems by projecting them onto a new feature space of higher
+dimensionality where the class become linearly separable. To transform
+the samples \(x\) onto this higher \emph{k}-dimensional subspace, we
+defined a nonlinear mapping function \(\phi\):
+
+\[\phi : \mathbb{R}^d \rightarrow \mathbb{R}^k (k >> d)\]
+
+We can think of \(\phi\) as a function that creates nonlinear
+combinations of the original features to map the original
+\(d\)-dimensional dataset onto a larger, \(k\)-dimensional feature
+space. For example, if we had a feature vector \(x \in \mathbb{R}^d\)
+(\(x\) is a column vector consisting of \(d\) features) with two
+dimensions (\(d=2)\), a potential mapping onto a 3D-space could be:
+
+\[x = [x_1, x_2]^T\]
+
+\[\downarrow \phi\]
+
+\[z = [x_i^2, \sqrt{2x_1x_2}, x_2^2]^T\]
+
+In other words, we perform a nonlinear mapping via kernel PCA that
+transforms the data onto a higher-dimensional space. When then we use
+stardard PCA in this higher-dimensional space to project the data back
+onto a lower-dimensional space where the samples can be separated by a
+linear classifier (under the condition that the samples can be separated
+by density in the input space). However, one downside of this approach
+is that it is computationally very expensive, and this is where we use
+the \textbf{kernel trick}. Using the kernel trick, we can compute the
+similarity between two high-dimension feature vectors in the original
+feature space.
+
+Before we proceed with more details about the kernel trick to tackle
+this computationally expensive problem, let us think back to the
+standard PCA approach that we implemented at the beginning of this
+chapter. We computed the covariance between two features \(k\) and \(j\)
+as follows:
+
+\[\sigma_{jk} = \frac{1}{n} \sum_{i=1}^n \left( x_j^{(i)} - \mu_j \right) \left( x_k^{(i)} - \mu_k \right)\]
+
+Since the standardizing the features centers them at mean zero, for
+instance, \(\mu_j = 0\) and \(\mu_k = 0\), we can simplify this equation
+as follows:
+
+\[\sigma_{jk} = \frac{1}{n} \sum_{i=1}^n x_j^{(i)} x_k^{(i)}\]
+
+Note that the preceding equation refers to the covariance between the
+two features, now, let us write the general equation to calculate the
+covariance matrix \(\Sigma\):
+
+\[\Sigma = \frac{1}{n} \sum_{i=1}^n x^{(i)} x^{(i)^T}\]
+
+Bernhard Scholkopf generalized this approach so that we can replace the
+dot products between samples in the original feature space with the
+nonlinear feature combinations via \(\phi\):
+
+\[\Sigma = \frac{1}{n} \sum_{i=1}^n \phi(x^{(i)}) \phi(x^{(i)})^T\]
+
+To obtain the eigenvectors; the principal components, from this
+covariance matrix, we have to solve the following question:
+
+\[\Sigma v = \lambda v\]
+
+\[ \Rightarrow \frac{1}{n} \sum_{i=1}^n \phi(x^{(i)}) \phi(x^{(i)})^T v = \lambda v\]
+
+\[ \Rightarrow \frac{1}{n\lambda} \sum_{i=1}^n \phi(x^{(i)}) \phi(x^{(i)})^T v = \frac{1}{n} \sum_{i=1}^n a^{(i)} \phi(x^{(i)})\]
+
+Here, \(\lambda\) and \(v\) are the eigenvalues and eigenvectors of the
+covariance matrix \(\Sigma\), and \(a\) can be obtained by extracting
+the eigenvectors of the kernel (similarity) matrix \(K\), as we will see
+in the next paragraphs.
+
+As we recall from kernel SVM, we use the kernel trick to avoid
+calculating the pairwise dot products of the samples \(x\) under
+\(\phi\) explicitly by using a kernel function \(\kappa\) so that we do
+not need to calculate the eigenvectors explicitly:
+
+\[\kappa(x^{(i)}, x^{(j)}) = \phi(x^{(i)})^T \phi(x^{(j)})\]
+
+In other words, what we obtain after kernel PCA are the samples already
+projected onto the respective components, rather than constructing a
+transformation matrix as in the standard PCA approach. Basically, the
+kernel function (or simply kernel) can be understood as a function that
+calculates a dot product between two vectors, a measure of similarity.
+
+The most commonly used kernels are as follows: * The polynomial kernel:
+\(\kappa(x^{(i)}, x^{(j)}) = (x^{(i)T} x^{(j)} + \theta)^\rho\). Here,
+\(\theta\) is the threshold and \(\rho\) is the power that has to be
+specified by the user. * The hyperbolic tangent (sigmoid) kernel:
+\(\kappa(x^{(i)}, x^{(j)}) = \text{tanh}(\eta x^{(i)T} x^{(j)} + \theta)\).
+* The \textbf{Radial Basis Function (RBF)} or Gaussian kernel, which we
+will use in the following examples in the next subsection:
+\(\kappa(x^{(i)}, x^{(j)}) = \exp \left( -\frac{||x^{(i)} - x^{(j)}||^2}{2\sigma^2} \right)\).
+It is often written in the following form, introducing the variable
+\(\gamma = \frac{1}{2\sigma}\):
+\(\kappa(x^{(i)}, x^{(j)}) = \exp \left( -\gamma ||x^{(i)} - x^{(j)}||^2 \right)\).
+
+    To summarize what he have learned so far, we can defined the following
+three steps to implement an RBF kernel PCA: 1. We compute the kernel
+(similarity) matrix \(K\). 2. We center the kernel matrix \(K\) using
+the following equation: \(K' = K - 1_nK - K1_n + 1_nK 1_n\). 3. We
+collect the top \(k\) eigenvectors of the centered kernel matrix based
+on their corresponding eigenvalues, which are ranked by decreasing
+magnitude. In contrast to standard PCA, the eigenvectors are not the
+principal component axes, but the samples already projected onto these
+axes.
+
+At this point, you may be wondering why we need to center the kernel
+matrix in the second step. We previously assumed that we are working
+with standardized data, where all features have mean zero when we
+formulated the covariance matrix and replaced the dot-products with the
+nonlinear feature combinations via \(\phi\). Thus, the centering of the
+kernel matrix in the second step becomes necessary, since we do not
+compute the new feature space explicitly so that we cannot guarantee
+that the new feature space is also centered at zero.
+
+In the next section, we will put those three steps into action by
+implementing a kernel PCA in Python.
+
+    \subsection{Implementing a kernel principal component analysis in
+Python}\label{implementing-a-kernel-principal-component-analysis-in-python}
+
+    In the previous subsection, we discussed the core concepts behind kernel
+PCA. Now, we are going to implement an RBF kernel PCA in Python
+following the three steps that summarized the kernel PCA approach. Using
+some SciPy and NumPy helper functions, we will see that implementing a
+kernel PCA is actually really simple:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{spatial}\PY{n+nn}{.}\PY{n+nn}{distance} \PY{k}{import} \PY{n}{pdist}\PY{p}{,} \PY{n}{squareform}
+         \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{exp}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{import} \PY{n}{eigh}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{k}{def} \PY{n+nf}{rbf\PYZus{}kernel\PYZus{}pca}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{n\PYZus{}components}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    RBF kernel PCA implementation. }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Parameters}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    X: \PYZob{}NumPy ndarray\PYZcb{}, shape = [n\PYZus{}samples, n\PYZus{}features]}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    gamma: float}
+         \PY{l+s+sd}{        Tuning parameter of the RBF kernel}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    n\PYZus{}components: int}
+         \PY{l+s+sd}{        Number of principal components to return}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{    Returns}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    X\PYZus{}pc: \PYZob{}NumPy ndarray\PYZcb{}, shape = [n\PYZus{}samples, k\PYZus{}features]}
+         \PY{l+s+sd}{        Projected dataset}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{c+c1}{\PYZsh{} Calculate pairwise squared Euclidean distances}
+             \PY{c+c1}{\PYZsh{} in the MxN dimesional dataset. }
+             \PY{n}{sq\PYZus{}dists} \PY{o}{=} \PY{n}{pdist}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqeuclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Convert pairwise distances into a square matrix. }
+             \PY{n}{mat\PYZus{}sq\PYZus{}dists} \PY{o}{=} \PY{n}{squareform}\PY{p}{(}\PY{n}{sq\PYZus{}dists}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Compute the symmetric kernel matrix. }
+             \PY{n}{K} \PY{o}{=} \PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{gamma} \PY{o}{*} \PY{n}{mat\PYZus{}sq\PYZus{}dists}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Center the kernel matrix. }
+             \PY{n}{N} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{one\PYZus{}n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{N}
+             \PY{n}{K} \PY{o}{=} \PY{n}{K} \PY{o}{\PYZhy{}} \PY{n}{one\PYZus{}n}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{K}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{K}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{one\PYZus{}n}\PY{p}{)} \PY{o}{+} \PY{n}{one\PYZus{}n}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{one\PYZus{}n}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Obtaining eigenpairs from the centered kernel matrix}
+             \PY{c+c1}{\PYZsh{} scipy.linalg.eigh returns them in ascending order}
+             \PY{n}{eigvals}\PY{p}{,} \PY{n}{eigvecs} \PY{o}{=} \PY{n}{eigh}\PY{p}{(}\PY{n}{K}\PY{p}{)}
+             \PY{n}{eigvals}\PY{p}{,} \PY{n}{eigvecs} \PY{o}{=} \PY{n}{eigvals}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{eigvecs}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} Collect the top k eigenvectors (projected samples)}
+             \PY{n}{X\PYZus{}pc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{eigvecs}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{X\PYZus{}pc}
+\end{Verbatim}
+
+
+    One downside of using an RBF kernel PCA for dimensionality reduction is
+that we have to specify the \(\gamma\) parameter a priori. Finding an
+appropriate value for \(\gamma\) requires experimentation and is best
+done using algorithms for parameter tuning, for example, performing a
+grid search, which we will discuss in more detail later.
+
+    \subsection{Example 1 - separating half-moon
+shapes}\label{example-1---separating-half-moon-shapes}
+
+    Now, let us apply our \emph{rbf\_kernel\_pca} on some nonlinear example
+datasets. We will start by creating a two-dimensional dataset of 100
+sample points representing two half-moons shapes:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{make\PYZus{}moons}
+         
+         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{make\PYZus{}moons}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{123}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_92_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    For the purpose of illustration, the half-moon of triangle symbols shall
+represent one class, and the half-moon depicted by the circle symbols
+represent the samples from another class.
+
+Clearly, these two half-moon shapes are not linearly separable, and our
+goal is to \emph{unfold} the half-moons via kernel PCA so that the
+dataset can serve as a suitable input for a linear classifier. But
+first, let's see how the dataset looks if we project it onto the
+principal components via standard PCA:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+         
+         \PY{n}{scikit\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{X\PYZus{}spca} \PY{o}{=} \PY{n}{scikit\PYZus{}pca}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{l+m+mf}{0.02}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.02}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_94_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Note that when we plotted the first principal component only (right
+subplot), we shifted the triangular samples slightly upwards and the
+circular samples slightly downwards to better visualize the class
+overlap. As the left subplot shows, the original half-moon shapes are
+only slightly sheared and flipped across the vertical center, this
+transformation would not help a linear classifier in discriminating
+between circles and triangles. Similarly, the circles and triangles
+corresponding to the two half-moon shapes are not linearly separable if
+we project the dataset onto a one-dimensional feature axis, as shown in
+the right subplot.
+
+Please remember that PCA is an unsupervised method and does not use
+class label information in order to maximize the variance contrast to
+LDA. Here, the triangle and circle symbols were just added for
+visualization purposes to indicate the degree of separation.
+
+Now, let us try out our kernel PCA function \emph{kbf\_kernel\_pca},
+which we implemented in the previous subsection:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{X\PYZus{}kpca} \PY{o}{=} \PY{n}{rbf\PYZus{}kernel\PYZus{}pca}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{gamma}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{l+m+mf}{0.02}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.02}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_96_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can now see that the two classes (\emph{circles} and
+\emph{triangles}) are linearly well separated so that it becomes a
+suitable training dataset for linear classifiers.
+
+Unfortunately, there is no universal value for the tuning parameter
+\(\gamma\) that works well for different datasets. Finding a \(\gamma\)
+value that is appropriate for a given problem requires experimentation.
+In next chapter, we will discuss techniques that can help us to automate
+the task of optimizing such tuning parameters. Here, I will use values
+for \(\gamma\) that I found produce good results.
+
+    \subsection{Example 2 - separating concentric
+circles}\label{example-2---separating-concentric-circles}
+
+    In the previous subsection, we showed how to separate half-moon shapes
+via kernel PCA. Since we put so much effort into understanding the
+concepts of kernel PCA, let us take a look at another interesting
+example of a nonlinear problem, concentric circles:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{make\PYZus{}circles}
+         
+         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{make\PYZus{}circles}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{123}\PY{p}{,} 
+                             \PY{n}{noise}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{factor}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_100_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Again, we assume a two-class problem where the triangle shapes represent
+one class, and the circle shapes represent another class.
+
+Let's start with the standard PCA approach to compare it to the results
+of the RBF kernel PCA:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{scikit\PYZus{}pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{X\PYZus{}spca} \PY{o}{=} \PY{n}{scikit\PYZus{}pca}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{500}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{l+m+mf}{0.02}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}spca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{500}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.02}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_102_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Again, we can see that standard PCA is not able to produce results
+suitable for training a linear classifier.
+
+Given an appropriate value for \(\gamma\), let us see if we are luckier
+using the RBF kernel PCA implementation:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{X\PYZus{}kpca} \PY{o}{=} \PY{n}{rbf\PYZus{}kernel\PYZus{}pca}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{gamma}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{500}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{l+m+mf}{0.02}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}kpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{500}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.02}\PY{p}{,} 
+                       \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_104_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Again, the RBF kernel PCA projected the data onto a new subspace where
+the two classes become linearly separable.
+
+    \subsection{Projecting new data
+points}\label{projecting-new-data-points}
+
+    In the previous example applications of kernel PCA, the half-moon shapes
+and the concentric circles, we projected a single dataset onto a new
+feature. In real applications, however, we may have more than one
+dataset that we want to transform, for example, training and test data,
+and typically also new samples we will collect after the model building
+and evaluation. In this section, you will learn how to project data
+points that were not part of the training dataset.
+
+As we remember from the standard PCA approach at the beginning of this
+chapter, we project data by calculating the dot product between a
+transformation matrix and the input samples; the columns of the
+projection matrix are the top \(k\) eigenvectors (\(v\)) that we
+obtained from the covariance matrix.
+
+Now, the question is how we can transfer this concept to kernel PCA. If
+we think back to the idea behind kernel PCA, we remember that we
+obtained en eigenvector (\(a\)) of the centered kernel matrix (not the
+covariance matrix), which means that those are the samples that are
+already projected onto the principal component axis \(v\). Thus, if we
+want to project a new sample \(x'\) onto this principal component axis,
+we would need to compute the following:
+
+\[\phi(x')^T v\]
+
+Fortunately, we can use the kernel trick so that we do not have to
+calculate the projection explicitly. However, it is worth nothing that
+kernel PCA, in contrast to standard PCA, is a memory-based method, which
+means that we have to re-use the original training set each time to
+project new samples. We have to calculate the pairwise RBF kernel
+(similarity) between each \(i\)th sample in the training dataset and the
+new sample \(x'\):
+
+\[\phi(x')^T v = \sum_{i} a^{(i)} \phi(x')^T \phi(x^{(i)}) = \sum_{i} a^{(i)} \kappa(x', x^{(i)})\]
+
+Here, the eigenvectors \(a\) and eigenvalues \(\lambda\) of the kernel
+matrix \(K\) satisfy the following condition in the equation:
+
+\[Ka = \lambda a\]
+
+After calculating the similarity between the new samples and the samples
+in the training set, we have to normalize the eigenvector \(a\) by its
+eigenvalue. Thus, let us modify our \emph{rbf\_kernel\_pca} function
+that we implemented earlier so that it also returns the eigenvalues from
+the kernel matrix:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{spatial}\PY{n+nn}{.}\PY{n+nn}{distance} \PY{k}{import} \PY{n}{pdist}\PY{p}{,} \PY{n}{squareform}
+         \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{exp}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{import} \PY{n}{eigh}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{k}{def} \PY{n+nf}{rbf\PYZus{}kernel\PYZus{}pca}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{n\PYZus{}components}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    RBF kernel PCA implementation. }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Parameters}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    X: \PYZob{}NumPy ndarray\PYZcb{}, shape = [n\PYZus{}samples, n\PYZus{}features]}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    gamma: float}
+         \PY{l+s+sd}{        Tuning parameter of the RBF kernel}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    n\PYZus{}components: int}
+         \PY{l+s+sd}{        Number of principal components to return}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{    Returns}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    X\PYZus{}pc: \PYZob{}NumPy ndarray\PYZcb{}, shape = [n\PYZus{}samples, k\PYZus{}features]}
+         \PY{l+s+sd}{        Projected dataset}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{    lambdas: list}
+         \PY{l+s+sd}{        Eigenvalues}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{c+c1}{\PYZsh{} Calculate pairwise squared Euclidean distances}
+             \PY{c+c1}{\PYZsh{} in the MxN dimesional dataset. }
+             \PY{n}{sq\PYZus{}dists} \PY{o}{=} \PY{n}{pdist}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqeuclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Convert pairwise distances into a square matrix. }
+             \PY{n}{mat\PYZus{}sq\PYZus{}dists} \PY{o}{=} \PY{n}{squareform}\PY{p}{(}\PY{n}{sq\PYZus{}dists}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Compute the symmetric kernel matrix. }
+             \PY{n}{K} \PY{o}{=} \PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{gamma} \PY{o}{*} \PY{n}{mat\PYZus{}sq\PYZus{}dists}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Center the kernel matrix. }
+             \PY{n}{N} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{one\PYZus{}n} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{N}
+             \PY{n}{K} \PY{o}{=} \PY{n}{K} \PY{o}{\PYZhy{}} \PY{n}{one\PYZus{}n}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{K}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{K}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{one\PYZus{}n}\PY{p}{)} \PY{o}{+} \PY{n}{one\PYZus{}n}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{one\PYZus{}n}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Obtaining eigenpairs from the centered kernel matrix}
+             \PY{c+c1}{\PYZsh{} scipy.linalg.eigh returns them in ascending order}
+             \PY{n}{eigvals}\PY{p}{,} \PY{n}{eigvecs} \PY{o}{=} \PY{n}{eigh}\PY{p}{(}\PY{n}{K}\PY{p}{)}
+             \PY{n}{eigvals}\PY{p}{,} \PY{n}{eigvecs} \PY{o}{=} \PY{n}{eigvals}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{eigvecs}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} Collect the top k eigenvectors (projected samples)}
+             \PY{n}{alphas} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{eigvecs}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Colect the corresponding eigenvalues}
+             \PY{n}{lambdas} \PY{o}{=} \PY{p}{[}\PY{n}{eigvals}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{p}{)}\PY{p}{]}
+             
+             \PY{k}{return} \PY{n}{alphas}\PY{p}{,} \PY{n}{lambdas}
+\end{Verbatim}
+
+
+    Now, let's create a new half-moon dataset and project it onto a
+one-dimensional subspace using the updated RBF kernel PCA
+implementation:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{make\PYZus{}moons}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{123}\PY{p}{)}
+         \PY{n}{alphas}\PY{p}{,} \PY{n}{lambdas} \PY{o}{=} \PY{n}{rbf\PYZus{}kernel\PYZus{}pca}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{gamma}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    To make sure that we implemented the code for projecting new samples,
+let us assume that the 26th point from the half-moon dataset is a new
+data point \(x'\), and our task is to project it onto this new subspace:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{x\PYZus{}new} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{25}\PY{p}{]}
+         \PY{n}{x\PYZus{}new}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} array([1.8713, 0.0093])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{x\PYZus{}proj} \PY{o}{=} \PY{n}{alphas}\PY{p}{[}\PY{l+m+mi}{25}\PY{p}{]} \PY{c+c1}{\PYZsh{} original projection}
+         \PY{n}{x\PYZus{}proj}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} array([0.0788])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{k}{def} \PY{n+nf}{project\PYZus{}x}\PY{p}{(}\PY{n}{x\PYZus{}new}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{alphas}\PY{p}{,} \PY{n}{lambdas}\PY{p}{)}\PY{p}{:}
+             \PY{n}{pair\PYZus{}dist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{x\PYZus{}new}\PY{o}{\PYZhy{}}\PY{n}{row}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}\PY{p}{)}
+             \PY{n}{k} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{gamma} \PY{o}{*} \PY{n}{pair\PYZus{}dist}\PY{p}{)}
+             \PY{k}{return} \PY{n}{k}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{alphas} \PY{o}{/} \PY{n}{lambdas}\PY{p}{)}
+\end{Verbatim}
+
+
+    By using the following code, we are able to reproduce the original
+projection. Using the \emph{project\_x} function, we will be able to
+project any new data sample as well. The code is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{x\PYZus{}reproj} \PY{o}{=} \PY{n}{project\PYZus{}x}\PY{p}{(}\PY{n}{x\PYZus{}new}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{gamma}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{alphas}\PY{o}{=}\PY{n}{alphas}\PY{p}{,} \PY{n}{lambdas}\PY{o}{=}\PY{n}{lambdas}\PY{p}{)}
+         \PY{n}{x\PYZus{}reproj}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} array([0.0788])
+\end{Verbatim}
+            
+    Lastly, let's visualize the projection on the first principal component:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{alphas}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{alphas}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x\PYZus{}proj}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} 
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{original projection of point X[25]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x\PYZus{}reproj}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} 
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{remapped point X[25]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{scatterpoints}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_118_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can now also see in the resulting scatterplot, we mapped the
+sample \(x'\) onto the first principal component correctly.
+
+    \subsection{Kernel principal component analysis in
+scikit-learn}\label{kernel-principal-component-analysis-in-scikit-learn}
+
+    For our convenience, scikit-learn implements a kernel PCA class in
+\emph{sklearn.decomposition} submodule. The usage is similar to the
+standard PCA class, and we can specify the kernel via the \emph{kernel}
+parameter:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{KernelPCA}
+         
+         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{make\PYZus{}moons}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{123}\PY{p}{)}
+         \PY{n}{scikit\PYZus{}kpca} \PY{o}{=} \PY{n}{KernelPCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                 \PY{n}{gamma}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{X\PYZus{}skernpca} \PY{o}{=} \PY{n}{scikit\PYZus{}kpca}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    To check that we get results that are consistent with our own kernel PCA
+implementation, let's plot the transformed half-moon shape data onto the
+first two principal components:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}skernpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}skernpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}skernpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}skernpca}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PC 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_124_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see, the results of scikit-learn's \emph{KernelPCA} are
+consistent with our own implementation.
+
+    \section{Summary}\label{summary}
+
+    In this chapter, you learned about three different, fundamental
+dimensionality reduction techniques for feature extraction: standard
+PCA, LDA, and kernel PCA. Using PCA, we projected data onto a
+lower-dimensional subspace to maximize the variance along the orthogonal
+feature axes, while ignoring the class labels. LDA, in contrast to PCA,
+is a technique for supervised dimensionality reduction, which means that
+it considers class information in the training dataset to attempt to
+maximize the class-separability in a linear feature space.
+
+Lastly, you learned about a nonlinear feature extractor, kernel PCA.
+Using the kernel trick and a temporary projection into a
+higher-dimensional feature space, you were ultimately able to compress
+datasets consisting of nonlinear features onto a lower-dimensional
+subspace where the classes became linearly separable.
+
+Equipped with these essential preprocessing techniques, you are now well
+prepared to learn about the best practices for efficiently incorporating
+different preprocessing techniques and evaluating the performance of
+different models in the next chapter.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

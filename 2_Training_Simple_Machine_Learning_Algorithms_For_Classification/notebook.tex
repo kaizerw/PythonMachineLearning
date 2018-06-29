@@ -1,0 +1,1352 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{2\_Training\_Simple\_Machine\_Learning\_Algorithm\_For\_Classification}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Training Simple Machine Learning Algorithm for
+Classification}\label{training-simple-machine-learning-algorithm-for-classification}
+
+    In this chapter, we will make use of two of the first algorithmically
+described machine learning algorithms for classification, the perceptron
+and adaptive linear neurons. We will start by implementing a perceptron
+step by step in Python and training it to classify different flower
+species in the Iris dataset. This will help us to understand the concept
+of machine learning algorithms for classification and how they can
+efficiently implemented in Python.
+
+    The topics that we will cover in this chapter are as follows: * Building
+an intuition of machine learning algorithms * Using Pandas, NumPy, and
+Matplotlib to read int, process, and visualize data * Implementing
+linear classification algorithms in Python
+
+    \section{Artificial neurons - a brief glimpse into the early history of
+machine
+learning}\label{artificial-neurons---a-brief-glimpse-into-the-early-history-of-machine-learning}
+
+    Trying to nderstand how the biological brain works, in order to design
+AI, Warren McCullock and Walter Pitts published the first concept of a
+simplified brain cell, the so-called \textbf{McCullock-Pitts (MCP)
+neuron}, in 1943. Neurons are interconnected nerve cells in the brain
+that are involved in the processing and transmitting of chemical and
+electrical signals, which is illustrated in the following figure:
+
+    
+
+    McCullock and Pitts described such a nerve cell as a simple logic gate
+with binary outputs; multiple signals at the dendrites, are then
+integrated into the cell body, and, if the accumulated signal exceeds a
+certain threshold, an output signal is generated that will be passed on
+by the axon.
+
+    Only a few years later, Frank Rosenblatt published the first concept of
+the perceptron learning rule based on the MCP neuron model. With his
+perceptron rule, Rosenblatt proposed an algorithm that would
+automatically learn the optimal weight coefficients that are then
+multiplied with the input features in order to make the decision of
+whether a neuron fires or not. In the context of supervised learning and
+classification, such an algorithm could then be used to predict if a
+sample belongs to one class or the other.
+
+    \section{The formal definition of an artificial
+neuron}\label{the-formal-definition-of-an-artificial-neuron}
+
+    More formally, we can put the idea behind \textbf{artificial neurons}
+into the context of a binary classification task where \textbf{we refer
+to out two classes as 1 (positive class) and -1 (negative class)} for
+simplicity. We can then define a decision function \(\phi(z)\) that
+takes a linear combination of certain input values \(x\) and a
+corresponding weight vetor \(w\), where \(z\) is the so-called net
+input: \(z = w_1 \cdot x_1 + ... + w_m \cdot x_m\)
+
+    Now, if the net input of a particular sample \(x^{(i)}\) is greater than
+a defined threshold \(\theta\), we predict class 1, and class -1
+otherwise. In the perceptron algorithm, the decision function \(\phi\)
+is a variant of a \textbf{unit step function}:
+
+\begin{equation}
+\phi(z) = 
+\begin{cases}
+    -1, & \text{if}\ z \ge \theta \\
+    1, & \text{otherwise}
+\end{cases}
+\end{equation}
+
+    For simplicity, we can bring the threshold \(\theta\) to the left side
+of the equation and define a weight-zero as \(w_0 = -\theta\) and
+\(x_0 = 1\) so that we write \(z\) in the more compact form:
+
+\[z = w_0 \cdot x_0 + w_1 \cdot x_1 + ... + w_m \cdot x_m = w^T \cdot x\]
+
+And:
+
+\begin{equation}
+\phi(z) = 
+\begin{cases}
+    1, & \text{if}\ z \ge \theta \\
+    -1, & \text{otherwise}
+\end{cases}
+\end{equation}
+
+    In machine learning literature, the negative threshold, or weight,
+\(w_0 = -\theta\), is usually called the \textbf{bias unit}.
+
+    The following figure illustrates how the net input \(z = w^T \cdot x\)
+is squashed into a binary output (-1 or 1) by the decision function of
+the perceptron (left subfigure) and how it can be used to discriminate
+between two linearly separable classes (right subfigure):
+
+    \section{The perceptron learning
+rule}\label{the-perceptron-learning-rule}
+
+    The whole idea behind the MCP neuron and Rosenblatt's thresholded
+perceptron model is to use a reductionist approach to mimic how a single
+neuron in the brain works: it either fires or it does not. Thus,
+Rosenblatt's initial perceptron rule is fairly simple and can be
+summarized by the following steps: 1. Initialize the weights to 0 or
+small random numbers. 2. For each training sample \(x^{(i)}\): 1.
+Compute the output value \(ŷ\). 2. Update the weights.
+
+    Here, the output value is the class label predict by the unit step
+function that we defined earlier, and the simultaneous update of each
+weight \(w_j\) in the weight vector \(w\) can be more formally written
+as: \[w_j = w_j + \Delta w_j\]
+
+    The value of \(\Delta w_j\), which is used to update the weight \(w_j\),
+is calculated by the perceptron learning rule:
+\[\Delta w_j = \alpha \cdot (y^{(i)} - ŷ^{(i)}) \cdot x^{(i)}_j\]
+
+Where \(\alpha\) is the \textbf{learning rate} (typically a constant
+between 0.0 and 1.0), \(y^{(i)}\) is the \textbf{true class label} of
+the \emph{i}th training sample, and \(ŷ^{(i)}\) is the \textbf{predicted
+class label}. It is important to note that all weights in the weight
+vector are being updated simultaneously, which means that we do not
+recompute the \(ŷ^{(i)}\) before all of the weights \(\Delta w_j\) are
+updated.
+
+    Before we implement the perceptron rule in Python, let us make a simple
+thought experiment to illustrate how beautifully simple this learning
+rule really is. In the two scenarios where the perceptron predicts the
+class label correctly, the weights remain unchanged:
+
+\[\Delta w_j = \alpha \cdot (-1--1) \cdot x^{(i)}_j = 0\]
+
+\[\Delta w_j = \alpha \cdot (1-1) \cdot x^{(i)}_j = 0\]
+
+    However, in the case of a wrong prediction, the weights are being pushed
+towards the direction of the positive or negative target class:
+
+\[\Delta w_j = \alpha \cdot (1--1) \cdot x^{(i)}_j = \alpha \cdot (2) \cdot x^{(i)}_j\]
+
+\[\Delta w_j = \alpha \cdot (-1-1) \cdot x^{(i)}_j = \alpha \cdot (-2) \cdot x^{(i)}_j\]
+
+    It is important to note that the convergence of the perceptron is only
+guaranteed if the two classes are \textbf{linearly separable} and
+\textbf{the learning rate is sufficiently small}. If the two classes
+cannot be separated by a linear decision boundary, we can set a maximum
+number of passes over the training dataset (\textbf{epochs}) and/or
+threshold for the number of tolerated misclassifications, the perceptron
+would never stop updating the weights otherwise:
+
+    Now, before we jump into the immplementation in the next section, letus
+summarize what we just learned in a simple diagram that illustrates the
+general concept of the perceptron:
+
+    The preceding diagram illustrates how the perceptron receives the inputs
+of a sample \(x\) and combines them with the weights \(w\) to compute
+the net input. The net input is then passed on the threshold function,
+which generates a binary output, -1 or +1, the predicted class label for
+the sample. During the learning phase, this output is used to calculate
+the error of the prediction and update the weights.
+
+    \section{Implementing a perceptron learning algorithm in
+Python}\label{implementing-a-perceptron-learning-algorithm-in-python}
+
+    In the previous section, we learned how the Rosenblatt's perceptron rule
+works; let us now go ahead and implement it in Python, and apply it to
+the Iris dataset.
+
+    We will take an object-oriented approach to define the perceptron
+interface as a Python class, which allows us to initialize new
+\emph{Perceptron} objects that can learn from data via a \emph{fit}
+method, and make predictions via a separate \emph{predict} method. As a
+convention, we append an underscore (\_) to attributes that are not
+being created upon the initialization of the object but by calling the
+object's other methods, for example, \emph{self.w\_}. The followng is
+the implementation of a perceptron:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k}{class} \PY{n+nc}{Perceptron}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Perceptron classifier. }
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Parameters}
+        \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{l+s+sd}{    eta : float}
+        \PY{l+s+sd}{        Learning rate (between 0.0 and 1.0)}
+        \PY{l+s+sd}{    n\PYZus{}iter : int}
+        \PY{l+s+sd}{        Passes over the training dataset. }
+        \PY{l+s+sd}{    random\PYZus{}state : int}
+        \PY{l+s+sd}{        Random number generator seed for random weight }
+        \PY{l+s+sd}{        initialization. }
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{    Attributes}
+        \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{l+s+sd}{    w\PYZus{} : 1d\PYZhy{}array}
+        \PY{l+s+sd}{        Weights after fitting. }
+        \PY{l+s+sd}{    errors\PYZus{} : list}
+        \PY{l+s+sd}{        Number of misclassifications (updates) }
+        \PY{l+s+sd}{        in each epoch.     }
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} 
+                         \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:} 
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{=} \PY{n}{eta}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}iter} \PY{o}{=} \PY{n}{n\PYZus{}iter}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state} \PY{o}{=} \PY{n}{random\PYZus{}state}
+                
+            \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Fit training data.}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        Parameters}
+        \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{l+s+sd}{        X : \PYZob{}array\PYZhy{}like\PYZcb{}, shape = [n\PYZus{}samples, n\PYZus{}features]}
+        \PY{l+s+sd}{            Training vectors, where n\PYZus{}samples is the }
+        \PY{l+s+sd}{            number of samples and n\PYZus{}features is the }
+        \PY{l+s+sd}{            number of features. }
+        \PY{l+s+sd}{        y : array\PYZhy{}like, shape = [n\PYZus{}samples]}
+        \PY{l+s+sd}{            Target values.}
+        \PY{l+s+sd}{            }
+        \PY{l+s+sd}{        Returns}
+        \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{l+s+sd}{        self : object}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                
+                \PY{n}{rgen} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}} \PY{o}{=} \PY{n}{rgen}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} 
+                                      \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{errors\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                
+                \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}iter}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{errors} \PY{o}{=} \PY{l+m+mi}{0}
+                    \PY{k}{for} \PY{n}{xi}\PY{p}{,} \PY{n}{target} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{update} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{*} 
+                                 \PY{p}{(}\PY{n}{target} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{xi}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{update} \PY{o}{*} \PY{n}{xi}
+                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{update}
+                        \PY{n}{errors} \PY{o}{+}\PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{update} \PY{o}{!=} \PY{l+m+mf}{0.0}\PY{p}{)}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{errors\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{errors}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}
+            
+            \PY{k}{def} \PY{n+nf}{net\PYZus{}input}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Calculate net input\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                
+            \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return class label after unit step\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{net\PYZus{}input}\PY{p}{(}\PY{n}{X}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+                
+\end{Verbatim}
+
+
+    Using this perceptron implementation, we can now initialize new
+\emph{Perceptron} objects with a given learning rate \emph{eta} and
+\emph{n\_iter}, which is the number of epochs (passes over the training
+set). Via the \emph{fit} method, we initialize the weights in
+\emph{self.w\_} to a vector of float numbers in the shape \(m + 1\),
+where \(m\) stands for the number of dimensions (features) in the
+dataset, where we add 1 for the first element in this vector that
+represents the bias unit. Remember that the first element in this
+vector, \emph{self.w\_{[}0{]}}, represent the so-called bias unit that
+we discussed earlier.
+
+    Also notice that this vector contains small random numbers drawn from a
+normal distribution with standard deviation \(0.01\) via
+\emph{rgen.normal(loc=0.0, scale=0.01, size=1 + X.shape{[}1{]})}, where
+\emph{rgen} is a NumPy random number generator that we seeded with a
+user-specified random seed so that we can reproduce previous results if
+desired.
+
+    Now, the reason we do not initialize the weights to zero is that the
+learning rate \(\alpha\) (eta) only has an effect on the classification
+outcome if the weights are initialized to non-zero values. If all the
+weights are initialized to zero, the learning rate parameter \emph{eta}
+affects only the scale of the weight vector, not the direction.
+
+    The reason why we have drawn the random numbers from a random normal
+distribution, for example, instead from a uniform distribution, and why
+we used a standard deviation of 0.01 was arbitrary; remember, we are
+just interested in small random values to avoid the properties of
+all-zero vectors as discussed earlier.
+
+    After the weights have been initialized, the \emph{fit} method loops
+over all individual samples in the training set and updates the weights
+according to the perceptron learning rule that we discussed in the
+previous section. The class labels are predicted by the \emph{predict}
+method, which is called in the \emph{fit} method to predict the class
+labels of new data after we have fitted our model. Futhermore, we also
+collect the number of misclassifications during each epoch in the
+\emph{self.errors\_} list so that we can later analyze how well our
+perceptron performed during the training. The \emph{np.dot} function
+that is used in the \emph{net\_input} method simply calculates the
+vector dot product \(w^T \cdot x\).
+
+    \section{Training a perceptron model on the Iris
+Dataset}\label{training-a-perceptron-model-on-the-iris-dataset}
+
+    To test our perceptron implementation, we will load the two flower
+classes Setosa and Versicolor from the Iris dataset. Although the
+perceptron rule is not restricted to two dimensions, we will only
+consider the two features sepal length and petal length for
+visualization purposes. Also, we only chose the two flower classes
+Setosa and Versicolor for practical reasons. However, the perceptron
+algorithm can be extended to multi-class classification, for example,
+the \textbf{One-versus-All (OvA)} technique.
+
+    OvA, or sometimes also called \textbf{One-versus-Rest (OvR)}, is a
+technique that allows us to extend a binary classifier to multi-class
+problems. Using OvA, we can train one classifier per class, where the
+particular class is treated as the positive class and the samples from
+all other classes are considered negative classes. In we were to
+classify a new data sample, we would use our \emph{n} classifiers, where
+\emph{n} is the number of class labels, and assign the class label with
+the highest confidence to the particular sample. In the case of the
+perceptron, we would use OvA to choose the class label that is
+associated with the largest absolute net input value.
+
+    First, we will use the \emph{Pandas} library to load the Iris dataset
+directly from the \emph{UCI Machine Learning Repository} into a
+\emph{DataFrame} object and print the last five line via the \emph{tail}
+method to check the data was loaded correctly:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{c+c1}{\PYZsh{} To work offline: }
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/iris.data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} To work online: }
+        \PY{c+c1}{\PYZsh{} df = pd.read\PYZus{}csv(\PYZsq{}https://archive.ics.uci.edu/ml/\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}                  \PYZsq{}machine\PYZhy{}learning\PYZhy{}databases/iris/\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}                  \PYZsq{}iris.data\PYZsq{}, header=None)}
+        
+        \PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}        0    1    2    3               4
+        145  6.7  3.0  5.2  2.3  Iris-virginica
+        146  6.3  2.5  5.0  1.9  Iris-virginica
+        147  6.5  3.0  5.2  2.0  Iris-virginica
+        148  6.2  3.4  5.4  2.3  Iris-virginica
+        149  5.9  3.0  5.1  1.8  Iris-virginica
+\end{Verbatim}
+            
+    Next, we extract the first 100 class labels that correspond to the 50
+\emph{Iris-setosa} and 50 \emph{Iris-versicolor} flowers, and convert
+the class labels into the two integer class label 1 (versicolor) and -1
+(setosa) that we assign to a vetor \emph{y}, where the \emph{values}
+method of Pandas \emph{DataFrame} yields the corresponding NumPy
+representation.
+
+    Similarly, we extract the first feature column (sepal length) and the
+third feature (petal length) of those 100 training samples and assign
+them to a feature matrix x, which we can visualize via a two-dimensional
+scatter plot:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{c+c1}{\PYZsh{} select setosa and versicolor}
+        \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{y} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iris\PYZhy{}setosa}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} extract sepal length and petal length}
+        \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        
+        \PY{c+c1}{\PYZsh{} plot data}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{setosa}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{versicolor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal length [cm]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal length [cm]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The preceding scatterplot shows the distribution of flower samples in
+the Iris dataset along the two features axes, petal length and sepal
+length. In this two-dimensional feature subspace, we can see that a
+linear decision boundary should be sufficient to separate Setosa from
+Versicolor flowers. Thus, a linear classifier such as perceptron should
+be able to classify the flowers in this dataset perfectly.
+
+    Now, it's time to train our perceptron algorithm on the Iris data subset
+that we just extracted. Also, we will plot the misclassification error
+for each epoch to check whether the algorithm converged and found a
+decision boundary that separates the two Iris flower classes:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{ppn} \PY{o}{=} \PY{n}{Perceptron}\PY{p}{(}\PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{ppn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ppn}\PY{o}{.}\PY{n}{errors\PYZus{}}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} 
+                 \PY{n}{ppn}\PY{o}{.}\PY{n}{errors\PYZus{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of updates}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the preceding plot, our perceptron converged after the
+sixth epoch and should now be able to classify the training samples
+perfectly. Let us implement a small convenience function to visualize
+the decision boundaries for two-dimensional datasets:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{colors} \PY{k}{import} \PY{n}{ListedColormap}
+        
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}decision\PYZus{}regions}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{classifier}\PY{p}{,} \PY{n}{resolution}\PY{o}{=}\PY{l+m+mf}{0.02}\PY{p}{)}\PY{p}{:}
+            
+            \PY{c+c1}{\PYZsh{} setup marker generator and color map}
+            \PY{n}{markers} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{cmap} \PY{o}{=} \PY{n}{ListedColormap}\PY{p}{(}\PY{n}{colors}\PY{p}{[}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} plot the decision surface}
+            \PY{n}{x1\PYZus{}min}\PY{p}{,} \PY{n}{x1\PYZus{}max} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+            \PY{n}{x2\PYZus{}min}\PY{p}{,} \PY{n}{x2\PYZus{}max} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+            \PY{n}{xx1}\PY{p}{,} \PY{n}{xx2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{x1\PYZus{}min}\PY{p}{,} \PY{n}{x1\PYZus{}max}\PY{p}{,} \PY{n}{resolution}\PY{p}{)}\PY{p}{,} 
+                                   \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{x2\PYZus{}min}\PY{p}{,} \PY{n}{x2\PYZus{}max}\PY{p}{,} \PY{n}{resolution}\PY{p}{)}\PY{p}{)}
+            \PY{n}{Z} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{xx1}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{xx2}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+            \PY{n}{Z} \PY{o}{=} \PY{n}{Z}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{xx1}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{xx1}\PY{p}{,} \PY{n}{xx2}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{xx1}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{xx1}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{xx2}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{xx2}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} plot class samples}
+            \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{cl} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{n}{cl}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{n}{cl}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                            \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{colors}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{,} 
+                            \PY{n}{marker}\PY{o}{=}\PY{n}{markers}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{cl}\PY{p}{,} 
+                            \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    First, we define a number of \emph{color} and \emph{markers} and create
+a colormap from the list of colors via \emph{ListedColorMap}. Then, we
+determine the minimum and maximum values for the two features and use
+those feature vectors to create a pair of grid arrays \emph{xx1} and
+\emph{xx2} via the NumPy \emph{meshgrid} function. Since we trained our
+perceptron classifier on two feature dimensions, we need to flatten the
+grid arrays and create a matrix that has the same number of columns as
+the Iris training subset so that we can use the \emph{predict} method to
+predict the class labels \emph{z} of the corresponding grid points.
+
+    After reshaping the predicted class labels Z into a grid with the same
+dimensions as \emph{xx1} and \emph{xx2}, we can now draw a contour plot
+via Matplotlib \emph{contourf} function, which maps the different
+decision regions to different colors for each predicted class in the
+grid array:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{plot\PYZus{}decision\PYZus{}regions}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{classifier}\PY{o}{=}\PY{n}{ppn}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal length [cm]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal length [cm]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the plot, the perceptron learned a decision boundary
+that is able to classify all flower samples in the Iris training subset
+perfectly.
+
+    \section{Adaptive linear neurons and the convergence of
+learning}\label{adaptive-linear-neurons-and-the-convergence-of-learning}
+
+    In this section, we will take a look at another type of single-layer
+neural network: \textbf{ADAptive LInear NEuron (Adaline)}. Adaline was
+published by Bernard Widrow and his doctoral student Tedd Hoff, only a
+few years after Frank Rosenblatt's perceptron algorithm, and can be
+considered as an improvement on the latter.
+
+    The Adaline algorithm is particularly interesting because it illustrates
+the key concepts of defining and minimizing continuous cost functions.
+This lays the groundwork for understand more advanced machine learning
+algorithms for classification, such as logistic regression, support
+vector machines, and regression models, which we will discuss in future
+chapters.
+
+    The key difference between the Adaline rule (also known as the
+\emph{Widrow-Hoff rule}) and Rosenblatt's perceptron is that the weights
+are updated based on a linear activation function rather than a unit
+step function like in the perceptron. In Adaline, this linear activation
+function \(\phi(z)\) is simply the identity function of the net input,
+so that:
+
+\(\phi(w^T \cdot x) = w^T \cdot x\)
+
+While the linear activation function is used for learning the weights,
+we still use a threshold function to make the final prediction, which is
+similar to the unit step function that we have seen earlier. The main
+differences between the perceptron and Adaline algorithm are highlighted
+in the following figure:
+
+    This illustration shows that the Adaline algorithm compares the true
+class labels with the linear activation function's continuous valued
+output to compute the model error and update the weights. In contrast,
+the perceptron compares the true class labels to the predicted class
+labels.
+
+    \section{Minimizing cost functions with gradient
+descent}\label{minimizing-cost-functions-with-gradient-descent}
+
+    One of the key ingredients of supervised machine learning algorithms is
+a defined \textbf{objective function} that is to be optimized during the
+learning process. This objective function is often a cost function that
+we want to minimize. In the case of Adaline, we can define a cost
+function \(J\) to learn the weights as the \textbf{Sum of Squared Errors
+(SSE)} between the calculated outcome and the true class label:
+
+\[J(w) = \frac{1}{2}\sum_{i}(y^{(i)} - \phi(z^{(i)}))^2\]
+
+The term \(\frac{1}{2}\) is just added for our convenience, which will
+make it easier to derive the gradient, as we will see in the following
+paragraphs. The main advantage of this continuous linear activation
+function, in contrast of the unit step function, is that the cost
+function becomes differentiable. Another nice property of this cost
+function is that it is convex, thus, we can use a simple yet powerful
+optimization algorithm called \textbf{gradient descent} to find the
+weights that minimize our cost function to classify the samples of the
+Iris dataset.
+
+As illustrated in the following figure, we can describe the main idea
+behind gradient descent as \emph{climbing down a hill} until a local or
+global cost minimum is reached. In each iteration, we take a step in the
+opposite direction of the gradient where the step size is determined by
+the value of the learning rate, as well as the slope of the gradient:
+
+    Using the gradient descent, we can now update the weights by taking a
+step in the opposite direction of the gradient \(\nabla J(w)\) of our
+cost function \(J(w):\)
+
+\[w = w + \Delta w\]
+
+Where the weight change \(\Delta w\) is defined as the negative gradient
+multiplied by the learning rate \(\alpha\):
+
+\[\delta w = -\alpha \cdot \nabla J(w)\]
+
+    To compute the gradient of the cost function, we need to compute the
+partial derivative of the cost function with respect to each weight
+\(w_j\):
+
+\[\frac{\partial J}{\partial w_j} = -\sum_{i}(y^{(i)} - \phi(z^{(i)})) \cdot x^{(i)}_j\]
+
+So that we can write the update of weight \(w_j\) as:
+
+\[\Delta w_j = -\alpha \cdot \frac{\partial J}{\partial w_j} = \alpha \cdot \sum_{i}(y^{(i)} - \phi(z^{(i)})) \cdot x^{(i)}_j\]
+
+Since we update all weights simultaneously, our Adaline learning rule
+becomes:
+
+\[w = w + \Delta w\]
+
+    Although the Adaline learning rule looks identical to the perceptron
+rule, we should note that the \(\phi(z^{(i)})\) with
+\(w^T \cdot x^{(i)}\) is a real number and not an integer class label.
+Furthermore, the weight update is calculated based on all samples in the
+training set (instead of updating the weights incrementally after each
+sample), which is why this approach is also referred to as \textbf{batch
+gradient descent}.
+
+    \section{Implementing Adaline in
+Python}\label{implementing-adaline-in-python}
+
+    Since the perceptron rule and Adaline are very similar, we will take the
+perceptron implementation that we defined earlier and change the
+\emph{fit} method so that the weights are updated by minimizing the cost
+function via gradient descent:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{k}{class} \PY{n+nc}{AdalineGD}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}ADAptive LInear NEuron classifier. }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Parameters}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    eta : float}
+         \PY{l+s+sd}{        Learning rate (between 0.0 and 1.0)}
+         \PY{l+s+sd}{    n\PYZus{}iter : int}
+         \PY{l+s+sd}{        Passes over the training dataset. }
+         \PY{l+s+sd}{    random\PYZus{}state : int}
+         \PY{l+s+sd}{        Random number generator seed for random weight }
+         \PY{l+s+sd}{        initialization. }
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{    Attributes}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    w\PYZus{} : 1d\PYZhy{}array}
+         \PY{l+s+sd}{        Weights after fitting. }
+         \PY{l+s+sd}{    cost\PYZus{} : list }
+         \PY{l+s+sd}{        Sum\PYZhy{}of\PYZhy{}squares cost function value in each epoch. }
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} 
+                          \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:} 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{=} \PY{n}{eta}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}iter} \PY{o}{=} \PY{n}{n\PYZus{}iter}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state} \PY{o}{=} \PY{n}{random\PYZus{}state}
+                 
+             \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Fit training data.}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        Parameters}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        X : \PYZob{}array\PYZhy{}like\PYZcb{}, shape = [n\PYZus{}samples, n\PYZus{}features]}
+         \PY{l+s+sd}{            Training vectors, where n\PYZus{}samples is the }
+         \PY{l+s+sd}{            number of samples and n\PYZus{}features is the }
+         \PY{l+s+sd}{            number of features. }
+         \PY{l+s+sd}{        y : array\PYZhy{}like, shape = [n\PYZus{}samples]}
+         \PY{l+s+sd}{            Target values.}
+         \PY{l+s+sd}{            }
+         \PY{l+s+sd}{        Returns}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        self : object}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{n}{rgen} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}} \PY{o}{=} \PY{n}{rgen}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} 
+                                       \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cost\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}iter}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{net\PYZus{}input} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{net\PYZus{}input}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                     \PY{n}{output} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{activation}\PY{p}{(}\PY{n}{net\PYZus{}input}\PY{p}{)}
+                     \PY{n}{errors} \PY{o}{=} \PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{output}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{*} \PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{errors}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{*} \PY{n}{errors}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{cost} \PY{o}{=} \PY{p}{(}\PY{n}{errors}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.0}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cost}\PY{p}{)}
+                 \PY{k}{return} \PY{n+nb+bp}{self}
+             
+             \PY{k}{def} \PY{n+nf}{net\PYZus{}input}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Calculate net input\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 
+             \PY{k}{def} \PY{n+nf}{activation}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Compute linear activation\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{return} \PY{n}{X}
+                 
+             \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return class label after unit step\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{activation}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{net\PYZus{}input}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)} 
+                                 \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    Instead of updating the weights after evaluating each individual
+training sample, as in perceptron, we calculate the gradient based on
+the whole training dataset via \emph{self.eta } errors.sum()* for the
+bias unit (zero-weight) and via \emph{self.eta } X.T.dot(errors)* for
+the weights 1 to \emph{m} where \emph{X.T.dot(errors)} is a
+matrix-vector multiplication between our feature matrix and the error
+vector.
+
+    Please note that the \emph{activation} function method as no effect in
+the code since it is simply an identity fuction. Here, we added the
+activation function (computed via the \emph{activation} method) to
+illustrate how information flows through a single layer neural network:
+features from the input data, net input, activation, and output. In the
+next chapter, we will learn about a logistic regression classifier that
+uses a non-identity, nonlinear activation function. We will see that a
+logistic regression model is closely related to Adaline with the only
+difference being its activation and cost function.
+
+Now, similar to the previous perceptron implementation, we collect the
+cost values in the \emph{self.cost\_} list to check whether the
+algorithm converged after training.
+
+    In practice, it often requires some experimentation to find a good
+learning rate \(\alpha\) for optimal convergence. So, let's choose two
+different learning rates, \(\alpha = 0.1\) and \(\alpha = 0.0001\), to
+start with and plot the cost functions versus the number of epochs to
+see how well the Adaline implementation learns from the training data.
+
+    Let us now plot the cost against the number of epochs for the two
+different learning rates:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ada1} \PY{o}{=} \PY{n}{AdalineGD}\PY{p}{(}\PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ada1}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} 
+                    \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{ada1}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{p}{)}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log(Sum\PYZhy{}squared\PYZhy{}error)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adaline \PYZhy{} Learning rate 0.01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ada2} \PY{o}{=} \PY{n}{AdalineGD}\PY{p}{(}\PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ada2}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} 
+                    \PY{n}{ada2}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sum\PYZhy{}squared\PYZhy{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adaline \PYZhy{} Learning rate 0.0001}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting cost-function plots, we encountered two
+different types of problems. The left chart shows that could happen if
+we choose a learning rate that is too large. Instead of minimizing the
+cost function, the error becomes larger in every epoch, because we
+\emph{overshoot} the global minimum. On the other hand, we can see that
+the cost decreases on the right plot, but the chosen learning rate
+\(\alpha = 0.0001\) is so small that the algorithm would require a very
+large number of epochs to converge to the global cost minimum.
+
+    The following picture illustrates what might happen if we change the
+value of a particular weight parameter to minimize the cost function
+\(J\). The left subfigure illustrates the case of a well-chosen learning
+rate, where the cost decreases gradually, moving in the direction of the
+global minimum. The subfigure on the right, however, illustrates what
+happens if we choose a learning rate that is too large, we oveshoot the
+global minimum:
+
+    \section{Improving gradient descent through feature
+scaling}\label{improving-gradient-descent-through-feature-scaling}
+
+    Many machine learning algorithms that we will encounter throughout this
+book require some sort of feature scaling for optimal performance, which
+we will discuss in more detail later.
+
+Gradient descent is one of the many algorithms that benefit from feature
+scaling. In this section, we will use a feature scaling method called
+\textbf{standardization}, which gives our data the property of a
+standard normal distribution, which helps gradient descent learning to
+converge more quickly. Standardization shifts the mean of each feature
+so that it is centered at zero and each feature has a standard deviation
+of 1. For instance, to stardardize the \emph{j}th feature, we can simply
+subtract the sample mean \(\mu_j\) from every training sample and divide
+it by its stardard deviation \(\sigma_j\):
+
+\[x'_j = \frac{x_j - \mu_j}{\sigma_j}\]
+
+Here, \(x_j\) is a vector consisting of the \emph{j}th feature values of
+all training samples \emph{n}, and this stardardization technique is
+applied to each feature \emph{j} in our dataset.
+
+One of the reasons why stardardization helps with gradient descent
+learning is that the optimizer has to go through fewer steps to find a
+good or optimal solution (the global cost minimum), as illustrated in
+the following figure, where the subfigures represent the cost surface as
+a function of two model weights in a two-dimensional classification
+problem:
+
+    Standardization can easily be achieved using the built-in NumPy methods
+\emph{mean} and \emph{std}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{X\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{X\PYZus{}std}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}std}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    After stardardization, we will train Adaline again and see that it now
+converges after a small number of epochs using a learning rate
+\(\alpha = 0.01\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{ada} \PY{o}{=} \PY{n}{AdalineGD}\PY{p}{(}\PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{)}
+         \PY{n}{ada}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}std}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}decision\PYZus{}regions}\PY{p}{(}\PY{n}{X\PYZus{}std}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{classifier}\PY{o}{=}\PY{n}{ada}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adaline \PYZhy{} Gradient Descent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal length [stardardized]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal length [stardardized]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_74_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ada}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{ada}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{p}{,} 
+                  \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sum\PYZhy{}squared\PYZhy{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_75_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the plots, Adaline has now converged after training on
+the stardardized features using a learning rate \(\alpha = 0.01\).
+However, note that the SSE remains non-zero even though all samples were
+classified correctly.
+
+    \section{Large-scale machine learning and stochastic gradient
+descent}\label{large-scale-machine-learning-and-stochastic-gradient-descent}
+
+    In the previous section, we learned how to minimize a cost function by
+taking a step in the opposite direction of a cost gradient that is
+calculated from the whole training set; this is why this approach is
+sometimes algo referred to as \textbf{batch gradient descent}. Now
+imagine we have a very large dataset with millions of data points, which
+is not uncommon in many machine learning applications. Running batch
+gradient descent can be computationally quite costly in such scenarios
+since we need to reevaluate the whole training dataset each time we take
+one step towards the global minimum.
+
+A popular alternative to the batch gradient descent algoritm is
+\textbf{stochastic gradient descent}, sometimes also called
+\textbf{iterative or online gradient descent}. Instead of updating the
+weights based on the sum of the accumulated errors over all samples
+\$x\^{}\{(i)\}: \$
+
+\[\Delta w = \alpha \cdot \sum_i (y^{(i)} - \phi(z^{(i)})) \cdot x^{(i)}\]
+
+We update the weights incrementally for each training sample:
+
+\[\alpha \cdot (y^{(i)} - \phi(z^{(i)})) \cdot x^{(i)}\]
+
+    Although stochastic gradient descent can be considered as an
+approximation of gradient descent, it typically reaches convergence much
+faster because of the more frequent weights updates. Since each gradient
+is calculated based on a single training example, the error surface is
+noisier than in gradient descent, which can also have the advantage that
+stochastic gradient descent can escape shallow local minima more readily
+if we are working with nonlinear cost functions. To obtain satisfying
+results via stochastic gradient descent, it is important to present it
+training data in a random order; also, we want to shuffle the training
+set for every epoch to prevent cycles.
+
+    Another advantage of stochastic gradient descent is that we can use it
+for \textbf{online learning}. In online learning, our model is trained
+on the fly as new training data arrives. This is especially useful if we
+are accumulating large amounts of data, for example, customer data in
+web applications. Using online learning, the system can immediately
+adapt to changes and the training data can be discarded after updating
+the model if storage space is an issue.
+
+    Since we already implemented the Adaline learning rule using gradient
+descent, we only need to make a few adjustments to modify the learning
+algorithm to update the weights via stochastic gradient descent. Inside
+the \emph{fit} method, we will now update the weights after each
+training sample. Furthermore, we will implement an additional
+\emph{partial\_fit} method, which does not reinitialize the weights, for
+online learning. In order to check whether our algorithm converged after
+training, we will calculate the cost as the average cost of the training
+samples in each epoch. Furthermore, we will add an option to shuffle the
+training data before each epoch to avoid repetitive cycles when we are
+optimizing the cost function; via the \emph{random\_state} parameter, we
+allow the specification of a random seed for reproducibility:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{k}{class} \PY{n+nc}{AdalineSGD}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}ADAptive LInear NEuron classifier. }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Parameters}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    eta : float}
+         \PY{l+s+sd}{        Learning rate (between 0.0 and 1.0)}
+         \PY{l+s+sd}{    n\PYZus{}iter : int}
+         \PY{l+s+sd}{        Passes over the training dataset. }
+         \PY{l+s+sd}{    shuffle : bool (default: True)}
+         \PY{l+s+sd}{        Shuffles training data every epoch if True }
+         \PY{l+s+sd}{        to prevent cycles}
+         \PY{l+s+sd}{    random\PYZus{}state : int}
+         \PY{l+s+sd}{        Random number generator seed for random weight }
+         \PY{l+s+sd}{        initialization. }
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{    Attributes}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    w\PYZus{} : 1d\PYZhy{}array}
+         \PY{l+s+sd}{        Weights after fitting. }
+         \PY{l+s+sd}{    cost\PYZus{} : list }
+         \PY{l+s+sd}{        Sum\PYZhy{}of\PYZhy{}squares cost function value averaged }
+         \PY{l+s+sd}{        over all training samples in each epoch. }
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} 
+                          \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:} 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{=} \PY{n}{eta}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}iter} \PY{o}{=} \PY{n}{n\PYZus{}iter}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}initialized} \PY{o}{=} \PY{k+kc}{False}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shuffle} \PY{o}{=} \PY{n}{shuffle}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state} \PY{o}{=} \PY{n}{random\PYZus{}state}
+                 
+             \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Fit training data.}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        Parameters}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        X : \PYZob{}array\PYZhy{}like\PYZcb{}, shape = [n\PYZus{}samples, n\PYZus{}features]}
+         \PY{l+s+sd}{            Training vectors, where n\PYZus{}samples is the }
+         \PY{l+s+sd}{            number of samples and n\PYZus{}features is the }
+         \PY{l+s+sd}{            number of features. }
+         \PY{l+s+sd}{        y : array\PYZhy{}like, shape = [n\PYZus{}samples]}
+         \PY{l+s+sd}{            Target values.}
+         \PY{l+s+sd}{            }
+         \PY{l+s+sd}{        Returns}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        self : object}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}initialize\PYZus{}weights}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cost\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}iter}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shuffle}\PY{p}{:}
+                         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}shuffle}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                     \PY{n}{cost} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                     \PY{k}{for} \PY{n}{xi}\PY{p}{,} \PY{n}{target} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{cost}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}update\PYZus{}weights}\PY{p}{(}\PY{n}{xi}\PY{p}{,} \PY{n}{target}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{avg\PYZus{}cost}\PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{cost}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{avg\PYZus{}cost}\PY{p}{)}
+                 \PY{k}{return} \PY{n+nb+bp}{self}
+             
+             \PY{k}{def} \PY{n+nf}{partial\PYZus{}fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Fit training data without }
+         \PY{l+s+sd}{           reinitializing the weights\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}initialized}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}initialize\PYZus{}weights}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{y}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{xi}\PY{p}{,} \PY{n}{target} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}update\PYZus{}weights}\PY{p}{(}\PY{n}{xi}\PY{p}{,} \PY{n}{target}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}update\PYZus{}weights}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                 \PY{k}{return} \PY{n+nb+bp}{self}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}shuffle}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Shuffle training data\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{r} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rgen}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{X}\PY{p}{[}\PY{n}{r}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{r}\PY{p}{]}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}initialize\PYZus{}weights}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{m}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Initialize weights to small random numbers\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rgen} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rgen}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} 
+                                       \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{m}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}initialized} \PY{o}{=} \PY{k+kc}{True}
+                 
+             \PY{k}{def} \PY{n+nf}{\PYZus{}update\PYZus{}weights}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{xi}\PY{p}{,} \PY{n}{target}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Apply Adaline learning rule to update the weights\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{output} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{activation}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{net\PYZus{}input}\PY{p}{(}\PY{n}{xi}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{error} \PY{o}{=} \PY{p}{(}\PY{n}{target} \PY{o}{\PYZhy{}} \PY{n}{output}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{*} \PY{n}{xi}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{error}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{*} \PY{n}{error}
+                 \PY{n}{cost} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{error}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                 \PY{k}{return} \PY{n}{cost}
+                 
+             \PY{k}{def} \PY{n+nf}{net\PYZus{}input}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Calculate net input\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 
+             \PY{k}{def} \PY{n+nf}{activation}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Compute linear activation\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{return} \PY{n}{X}
+                 
+             \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return class label after unit step\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{activation}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{net\PYZus{}input}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)} 
+                                 \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    The *\_shuffle* method that we are now using in the \emph{AdalineSGD}
+classifier works as follows: via the \emph{permutation} function in
+\emph{np.random}, we generate a random sequence of unique numbers in the
+range 0 to 100. Those numbers can then be used as indices to shuffle our
+feature matrix and class label vector.
+
+We can then use the \emph{fit} method to train the \emph{AdalineSGD}
+classifier and use our \emph{plot\_decision\_regions} to plot out
+training results:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{ada} \PY{o}{=} \PY{n}{AdalineSGD}\PY{p}{(}\PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ada}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}std}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}decision\PYZus{}regions}\PY{p}{(}\PY{n}{X\PYZus{}std}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{classifier}\PY{o}{=}\PY{n}{ada}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adaline \PYZhy{} Stochastic Gradient Descent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal length [stardardized]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal length [stardardized]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_84_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ada}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{ada}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{p}{,} 
+                  \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_85_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see, the average cost goes down pretty quickly, and the final
+decision boundary after 15 epochs looks similar to the batch gradient
+descent Adaline. If we want to update our model, for example, in an
+online learning scenario with streaming data, we could simply call the
+\emph{partial\_fit} method on individual samples, for instance
+\emph{ada.partial\_fit(X\_std{[}0, :{]}, y{[}0{]})}.
+
+    \section{Summary}\label{summary}
+
+    In this chapter, we gained a good understand of the basic concepts of
+linear classifiers for supervised learning. After we implemented a
+perceptron, we saw how we can train adaptive linear neurons efficiently
+via a vectorized implementation of gradient descent and online learning
+via stochastic gradient descent.
+
+Now that we have seen how to implement simple classifiers in Python, we
+are ready to move on the next chapter, where we will use the Python
+scikit-learn machine learning library to get access to more advanced and
+powerful machine learning classifiers that are commonly used in academia
+as well as industry. The object-oriented approach that we used to
+implement the perceptron and Adaline algorithms will help with
+understanding the scikit-learn API, which is implemented based on the
+same core concepts that we used in this chapter: the \emph{fit} and
+\emph{predict} methods. Based on these core concepts, we will learn
+about logistic regression for modeling class probabilities and support
+vector machines for working with nonlinear decision boundaries. In
+addition, we will introduce a different class of supervised learning
+algorithms, tree-based algorithms, which are commonly combined into
+robust ensemble classifiers.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

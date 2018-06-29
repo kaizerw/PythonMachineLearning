@@ -1,0 +1,1766 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{13\_Parallelizing\_Neural\_Network\_Training\_With\_TensorFlow}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Parallelizing Neural Network Training with
+TensorFlow}\label{parallelizing-neural-network-training-with-tensorflow}
+
+    In this chapter, we will move on from the mathematical foundations of
+machine learning and deep learning to introduce TensorFlow. TensorFlow
+is one of the most popular deep learning libraries currently available,
+and it can let us implement neural networks much more efficiently than
+any of our previous NumPy implementations. In this chapter, we will
+start using TensorFlow and see how it brings significant benefits to
+training performance.
+
+This chapter begins the next stage of our journey into training machine
+learning and deep learning, and we will explore the following topics:
+
+\begin{itemize}
+\tightlist
+\item
+  How TensorFlow improves training performance
+\item
+  Working with TensorFlow to write optimized machine learning code
+\item
+  Using TensorFlow high-level APIs to build a multilayer neural network
+\item
+  Choosing activation functions for artificial neural networks
+\item
+  Introducing Keras, a high-level wrapper around TensorFlow, for
+  implementing common deep learning architectures most conveniently
+\end{itemize}
+
+    \section{TensorFlow and training
+performance}\label{tensorflow-and-training-performance}
+
+    TensorFlow can speep up our machine learning tasks significantly. To
+understand how it can do this, let's begin by discussing some of the
+performance challenges we typically run into when we run expensive
+calculations on our hardware.
+
+The performance of computer processors has, of course, been improving
+continuously over recent years, and that has allowed us to train more
+powerful and complex learning systems, and so to improve the predictive
+performance of our machine learning models. Even the cheapest desktop
+computer hardware that is available right now comes with processing
+units that have multiple cores.
+
+Also, in the previous chapter, we saw that many functions in
+scikit-learn allowed us to spread those computations over multiple
+processing units. However, by default, Python is limited to execution on
+one core due to the \textbf{Global Interpreter Lock (GIL)}. So, although
+we, indeed, take advantage of its multiprocessing library to distribute
+our computations over multiple cores, we still have to consider that the
+most advanced desktop hardware rarely comes with more than 8 or 16 such
+cores.
+
+If we recall from the previous chapter, where we implemented a very
+simple multilayer perceptron with only one hidden layer consisting of
+100 units, we had to optimize approximately 80,000 weight parameters
+({[}784*100 + 100{]} + {[}100 * 10{]} + 10 = 79,510) to learn a model
+for a very simple image classification task. The images in MNIST are
+rather small (28 x 28 pixels), and we can only imagine the explosion in
+the number of parameters if we want to add additional hidden layers or
+work with images that have higher pixel densities.
+
+Such a task would quickly become unfeasible for a single processing
+unit. The question then becomes - how can we tackle such problems more
+effectively?
+
+The obvious solution to this problem is to use GPUs, which are real work
+horses. You can think of a graphics card as a small computer cluster
+inside your machine. Another advantage is that modern GPUs are
+relatively cheap compared to the state-of-the-art CPUs, as we can see in
+the following overview:
+
+At 70 percent of the price of a modern CPU, we can get a GPU that has
+450 times more cores and is capable of around 15 times more
+floating-point calculations per second. So, what is holding us back from
+utilizing GPUs for our machine learning tasks?
+
+The challenge is that writing code to target GPU is not as simple as
+executing Python code in our interpreter. There are special packages,
+such as CUDA and OpenCL, that allows us to target the GPU. However,
+writing code in CUDA or OpenCL is probably not the most convenient
+environment for implementing and running machine learning algorithms.
+The good news is that this is what TensorFlow was developed for!
+
+    \section{What is TensorFlow?}\label{what-is-tensorflow}
+
+    TensorFlow is a scalable and multiplataform programming interface for
+implementing and running machine learning algorithms, including
+convenience wrappers for deep learning.
+
+TensorFlow was developed by the researchers and engineers of the Google
+Brain team; and while the main development is led by a team of
+researchers and software engineers at Google, its development also
+involves many contributions from the open source community. TensorFlow
+was initially built for only internal use at Google, but it was
+subsequently released in November 2015 under a permissive open source
+license.
+
+To improve the performance of training machine learning models,
+TensorFlow allows execution on both CPUs and GPUs. However, its greatest
+performance capabilities can be discovered when using GPUs. TensorFlow
+supports CUDA-enabled GPUs officially. Support for OpenCL-enabled
+devices is still experimental. However, OpenCL will likely be officially
+supported in near future.
+
+TensorFlow currently supports frontend interfaces for a number of
+programming languages. Luckly for us as Python users, TensorFlow's
+Python API is currently the most complete API, thereby attracting many
+machine learning and deep learning practitioners. Furthermore,
+TensorFlow has an official API in C++.
+
+The APIs in other languages, such as Java, Haskell, Node.js, and Go, are
+not stable yet, but the open source community and TensorFlow developers
+are constantly improving them. TensorFlow computations rely on
+constructing a directed graph for representing the data flow. Even
+though building the graph may sound complicated, TensorFlow comes with
+high-level APIs that has made it very easy.
+
+    \section{How we will learn
+TensorFlow}\label{how-we-will-learn-tensorflow}
+
+    We will learn first of all about the low-level TensorFlow API. While
+implementing models at this level can be a little bit cumbersome at
+first, the advantage of the low-level API is that it gives us more
+flexibility as programmers to combine the basic operations and develop
+complex machine learning models. Starting from TensorFlow version 1.1.0,
+high-level APIs are added on top of the low-level API (for instance, the
+so-called Layers and Estimators API), which allow building and
+prototyping models much faster.
+
+After learning about the low-level API, we will move forward to explore
+two high-level APIs, namely TensorFlow \textbf{Layers} and
+\textbf{Keras}. However, let's begin by taking our first steps with
+TensorFlow low-level API, and ease ourselves into how everything works.
+
+    \section{First steps with TensorFlow}\label{first-steps-with-tensorflow}
+
+    In this section, we will take our first steps in using the low-level
+TensorFlow API. Depending on how your system is set up ,you can
+typically just use Python's \emph{pip} installed and install TensorFlow
+from PyPI by executing \emph{pip install tensorflow} command from your
+terminal.
+
+In case you want to use GPUs, the CUDA toolkit as well as the NVIDIA
+cuDNN library need to be installed; then you can install TensorFlow with
+GPU support by executing \emph{pip install tensorflow-gpu}.
+
+TensorFlow is built around a computation graph composed of a set of
+nodes. Each node represents an operation that may have zero or more
+input or output. The values that flow through the edges of the
+computation graph are called \textbf{tensors}.
+
+Tensors can be understood as a generalization of scalars, vectors,
+matrices, and so on. More concretely, a scalar can be defined as a
+rank-0 tensor, a vector as a rank-1 tensor, a matrix as a rank-2 tensor,
+and matrices stacked in a third dimension as rank-3 tensors.
+
+Once a computation graph is built, the graph can be launched in a
+TensorFlow \emph{Session} for executing different nodes of the graph. In
+a next chapter, we will cover the steps in building the computation
+graph and launching the graph in a session in more detail.
+
+As a warm-up exercise, we will start with the use of simple scalars from
+TensorFlow to compute a net input \(z\) of a sample point \(x\) in a
+one-dimensional dataset with weight \(w\) and bias \(b\):
+
+\(z = w \times x + b\)
+
+The following code shows the implementation of this equation in the
+low-level TensorFlow API:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} create a graph}
+        \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{)}\PY{p}{,} 
+                               \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{w} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{l+m+mf}{2.0}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{b} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bias}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{n}{z} \PY{o}{=} \PY{n}{w}\PY{o}{*}\PY{n}{x} \PY{o}{+} \PY{n}{b}
+            
+            \PY{n}{init} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+            
+        \PY{c+c1}{\PYZsh{}\PYZsh{} create a session and pass in graph g}
+        \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} initialize w anb b:}
+            \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{init}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} evaluate z:}
+            \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.8}\PY{p}{]}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x=}\PY{l+s+si}{\PYZpc{}4.1f}\PY{l+s+s1}{ \PYZhy{}\PYZhy{}\PYZgt{} z=}\PY{l+s+si}{\PYZpc{}4.1f}\PY{l+s+s1}{\PYZsq{}}
+                      \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:}\PY{n}{t}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x= 1.0 --> z= 2.7
+x= 0.6 --> z= 1.9
+x=-1.8 --> z=-2.9
+
+    \end{Verbatim}
+
+    This was pretty straightforward, right? In general, when we develop for
+a model in the TensorFlow low-level API, we need to define placeholders
+for input data (\(x\), \(y\), and sometimes other tunable parameters);
+then, define the weight matrices and build the model from input to
+output. If this is an optimization problem, we should define the loss or
+cost function and determine which optimization algorithm to use.
+TensorFlow will create a graph that contains all the symbols that we
+have defined as nodes in this graph.
+
+Here, we created a placeholder for \(x\) with \emph{shape=(None)}. This
+allows us to feed the values in an element-by-element form and as a
+batch of input data at once, as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+            \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{init}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{2.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[2.7 4.7 6.7]
+
+    \end{Verbatim}
+
+    \section{Working with array
+structures}\label{working-with-array-structures}
+
+    Let's discuss how to use array structures in TensorFlow. By executing
+the following code, we will create a simple rank-3 tensor of size
+\(\text{batchsize} \times 2 \times 3\), reshape it, and calculate the
+column sums using TensorFlow's optimized expressions. Since we do not
+know the batch size a priori, we specify \emph{None} for the batch size
+in the argument of the \emph{shape} parameter of the placeholder \(x\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+        \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                               \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} 
+                               \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{input\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{n}{x2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{}\PYZsh{} calculate the sum of each column}
+            \PY{n}{xsum} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}sum}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{col\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{}\PYZsh{} calculate the mean of each column}
+            \PY{n}{xmean} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{col\PYZus{}mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+        \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+            \PY{n}{x\PYZus{}array} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+            
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{input shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x\PYZus{}array}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reshaped:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{x2}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:} \PY{n}{x\PYZus{}array}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Column Sums:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{xsum}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:} \PY{n}{x\PYZus{}array}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Column Means:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{xmean}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{x}\PY{p}{:} \PY{n}{x\PYZus{}array}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+input shape:  (3, 2, 3)
+Reshaped:
+ [[ 0.  1.  2.  3.  4.  5.]
+ [ 6.  7.  8.  9. 10. 11.]
+ [12. 13. 14. 15. 16. 17.]]
+Column Sums:
+ [18. 21. 24. 27. 30. 33.]
+Column Means:
+ [ 6.  7.  8.  9. 10. 11.]
+
+    \end{Verbatim}
+
+    In this example, we worked with three functions - \emph{tf.reshape},
+\emph{tf.reduce\_sum}, and \emph{tf.reduce\_mean}. Note that for
+reshaping, we used the value \(-1\) for the first dimension. This is
+because we do not know the value of the batch size; when reshaping a
+tensor, if you use \(-1\) for a specific dimension, the size of that
+dimension will be computed according to the total size of the tensor and
+the remaining dimension. Therefore, \emph{tf.reshape(tensor,
+shape=(-1,))} can be used to flatten a tensor.
+
+    \section{Developing a simple model with the low-level TensorFlow
+API}\label{developing-a-simple-model-with-the-low-level-tensorflow-api}
+
+    Now that we have familiarized ourselves with TensorFlow, let's take a
+look at a really practical example and implement \textbf{Ordinary Least
+Squares (OLS)} regression.
+
+Let's start by creating a small one-dimensional toy dataset with 10
+training samples:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.3}\PY{p}{,} \PY{l+m+mf}{3.1}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{,} \PY{l+m+mf}{5.0}\PY{p}{,} 
+                            \PY{l+m+mf}{6.3}\PY{p}{,} \PY{l+m+mf}{6.6}\PY{p}{,} \PY{l+m+mf}{7.4}\PY{p}{,} \PY{l+m+mf}{8.0}\PY{p}{,} \PY{l+m+mf}{9.0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    Given this dataset, we want to train a linear regression model to
+predict the ouput \(y\) from the input \(x\). Let's implement this model
+in a class, which we name \emph{TfLinreg}. For this, we would need two
+placeholders - one for the input \(x\) and one for \(y\) for feeding the
+data into our model. Next, we need to define the trainable variables -
+weights \(w\) and bias \(b\).
+
+Then, we can define the linear regression model as
+\(z = w \times x + b\), followed by defining the cost function to be the
+\textbf{Mean of Squared Error (MSE)}. To learn the weight parameters of
+the model, we use the gradient descent optimizer. The code is as
+follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{class} \PY{n+nc}{TfLinreg}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x\PYZus{}dim}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} 
+                         \PY{n}{random\PYZus{}seed}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x\PYZus{}dim} \PY{o}{=} \PY{n}{x\PYZus{}dim}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{n}{learning\PYZus{}rate}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}\PYZsh{} build the model}
+                \PY{k}{with} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}\PYZsh{} set graph\PYZhy{}level random\PYZhy{}seed}
+                    \PY{n}{tf}\PY{o}{.}\PY{n}{set\PYZus{}random\PYZus{}seed}\PY{p}{(}\PY{n}{random\PYZus{}seed}\PY{p}{)}
+                    
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{build}\PY{p}{(}\PY{p}{)}
+                    
+                    \PY{c+c1}{\PYZsh{}\PYZsh{} create initializer}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{init\PYZus{}op} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+                    
+            \PY{k}{def} \PY{n+nf}{build}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}\PYZsh{} define placeholders for inputs}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{X} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                                        \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x\PYZus{}dim}\PY{p}{)}\PY{p}{,} 
+                                        \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x\PYZus{}input}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                                        \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{)}\PY{p}{,} 
+                                        \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}input}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{X}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{}\PYZsh{} define weight matrix and bias vector}
+                \PY{n}{w} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                                \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{b} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                                \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bias}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{w}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{b}\PY{p}{)}
+                
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{z\PYZus{}net} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{n}{w}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{X} \PY{o}{+} \PY{n}{b}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{z\PYZus{}net}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{z\PYZus{}net}\PY{p}{)}
+                
+                \PY{n}{sqr\PYZus{}errors} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{z\PYZus{}net}\PY{p}{,} 
+                                       \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqr\PYZus{}errors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{sqr\PYZus{}errors}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mean\PYZus{}cost} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{sqr\PYZus{}errors}\PY{p}{,} 
+                                                \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                
+                \PY{n}{optimizer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{GradientDescentOptimizer}\PY{p}{(}
+                                \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{learning\PYZus{}rate}\PY{p}{,} 
+                                \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GradientDescent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{optimizer} \PY{o}{=} \PY{n}{optimizer}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{mean\PYZus{}cost}\PY{p}{)}
+\end{Verbatim}
+
+
+    So far, we have defined a class to construct our model. We will create
+an instance of this class and call it \emph{lrmodel}, as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{lrmodel} \PY{o}{=} \PY{n}{TfLinreg}\PY{p}{(}\PY{n}{x\PYZus{}dim}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("x\_input:0", shape=(?, 1), dtype=float32)
+Tensor("y\_input:0", dtype=float32)
+<tf.Variable 'weight:0' shape=(1,) dtype=float32\_ref>
+<tf.Variable 'bias:0' shape=(1,) dtype=float32\_ref>
+Tensor("z\_net:0", dtype=float32)
+Tensor("sqr\_errors:0", dtype=float32)
+
+    \end{Verbatim}
+
+    The \emph{print} statements that we wrote in the \emph{build} method
+will display information about six nodes in the graph - \(X\), \(y\),
+\(w\), \(b\), \(z\_net\), and \(sqr\_errors\) - with their names and
+shapes.
+
+The next step is to implement a training function to learn the weights
+of the linear regression model. Note that \(b\) is the bias unit (the
+\(y\)-axis intercept at \(x=0\)).
+
+For training, we implement a separate function that need a TensorFlow
+session, a model instance, training data, and the number of epochs as
+input arguments. In this function, first we initialize the variables in
+the TensorFlow session using the \emph{init\_op} operation defined in
+the mode. Then, we iterate and call the \emph{optimizer} operation of
+the model while feeding the training data. This function will return a
+list of training costs as a side product:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}linreg}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} initialize all variables: W and b}
+            \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{init\PYZus{}op}\PY{p}{)}
+            
+            \PY{n}{training\PYZus{}costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}epochs}\PY{p}{)}\PY{p}{:}
+                \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{cost} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{model}\PY{o}{.}\PY{n}{optimizer}\PY{p}{,} \PY{n}{model}\PY{o}{.}\PY{n}{mean\PYZus{}cost}\PY{p}{]}\PY{p}{,} 
+                                   \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{model}\PY{o}{.}\PY{n}{X}\PY{p}{:} \PY{n}{X\PYZus{}train}\PY{p}{,} 
+                                              \PY{n}{model}\PY{o}{.}\PY{n}{y}\PY{p}{:} \PY{n}{y\PYZus{}train}\PY{p}{\PYZcb{}}\PY{p}{)}
+                \PY{n}{training\PYZus{}costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cost}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{training\PYZus{}costs}
+\end{Verbatim}
+
+
+    So, now we can create a new TensorFlow session to launch the
+\emph{lrmodel.g} graph and pass all the required arguments to the
+\emph{train\_linreg} function for training:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{sess} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{lrmodel}\PY{o}{.}\PY{n}{g}\PY{p}{)}
+        \PY{n}{training\PYZus{}costs} \PY{o}{=} \PY{n}{train\PYZus{}linreg}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{n}{lrmodel}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    Let's visualize the training costs these 10 epochs to see whether the
+model is converged or not:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{training\PYZus{}costs}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{training\PYZus{}costs}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the following plot, this simple model converges very
+quickly after a few epochs.
+
+So far so good. Looking at the cost function, it seems that we built a
+working regression model from this particular dataset. Now, let's
+compile a new function to make predictions based on the input features.
+For this function, we need the TensorFlow session, the model, and the
+test dataset:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{predict\PYZus{}linreg}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{z\PYZus{}net}\PY{p}{,} 
+                               \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{model}\PY{o}{.}\PY{n}{X}\PY{p}{:} \PY{n}{X\PYZus{}test}\PY{p}{\PYZcb{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{y\PYZus{}pred}
+\end{Verbatim}
+
+
+    Implementing a predict function was pretty straightforward; just running
+\emph{z\_net} defined in the graph computes the predicted output values.
+Next, let's plot the linear regression fit on the training data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} 
+                     \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                  \PY{n}{predict\PYZus{}linreg}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{n}{lrmodel}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{,} 
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{,} 
+                  \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LinReg Model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting plot, our model fits the training data
+points appropriately.
+
+    \section{Training neural networks efficiently with high-level TensorFlow
+APIs}\label{training-neural-networks-efficiently-with-high-level-tensorflow-apis}
+
+    In this section, we will take a look at two high-level TensorFlow APIs -
+the Layers API (\emph{tensorflow.layers} or \emph{tf.layers}) and the
+Keras API (\emph{tensorflow.contrib.keras}). Keras can be installed as a
+separate package. It supports Theano or TensorFlow as backend.
+
+However, after the release of TensorFlow 1.1.0, Keras has been added to
+the TensorFlow \emph{contrib} submodule. It is very likely that the
+Keras subpackage will be moved outside the experimental \emph{contrib}
+submodule and become one of the main TensorFlow submodules soon.
+
+    \subsection{Building multilayer neural networks using TensorFlow's
+Layers
+API}\label{building-multilayer-neural-networks-using-tensorflows-layers-api}
+
+    To see what neural network training via the \emph{tensorflow.layers
+(tf.layers)} high-level API looks like, let's implement a multilayer
+perceptron to classify the handwritten digits from the MNIST dataset,
+which we introduced in the previous chapter.
+
+Note that TensorFlow also provides the same dataset as follows:
+
+\emph{import tensorflow as tf} \emph{from tf.examples.tutorials.mnist
+import input\_data}
+
+However, we work with the MNIST dataset as an external dataset to learn
+all the steps of data preprocessing separately. This way, you would
+learn what you need to do with your own dataset.
+
+After downloading and unzipping the archives, we place the files in the
+\emph{mnist} directory in our current working directory so that we can
+load the training as well as the test dataset, using the
+\emph{load\_mnist(path, kind)} function we implemented before:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{import} \PY{n+nn}{os} 
+         \PY{k+kn}{import} \PY{n+nn}{struct}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{k}{def} \PY{n+nf}{load\PYZus{}mnist}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Load MNIST data from \PYZsq{}path\PYZsq{}\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{labels\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZhy{}labels\PYZhy{}idx1\PYZhy{}ubyte}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{kind}\PY{p}{)}
+             \PY{n}{images\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZhy{}images\PYZhy{}idx3\PYZhy{}ubyte}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{kind}\PY{p}{)}
+             
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{labels\PYZus{}path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{lbpath}\PY{p}{:}
+                 \PY{n}{magic}\PY{p}{,} \PY{n}{n} \PY{o}{=} \PY{n}{struct}\PY{o}{.}\PY{n}{unpack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}II}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lbpath}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{fromfile}\PY{p}{(}\PY{n}{lbpath}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{uint8}\PY{p}{)}
+                 
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{images\PYZus{}path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{imgpath}\PY{p}{:}
+                 \PY{n}{magic}\PY{p}{,} \PY{n}{num}\PY{p}{,} \PY{n}{rows}\PY{p}{,} \PY{n}{cols} \PY{o}{=} \PY{n}{struct}\PY{o}{.}\PY{n}{unpack}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{}IIII}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{imgpath}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{images} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{fromfile}\PY{p}{(}\PY{n}{imgpath}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{uint8}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{labels}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{784}\PY{p}{)}
+                 \PY{n}{images} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{images} \PY{o}{/} \PY{l+m+mf}{255.}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2}
+             
+             \PY{k}{return} \PY{n}{images}\PY{p}{,} \PY{n}{labels}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} loading the data}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{load\PYZus{}mnist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./mnist/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rows: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Columns: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                          \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{load\PYZus{}mnist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./mnist/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t10k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rows: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Columns: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                          \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}\PYZsh{} mean centering and normalization:}
+         \PY{n}{mean\PYZus{}vals} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{std\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{X\PYZus{}train\PYZus{}centered} \PY{o}{=} \PY{p}{(}\PY{n}{X\PYZus{}train} \PY{o}{\PYZhy{}} \PY{n}{mean\PYZus{}vals}\PY{p}{)} \PY{o}{/} \PY{n}{std\PYZus{}val}
+         \PY{n}{X\PYZus{}test\PYZus{}centered} \PY{o}{=} \PY{p}{(}\PY{n}{X\PYZus{}test} \PY{o}{\PYZhy{}} \PY{n}{mean\PYZus{}vals}\PY{p}{)} \PY{o}{/} \PY{n}{std\PYZus{}val}
+         
+         \PY{k}{del} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}centered}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}centered}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Rows: 60000, Columns: 784
+Rows: 10000, Columns: 784
+(60000, 784) (60000,)
+(10000, 784) (10000,)
+
+    \end{Verbatim}
+
+    Now we can start building our model. We will start by creating two
+placeholders, named \emph{tf\_x} and \emph{tf\_y}, and then build a
+multilayer perceptron as done before, but with three fully connected
+layers.
+
+However, we will replace the logistic units in the hidden layers with
+hyperbolic tangent activation functions (\emph{tanh}), replace the
+logistic function in the output layer with \emph{softmax}, and add an
+additional hidden layer.
+
+The \emph{tanh} and \emph{softmax} functions are new activation
+functions. We will learn more about these activation functions in the
+next section: \emph{Choosing activation functions for multilayer neural
+networks}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         
+         \PY{n}{n\PYZus{}features} \PY{o}{=} \PY{n}{X\PYZus{}train\PYZus{}centered}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{n\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{random\PYZus{}seed} \PY{o}{=} \PY{l+m+mi}{123}
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{random\PYZus{}seed}\PY{p}{)}
+         
+         \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tf}\PY{o}{.}\PY{n}{set\PYZus{}random\PYZus{}seed}\PY{p}{(}\PY{n}{random\PYZus{}seed}\PY{p}{)}
+             \PY{n}{tf\PYZus{}x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                                   \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{,} \PY{n}{n\PYZus{}features}\PY{p}{)}\PY{p}{,} 
+                                   \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{tf\PYZus{}y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{int32}\PY{p}{,} 
+                                   \PY{n}{shape}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} 
+                                   \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{y\PYZus{}onehot} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{one\PYZus{}hot}\PY{p}{(}\PY{n}{indices}\PY{o}{=}\PY{n}{tf\PYZus{}y}\PY{p}{,} \PY{n}{depth}\PY{o}{=}\PY{n}{n\PYZus{}classes}\PY{p}{)}
+             
+             \PY{n}{h1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{inputs}\PY{o}{=}\PY{n}{tf\PYZus{}x}\PY{p}{,} \PY{n}{units}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} 
+                                  \PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{tanh}\PY{p}{,} 
+                                  \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{layer1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{h2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{inputs}\PY{o}{=}\PY{n}{h1}\PY{p}{,} \PY{n}{units}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} 
+                                  \PY{n}{activation}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{tanh}\PY{p}{,} 
+                                  \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{layer2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{logits} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{dense}\PY{p}{(}\PY{n}{inputs}\PY{o}{=}\PY{n}{h2}\PY{p}{,} \PY{n}{units}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} 
+                                      \PY{n}{activation}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} 
+                                      \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{layer3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{predictions} \PY{o}{=} \PY{p}{\PYZob{}}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{logits}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                      \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted\PYZus{}classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{probabilities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{softmax}\PY{p}{(}\PY{n}{logits}\PY{p}{,} 
+                                                \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax\PYZus{}tensor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    Next, we define the cost functions and add an operator for initializing
+the model variables as well as an optimization operator:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} define cost function and optimizer}
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{cost} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{losses}\PY{o}{.}\PY{n}{softmax\PYZus{}cross\PYZus{}entropy}\PY{p}{(}\PY{n}{onehot\PYZus{}labels}\PY{o}{=}\PY{n}{y\PYZus{}onehot}\PY{p}{,} 
+                                                    \PY{n}{logits}\PY{o}{=}\PY{n}{logits}\PY{p}{)}
+             
+             \PY{n}{optimizer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{GradientDescentOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+             
+             \PY{n}{train\PYZus{}op} \PY{o}{=} \PY{n}{optimizer}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{n}{cost}\PY{p}{)}
+             
+             \PY{n}{init\PYZus{}op} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Before we start training the network, we need a way to generate batches
+of data. For this, we implement the following function that returns a
+generator:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{create\PYZus{}batch\PYZus{}generator}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{128}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{n}{X\PYZus{}copy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+             \PY{n}{y\PYZus{}copy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{shuffle}\PY{p}{:}
+                 \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}copy}\PY{p}{,} \PY{n}{y\PYZus{}copy}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+                 \PY{n}{X\PYZus{}copy} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{y\PYZus{}copy} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+                 
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{yield} \PY{p}{(}\PY{n}{X\PYZus{}copy}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}copy}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{n}{batch\PYZus{}size}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    Next, we can create a new TensorFlow session, initialize all the
+variables in our network, and train it. We also display the average
+training los after each epoch to monitors the learning process later:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} create a session to launch the graph}
+         \PY{n}{sess} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}\PYZsh{} run the variable initialization operator}
+         \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{init\PYZus{}op}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} 50 epochs of training:}
+         \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+             \PY{n}{training\PYZus{}costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{batch\PYZus{}generator} \PY{o}{=} \PY{n}{create\PYZus{}batch\PYZus{}generator}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}centered}\PY{p}{,} 
+                                                      \PY{n}{y\PYZus{}train}\PY{p}{,} 
+                                                      \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,} 
+                                                      \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{k}{for} \PY{n}{batch\PYZus{}X}\PY{p}{,} \PY{n}{batch\PYZus{}y} \PY{o+ow}{in} \PY{n}{batch\PYZus{}generator}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{} prepare a dict to feed data to our network:}
+                 \PY{n}{feed} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{tf\PYZus{}x}\PY{p}{:} \PY{n}{batch\PYZus{}X}\PY{p}{,} \PY{n}{tf\PYZus{}y}\PY{p}{:} \PY{n}{batch\PYZus{}y}\PY{p}{\PYZcb{}}
+                 \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{batch\PYZus{}cost} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{train\PYZus{}op}\PY{p}{,} \PY{n}{cost}\PY{p}{]}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{n}{feed}\PY{p}{)}
+                 \PY{n}{training\PYZus{}costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{batch\PYZus{}cost}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ \PYZhy{}\PYZhy{} Epoch }\PY{l+s+si}{\PYZpc{}2d}\PY{l+s+s1}{  }\PY{l+s+s1}{\PYZsq{}}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg. Training Loss: }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{epoch}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{training\PYZus{}costs}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ -- Epoch  1  Avg. Training Loss: 1.5380
+ -- Epoch  2  Avg. Training Loss: 0.9406
+ -- Epoch  3  Avg. Training Loss: 0.7420
+ -- Epoch  4  Avg. Training Loss: 0.6328
+ -- Epoch  5  Avg. Training Loss: 0.5622
+ -- Epoch  6  Avg. Training Loss: 0.5129
+ -- Epoch  7  Avg. Training Loss: 0.4761
+ -- Epoch  8  Avg. Training Loss: 0.4476
+ -- Epoch  9  Avg. Training Loss: 0.4250
+ -- Epoch 10  Avg. Training Loss: 0.4060
+ -- Epoch 11  Avg. Training Loss: 0.3902
+ -- Epoch 12  Avg. Training Loss: 0.3765
+ -- Epoch 13  Avg. Training Loss: 0.3646
+ -- Epoch 14  Avg. Training Loss: 0.3539
+ -- Epoch 15  Avg. Training Loss: 0.3445
+ -- Epoch 16  Avg. Training Loss: 0.3361
+ -- Epoch 17  Avg. Training Loss: 0.3282
+ -- Epoch 18  Avg. Training Loss: 0.3210
+ -- Epoch 19  Avg. Training Loss: 0.3145
+ -- Epoch 20  Avg. Training Loss: 0.3084
+ -- Epoch 21  Avg. Training Loss: 0.3028
+ -- Epoch 22  Avg. Training Loss: 0.2973
+ -- Epoch 23  Avg. Training Loss: 0.2923
+ -- Epoch 24  Avg. Training Loss: 0.2876
+ -- Epoch 25  Avg. Training Loss: 0.2831
+ -- Epoch 26  Avg. Training Loss: 0.2788
+ -- Epoch 27  Avg. Training Loss: 0.2746
+ -- Epoch 28  Avg. Training Loss: 0.2708
+ -- Epoch 29  Avg. Training Loss: 0.2671
+ -- Epoch 30  Avg. Training Loss: 0.2636
+ -- Epoch 31  Avg. Training Loss: 0.2602
+ -- Epoch 32  Avg. Training Loss: 0.2570
+ -- Epoch 33  Avg. Training Loss: 0.2536
+ -- Epoch 34  Avg. Training Loss: 0.2507
+ -- Epoch 35  Avg. Training Loss: 0.2478
+ -- Epoch 36  Avg. Training Loss: 0.2450
+ -- Epoch 37  Avg. Training Loss: 0.2422
+ -- Epoch 38  Avg. Training Loss: 0.2395
+ -- Epoch 39  Avg. Training Loss: 0.2369
+ -- Epoch 40  Avg. Training Loss: 0.2345
+ -- Epoch 41  Avg. Training Loss: 0.2320
+ -- Epoch 42  Avg. Training Loss: 0.2297
+ -- Epoch 43  Avg. Training Loss: 0.2275
+ -- Epoch 44  Avg. Training Loss: 0.2252
+ -- Epoch 45  Avg. Training Loss: 0.2230
+ -- Epoch 46  Avg. Training Loss: 0.2209
+ -- Epoch 47  Avg. Training Loss: 0.2190
+ -- Epoch 48  Avg. Training Loss: 0.2170
+ -- Epoch 49  Avg. Training Loss: 0.2151
+ -- Epoch 50  Avg. Training Loss: 0.2131
+
+    \end{Verbatim}
+
+    The training process may take a couple of minutes. Finally, we can use
+the trained model to do predictions on the test dataset:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} do prediction on the test set:}
+         \PY{n}{feed} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{tf\PYZus{}x}\PY{p}{:} \PY{n}{X\PYZus{}test\PYZus{}centered}\PY{p}{\PYZcb{}}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{predictions}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{n}{feed}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Accuracy: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}} 
+                \PY{o}{\PYZpc{}} \PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{o}{==}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{o}{/}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Accuracy: 93.53\%
+
+    \end{Verbatim}
+
+    We can see that by leveraging high-level APIs, we can quickly build a
+model and test it. Therefore, a high-level API is very useful for
+prototyping our ideas and quickly checking the results.
+
+Next, we will develop a similar classification model for MNIST using
+Keras, which is another high-level TensorFlow API.
+
+    \subsection{Developing a multilayer neural network with
+Keras}\label{developing-a-multilayer-neural-network-with-keras}
+
+    The development of Keras started in the early months of 2015. As of
+today, it has evolved into one of the most popular and widely used
+libraries that is built on top of Theano and TensorFlow.
+
+Similar to TensorFlow, the Keras allows us to utilize our GPUs to
+accelerate neural network training. One of its prominent features is
+that it has a very intuitive and use-friendly API, which allows us to
+implement neural networks in only a few lines of code.
+
+Keras was first released as a standalone API that could leverage Theano
+as a backend, and the support for TensorFlow was added later. Keras is
+also integrated into TensorFlow from version 1.1.0. Therefore, if you
+have TensorFlow version 1.1.0, no more installation is needed for Keras.
+
+Currently, Keras is part of the \emph{contrib} module (which contains
+packages developed by contributors to TensorFlow and is considered
+experimental code). In future releases of TensorFlow, it may be moved to
+become a separate module in the TensorFlow main API.
+
+Note that you may have to change the code from \emph{import
+tensorflow.contrib.keras as keras} to \emph{import tensorflow.keras as
+keras} in future versions of TensorFlow in the following code examples.
+
+On the following pages, we will walk through the code examples for using
+Keras step by step. Using the same functions described in the previous
+section, we need to load the data as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} loading the data}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{load\PYZus{}mnist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./mnist/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rows: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Columns: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                          \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{load\PYZus{}mnist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./mnist/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t10k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rows: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, Columns: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                          \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}\PYZsh{} mean centering and normalization:}
+         \PY{n}{mean\PYZus{}vals} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{std\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{X\PYZus{}train\PYZus{}centered} \PY{o}{=} \PY{p}{(}\PY{n}{X\PYZus{}train} \PY{o}{\PYZhy{}} \PY{n}{mean\PYZus{}vals}\PY{p}{)} \PY{o}{/} \PY{n}{std\PYZus{}val}
+         \PY{n}{X\PYZus{}test\PYZus{}centered} \PY{o}{=} \PY{p}{(}\PY{n}{X\PYZus{}test} \PY{o}{\PYZhy{}} \PY{n}{mean\PYZus{}vals}\PY{p}{)} \PY{o}{/} \PY{n}{std\PYZus{}val}
+         
+         \PY{k}{del} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}centered}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}centered}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Rows: 60000, Columns: 784
+Rows: 10000, Columns: 784
+(60000, 784) (60000,)
+(10000, 784) (10000,)
+
+    \end{Verbatim}
+
+    First, let's set the random seed for NumPy as TensorFlow so that we get
+consistent results:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         \PY{k+kn}{import} \PY{n+nn}{tensorflow}\PY{n+nn}{.}\PY{n+nn}{contrib}\PY{n+nn}{.}\PY{n+nn}{keras} \PY{k}{as} \PY{n+nn}{keras}
+         
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{123}\PY{p}{)}
+         \PY{n}{tf}\PY{o}{.}\PY{n}{set\PYZus{}random\PYZus{}seed}\PY{p}{(}\PY{l+m+mi}{123}\PY{p}{)}
+\end{Verbatim}
+
+
+    To continue with the preparation of the training data, we need to
+convert the class labels (integers 0-9) into the one-hot format.
+Fortunately, Keras provides a convenient tool for this:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{y\PYZus{}train\PYZus{}onehot} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{to\PYZus{}categorical}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{First 3 labels: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{First 3 labels (one\PYZhy{}hot):}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}onehot}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+First 3 labels:  [5 0 4]
+
+First 3 labels (one-hot):
+ [[0. 0. 0. 0. 0. 1. 0. 0. 0. 0.]
+ [1. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 1. 0. 0. 0. 0. 0.]]
+
+    \end{Verbatim}
+
+    Now, we can get to the interesting part and implement a neural network.
+Briefly, we will have three layers, where the first two layers each have
+50 hidden units with the \emph{tanh} activation functions and the last
+layer has 10 layers for the 10 class labels and uses \emph{softmax} to
+give the probability of each class. Keras makes these tasks very simple,
+as you can see in the following code implementation:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{model} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{models}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{keras}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} 
+                                      \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n}{X\PYZus{}train\PYZus{}centered}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                      \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{glorot\PYZus{}uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{n}{bias\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zeros}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tanh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{keras}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} 
+                                      \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} 
+                                      \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{glorot\PYZus{}uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{n}{bias\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zeros}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tanh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{keras}\PY{o}{.}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{n}{y\PYZus{}train\PYZus{}onehot}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                      \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} 
+                                      \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{glorot\PYZus{}uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{n}{bias\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zeros}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{sgd\PYZus{}optimizer} \PY{o}{=} \PY{n}{keras}\PY{o}{.}\PY{n}{optimizers}\PY{o}{.}\PY{n}{SGD}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{decay}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}7}\PY{p}{,} 
+                                              \PY{n}{momentum}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{)}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{n}{sgd\PYZus{}optimizer}\PY{p}{,} 
+                       \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{categorical\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    First, we initialize a new model using the \emph{Sequential} class to
+implement a feedforward neural network. Then, we can add as many layers
+to it as we like. However, since the first layer that we add is the
+input layer, we have to make sure that the \emph{input\_dim} attribute
+matches the number of features (columns) in the training (784 features
+or pixels in the neural network implementation).
+
+Also, we have to make sure that the number of output units
+(\emph{units}) and input units (\emph{input\_dim}) of two consecutive
+layers match. In the preceding example, we added two hidden layers with
+50 hidden units plus one bias unit each. The number of units in the
+output layer should be equal to the number of unique class labels - the
+number of columns in the one-hot-encoded class label array.
+
+Note that we used a new initialization algorithm for weight matrices by
+setting \emph{kernel\_initializer='glorot\_uniform'}. Glorot
+initialization (also known as Xavier initialization) is a more robust
+way of initialization for deep neural networks. The biases are
+initialized to zero, which is more common, and in fact the default in
+Keras.
+
+Before we can compile our model, we also have to define an optimizer. In
+the preceding example, we chose a stochastic gradient descent
+optimization, which we are already familiar with from previous chapters.
+Furthermore, we can set values for the weight decay constant and
+momentum learning to adjust the learning rate at each epoch. Lastly, we
+set the cost (or loss) function to \emph{categorial\_crossentropy}.
+
+The binary cross-entropy is just a technical term of the cost function
+in the logistic regression, and the categorical cross-entropy is its
+generalization for multiclass predictions via softmax, which we will
+cover in the section \emph{Estimating class probabilities in multiclass
+classification via the softmax function} later in this chapter.
+
+After compiling the model, we can now train it by calling the \emph{fit}
+method. Here, we are using mini-batch stochastic gradient with a batch
+size of 64 training samples per batch. We train the MLP over 50 epochs,
+and we can follow the optimization of the cost function during training
+by setting \emph{verbose=1}.
+
+The \emph{validation\_split} parameter is especially handy since it will
+reserve 10 percent of the training data (here, 6,000 samples) for
+validation after each epoch so that we can monitor whether the model is
+overfitting during training:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}centered}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}onehot}\PY{p}{,} 
+                             \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{64}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}split}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train on 54000 samples, validate on 6000 samples
+Epoch 1/50
+54000/54000 [==============================] - 2s 38us/step - loss: 0.7528 - val\_loss: 0.3674
+Epoch 2/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.3765 - val\_loss: 0.2757
+Epoch 3/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.3068 - val\_loss: 0.2353
+Epoch 4/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.2681 - val\_loss: 0.2105
+Epoch 5/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.2416 - val\_loss: 0.1924
+Epoch 6/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.2215 - val\_loss: 0.1796
+Epoch 7/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.2052 - val\_loss: 0.1690
+Epoch 8/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.1917 - val\_loss: 0.1602
+Epoch 9/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.1798 - val\_loss: 0.1533
+Epoch 10/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.1696 - val\_loss: 0.1476
+Epoch 11/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.1606 - val\_loss: 0.1431
+Epoch 12/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.1526 - val\_loss: 0.1376
+Epoch 13/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.1453 - val\_loss: 0.1340
+Epoch 14/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.1386 - val\_loss: 0.1307
+Epoch 15/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.1325 - val\_loss: 0.1272
+Epoch 16/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.1268 - val\_loss: 0.1254
+Epoch 17/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.1218 - val\_loss: 0.1229
+Epoch 18/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.1170 - val\_loss: 0.1207
+Epoch 19/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.1125 - val\_loss: 0.1184
+Epoch 20/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.1083 - val\_loss: 0.1180
+Epoch 21/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.1044 - val\_loss: 0.1156
+Epoch 22/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.1008 - val\_loss: 0.1147
+Epoch 23/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0973 - val\_loss: 0.1135
+Epoch 24/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0940 - val\_loss: 0.1118
+Epoch 25/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0909 - val\_loss: 0.1108
+Epoch 26/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0881 - val\_loss: 0.1094
+Epoch 27/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0851 - val\_loss: 0.1103
+Epoch 28/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0824 - val\_loss: 0.1098
+Epoch 29/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0798 - val\_loss: 0.1086
+Epoch 30/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0775 - val\_loss: 0.1069
+Epoch 31/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0751 - val\_loss: 0.1071
+Epoch 32/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0728 - val\_loss: 0.1076
+Epoch 33/50
+54000/54000 [==============================] - 2s 34us/step - loss: 0.0707 - val\_loss: 0.1061
+Epoch 34/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0685 - val\_loss: 0.1064
+Epoch 35/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0666 - val\_loss: 0.1049
+Epoch 36/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0647 - val\_loss: 0.1049
+Epoch 37/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0627 - val\_loss: 0.1056
+Epoch 38/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0609 - val\_loss: 0.1058
+Epoch 39/50
+54000/54000 [==============================] - 2s 32us/step - loss: 0.0593 - val\_loss: 0.1056
+Epoch 40/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0575 - val\_loss: 0.1049
+Epoch 41/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0560 - val\_loss: 0.1043
+Epoch 42/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0545 - val\_loss: 0.1046
+Epoch 43/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0528 - val\_loss: 0.1050
+Epoch 44/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0516 - val\_loss: 0.1047
+Epoch 45/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0501 - val\_loss: 0.1046
+Epoch 46/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0488 - val\_loss: 0.1045
+Epoch 47/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0474 - val\_loss: 0.1052
+Epoch 48/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0461 - val\_loss: 0.1043
+Epoch 49/50
+54000/54000 [==============================] - 2s 32us/step - loss: 0.0450 - val\_loss: 0.1048
+Epoch 50/50
+54000/54000 [==============================] - 2s 33us/step - loss: 0.0437 - val\_loss: 0.1055
+
+    \end{Verbatim}
+
+    Printing the value of the cost function is extremely useful during
+training. This is because we can quickly spot whether the cost is
+decreasing during training and stop the algorithm earlier, if otherwise,
+to tune the hyperparameters values.
+
+To predict the class labels, we can then use the \emph{predict\_classes}
+method to return the class labels directly as integers:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict\PYZus{}classes}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}centered}\PY{p}{,} 
+                                              \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{First 3 predictions: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+First 3 predictions:  [5 0 4]
+
+    \end{Verbatim}
+
+    Finally, let's print the model accuracy on training and test sets:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict\PYZus{}classes}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}centered}\PY{p}{,} 
+                                              \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{correct\PYZus{}preds} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{train\PYZus{}acc} \PY{o}{=} \PY{n}{correct\PYZus{}preds} \PY{o}{/} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training accuracy: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{train\PYZus{}acc} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict\PYZus{}classes}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}centered}\PY{p}{,} 
+                                             \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{correct\PYZus{}preds} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{==}\PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{test\PYZus{}acc} \PY{o}{=} \PY{n}{correct\PYZus{}preds} \PY{o}{/} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test accuracy: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{test\PYZus{}acc} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training accuracy: 99.03\%
+Test accuracy: 96.55\%
+
+    \end{Verbatim}
+
+    Note that this is just a very simple neural network without optimized
+tuning parameters. If you are interested in playing more with Keras,
+feel free to further tweak the learning rate, momentum, weight decay,
+and number of hidden units.
+
+    \section{Choosing activation functions for multilayer
+networks}\label{choosing-activation-functions-for-multilayer-networks}
+
+    For simplicity, we have only discussed the sigmoid activation function
+in the context of multilayer feedforward neural network so far; we used
+it in the hidden layer as well as the output layer in the multilayer
+implementation in the previous chapter.
+
+Although we referred to this activation function as a sigmoid function -
+as it is commonly called in literature - the more precise definition
+would be a \emph{logistic function} or \emph{negative log-likelihood
+function}. In the following subsections, you will learn more about
+alternative sigmoidal functions that are useful for implementing
+multilayer neural networks.
+
+Technically, we can use any function as an activation function in
+multilayer neural network as long as it is differenciable. We can even
+use linear activation functions, such as Adaline. However, in practice,
+it would not be very useful to use linear activation functions for both
+hidden and output layer since we want to introduce nonlinearity in a
+typical artificial neural network to be able to tackle complex problems.
+The sum of linear functions yields a linear function after all.
+
+The logistic activation function that we used in previous chapter,
+probably mimics the concept of a neuron in a brain most closely - we can
+think of it as the probability of whether a neuron fires or not.
+
+However, logistic activation functions can be problematic if we have
+highly negative input since the ouput of the sigmoid would be close to
+zero in this case. If the sigmoid function returns output that are close
+to zero, the neural network would learn very slowly and it becomes more
+likely that it gets trapped in the local minima during training. This is
+why people often prefer a hyperbolic tangent as an activation function
+in hidden layers.
+
+Before we discuss what a hyperbolic tangent looks like, let's briefly
+recapitulate some of the basics of the logistic function and look at a
+generalization that makes it more useful for multilabel classification
+problems.
+
+    \subsection{Logistic function recap}\label{logistic-function-recap}
+
+    As we mentioned in the introduct of this section, the logistic function,
+often just called the sigmoid function, is in fact a special case of a
+sigmoid function. Recall from the section on logistic regression that we
+can use a logistic function to model the probability that sample \(x\)
+belongs to the positive class (class 1) in a binary classification task.
+The given net input \(z\) is shown in the following equation:
+
+\[z = w_0x_0 + w_1x_1 + \ldots + w_mx_m = \sum_{i=0}^m w_ix_i = w^Tx\]
+
+The logistic function will compute the following:
+
+\(\phi_{logistic}(z) = \frac{1}{1 + e^{-z}}\)
+
+Note that \(w_0\) is the bias unit (\(y\)-axis intercept, which means
+\(x_0 = 1\)). To provide a more concrete example, let's assume a model
+for a two-dimensional data point \(x\) and a model with the following
+weight coefficients assigned to thw \(w\) vector:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{1.4}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{} first value must be 1}
+         \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{net\PYZus{}input}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{w}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{w}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{logistic}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{l+m+mf}{1.0} \PY{o}{/} \PY{p}{(}\PY{l+m+mf}{1.0} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{z}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{logistic\PYZus{}activation}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{w}\PY{p}{)}\PY{p}{:}
+             \PY{n}{z} \PY{o}{=} \PY{n}{net\PYZus{}input}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{w}\PY{p}{)}
+             \PY{k}{return} \PY{n}{logistic}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P(y=1|x) = }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{logistic\PYZus{}activation}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{w}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+P(y=1|x) = 0.888
+
+    \end{Verbatim}
+
+    If we calculate the net input and use it to activate a logistic neuron
+with those particular feature values and weight coefficients, we get a
+value of 0.888, which we can interpret as 88.8 percent probability that
+this particular sample \(x\) belongs to the positive class.
+
+In previous chapter, we used the one-hot-encoding technique to compute
+the values in the output layer consisting of multiple logistic
+activation units. However, as we will demonstrate with the following
+code example, an output layer consisting of multiple logistic activation
+units does not produce meaningful, interpretable probabilities values:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} W: array with shape = (n\PYZus{}output\PYZus{}units, n\PYZus{}hidden\PYZus{}units+1)}
+         \PY{c+c1}{\PYZsh{}    note that the first column are the bias units}
+         \PY{n}{W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.1}\PY{p}{,} \PY{l+m+mf}{1.2}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{]}\PY{p}{,} 
+                       \PY{p}{[}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{]}\PY{p}{,} 
+                       \PY{p}{[}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{l+m+mf}{1.5}\PY{p}{,} \PY{l+m+mf}{1.2}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} A: data array with shape = (n\PYZus{}hidden\PYZus{}units+1, n\PYZus{}samples)}
+         \PY{c+c1}{\PYZsh{}    note that the first column of this array must be 1}
+         \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{Z} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{A}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{y\PYZus{}probas} \PY{o}{=} \PY{n}{logistic}\PY{p}{(}\PY{n}{Z}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Net Input: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{Z}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Output Units: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}probas}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Net Input: 
+ [1.78 0.76 1.65]
+Output Units: 
+ [0.85569687 0.68135373 0.83889105]
+
+    \end{Verbatim}
+
+    As we can see in the output, the resulting values cannot be interpreted
+as probabilities for a three-class problem. The reason of this is that
+they do not sum up to 1. However, this is in fact not a big concern if
+we only use our model to predict the class labels, not the class
+membership probabilities. One way to predict the class label from the
+output units obtained earlier is to use the maximum value:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{y\PYZus{}class} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{Z}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted class label: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{y\PYZus{}class}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Predicted class label: 0
+
+    \end{Verbatim}
+
+    In certain contexts, it can be useful to compute meaningful class
+probabilities for multiclass predictions. In the next section, we will
+take a look at a generalization of the logistic function, the
+\emph{softmax} function, which can help us with this task.
+
+    \subsection{Estimating class probabilities in multiclass classification
+via the softmax
+function}\label{estimating-class-probabilities-in-multiclass-classification-via-the-softmax-function}
+
+    In the previous section, we saw how could obtain a class label using the
+\emph{argmax} function. The \emph{softmax} function is in fact a soft
+form of the \emph{argmax} function; instead of given a single class
+index, it provides the probability of each class. Therefore, it allows
+us to compute meaningful class probabilities in multiclass settings
+(multinomial logistic regression).
+
+In \emph{softmax}, the probability of a particular sample with net input
+\(z\) belonging to the \(i\)th class can be computed with a
+normalization term in the denominator, that is, the sum of all \(M\)
+linear functions:
+
+\[p(y=i|z) = \phi(z) = \frac{e^{z_j}}{\sum_{i=1}^M e^{z_j}}\]
+
+To see \emph{softmax} in action, let's code it up in Python:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k}{def} \PY{n+nf}{softmax}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{z}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{y\PYZus{}probas} \PY{o}{=} \PY{n}{softmax}\PY{p}{(}\PY{n}{Z}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probabilities:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}probas}\PY{p}{)}
+         \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}probas}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Probabilities:
+ [0.44668973 0.16107406 0.39223621]
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} 1.0
+\end{Verbatim}
+            
+    As we can see, the predicted class probabilities now sum up to 1, as we
+would expect. It is also notable that the predicted class label is the
+same as when we applied the \emph{argmax} function to the logistic
+output. Intuitively, it may help to think of the \emph{softmax} function
+as a \emph{normalized} ouput that is useful to obtain meaningful
+class-membership predictions in multiclass settings.
+
+    \subsection{Broadening the output spectrum using hyperbolic
+tangent}\label{broadening-the-output-spectrum-using-hyperbolic-tangent}
+
+    Another sigmoid function that is often used in the hidden layers of
+artificial networks in the \textbf{hyperbolic tangent} (commonly known
+as \textbf{tanh}), which can be interpreted as a rescaled version of the
+logistic function:
+
+\[\phi_{logistic}(z) = \frac{1}{1 + e^{-z}}\]
+
+\[\phi_{tanh}(z) = 2 \times \phi_{logistic}(2z)-1 = \frac{e^z - e^{-z}}{e^z + e^{-z}}\]
+
+The advantage of the hyperbolic tangent over the logistic function is
+that it has a broader output spectrum and ranges in the open interval
+(-1, 1), which can improve the convergence of the back propagation
+algorithm.
+
+In contrast, the logistic function returns an output signal that ranges
+in the open interval (0, 1). For an intuitive comparison of the logistic
+function and the hyperbolic tangent, let's plot the two sigmoid
+functions:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{k}{def} \PY{n+nf}{tanh}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{:}
+             \PY{n}{e\PYZus{}p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+             \PY{n}{e\PYZus{}m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{z}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{n}{e\PYZus{}p} \PY{o}{\PYZhy{}} \PY{n}{e\PYZus{}m}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{e\PYZus{}p} \PY{o}{+} \PY{n}{e\PYZus{}m}\PY{p}{)}
+         
+         \PY{n}{z} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mf}{0.005}\PY{p}{)}
+         \PY{n}{log\PYZus{}act} \PY{o}{=} \PY{n}{logistic}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+         \PY{n}{tanh\PYZus{}act} \PY{o}{=} \PY{n}{tanh}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{l+m+mf}{1.5}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{net input \PYZdl{}z\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{activation \PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{phi(z)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{tanh\PYZus{}act}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tanh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{log\PYZus{}act}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_84_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see, the shapes of the two sigmoidal curves look very similar;
+however, the \emph{tanh} function has \(2\times\) larger output space
+than the \emph{logistic} function.
+
+Note that we implemented the \emph{logistic} and \emph{tanh} functions
+verbosely for the purpose of illustration. In practice, we can use
+NumPy's \emph{tanh} function to achive the same results:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{tanh\PYZus{}act} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{tanh\PYZus{}act}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[-0.9999092  -0.99990829 -0.99990737 {\ldots}  0.99990644  0.99990737
+  0.99990829]
+
+    \end{Verbatim}
+
+    In addition, the logistic function is available in SciPy's special
+module:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{special} \PY{k}{import} \PY{n}{expit}
+         \PY{n}{log\PYZus{}act} \PY{o}{=} \PY{n}{expit}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{log\PYZus{}act}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.00669285 0.00672617 0.00675966 {\ldots} 0.99320669 0.99324034 0.99327383]
+
+    \end{Verbatim}
+
+    \subsection{Rectified linear unit
+activation}\label{rectified-linear-unit-activation}
+
+    \textbf{Rectified Linear Unit (ReLU)} is another activation function
+that is often used in deep neural networks. Before we understand ReLU,
+we should step back and understand the vanishing gradient problem of
+tanh and logistic activations.
+
+To understand this problem, let's assume that we initially have the net
+input \(z_1 = 20\), which changes to \(z_2 = 25\). Computing the tanh
+activation, we get \(\phi(z_1) \approx 1.0\) and
+\(\phi(z_2) \approx 1.0\), which shows no change in the output.
+
+This means the derivative of activations with respect to net input
+diminishes as \(z\) becomes large. As a result, learning weights during
+the training phase become very slow because the gradient terms may be
+very close to zero. ReLU activation addresses this issue.
+Mathematically, ReLU is defined as follows:
+
+\[\phi(z) = max(0, z)\]
+
+ReLU is still a nonlinear function that is good for learning complex
+functions with neural networks. Besides this, the derivative of ReLU,
+with respect to its input, is always 1 for positive input values.
+Therefore, it solves the problem of vanishing gradients, making it
+suitable for deep neural networks. We will use the ReLU activation
+function in the next chapter as an activation function for multilayer
+convolutional neural networks.
+
+Now that we know more about the different activation functions that are
+commonly used in artificial neural networks, let's conclude this section
+with an overview of the different activation functions that we
+encountered in this book:
+
+    \section{Summary}\label{summary}
+
+    In this chapter, you learned how to use TensorFlow, an open source
+library for numerical computations with a special focus on deep
+learning. While TensorFlow is more convenient to use compared to NumPy,
+due to its additional complexity to support GPUs, it allows us to define
+and train large, multilayer neural networks very efficiently.
+
+Also, you learned about the TensorFlow API to build complex machine
+learning and neural network models and run them efficiently. First, we
+explored programming in the low-level TensorFlow API. Implementing model
+at this level may be tedious when we have to program at the level of
+matrix-vector multiplications and define every detail of each operation.
+However, the advantage is that this allows us as developers to combine
+such basic operations and build more complex models. Furthermore, we
+discussed how TensorFlow allows us to utilize the GPUs for training and
+testing big neural networks to speed up the computations. Without the
+use of GPUs, training some networks would typically need months of
+computation.
+
+We then explored two high-level APIs that make building neural network
+models a lot easier compared to the low-level API. Specifically, we used
+TensorFlow Layers and Keras to build the multilayer neural network and
+learned how to build models using those APIs.
+
+Finally, you learned about different activation functions and understood
+their behaviors and applications. Specifically, in this chapter, we saw
+tanh, softmax, and ReLU. In previous chapter, we started with
+implementing a simple \textbf{Multilayer Perceptron (MLP)} to classify a
+handwritten image in the MNIST dataset. While the low-level
+implementation from scratch was helpful to illustrate the core concepts
+of a multilayer neural network, such as the forward pass and
+backpropagation, training neural networks using NumPy is very
+inefficient and impractical for large networks.
+
+In the next chapter, we wil continue our journey and dive deeper into
+TensorFlow, and we will find ourselves working with graph and session
+objects. Along the way, we will learn many new concepts, such as
+placeholders, variables, and saving and restoring models in TensorFlow.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

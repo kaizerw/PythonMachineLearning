@@ -1,0 +1,1653 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{11\_Working\_With\_Unlabeled\_Data\_Clustering\_Analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Working with Unlabeled Data - Clustering
+Analysis}\label{working-with-unlabeled-data---clustering-analysis}
+
+    In the previous chapters, we used supervised learning techniques to
+build machine learning models using data where the answer was already
+known - the class labels were already available in our training data. In
+this chapter, we will switch gears and explore cluster analysis, a
+category of \textbf{unsupervised learning} techniques that allows us to
+discover hidden structures in data where we do not know the right answer
+upfront. The goal of clustering is to find a natural grouping in data so
+that items in the same cluster are more similar to each other than to
+those from different clusters.
+
+Given its exploratory nature, clustering is an exciting topic and, in
+this chapter, we will learn about the following concepts, which can help
+us to organize data into meaningful structures:
+
+\begin{itemize}
+\tightlist
+\item
+  Finding centers of similarity using the popular k-means algorithms
+\item
+  Taking a bottom-up approach to building hierarchical clustering trees
+\item
+  Identifying arbitrary shapes of objects using a density-based
+  clustering approach
+\end{itemize}
+
+    \section{Grouping objects by similarity using
+k-means}\label{grouping-objects-by-similarity-using-k-means}
+
+    In this section, we will learn about one of the most popular
+\textbf{clustering} algorithms, \textbf{k-means}, which is widely used
+in academia as well as in industry. Clustering (or cluster analysis) is
+a technique that allows us to find groups of similar objects, objects
+that are more related to each other than to objects in other groups.
+Examples of business-oriented applications of clustering include the
+grouping of documents, music, and movies by different topics, or finding
+customers that share similar interests based on common purchase
+behaviors as a basis for recommendation engines.
+
+    \subsection{K-means clustering using
+scikit-learn}\label{k-means-clustering-using-scikit-learn}
+
+    As we will see in a moment, the k-means algorithm is extremely easy to
+implement but is also computationally very efficient compared to other
+clustering algorithms, which might explain its popularity. The k-means
+algorithm belongs to the category of \textbf{prototype-based
+clustering}. We will discuss two other categories of clustering,
+\textbf{hierarchical} and \textbf{density-based clustering}, later in
+this chapter.
+
+Prototype-based clustering means that each cluster is represented by a
+prototype, which can either be the \textbf{centroid} (average) of
+similar points with continuous features, or the \textbf{medoid} (the
+most representative or most frequently occurring point) in the case of
+categorical features. While k-means is very good at identifying clusters
+with a spherical shape, one of the drawbacks of this clustering
+algorithm is that we have to specify the number of clusters, \(k\), a
+priori. An inappropriate choice of \(k\) can result in poor clustering
+performance. Later in this chapter, we will discuss the \textbf{elbow}
+method and \textbf{silhouett plots}, which are useful techniques to
+evaluate the quality of a clustering to help us determine the optimal
+number of clusters \(k\).
+
+Although k-means clustering can be applied to data in higher dimensions,
+we will walk through the following examples using a simple
+two-dimensional dataset for the purpose of visualization:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{make\PYZus{}blobs}
+        
+        \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{make\PYZus{}blobs}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{,} 
+                          \PY{n}{n\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} 
+                          \PY{n}{centers}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} 
+                          \PY{n}{cluster\PYZus{}std}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                          \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                          \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The dataset that we just created consists of 150 randomly generated
+points that are roughly grouped into three regions with higher density,
+which is visualized via a two-dimensional scatterplot.
+
+    In real-world applications of clustering, we do not have any groud truth
+category information (information provided as empirical evidence as
+opposed to inference) about those samples; otherwise, it would fall into
+category of supervised learning. Thus, our goal is to group the samples
+based on their feature similarities, which can be achieved using the
+k-means algorithm that can be summarized by the following four steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Randomly pick \(k\) centroids from the sample points as initial
+  cluster centers
+\item
+  Assign each sample to the nearest centroid
+  \(\mu^{(j)}, j \in \{1, \ldots, k\}\)
+\item
+  Move the centroids to the center of the samples that were assigned to
+  it.
+\item
+  Repeat steps 2 and 3 until the cluster assignments do not change or a
+  user-defined torelance or maximum number of iterations is reached.
+\end{enumerate}
+
+Now, the next question is \emph{how do we measure similarity between
+objects?} We can define similirity as the opposite of the distance, and
+a commonly used distance for clustering samples with continuous features
+is the \textbf{squared Euclidean distance} between two points \(x\) and
+\(y\) in \(m\)-dimensional space:
+
+\[d(x, y)^2 = \sum_{j=1}^m(x_j - y_j)^2 = ||(x-y)||_2^2\]
+
+Note that, in the preceding equation, the index \(j\) refers to the
+\(j\)th dimension (feature column) of the samples points \(x\) and
+\(y\). In the rest of this section, we will use the superscripts \(i\)
+and \(j\) to refer to the samples index and cluster index, respectively.
+
+Based on this Euclidean distance metric, we can describe the k-means
+algorithm as a simple optimization problem, an iterative approach for
+minimizing the within-cluster \textbf{Sum of squared Errors (SSE)},
+which is sometimes also called \textbf{cluster inertia}:
+
+\[SSE = \sum_{i=1}^n\sum_{j=1}^kw^{(i, j)}||x^{(i)} - \mu^{(j)}||_2^2\]
+
+Here, \(\mu^{(j)}\) is the representative point (centroid) for cluster
+\(j\), and \(w^{(i, j)} = 1\) if the sample \(x^{(i)}\) is in cluster
+\(j\); \(w^{(i, j)} = 0\) otherwise.
+
+Now that we have learned how the simple \(k\)-means algorithm works,
+let's apply it to our sample dataset using the \emph{KMeans} class from
+scikit-learn's \emph{cluster} module:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+        
+        \PY{n}{km} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{init}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{n\PYZus{}init}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} 
+                    \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}04}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{n}{y\PYZus{}km} \PY{o}{=} \PY{n}{km}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    Using the preceding code, we set the number of desired clusters to 3;
+specifying the number of clusters \emph{a priori} is one of the
+limitations of k-means. We set \emph{n\_init=10} to run the k-means
+clustering algorithm 10 times independently with different random
+centroids to choose the final model as the one with lowest SSE. Via the
+\emph{max\_iter} parameter, we specify the maximum number of iterations
+for each single run (here, 300). Note that the k-means implementation in
+scikit-learn stops early if it converges before the maximum number of
+iterations is reached. However, it is possible that k-means does not
+reach convergence for a particular run, which can be problematic
+(computationally expensive) if we choose relatively large values for
+\emph{max\_iter}. One way to deal with convergence problem is to choose
+larger values for \emph{tol}, which is a parameter that controls the
+tolerance with regard to the changes in the within-cluster
+sum-squared-error to declared convergence. In the preceding code, we
+chose a tolerance of 0.0001.
+
+A problem with k-means is that one or more clusters can be empty. Note
+that this problem does not exist for k-medoids or fuzzy C-means, an
+algorithm that we will discuss later in this section. However, this
+problem is accounted for in the current k-means implementation in
+scikit-learn. If a cluster is empty, the algorithm will search for the
+sample that is farthest away from the centroid of the empty cluster.
+Then it will assign the centroid to be this farthest point.
+
+    When we are applying k-means to real-world data using a Euclidean
+distance metric, we want to make sure that the features are measured on
+the same scale and apply z-score standardization or min-max scaling if
+necessary.
+
+After we predicted the cluster labels \emph{y\_km} and discussed some of
+the challenges of the k-means algorithm, let's now visualize the
+clusters that k-means identified in the data together with the cluster
+centroids. These are stored under the \emph{cluster\_centers\_}
+attribute of the fitted \emph{KMeans} object:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{km}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{km}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{centroids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{scatterpoints}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In the resulting scatterplot, we can see that k-means placed the three
+centroids at the center of each sphere, which looks like a resonable
+grouping given this dataset.
+
+    Although k-means worked well on this toy dataset, we shall highlight
+another drawback of k-means: we have to specify the number of clusters,
+\(k\), * a priori*. The number of clusters to choose may not always be
+so obvious in real-world applications, especially if we are working with
+higher dimensional dataset that cannot be visualized. The other
+properties of k-means are that clusters do not overlap and are not
+hierarchical, and we also assume that there is at least one item in each
+cluster. Later in this chapter, we will encounter different types of
+clustering algorithms, hierarchical and density-based clustering.
+Neither type of algorithm require us to specify the number of clusters
+upfront or assume spherical structures in our dataset.
+
+    In the next subsection, we will introduce a popular variant of the
+classic k-means algorithm called \textbf{k-means++}. While it does not
+address those assumptions and drawbacks of k-means discussed in the
+previous paragraph, it can greatly improve the clustering results
+through more clever seeding of the initial cluster centers.
+
+    \subsection{A smarter way of placing the initial cluster centroids using
+k-means++}\label{a-smarter-way-of-placing-the-initial-cluster-centroids-using-k-means}
+
+    So far, we have discussed the classic k-means algorithm that uses a
+random seed to place the initial centroids, which can sometimes result
+in bad clusterings or slow convergence if the initial centroids are
+chosen poorly. One way to address this issue is to run the k-means
+algorithm multiple times on a dataset and choose the best performing
+model in terms of the SSE. Another strategy is to place the initial
+centroids far away from each other via the k-means++ algorithm, which
+leads to better and more consistent results than the classic k-means.
+The initialization in k-means++ can be summarized as follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Initialize an empty set \(M\) to store the \(k\) centroids being
+  selected.
+\item
+  Randomly choose the first centroid \(\mu^{(j)}\) from the input
+  samples and assign it to \(M\).
+\item
+  For each sample \(x^{(i)}\) that is not in \(M\), find the minimum
+  squared distance \(d(x^{(i)}, M)^2\) to any of the centroids in \(M\).
+\item
+  To randomly select the next centroid \(\mu{p}\), use a weighted
+  probability distribution equal to
+  \(\frac{d(\mu^{(p)}, M)^2}{\sum_i d(x^{(i)}, M)^2}\).
+\item
+  Repeat steps 2 and 3 until \(k\) centroids are chosen.
+\item
+  Proceed with the classic k-means algorithm.
+\end{enumerate}
+
+To use k-means++ with scikit-learn's \emph{KMeans} object, we just need
+to set the \emph{init} parameter to \emph{'k-means++'}. In fact,
+\emph{'k-means++'} is the default argument to the \emph{init} parameter,
+which is strongly recommended in practice. The only reason we haven't
+used it in the previous example was to not introduce too many concepts
+all at once. The rest of this section on k-means will use k-means++, but
+readers are encouraged to experiment more with the two different
+approaches (classic k-means via \emph{init='random'} versus k-means++
+with \emph{init='k-means++'}) for placing the initial cluster centroids.
+
+    \subsection{Hard versus soft
+clustering}\label{hard-versus-soft-clustering}
+
+    \textbf{Hard clustering} describes a family of algorithms where each
+sample in a dataset is assigned to exactly one cluster, as in the
+k-means algorithm that we discussed in the previous subsection. In
+contrast, algorithm for \textbf{soft clustering} (sometimes also called
+\textbf{fuzzy clustering}) assign a sample to one or more clusters. A
+popular example of soft clustering is the \textbf{fuzzy C-means (FCM)}
+algorithm (also called \textbf{soft k-means} or \textbf{fuzzy k-means}).
+
+The FCM procedure is very similar to k-means. However, we replace the
+hard cluster assignment with probabilities of each point belonging to
+each cluster. In k-means, we could express the cluster membership of
+sample \(x\) with a sparse vector of binary values:
+
+\[\mu^{(1)} \rightarrow 0; \mu^{(2)} \rightarrow 1; \mu^{(2)} \rightarrow 0\]
+
+Here, the index position with value 1 indicates that the cluster
+centroid \(\mu^{(j)}\) the sample is assigned to (assuming
+\(k=3, j \in \{1, 2, 3\}\)). In contrast, a membership vector in FCM
+could be represented as follows:
+
+\[\mu^{(1)} \rightarrow 0.10; \mu^{(2)} \rightarrow 0.85; \mu^{(2)} \rightarrow 0.05\]
+
+Here, each value falls in the range \([0, 1]\) and represents a
+probability of membership of the respective cluster centroid. The sum of
+the memberships for a given sample is equal to 1. Similar to the k-means
+algorithm, we can summarize the FCM algorithm in four steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Specify the number of \(k\) centroids and randomly assign the cluster
+  memberships for each point.
+\item
+  Compute the cluster centroids \(\mu^{(j)}, j \in \{1, \ldots, k\}\).
+\item
+  Update the cluster memberships for each point.
+\item
+  Repeat steps 2 and 3 until the membership coefficients do not change,
+  or a user-defined tolerance or maximum number of iterations is
+  reached.
+\end{enumerate}
+
+The objective function of FCM - we abbreviate it as \(J_m\) - looks very
+similar to the within cluster sum-squared-error that we minimize in
+k-means:
+
+\[J_m = \sum_{i=1}^n\sum_{j=1}^k w^{m(i, j)} ||x^{(i)} - \mu^{(j)}||_2^2\]
+
+However, note that the membership indicator \(w^{(i, j)}\) is not a
+binary value as in k-means (\(w^{(i, j)} \in \{0, 1\}\)), but a real
+value that denotes that cluster membership probability
+(\(w^{(i, j)} \in [0, 1]\)). You also may have noticed that we added an
+additional exponent to \(w^{(i, j)}\); the exponent \(m\), any number
+greater than or equal to one (typically \(m=2\)), is the so-called
+\textbf{fuzziness coefficient} (or simply \textbf{fuzzfier}) that
+controls the degree of \emph{fuzziness}. The larger the value of \(m\)
+the smaller the cluster membership \(w^{(i, j)}\) becomes, which leads
+to fuzzier clusters. The cluster membership probability itself is
+calculated as follows:
+
+\[w^{(i, j)} = \left[\sum_{p=1}^k\left(\frac{||x^{(i)} - \mu^{(j)}||_2}{||x^{(i)} - \mu^{(p)}||_2}\right)^{\frac{2}{m-1}}\right]^{-1}\]
+
+The center \(\mu^{(j)}\) of a cluster itself is calculated as the mean
+of all samples weighted by the degree to which each sample belongs to
+that cluster (\[w^{m(i, j)}\]):
+
+\[\mu^{(j)} = \frac{\sum_{i=1}^n w^{m(i, j)} x^{(i)}}{\sum_{i=1}^n w^{m(i, j)}}\]
+
+Just by looking at the equation to calculate the cluster memberships, it
+is intuitive to say that each iteration in FCM is more expensive than an
+iteration in k-means. However, FCM typically requires fewer iterations
+overall to reach convergence. Unfortunately, the FCM algorithm is
+currently not implemented in scikit-learn. However, it has been found in
+practice that both k-means and FCM produce very similar clustering
+outputs.
+
+    \subsection{Using the elbow method to find the optimal number of
+clusters}\label{using-the-elbow-method-to-find-the-optimal-number-of-clusters}
+
+    One of the main challenges in unsupervised learning is that we do not
+know the definitive answer. We do not have the ground truth class labels
+in our dataset that allow us to apply the techniques that we used
+earlier, in order to evaluate the performance of a supervised model.
+Thus, to quantify the quality of clustering, we need to use intrinsic
+metrics - such as the within-cluster SSE (distortion) that we discussed
+earlier in this chapter - to compare the performance of different
+k-means clusterings. Conveniently, we do not need to compute the
+within-cluster SSE explicitly when we are using scikit-learn, as it is
+already accessible via the \emph{inertia\_} attribute after fitting a
+\emph{KMeans} model:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distortion: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{km}\PY{o}{.}\PY{n}{inertia\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Distortion: 72.48
+
+    \end{Verbatim}
+
+    Based on the within-cluster SSE, we can use a graphical tool, the
+so-called \textbf{elbow method}, to estimate the optimal number of
+clusters \(k\) for a given task. Intuitively, we can say that, if \(k\)
+increases, the distortion will decrease. This is because the samples
+will be closer to the centroids they are assigned to. The idea behind
+the elbow method is to identify the value of \(k\) where the distortion
+begins to increase most rapidly, which will become cleaner if we plot
+the distortion for different values of \(k\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{distortions} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{:}
+            \PY{n}{km} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{n}{i}\PY{p}{,} \PY{n}{init}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}means++}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{n\PYZus{}init}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{km}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+            \PY{n}{distortions}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{km}\PY{o}{.}\PY{n}{inertia\PYZus{}}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{,} \PY{n}{distortions}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distortion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting plot, the \emph{elbow} is located at
+\(k=3\), which is evidence that \(k=3\) is indeed a good choice for this
+dataset.
+
+    \subsection{Quantifying the quality of clustering via silhouette
+plots}\label{quantifying-the-quality-of-clustering-via-silhouette-plots}
+
+    Another intrinsic metric to evaluate the quality of a clustering is
+\textbf{silhouette analysis}, which can also be applied to clustering
+algorithm other than k-means that we will discuss later in this chapter.
+Silhouette analysis can be used as a graphical tool to plot a measure of
+how tightly grouped the samples in the clusters are. To calculate the
+\textbf{silhouette coefficient} of a single sample in our dataset, we
+can apply the following three steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Calculate the \textbf{cluster cohesion} \(a^{(i)}\) as the average
+  distance between a sample \(x^{(i)}\) and all other points in the same
+  cluster.
+\item
+  Calculate the \textbf{cluster separation} \(b^{(i)}\) from the next
+  closest cluster as the average distance between the sample \(x^{(i)}\)
+  and all samples in the nearest cluster.
+\item
+  Calculate the silhouette \(s^{(i)}\) as the difference between cluster
+  cohesion and separation divided by the greater of the two, as shown
+  here:
+\end{enumerate}
+
+\[s^{(i)} = \frac{b^{(i)}-a^{(i)}}{max\{b^{(t)}, a^{(t)}\}}\]
+
+The silhouette coefficient is bounded in the range -1 to 1. Based on the
+preceding equation, we can see that the silhouette coefficient is 0 if
+the cluster separation and cohesion are equal. Furthermore, we get close
+to an ideal silhouette coefficient of 1 if the cluster separation is
+greater than cohesion, since the separation quantifies how dissimilar a
+sample is to other clusters, and cohesion tells us how similar it is to
+the other samples in its own cluster.
+
+The silhouette coefficient is available as \emph{silhouette\_samples}
+from scikit-learn's \emph{metric} module, and optionally, the
+\emph{silhouette\_scores} function can be imported for convenience. The
+\emph{silhouette\_scores} function calculates the average silhouette
+coefficient across all samples, which is equivalent to
+\emph{numpy.mean(silhouette\_samples(...))}. By executing the following
+code, we will now create a plot of the silhouette coefficients for a
+k-means clustering with \(k=3\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{km} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{init}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}means++}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{n\PYZus{}init}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} 
+                    \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}04}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{y\PYZus{}km} \PY{o}{=} \PY{n}{km}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{cm}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{silhouette\PYZus{}samples}
+        
+        \PY{n}{cluster\PYZus{}labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y\PYZus{}km}\PY{p}{)}
+        \PY{n}{n\PYZus{}clusters} \PY{o}{=} \PY{n}{cluster\PYZus{}labels}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{silhouette\PYZus{}vals} \PY{o}{=} \PY{n}{silhouette\PYZus{}samples}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y\PYZus{}km}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{y\PYZus{}ax\PYZus{}lower}\PY{p}{,} \PY{n}{y\PYZus{}ax\PYZus{}upper} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}
+        \PY{n}{yticks} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{cluster\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+            \PY{n}{c\PYZus{}silhouette\PYZus{}vals} \PY{o}{=} \PY{n}{silhouette\PYZus{}vals}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{n}{c}\PY{p}{]}
+            \PY{n}{c\PYZus{}silhouette\PYZus{}vals}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+            \PY{n}{y\PYZus{}ax\PYZus{}upper} \PY{o}{+}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{c\PYZus{}silhouette\PYZus{}vals}\PY{p}{)}
+            \PY{n}{color} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{/}\PY{n}{n\PYZus{}clusters}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{y\PYZus{}ax\PYZus{}lower}\PY{p}{,} \PY{n}{y\PYZus{}ax\PYZus{}upper}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{c\PYZus{}silhouette\PYZus{}vals}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,} 
+                     \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{)}
+            \PY{n}{yticks}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}ax\PYZus{}lower} \PY{o}{+} \PY{n}{y\PYZus{}ax\PYZus{}upper}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.}\PY{p}{)}
+            \PY{n}{y\PYZus{}ax\PYZus{}lower} \PY{o}{+}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{c\PYZus{}silhouette\PYZus{}vals}\PY{p}{)}
+        \PY{n}{silhouette\PYZus{}avg} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{silhouette\PYZus{}vals}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{silhouette\PYZus{}avg}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{yticks}\PY{p}{,} \PY{n}{cluster\PYZus{}labels}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cluster}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Silhouette coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Through a visual inspection of the silhouette plot, we can quickly
+scrutinize the sizes of the different clusters and identify clusters
+that contain \emph{outliers}.
+
+However, as we can see in the preceding silhouette plot, the silhouette
+coefficients are not even close to 0, which is in this case an indicator
+of a good clustering. Furthermore, to summarize the goodness of our
+clustering, we added the average silhouette coefficient to the plot
+(dotted line).
+
+To see what a silhouette plot looks like for a relatively bad
+clustering, let's seed the k-means algorithm with only two centroids:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{km} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{init}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}means++}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{n\PYZus{}init}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}04}\PY{p}{,} 
+                    \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{y\PYZus{}km} \PY{o}{=} \PY{n}{km}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{km}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{km}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{centroids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting plot, one of the centroids falls between
+two of the three spherical groupings of the sample points. Although the
+clustering does not look completely terrible, it is suboptimal.
+
+Please keep in mind that we typically do not have the luxury of
+visualizing datasets in two-dimensional scatterplots in real-world
+problems, since we typically work with data in higher dimensions. So,
+next, we create the silhouette plot to evaluate the results:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{cluster\PYZus{}labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y\PYZus{}km}\PY{p}{)}
+        \PY{n}{n\PYZus{}clusters} \PY{o}{=} \PY{n}{cluster\PYZus{}labels}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{silhouette\PYZus{}vals} \PY{o}{=} \PY{n}{silhouette\PYZus{}samples}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y\PYZus{}km}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{y\PYZus{}ax\PYZus{}lower}\PY{p}{,} \PY{n}{y\PYZus{}ax\PYZus{}upper} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}
+        \PY{n}{yticks} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{cluster\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+            \PY{n}{c\PYZus{}silhouette\PYZus{}vals} \PY{o}{=} \PY{n}{silhouette\PYZus{}vals}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{n}{c}\PY{p}{]}
+            \PY{n}{c\PYZus{}silhouette\PYZus{}vals}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+            \PY{n}{y\PYZus{}ax\PYZus{}upper} \PY{o}{+}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{c\PYZus{}silhouette\PYZus{}vals}\PY{p}{)}
+            \PY{n}{color} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{jet}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{/}\PY{n}{n\PYZus{}clusters}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{barh}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{y\PYZus{}ax\PYZus{}lower}\PY{p}{,} \PY{n}{y\PYZus{}ax\PYZus{}upper}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{c\PYZus{}silhouette\PYZus{}vals}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,} 
+                     \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{)}
+            \PY{n}{yticks}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}ax\PYZus{}lower} \PY{o}{+} \PY{n}{y\PYZus{}ax\PYZus{}upper}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.}\PY{p}{)}
+            \PY{n}{y\PYZus{}ax\PYZus{}lower} \PY{o}{+}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{c\PYZus{}silhouette\PYZus{}vals}\PY{p}{)}
+        \PY{n}{silhouette\PYZus{}avg} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{silhouette\PYZus{}vals}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{silhouette\PYZus{}avg}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{yticks}\PY{p}{,} \PY{n}{cluster\PYZus{}labels}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cluster}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Silhouette coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting plot, the silhouettes now have visibly
+different lengths and widths, which is a evidence for a relatively bad
+or at least suboptimal clustering.
+
+    \section{Organizing clusters as a hierarchical
+tree}\label{organizing-clusters-as-a-hierarchical-tree}
+
+    In ths section, we will take a look at an alternative approach to
+prototype-based clustering: \textbf{hierarchical clustering}. One
+advantage of hierarchical clustering algorithms is that it allows us to
+plot \textbf{dendrograms} (visualization of a binary hierarchical
+clustering), which can help with the interpretation of the results by
+creating meaningful taxonomies. Another useful advantage is this
+hierarchical approach is that we do not need to specify the number of
+clusters up front.
+
+The two main approaches to hierarchical clustering are
+\textbf{agglomerative} and \textbf{divisive} hierarchical clustering. In
+diviside hierarchical clustering, we start with one cluster that
+encompasses all our samples, and we iteratively split the cluster into
+smaller clusters until each cluster only contains one sample. In this
+section, we will focus on agglomerative clustering, which takes the
+opposite approach. We start with each sample as an individual cluster
+and merge the closest pairs of clusters until only one cluster remains.
+
+    \subsection{Grouping clusters in bottom-up
+fashion}\label{grouping-clusters-in-bottom-up-fashion}
+
+    The two standard algorithms for agglomerative hierarchical clustering
+are \textbf{single linkage} and \textbf{complete linkage}. Using single
+linkage, we compute the distances between the most similar members for
+each pair of clusters and merge the two clusters for which the distance
+between the most similar members is the smallest. The complete linkage
+approach is similar to single linkage but, instead of comparing the most
+similar members in each pair of clusters, we compare the most dissimilar
+members to perform the merge. This is shown in the following diagram:
+
+Other commonly used algorithms for agglomerative hierarchical clustering
+include \textbf{average linkage} and \textbf{Ward's linkage}. In average
+linkage, we merge the cluster pairs based on the minimum average
+distances between all group members in the two clusters. In Ward's
+linkage, the two clusters that lead to the minimum increase of the total
+within-cluster SSE are merged.
+
+In this section, we will focus on agglomerative clustering using the
+complete linkage approach. Hierarchical complete linkage clustering is
+an iterative procedure that can be summarized by the following steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Compute the distance matrix of all samples.
+\item
+  Represent each data point as a singleton cluster.
+\item
+  Merge the two closest clusters based on the distance between the most
+  dissmilar (distant) members.
+\item
+  Update the similarity matrix.
+\item
+  Repeat steps 2-4 until one single cluster remains.
+\end{enumerate}
+
+Next, we will discuss how to compute the distance matrix (step 1). But
+first, let's generate some random sample data to work with: the rows
+represent different observations (IDs 0-4), and the columns are the
+different features (\emph{X, Y, Z}) of those samples:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{123}\PY{p}{)}
+         \PY{n}{variables} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Z}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID\PYZus{}0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID\PYZus{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ID\PYZus{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random\PYZus{}sample}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{10}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{variables}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{labels}\PY{p}{)}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}              X         Y         Z
+         ID\_0  6.964692  2.861393  2.268515
+         ID\_1  5.513148  7.194690  4.231065
+         ID\_2  9.807642  6.848297  4.809319
+         ID\_3  3.921175  3.431780  7.290497
+         ID\_4  4.385722  0.596779  3.980443
+\end{Verbatim}
+            
+    \subsection{Performing hierarchical clustering on a distance
+matrix}\label{performing-hierarchical-clustering-on-a-distance-matrix}
+
+    To calculate the distance matrix as input for the hierarchical
+clustering algorithm, we will use the \emph{pdist} function from SciPy's
+\emph{spatial.distance} submodule:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{spatial}\PY{n+nn}{.}\PY{n+nn}{distance} \PY{k}{import} \PY{n}{pdist}\PY{p}{,} \PY{n}{squareform}
+         
+         \PY{n}{row\PYZus{}dist} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{squareform}\PY{p}{(}\PY{n}{pdist}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                                 \PY{n}{columns}\PY{o}{=}\PY{n}{labels}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{labels}\PY{p}{)}
+         \PY{n}{row\PYZus{}dist}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}           ID\_0      ID\_1      ID\_2      ID\_3      ID\_4
+         ID\_0  0.000000  4.973534  5.516653  5.899885  3.835396
+         ID\_1  4.973534  0.000000  4.347073  5.104311  6.698233
+         ID\_2  5.516653  4.347073  0.000000  7.244262  8.316594
+         ID\_3  5.899885  5.104311  7.244262  0.000000  4.382864
+         ID\_4  3.835396  6.698233  8.316594  4.382864  0.000000
+\end{Verbatim}
+            
+    Using the preceding code, we calculated the Euclidean distance between
+each pair of sample points in our dataset based on the features
+\emph{X}, \emph{Y}, and \emph{Z}. We provided the condensed distance
+matrix - returned by \emph{pdist} - as input to the \emph{squareform}
+function to create a symmetrical matrix of the pair-wise distances.
+
+Next, we will apply the complete linkage agglomeration to our clusters
+using the \emph{linkage} function from SciPy's
+\emph{cluster.hierarchical} submodule, which returns a so-called
+\textbf{linkage matrix}.
+
+However, before we call the \emph{linkage} function, let us take a
+careful look at the function documentation:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{cluster}\PY{n+nn}{.}\PY{n+nn}{hierarchy} \PY{k}{import} \PY{n}{linkage}
+         \PY{n}{help}\PY{p}{(}\PY{n}{linkage}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Help on function linkage in module scipy.cluster.hierarchy:
+
+linkage(y, method='single', metric='euclidean', optimal\_ordering=False)
+    Perform hierarchical/agglomerative clustering.
+    
+    The input y may be either a 1d compressed distance matrix
+    or a 2d array of observation vectors.
+    
+    If y is a 1d compressed distance matrix,
+    then y must be a :math:`\{n \textbackslash{}choose 2\}` sized
+    vector where n is the number of original observations paired
+    in the distance matrix. The behavior of this function is very
+    similar to the MATLAB linkage function.
+    
+    A :math:`(n-1)` by 4 matrix ``Z`` is returned. At the
+    :math:`i`-th iteration, clusters with indices ``Z[i, 0]`` and
+    ``Z[i, 1]`` are combined to form cluster :math:`n + i`. A
+    cluster with an index less than :math:`n` corresponds to one of
+    the :math:`n` original observations. The distance between
+    clusters ``Z[i, 0]`` and ``Z[i, 1]`` is given by ``Z[i, 2]``. The
+    fourth value ``Z[i, 3]`` represents the number of original
+    observations in the newly formed cluster.
+    
+    The following linkage methods are used to compute the distance
+    :math:`d(s, t)` between two clusters :math:`s` and
+    :math:`t`. The algorithm begins with a forest of clusters that
+    have yet to be used in the hierarchy being formed. When two
+    clusters :math:`s` and :math:`t` from this forest are combined
+    into a single cluster :math:`u`, :math:`s` and :math:`t` are
+    removed from the forest, and :math:`u` is added to the
+    forest. When only one cluster remains in the forest, the algorithm
+    stops, and this cluster becomes the root.
+    
+    A distance matrix is maintained at each iteration. The ``d[i,j]``
+    entry corresponds to the distance between cluster :math:`i` and
+    :math:`j` in the original forest.
+    
+    At each iteration, the algorithm must update the distance matrix
+    to reflect the distance of the newly formed cluster u with the
+    remaining clusters in the forest.
+    
+    Suppose there are :math:`|u|` original observations
+    :math:`u[0], \textbackslash{}ldots, u[|u|-1]` in cluster :math:`u` and
+    :math:`|v|` original objects :math:`v[0], \textbackslash{}ldots, v[|v|-1]` in
+    cluster :math:`v`. Recall :math:`s` and :math:`t` are
+    combined to form cluster :math:`u`. Let :math:`v` be any
+    remaining cluster in the forest that is not :math:`u`.
+    
+    The following are methods for calculating the distance between the
+    newly formed cluster :math:`u` and each :math:`v`.
+    
+      * method='single' assigns
+    
+        .. math::
+           d(u,v) = \textbackslash{}min(dist(u[i],v[j]))
+    
+        for all points :math:`i` in cluster :math:`u` and
+        :math:`j` in cluster :math:`v`. This is also known as the
+        Nearest Point Algorithm.
+    
+      * method='complete' assigns
+    
+        .. math::
+           d(u, v) = \textbackslash{}max(dist(u[i],v[j]))
+    
+        for all points :math:`i` in cluster u and :math:`j` in
+        cluster :math:`v`. This is also known by the Farthest Point
+        Algorithm or Voor Hees Algorithm.
+    
+      * method='average' assigns
+    
+        .. math::
+           d(u,v) = \textbackslash{}sum\_\{ij\} \textbackslash{}frac\{d(u[i], v[j])\}
+                                   \{(|u|*|v|)\}
+    
+        for all points :math:`i` and :math:`j` where :math:`|u|`
+        and :math:`|v|` are the cardinalities of clusters :math:`u`
+        and :math:`v`, respectively. This is also called the UPGMA
+        algorithm.
+    
+      * method='weighted' assigns
+    
+        .. math::
+           d(u,v) = (dist(s,v) + dist(t,v))/2
+    
+        where cluster u was formed with cluster s and t and v
+        is a remaining cluster in the forest. (also called WPGMA)
+    
+      * method='centroid' assigns
+    
+        .. math::
+           dist(s,t) = ||c\_s-c\_t||\_2
+    
+        where :math:`c\_s` and :math:`c\_t` are the centroids of
+        clusters :math:`s` and :math:`t`, respectively. When two
+        clusters :math:`s` and :math:`t` are combined into a new
+        cluster :math:`u`, the new centroid is computed over all the
+        original objects in clusters :math:`s` and :math:`t`. The
+        distance then becomes the Euclidean distance between the
+        centroid of :math:`u` and the centroid of a remaining cluster
+        :math:`v` in the forest. This is also known as the UPGMC
+        algorithm.
+    
+      * method='median' assigns :math:`d(s,t)` like the ``centroid``
+        method. When two clusters :math:`s` and :math:`t` are combined
+        into a new cluster :math:`u`, the average of centroids s and t
+        give the new centroid :math:`u`. This is also known as the
+        WPGMC algorithm.
+    
+      * method='ward' uses the Ward variance minimization algorithm.
+        The new entry :math:`d(u,v)` is computed as follows,
+    
+        .. math::
+    
+           d(u,v) = \textbackslash{}sqrt\{\textbackslash{}frac\{|v|+|s|\}
+                               \{T\}d(v,s)\^{}2
+                        + \textbackslash{}frac\{|v|+|t|\}
+                               \{T\}d(v,t)\^{}2
+                        - \textbackslash{}frac\{|v|\}
+                               \{T\}d(s,t)\^{}2\}
+    
+        where :math:`u` is the newly joined cluster consisting of
+        clusters :math:`s` and :math:`t`, :math:`v` is an unused
+        cluster in the forest, :math:`T=|v|+|s|+|t|`, and
+        :math:`|*|` is the cardinality of its argument. This is also
+        known as the incremental algorithm.
+    
+    Warning: When the minimum distance pair in the forest is chosen, there
+    may be two or more pairs with the same minimum distance. This
+    implementation may choose a different minimum than the MATLAB
+    version.
+    
+    Parameters
+    ----------
+    y : ndarray
+        A condensed distance matrix. A condensed distance matrix
+        is a flat array containing the upper triangular of the distance matrix.
+        This is the form that ``pdist`` returns. Alternatively, a collection of
+        :math:`m` observation vectors in :math:`n` dimensions may be passed as
+        an :math:`m` by :math:`n` array. All elements of the condensed distance
+        matrix must be finite, i.e. no NaNs or infs.
+    method : str, optional
+        The linkage algorithm to use. See the ``Linkage Methods`` section below
+        for full descriptions.
+    metric : str or function, optional
+        The distance metric to use in the case that y is a collection of
+        observation vectors; ignored otherwise. See the ``pdist``
+        function for a list of valid distance metrics. A custom distance
+        function can also be used.
+    optimal\_ordering : bool, optional
+        If True, the linkage matrix will be reordered so that the distance
+        between successive leaves is minimal. This results in a more intuitive
+        tree structure when the data are visualized. defaults to False, because
+        this algorithm can be slow, particularly on large datasets [2]\_. See 
+        also the `optimal\_leaf\_ordering` function.
+        
+        .. versionadded:: 1.0.0
+    
+    Returns
+    -------
+    Z : ndarray
+        The hierarchical clustering encoded as a linkage matrix.
+    
+    Notes
+    -----
+    1. For method 'single' an optimized algorithm based on minimum spanning
+       tree is implemented. It has time complexity :math:`O(n\^{}2)`.
+       For methods 'complete', 'average', 'weighted' and 'ward' an algorithm
+       called nearest-neighbors chain is implemented. It also has time
+       complexity :math:`O(n\^{}2)`.
+       For other methods a naive algorithm is implemented with :math:`O(n\^{}3)`
+       time complexity.
+       All algorithms use :math:`O(n\^{}2)` memory.
+       Refer to [1]\_ for details about the algorithms.
+    2. Methods 'centroid', 'median' and 'ward' are correctly defined only if
+       Euclidean pairwise metric is used. If `y` is passed as precomputed
+       pairwise distances, then it is a user responsibility to assure that
+       these distances are in fact Euclidean, otherwise the produced result
+       will be incorrect.
+    
+    See Also
+    --------
+    scipy.spatial.distance.pdist : pairwise distance metrics
+    
+    References
+    ----------
+    .. [1] Daniel Mullner, "Modern hierarchical, agglomerative clustering
+           algorithms", :arXiv:`1109.2378v1`.
+    .. [2] Ziv Bar-Joseph, David K. Gifford, Tommi S. Jaakkola, "Fast optimal
+           leaf ordering for hierarchical clustering", 2001. Bioinformatics
+           https://doi.org/10.1093/bioinformatics/17.suppl\_1.S22
+    
+    Examples
+    --------
+    >>> from scipy.cluster.hierarchy import dendrogram, linkage
+    >>> from matplotlib import pyplot as plt
+    >>> X = [[i] for i in [2, 8, 0, 4, 1, 9, 9, 0]]
+    
+    >>> Z = linkage(X, 'ward')
+    >>> fig = plt.figure(figsize=(25, 10))
+    >>> dn = dendrogram(Z)
+    
+    >>> Z = linkage(X, 'single')
+    >>> fig = plt.figure(figsize=(25, 10))
+    >>> dn = dendrogram(Z)
+    >>> plt.show()
+
+
+    \end{Verbatim}
+
+    Based on the function description, we conclude that we can use a
+condensed distance matrix (upper triangular) from the \emph{pdist}
+function as an input attribute. Alternatively, we could also provide the
+initial data array and use the \emph{'euclidean'} metric as a fuction
+argument in \emph{linkage}. However, we should not use the
+\emph{squareform} distance matrix that we defined earlier, since it
+would yield different distance values than expected. To sum it up, the
+three possible scenarios are listed here: * Incorrect approach: Using
+the \emph{squareform} distance matrix would lead to incorrect results. *
+Correct approach: Using the condensed distance matrix yields the correct
+pairwise distance matrix. * Correct approach: Using the complete input
+sample matrix also leads to a correct distance matrix similar to the
+preceding approach.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{cluster}\PY{n+nn}{.}\PY{n+nn}{hierarchy} \PY{k}{import} \PY{n}{linkage}
+         
+         \PY{n}{row\PYZus{}clusters} \PY{o}{=} \PY{n}{linkage}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{complete}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    To take a closer look at the clustering results, we can turn clustering
+results into a pandas \emph{DataFrame} (best viewed in a Jupyter
+Notebook) as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{row\PYZus{}clusters}\PY{p}{,} 
+                      \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row label 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row label 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no. of items in clust.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                      \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{row\PYZus{}clusters}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}            row label 1  row label 2  distance  no. of items in clust.
+         cluster 1          0.0          4.0  3.835396                     2.0
+         cluster 2          1.0          2.0  4.347073                     2.0
+         cluster 3          3.0          5.0  5.899885                     3.0
+         cluster 4          6.0          7.0  8.316594                     5.0
+\end{Verbatim}
+            
+    As shown in the preceding \emph{DataFrame}, the linkage matrix consists
+of several rows where each row represents one merge. The first and
+second columns denote the most dissimilar members in each cluster, and
+the third row reports the distance between those members. The last
+column returns the count of the members in each cluster.
+
+Now that we have computed the linkage matrix, we can visualize the
+results in the form of a dendrogram:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{cluster}\PY{n+nn}{.}\PY{n+nn}{hierarchy} \PY{k}{import} \PY{n}{dendrogram}
+         
+         \PY{n}{row\PYZus{}dendr} \PY{o}{=} \PY{n}{dendrogram}\PY{p}{(}\PY{n}{row\PYZus{}clusters}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{labels}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Euclidean distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Such as dendrogram summarizes the different clusters that were formed
+during the agglomerative hierarchical clustering; for example, we can
+see that the samples \emph{ID\_0} and \emph{ID\_4}, followed by
+\emph{ID\_1} and \emph{ID\_2}, are the most similar ones based on the
+Euclidean distance metric.
+
+    \subsection{Attaching dendrograms to a heat
+map}\label{attaching-dendrograms-to-a-heat-map}
+
+    In practical application, hierarchical clustering algorithms are often
+used in combination with a \textbf{heat map}, which allows us to
+represent the individual values in the sample matrix with a color code.
+In this section, we will discuss how to attach a dendrogram to a heat
+map plot and order the rows in the heat map correspondingly.
+
+However, attaching a dendrogram to a heat map can be a little bit
+trickly, so let's go through this procedure step by step:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We create a new \emph{figure} object and define the \emph{x} axis
+  position, \emph{y} axis position, width, and height of the dendrogram
+  via the \emph{add\_axes} attribute. Furthermore, we rotate the
+  dendrogram 90 degrees counter-clockwise.
+\item
+  Next, we reorder the data in our initial \emph{DataFrame} according to
+  the clustering labels that can be accessed from the dendrogram object,
+  which is essentially a Python dictionary, via the \emph{leaves} key.
+\item
+  Now, we construct the heat map from the reordered \emph{DataFrame} and
+  position it next to the dendrogram.
+\item
+  Finally, we will modify the aesthetics of the dendrogram by removing
+  the axis ticks and hiding the axis spines. Also, we will add a color
+  bar and assign the feature and sample names to the \emph{x} and
+  \emph{y} axis tick labels, respectively.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{facecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axd} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}axes}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.09}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{]}\PY{p}{)}
+         \PY{n}{row\PYZus{}dendr} \PY{o}{=} \PY{n}{dendrogram}\PY{p}{(}\PY{n}{row\PYZus{}clusters}\PY{p}{,} \PY{n}{orientation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{df\PYZus{}rowclust} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{row\PYZus{}dendr}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{leaves}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{axm} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}axes}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.23}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{]}\PY{p}{)}
+         \PY{n}{cax} \PY{o}{=} \PY{n}{axm}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{df\PYZus{}rowclust}\PY{p}{,} \PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hot\PYZus{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{axd}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{axd}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{axd}\PY{o}{.}\PY{n}{spines}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{i}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{cax}\PY{p}{)}
+         \PY{n}{axm}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}rowclust}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}
+         \PY{n}{axm}\PY{o}{.}\PY{n}{set\PYZus{}yticklabels}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}rowclust}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see, the order of the rows in the heat map reflects the
+clustering of the samples in the dendrogram. In addition to a simple
+dendrogram, the color-coded values of each sample and feature in the
+heat map provide us with a nice summary of the dataset.
+
+    \subsection{Applying agglomerative clustering via
+scikit-learning}\label{applying-agglomerative-clustering-via-scikit-learning}
+
+    In the previous subsection, we saw how to perform agglomerative
+hierarchical clustering using SciPy. However, there is also an
+\emph{AgglomerativeClustering} implementation in scikit-learn, which
+allows us to choose the number of clusters that we want to return. This
+is useful if we want to prune the hierarchical cluster tree. By setting
+the \emph{n\_cluster} parameter to 3, we will now cluster the samples
+into three groups using the same complete linkage approach based on the
+Euclidean distance metric, as before:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{AgglomerativeClustering}
+         
+         \PY{n}{ac} \PY{o}{=} \PY{n}{AgglomerativeClustering}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} 
+                                      \PY{n}{affinity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{n}{linkage}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{complete}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{ac}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cluster labels: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{labels}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cluster labels: [1 0 0 2 1]
+
+    \end{Verbatim}
+
+    Looking at the predicted cluster labels, we can see that the first and
+fifth sample (\emph{ID\_0} and \emph{ID\_4}) were assigned to one
+cluster (label 1), and the samples \emph{ID\_1} and \emph{ID\_2} were
+assigned to a second cluster (label 0). The sample \emph{ID\_3} was put
+into its own cluster (label 2). Overall, the results are consistent with
+the results that we observed in the dendrogram. We shall note though
+that \emph{ID\_3} is more similar to \emph{ID\_4} and \emph{ID\_0} than
+to \emph{ID\_1} and \emph{ID\_2}, as shown in the preceding dendrogram
+figure; this is not clear from scikit-learn's clustering results. Let's
+now rerun the \emph{AgglomerativeClustering} using \emph{n\_clusters=2}
+in the following code snippet:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{ac} \PY{o}{=} \PY{n}{AgglomerativeClustering}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} 
+                                      \PY{n}{affinity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{n}{linkage}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{complete}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{ac}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cluster labels: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{labels}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cluster labels: [0 1 1 0 0]
+
+    \end{Verbatim}
+
+    As we can see, in this \emph{pruned} clustering hierarchy, label
+\emph{ID\_3} was not assigned to the same cluster as \emph{ID\_0} and
+\emph{ID\_4}, as expected.
+
+    \section{Locating regions of high density via
+DBSCAN}\label{locating-regions-of-high-density-via-dbscan}
+
+    Although we cannot cover the vast amount of different clustering
+algorithms in this chapter, let's at least introduce one more approach
+to clustering: \textbf{Density-based Spatial Clustering of Applications
+with Noise (DBSCAN)}, which does not make assumptions about spherical
+clusters like k-means, nor does it partition the dataset into
+hierarchies that require a manual cut-off point. As it name implies,
+density-based clustering assigns clusters labels based on dense regions
+of points. In DBSCAN, the notion of density is defined as the number of
+points within a specified radius \(\epsilon\).
+
+According to the DBSCAN algorithm, a special label is assigned to each
+sample (point) using the following criteria:
+
+\begin{itemize}
+\tightlist
+\item
+  A point is considered a \textbf{core point} if at least a specified
+  number (MinPts) of neighboring poits fall within the specified radius
+  \(\epsilon\).
+\item
+  A \textbf{border point} is a point that has fewer neighbors than
+  MinPts within \(\epsilon\), but lies within the \(\epsilon\) radius of
+  a core point.
+\item
+  All other points that are neither core nor border points are
+  considered \textbf{noise points}.
+\end{itemize}
+
+After labeling the points as core, border, or noise, the DBSCAN
+algorithm can be summarized in two simple steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Form a separate cluster for each core point or connected group of core
+  points (core points are connected if they are no farther away than
+  \(\epsilon\)).
+\item
+  Assign each border point to the cluster of its corresponding core
+  point.
+\end{enumerate}
+
+To get a better understanding of what the result of DBSCAN can look like
+before jumping to the implementation, let's summarize what we have just
+learned about core points, border points, and noise points in the
+following figure:
+
+    One of the main advantages of using DBSCAN is that it does not assume
+that the clusters have a spherical shape as in k-means. Furthermore,
+DBSCAN is different from k-means and hierarchical clustering in that it
+does not necessarily assign each point to a cluster but is capable of
+removing noise points.
+
+For a more illustrative example, let's create a new dataset of
+half-moon-shaped structures to compare k-means clustering, hierarchical
+clustering, and DBSCAN:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{make\PYZus{}moons}
+         
+         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{make\PYZus{}moons}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{noise}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_65_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting plot, there are two visible,
+half-moon-shaped groups consisting of 100 sample points each.
+
+We will start by using the k-means algorithm and complete linkage
+clustering to see if one of those previously discussed clustering
+algorithms can successfully identify the half-moon shapes as separate
+clusters. The code is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{f}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{km} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{y\PYZus{}km} \PY{o}{=} \PY{n}{km}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}km}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K\PYZhy{}means clustering}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ac} \PY{o}{=} \PY{n}{AgglomerativeClustering}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} 
+                                      \PY{n}{affinity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                      \PY{n}{linkage}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{complete}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{y\PYZus{}ac} \PY{o}{=} \PY{n}{ac}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}ac}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}ac}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}ac}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}ac}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Agglomerative clustering}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Based on the visualized clustering results, we can see that the k-means
+algorithm is unable to separate the two cluster, and also the
+hierarchical clustering algorithm was challenged by those complex
+shapes.
+
+Finally, let us try the DBSCAN algorithm on this dataset to see if it
+can find the two half-moon-shaped clusters using a density-based
+approach:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{DBSCAN}
+         
+         \PY{n}{db} \PY{o}{=} \PY{n}{DBSCAN}\PY{p}{(}\PY{n}{eps}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{min\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{y\PYZus{}db} \PY{o}{=} \PY{n}{db}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}db}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}db}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}db}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y\PYZus{}db}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The DBSCAN algorithm can successfully detect the half-moon shapes, which
+highlights one of the strengths of DBSCAN: clustering data of arbitrary
+shapes.
+
+However, we shall also note some of the disadvantages of DBSCAN. With an
+increasing number of features in our dataset - assuming a fixed number
+of training examples - the negative effect of the \textbf{curse of
+dimensionality} increases. This is specially a problem if we are using
+the Euclidean distance metric. However, the problem of the \emph{curse
+of dimensionality} is not unique to DBSCAN; it also affects other
+clustering algorithms that use the Euclidean distance metric, for
+example, k-means and hierarchical clustering algorithms. In addition, we
+have two hyperparameters in DBSCAN (MinPts and \(\epsilon\)) that need
+to be optimized to yield good clustering results. Findind a good
+combination of MinPts and \(\epsilon\) can be problematic if the density
+differences in the dataset are relatively large.
+
+So far, we have seen three of the most fundamental categories of
+clustering algorithms: prototype-based clustering with k-means,
+agglomerative hierarchical clustering, and density-based clustering via
+DBSCAN. However, I also want to mention a fourth class of more advanced
+clustering algorithms that we have not covered in this chapter:
+\textbf{graph-based clustering}. Probably, the most proeminent member of
+the graph-based clustering family is the \textbf{spectral clustering}
+algorithms. Although there are many different implementations of
+spectral clustering, they all have in common that they use the
+eigenvectors of a similarity or distance matrix to derive the cluster
+relationships.
+
+Note that, in practice, it is not always obvious which clustering will
+perform best on a given dataset, especially if the data comes in
+multiple dimensions that make it hard or impossible to visualize.
+Furthermore, it is important to emphasize that a successful clustering
+not only depends on the algorithm and its hyperparameters. Rather, the
+choice of an appropriate distance metric and the use of domain knowledge
+that can help guide the experimental setup can be even more important.
+
+In the context of the curse of dimensionality, it is thus common
+practice to apply dimensionality reduction techniques prior to
+performing clustering. Such dimensionality reduction techniques for
+unsupervised datasets include principal component analysis and RBF
+kernel principal component analysis, which we covered in a previous
+chapter. Also, it is particularly common to compress dataset down to
+two-dimensional subspaces, which allows us to visualize the clusters and
+assigned labels using two-dimensional scatterplots, which are
+particularly helpful for evaluating the results.
+
+    \section{Summary}\label{summary}
+
+    In this chapter, you learned about three different clustering algorithms
+that can help us with the discovery of hidden structures or information
+in data. We started this chapter with a prototype-based approach,
+k-means, which clusters samples into spherical shapes based on a
+specified number of cluster centroids. Since clustering is an
+unsupervised method, we do not enjoy the luxury of ground truth labels
+to evaluate the performance of the model. Thus, we used intrinsic
+performance metrics such as the elbow method or silhouette analysis as
+an attempt to quantify the quality of clustering.
+
+We then looked at a different approach to clustering: agglomerative
+hierarchical clustering. Hierarchical clustering does not require
+specifying the number of clusters up front, and the result can be
+visualized in a dendrogram representation, which can help with the
+interpretation of the results. The last clustering algorithm that we saw
+in this chapter was DBSCAN, an algorithm that groups points based on
+local densities and is capable of handling outliers and identifying
+non-globular shapes.
+
+After this excursion into the field of unsupervised learning, it is now
+about time to introduce some of the most exciting machine learning
+algorithms for supervised learning: multilayer artificial neural
+networks. After their recent resurgence, neural networks are once again
+the hottest topic in machine learning research. Thanks to recently
+developed deep learning algorithms, neural networks are considered
+state-of-art for many complex tasks such as image classification and
+speech recognition. In the nexts two chapters, we will construct our own
+multilayer neural network from scratch and introduce powerful libraries
+that can help us to train complex network architectures most
+efficiently.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

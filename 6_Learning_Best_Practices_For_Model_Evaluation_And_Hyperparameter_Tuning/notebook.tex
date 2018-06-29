@@ -1,0 +1,1527 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{6\_Learning\_Best\_Practices\_For\_Model\_Evaluation\_And\_Hyperparameter\_Tuning}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Learning Best Practices for Model Evaluation and Hyperparameter
+Tuning}\label{learning-best-practices-for-model-evaluation-and-hyperparameter-tuning}
+
+    In the previous chapter, you learned about the essential machine
+learning algorithms for classification and how to get our data into
+shape before we feed it into those algorithms. Now, it's time to learn
+about the best practices of building good machine learning models by
+fine-tuning the algorithms and evaluating the model's performance. In
+this chapter, we will learn how to do the following: * Obtain unbiased
+estimates of a model's performance. * Diagnose the common problems of
+machine learning algorithms. * Fine-tune machine learning models. *
+Evaluate predictive models using different performance metrics.
+
+    \section{Streamlining workflows with
+pipelines}\label{streamlining-workflows-with-pipelines}
+
+    When we applied different preprocessing techniques in the previous
+chapters, such as standardization for feature scale or principal
+component analysis for data compression, you learned that we have to
+reuse the parameters that we obtained during the fitting of the training
+data to scale and compress any new data, such as the samples in the
+separate test dataset. In this section, you will learn about an
+extremely handy tool, the \emph{Pipeline} class in scikit-learn. It
+allows us to fit a model including an arbitrary number of transformation
+steps and apply it to make predictions about new data.
+
+    \section{Loading the Breast Cancer Wisconsin
+dataset}\label{loading-the-breast-cancer-wisconsin-dataset}
+
+    In this chapter, we will be working with the Breast Cancer Wisconsin
+dataset, which contains 569 samples of malignant and benign tumor cells.
+The first two columns in the dataset store the unique ID numbers of the
+samples and the corresponding diagnoses (\emph{M} = malignant, \emph{B}
+= belign), respectively. Columns 3-32 contain 30 real-valued features
+that have been computed from digitized images of the cell nuclei, which
+can be used to build a model to predict whether a tumor is benign or
+malignant. The Breast Cancer Wisconsin dataset has been deposited in the
+UCI Machine Learning Repository.
+
+    In this section, we willl read the dataset and split it to training and
+test datasets in three simple steps:
+
+\begin{itemize}
+\tightlist
+\item
+  We will start by reading in the dataset using \emph{pandas}:
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{c+c1}{\PYZsh{} df = pd.read\PYZus{}csv(\PYZsq{}https://archive.ics.uci.edu/ml/\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}                  \PYZsq{}machine\PYZhy{}learning\PYZhy{}databases/\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}                  \PYZsq{}breast\PYZhy{}cancer\PYZhy{}wisconsin/\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}                  \PYZsq{}wdbc.data\PYZsq{})}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wdbc.data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  Next, we assign the 30 features to a NumPy array \emph{x}. Using a
+  \emph{LabelEncoder} object, we transform the class labels from their
+  original string representation ('M' and 'B') into integer:
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}
+        
+        \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{le} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{le}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+        \PY{n}{le}\PY{o}{.}\PY{n}{classes\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} array(['B', 'M'], dtype=object)
+\end{Verbatim}
+            
+    After encoding the class labels (diagnosis) in an array \emph{y}, the
+malignant tumors are now represented as class 1, and the benign tumors
+are represented as class 0, respectively. We can double-check this
+mapping by calling the \emph{transform} method of the fitted
+\emph{LabelEncoder} on two dummy class labels:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{le}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} array([1, 0])
+\end{Verbatim}
+            
+    \begin{itemize}
+\tightlist
+\item
+  Before we construct our first model pipeline in the following
+  subsection, let us divide the dataset into a separate training dataset
+  (80 percent of the data) and a separate test dataset (20 percent of
+  the data):
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PYZbs{}
+            \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.20}\PY{p}{,} \PY{n}{stratify}\PY{o}{=}\PY{n}{y}\PY{p}{,} 
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Combining transformers and estimators in a
+pipeline}\label{combining-transformers-and-estimators-in-a-pipeline}
+
+    In the previous chapter, you learned that many learning algorithms
+require input features on the same scale for optimal performance. Thus,
+we need to standardize the columns in the Breast Cancer Wisconsin
+dataset before we can feed them to a linear classifier, such as logistic
+regression. Furthermore, let's assume that we want to compress our data
+from the initial 30 dimensions onto a lower two-dimensional subspace via
+\textbf{Principal Component Analysis (PCA)}, a feature extraction
+technique for dimensionality reduction.
+
+Instead of going though the fitting and transformation steps for the
+training and test datasets separately, we can chain the
+\emph{StandardScaler}, \emph{PCA} and \emph{LogisticRegression} objects
+in a pipeline:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{make\PYZus{}pipeline}
+        
+        \PY{n}{pipe\PYZus{}lr} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+                                \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} 
+                                \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pipe\PYZus{}lr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{pipe\PYZus{}lr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{pipe\PYZus{}lr}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test Accuracy: 0.956
+
+    \end{Verbatim}
+
+    The \emph{make\_pipeline} function takes an arbitrary number of
+scikit-learn transformers (objects that support the \emph{fit} and
+\emph{transform} methods as input), followed by a scikit-learn estimator
+that implements the \emph{fit} and \emph{predict} methods. In our
+preceding code example, we provided two transformers,
+\emph{StandardScaler} and \emph{PCA}, and a \emph{LogisticRegression}
+estimator as inputs to the \emph{make\_pipeline} function, which
+constructs a scikit-learn \emph{Pipeline} object from these objects.
+
+We can think of a scikit-learn \emph{Pipeline} as a meta-estimator or
+wrapper around those individual transformers and estimators. If we call
+the \emph{fit} method of \emph{Pipeline}, the data will be passed down a
+series of transformers via \emph{fit} and \emph{transform} calls on
+these intermediate steps until it arrives at the estimator object (the
+final element in a pipeline). The estimator will then be fitted to the
+transformed training data.
+
+We we executed the \emph{fit} method on the \emph{pipe\_lr} pipeline in
+the preceding code example, \emph{StandardScaler} first performed
+\emph{fit} and \emph{transform} calls on the training data. Second, the
+transformed training data was passed on to the next object in the
+pipeline, \emph{PCA}. Similar to the previous step, \emph{PCA} also
+executed \emph{fit} and \emph{transform} on the scaled input data and
+passed it to the final element of the pipeline, the estimator.
+
+Finally, the \emph{LogisticRegression} estimator was fit to the training
+data after it underwent transformations via \emph{StandardScaler} and
+\emph{PCA}. Again, we should note that there is no limit to the number
+of intermediate steps in a pipeline; however, the last pipeline element
+has to be an esimator.
+
+Similar to calling \emph{fit} on the pipeline, pipelines also implement
+a \emph{predict} method. If we feed a dataset to the \emph{predict} call
+of a \emph{Pipeline} object instance, the data will be pass through the
+intermediate steps via \emph{transform} calls. In the final step, the
+estimator object will then return a prediction on the transformed data.
+
+The pipelines of scikit-learn library are immensely useful wrapper
+tools, which we will use frequently throughout the rest of this book. To
+make sure that you have got a good grasp of how \emph{Pipeline} objects
+works, please take a close look at the following illustration, which
+summarize our discussion from the previous paragraphs:
+
+    \section{Using k-fold cross-validation to assess model
+performance}\label{using-k-fold-cross-validation-to-assess-model-performance}
+
+    One of the key steps in building a machine learning model is to estimate
+its performance on data that the model has not seen before. Let's assume
+that we fit our model on training dataset and use the same data to
+estimate how well it performs on new data. We remember that a model can
+either suffer from underfitting (high bias) if the model is too simple,
+or it can overfit the training data (high variance) if the model is too
+complex for the underlying training data.
+
+To find an acceptable bias-variance trade-off, we need to evaluate our
+model carefully. In this section, you will learn about the common
+cross-validation techniques \textbf{holdout cross-validation} and
+\textbf{k-fold cross-validation}, which can help us obtain reliable
+estimates of the model's generalization performance, that is, how well
+the model performs on unseen data.
+
+    \subsection{The holdout method}\label{the-holdout-method}
+
+    A classic and popular approach for estimating the generalization
+performance of machine learning models is holdout cross-validation.
+Using the holdout method, we split our initial dataset into a separate
+training and test dataset, the former is used for model training, and
+the latter is used to estimate its generalization performance. However,
+in typical machine learning applications, we are also interested in
+tuning and comparing different parameter settings to further improve the
+performance for making predictions on unseen data. This process is
+called \textbf{model selection}, where the term model selection refers
+to a given classification problem for which we want to select the
+\emph{optimal} values of tuning parameters (also called
+hyperparameters). However, if we reuse the same test dataset over and
+over again during the model selection, it will become part of our
+training data and thus the model will be more likely to overfit. Despite
+this issue, many people still use the test set for model selection,
+which is not a good machine learning practice.
+
+A better way of using the holdout method for model selection is to
+separate the data into three parts: a training set, a validation set,
+and a test set. The training set is used to fit the different models,
+and the performance on the validation set is then used for the model
+selection. The advantage of having a test set that the model has not
+seen before during the training and model selection steps is that we can
+obtain a less biased estimate of its ability to generalize to new data.
+The following figure illustrates the concept of holdout
+cross-validation, where we use a validation set to repeatedly evaluate
+the performance of the model after training using different parameter
+values. Once we are satisfied with the tuning of hyperparameter values,
+we estimate the model's generalization performance on the test dataset:
+
+A disadvantage of the holdout method is that the performance estimate
+may be very sensitive to how we partition the training set into the
+training and validation subsets; the estimate will vary for different
+samples of the data. In the next subsection, we will take a look at a
+more robust technique for performance estimation, \textbf{k-fold cross
+validation}, where we repeat the holdout method \emph{k} times on
+\emph{k}-subsets of the training data.
+
+    \subsection{K-fold cross-validation}\label{k-fold-cross-validation}
+
+    In k-fold cross-validation, we randomly split the training dataset into
+\emph{k} folds without replacement, where \(k-1\) folds are used for the
+model training, and one fold is used for performance evaluation. This
+procedure is repeated \emph{k} times so that we obtain \emph{k} models
+and performance estimates.
+
+We then calculate the average performance of the models based on the
+different, independent folds to obtain a performance estimate that is
+less sensitive to the sub-partitioning of the training data compared to
+the holdout method. Typically, we use k-fold cross-validation for model
+tuning, that is, findind the optimal hyperparameter values that yields a
+satisfying generalization performance.
+
+Once we have found satisfactory hyperparameter values, we can retrain
+the model on the complete training set and obtain a final performance
+estimate using the independent test set. The rationale behind fitting a
+model to the whole training dataset after k-fold cross-validation is
+that providing more training samples to a learning algorithm usually
+results in a more accurate and robust model.
+
+Since k-fold cross-validation is a resampling technique without
+replacement, the advantage of this approach is that each sample point
+will be used for training and validation (as part of a test fold)
+exactly once, which yields a lower-variance estimate of the model
+performance than the holdout method. The following figure summarizes the
+concept behind k-fold cross validation with \(k=10\). The training
+dataset is divided into 10 folds, and during the 10 iterations, nine
+folds are used for training, and one fold will be used as the test set
+for the model evaluation. Also, the estimated performances \(E_i\) (for
+example, classification accuracy or error) for each fold are then used
+to calculate the estimated average performance \(E\) of the model:
+
+A good standard value for \(k\) in k-fold cross-validation is 10, as
+empirical evidence showns. For instance, experiments by Ron Kohavi on
+various real-world datasets suggests that 10-fold cross-validation
+offers the best trade-off between bias and variance.
+
+However, if we are working with relatively small training sets, it can
+be useful to increase the number of folds. If we increase the value of
+\(k\), more training data will be used in each iteration, which results
+in a lower bias towards estimating the generalization performance by
+averaging the individual model estimates. However, large values of \(k\)
+will also increase the runtime of the cross-validation algorithm and
+yield estimates with higher variance, since the training folds will be
+more similar to each other. On the other hand, if we are working with
+large datasets, we can choose a small value of \(k\), for example,
+\(k=5\), and still obtain an accurate estimate of the average
+performance of the model while reducing the computational cost of
+refitting and evaluating the model on different folds.
+
+A special case of k-fold cross-validation is the \textbf{Leave-one-out
+cross-validation (LOOCV)} method. In LOOCV, we set the number of folds
+equal to the number of training samples (\(k = n\)) so that only
+training sample is used for testing during each iteration, which is a
+recommended approach for working with very small datasets.
+
+A slight improvement over the standard k-fold cross-validation approach
+is stratified k-fold cross-validation, which can yield better bias and
+variance estimates, especially in cases of unequal class proportions. In
+stratified cross-validation, the class proportions are preserved in each
+fold to ensure that each fold is representative of the class proportions
+in the training dataset, which we will illustrate by using the
+\emph{StratifiedKFold} iterator in scikit-learn:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{StratifiedKFold}
+        
+        \PY{n}{kfold} \PY{o}{=} \PY{n}{StratifiedKFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} 
+                                \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} 
+                                                      \PY{n}{y\PYZus{}train}\PY{p}{)}
+        \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{kfold}\PY{p}{)}\PY{p}{:}
+            \PY{n}{pipe\PYZus{}lr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{p}{)}
+            \PY{n}{score} \PY{o}{=} \PY{n}{pipe\PYZus{}lr}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{p}{)}
+            \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{score}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fold: }\PY{l+s+si}{\PYZpc{}2d}\PY{l+s+s1}{, Class dist.: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{, Acc: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} 
+                  \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{bincount}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{score}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{CV accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{ +/\PYZhy{} }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} 
+              \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fold:  1, Class dist.: [256 153], Acc: 0.935
+Fold:  2, Class dist.: [256 153], Acc: 0.935
+Fold:  3, Class dist.: [256 153], Acc: 0.957
+Fold:  4, Class dist.: [256 153], Acc: 0.957
+Fold:  5, Class dist.: [256 153], Acc: 0.935
+Fold:  6, Class dist.: [257 153], Acc: 0.956
+Fold:  7, Class dist.: [257 153], Acc: 0.978
+Fold:  8, Class dist.: [257 153], Acc: 0.933
+Fold:  9, Class dist.: [257 153], Acc: 0.956
+Fold: 10, Class dist.: [257 153], Acc: 0.956
+
+CV accuracy: 0.950 +/- 0.014
+
+    \end{Verbatim}
+
+    First, we initialized the \emph{StratifiedKFold} iterator from
+\emph{sklearn.model\_selection} module with the \emph{y\_train} class
+labels in the training set, and we specified the number of folds via the
+\emph{n\_splits} parameter. When we used the \emph{kfold} iterator to
+loop through the \emph{k} folds, we used the returned indices in
+\emph{train} to fit the logistic regression pipeline that we set up at
+the beginning of this chapter. Using the \emph{pipe\_lr} pipeline, we
+ensured that the samples were scaled properly (for instance,
+standardized) in each iteration. We then used the \emph{test} indices to
+calculate the accuracy score of the model, which we collected in the
+\emph{scores} list to calculate the average accuracy and the standard
+deviation of the estimate.
+
+Although the previous code example was useful to illustrate how k-fold
+cross-validation works, scikit-learn also implements a k-fold
+cross-validation scores, which allows us to evaluate our model using
+stratified k-fold cross-validation less verbosely:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+        
+        \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{pipe\PYZus{}lr}\PY{p}{,} 
+                                 \PY{n}{X}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y\PYZus{}train}\PY{p}{,} 
+                                 \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV accuracy scores: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{scores}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{ +/\PYZhy{} }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{,} 
+                                              \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CV accuracy scores: [0.93478261 0.93478261 0.95652174 0.95652174 0.93478261 0.95555556
+ 0.97777778 0.93333333 0.95555556 0.95555556]
+CV accuracy: 0.950 +/- 0.014
+
+    \end{Verbatim}
+
+    An extremely useful feature of the \emph{cross\_val\_score} approach is
+that we can distribute the evaluation of the different folds across
+multiple CPUs on our machine. If we set the \emph{n\_jobs} parameter to
+1, only one CPU will be used to evaluate the performances, just like in
+our \emph{StratifiedKFold} example previously. However, by setting
+\emph{n\_jobs=2}, we could distribute the 10 rounds of cross-validation
+to two CPUs (if available on our machine), and by setting
+\emph{n\_jobs=-1}, we can use all available CPUs on our machine to do
+the computation in parallel.
+
+    \section{Debugging algorithms with learning and validation
+curves}\label{debugging-algorithms-with-learning-and-validation-curves}
+
+    In this section, we will take a look at two very simple yet powerful
+diagnostic tools that can help us improve the performance of a learning
+algorithm: \textbf{learning curves} and \textbf{validation curves}. In
+the next subsections, we will discuss how we can use learning curves to
+diagnose whether a learning algorithm has a problem with overfitting
+(high variance) or underfitting (high bias). Furthermore, we will take a
+look at validation curves that can help us address the common issues of
+a learning algorithm.
+
+    \subsection{Diagnosing bias and variance problems with learning
+curves}\label{diagnosing-bias-and-variance-problems-with-learning-curves}
+
+    If a model is too complex for a given dataset, there are too many
+degrees of freedom or parameters in this model, the model tends to
+overfit the training data and does not generalize well to unseen data.
+Often, it can help to collect more training samples to reduce the degree
+of overfitting. However, in practice, it can often be very expensive or
+simply not feasible to collect more data. By plotting the model training
+and validation accuracies as functions of the training set size, we can
+easily detect whether the model suffers from high variance or high bias,
+and whether the collection of more data could help address this problem.
+But before, we discuss how to plot learning curves in scikit-learn,
+let's discuss those two common model issues by walking through the
+following illustration:
+
+The graph in the upper-left shows a model with high bias. This model has
+both low training and cross-validation accuracy, which indicates that it
+underfits the training data. Common ways to address this issue are to
+increase the number of parameters of the model, for example, by
+collecting or constructing additional features, or by decreasing the
+degree of regularization, for example, in SVM or logistic regression
+classifiers.
+
+The graph in the upper-right shows a model that suffers from high
+variance, which is indicated by the large gap between the training and
+cross-validation accuracy. To address this problem of overfitting, we
+can collect more training data, reduce the complexity of the model, or
+increase the regularization parameter, for example. For unregularized
+models, it can also help decrease the number of features via feature
+selection or feature extraction to decrease the degree of overfitting.
+While collecting more training data usually tends to decrease the chance
+of overfitting, it may not always help, for example, it the training
+data is extremely noisy or the model is already very close to optimal.
+
+In the next subsection, we will see how to address those model issues
+using validation curves, but let's first see how we can use the learning
+curve function from scikit learn to evaluate the model:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{learning\PYZus{}curve}
+        
+        \PY{n}{pipe\PYZus{}lr} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+                                \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                   \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{train\PYZus{}sizes}\PY{p}{,} \PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{test\PYZus{}scores} \PY{o}{=}\PYZbs{}
+            \PY{n}{learning\PYZus{}curve}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{pipe\PYZus{}lr}\PY{p}{,} 
+                           \PY{n}{X}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y\PYZus{}train}\PY{p}{,} 
+                           \PY{n}{train\PYZus{}sizes}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} 
+                           \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            
+        \PY{n}{train\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{train\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{test\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{test\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}sizes}\PY{p}{,} \PY{n}{train\PYZus{}mean}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} 
+                 \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}sizes}\PY{p}{,} \PY{n}{test\PYZus{}mean}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} 
+                 \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{validation accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{train\PYZus{}sizes}\PY{p}{,} \PY{n}{test\PYZus{}mean} \PY{o}{+} \PY{n}{test\PYZus{}std}\PY{p}{,} 
+                         \PY{n}{test\PYZus{}mean} \PY{o}{\PYZhy{}} \PY{n}{test\PYZus{}std}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} 
+                         \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of training samples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{1.01}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Via the \emph{train\_sizes} parameter in the \emph{learning\_curve}
+function, we can control the absolute or relative number of training
+samples that are used to generate the learning curves. Here, we set
+\emph{train\_sizes=np.linspace(0.1, 1.0, 10)} to use 10 evenly spaced,
+relative intervals for the training set sizes. By default, the
+\emph{learning\_curve} function uses stratified k-fold cross-validation
+to calculate the cross-validation accuracy of a classifier, and we set
+\(k=10\) via the \emph{cv} parameter for 10-fold stratified
+cross-validation. Then, we simply calculated the average accuracies from
+the returned cross-validated training and set scores for the different
+sizes of the training set, which we plotted using Matplotlib's
+\emph{plot} function. Furthermore, we added the standard deviation of
+the average accuracy to the plot using the \emph{fill\_between} function
+to indicate the variance of the estimate.
+
+As we can see in the preceding learning curve plot, our model performs
+quite well on both the training and validation datasets if it had seen
+more than 250 samples during training. We can also see that the training
+accuracy increases for training sets with fewer than 250 samples, and
+the gap between validation and training accuracy widens, an indicator of
+an increasing degree of overfitting.
+
+    \section{Addressing over- and underfitting with validation
+curves}\label{addressing-over--and-underfitting-with-validation-curves}
+
+    Validation curves are a useful tool for improving the performance of a
+model by addressing issues such as overfitting and underfitting.
+Validation curves are related to learning curves, but instead of
+plotting the training and test accuracies as functions of the sample
+size, we vary the number of the model parameters, for example, the
+inverse regularization parameter \emph{C} in logistic regression. Let's
+go ahead and see how we create validation curves via scikit-learn:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{validation\PYZus{}curve}
+        
+        \PY{n}{param\PYZus{}range} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{10.0}\PY{p}{,} \PY{l+m+mf}{100.0}\PY{p}{]}
+        \PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{test\PYZus{}scores} \PY{o}{=} \PYZbs{}
+            \PY{n}{validation\PYZus{}curve}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{pipe\PYZus{}lr}\PY{p}{,} 
+                             \PY{n}{X}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y\PYZus{}train}\PY{p}{,} 
+                             \PY{n}{param\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logisticregression\PYZus{}\PYZus{}C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                             \PY{n}{param\PYZus{}range}\PY{o}{=}\PY{n}{param\PYZus{}range}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+        
+        \PY{n}{train\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{train\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{test\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{test\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{param\PYZus{}range}\PY{p}{,} \PY{n}{train\PYZus{}mean}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{param\PYZus{}range}\PY{p}{,} \PY{n}{train\PYZus{}mean} \PY{o}{+} \PY{n}{train\PYZus{}std}\PY{p}{,} 
+                         \PY{n}{train\PYZus{}mean} \PY{o}{\PYZhy{}} \PY{n}{train\PYZus{}std}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} 
+                         \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{param\PYZus{}range}\PY{p}{,} \PY{n}{test\PYZus{}mean}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} 
+                 \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{validation accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{param\PYZus{}range}\PY{p}{,} \PY{n}{test\PYZus{}mean} \PY{o}{+} \PY{n}{test\PYZus{}std}\PY{p}{,} 
+                         \PY{n}{test\PYZus{}mean} \PY{o}{\PYZhy{}} \PY{n}{test\PYZus{}std}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} 
+                         \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parameter C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{1.03}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Similar to the \emph{learning\_curve} function, the
+\emph{validation\_curve} function uses stratified k-fold
+cross-validation by default to estimate the performance of the
+classifier. Inside the \emph{validation\_curve} function, we specified
+the parameter that we wanted to evaluate. In this case, it is \emph{C},
+the inverse regularization parameter of the \emph{LogisticRegression}
+classifier, which we wrote as *'logisticregression\_\_C'* to access the
+\emph{LogisticRegression} object inside the scikit-learn pipeline for a
+specified value range that we set via the \emph{param\_range} parameter.
+Similar to the learning curve example in the previous section, we
+plotted the average training and cross-validation accuracies and the
+corresponding standard deviation.
+
+Although the differences in the accuracy for varying values of \emph{C}
+are subtle, we can see that the model slightly underfits the data when
+we increase the regularization strength (small values of \emph{C}).
+However, for large values of \emph{C}, it means lowering the strength of
+regularization, so the model tends to slightly overfit the data. In this
+case, the sweet pot appears to be between 0.01 and 0.1 of the \emph{C}
+value.
+
+    \section{Fine-tuning machine learning models via grid
+search}\label{fine-tuning-machine-learning-models-via-grid-search}
+
+    In machine learning, we have two types of parameters: those that are
+learned from the training data, for example, the weights in logistic
+regression, and the parameters of a learning algorithm that are
+optimized separately. The latter are the tuning parameters, also called
+\textbf{hyperparameters}, of a model, for example, the regularization
+parameter in logistic regression or the depth parameter of a decision
+tree.
+
+In the previous section, we used validation curves to improve the
+performance of a model by tuning one of its hyperparameters. In this
+section, we will take a look at a popular hyperparameter optimization
+technique called \textbf{grid search} that can further help improve the
+performance of a model by finding the \emph{optimal} combination of
+hyperparameter values.
+
+    \subsection{Tuning hyperparameters via grid
+search}\label{tuning-hyperparameters-via-grid-search}
+
+    The approach of grid search is quite simple; it is a brute-force
+exhaustive search paradigm where we specify a list of values for
+different hyperparameters, and the computer evaluates the model
+performance for each combination of those to obtain the optimal
+combination of values from this set:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVC}
+         
+         \PY{n}{pipe\PYZus{}svc} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{SVC}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{param\PYZus{}range} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{10.0}\PY{p}{,} \PY{l+m+mf}{100.0}\PY{p}{,} \PY{l+m+mf}{1000.0}\PY{p}{]}
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svc\PYZus{}\PYZus{}C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{param\PYZus{}range}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svc\PYZus{}\PYZus{}kernel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{,} 
+                       \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svc\PYZus{}\PYZus{}C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{param\PYZus{}range}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svc\PYZus{}\PYZus{}gamma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{param\PYZus{}range}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svc\PYZus{}\PYZus{}kernel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{]}
+         \PY{n}{gs} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{pipe\PYZus{}svc}\PY{p}{,} 
+                           \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{,} 
+                           \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{gs} \PY{o}{=} \PY{n}{gs}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.9846153846153847
+\{'svc\_\_C': 100.0, 'svc\_\_gamma': 0.001, 'svc\_\_kernel': 'rbf'\}
+
+    \end{Verbatim}
+
+    Using the preceding code, we initialized a \emph{GridSearchCV} object
+form the \emph{sklearn.model\_selection} module to train and tune a
+\textbf{Support Vector Machine (SVM)} pipeline. We set the
+\emph{param\_grid} parameter of \emph{GridSearchCV} to a list of
+dictionaries to specify the parameters that we would want to tune. For
+the linear SVM, we only evaluated the inverse regulatization parameter
+\emph{C}; for the RBF kernel SVM, we tuned both the \emph{C} and
+\emph{gamma} parameter. Note that the \emph{gamma} parameter is specific
+to kernel SVMs.
+
+After we used the training data to perform the grid search, we obtained
+the score of the best-performing model via the \emph{best\_score\_}
+attribute and looked at its parameters that can be accessed via the
+\emph{best\_params\_} attribute. In this particular case, the RBF-kernel
+SVM model with *svc\_\_C* = 100.0 yielded the best k-fold
+cross-validation accuracy: 98.5 percent.
+
+Finally, we will use the independent test dataset to estimate the
+performance of the best-selected model, which is available via the
+\emph{best\_estimator\_} attribute of the \emph{GridSearchCV} object:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{clf} \PY{o}{=} \PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+         \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{clf}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Test accuracy: 0.974
+
+    \end{Verbatim}
+
+    Although grid search is a powerful approach for finding the optimal set
+of paramters, the evaluation of all possible parameter combinations is
+also computationally very expensive. An alternative approach to sampling
+different parameter combinations using scikit-learn is randomized
+search. Using the \emph{RandomizedSearchCV} class in scikit-learn, we
+can draw random parameter combinations from sampling distributions with
+a specified budget.
+
+    \subsection{Algorithm selection with nested
+cross-validation}\label{algorithm-selection-with-nested-cross-validation}
+
+    Using k-fold cross-validation in combination with grid search is a
+useful approach for fine-tuning the performance of a machine learning
+model by varying its hyperparameter values, as we saw in the previous
+subsection. If we want to select among different machine learning
+algorithms, though, another recommended approach is nested
+cross-validation. In a nice study on the bias in error estimation, Varma
+and Simon concluded that the true error of the estimate is almost
+unbiased relative to the test set when nested cross-validation is used.
+
+In nested cross-validation, we have an outer k-fold cross-validation
+loop to split the data into training and test folds, and an inner loop
+is used to select the model using k-fold cross-validation on the
+training fold. After model selection, the test fold is then used then
+used to evaluate the model performance. The following picture explains
+the concept of nested cross-validation with only five outer and two
+inner folds, which can be useful for large datasets where
+computationally performance is important; this particular type of nested
+cross-validation is also known as \textbf{5x2 cross-validation}:
+
+    In scikit-learn, we can perform nested cross-validation as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{gs} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{pipe\PYZus{}svc}\PY{p}{,} 
+                           \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{,} 
+                           \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{gs}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} 
+                                  \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{ +/\PYZhy{} }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{,} 
+                                               \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CV accuracy: 0.974 +/- 0.015
+
+    \end{Verbatim}
+
+    The returned average cross-validation accuracy gives us a good estimate
+of what to expect if we tune the hyperparameters of a model and use it
+on unseen data. For example, we can use the nested cross-validation
+approach to compare an SVM model to a simple decision tree classifier;
+for simplicity, we will only tune its depth parameter:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+         
+         \PY{n}{gs} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} 
+                           \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{k+kc}{None}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{]}\PY{p}{,} 
+                           \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{gs}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} 
+                                  \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{ +/\PYZhy{} }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{,} 
+                                               \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{scores}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CV accuracy: 0.934 +/- 0.016
+
+    \end{Verbatim}
+
+    As we can see, the nested cross-validation performance of the SVM model
+(97.4 percent) is notably better then the performance of the decision
+tree (93.4 percent), and thus, we would expect that it might be the
+better choice to classify new data that comes from the same population
+as this particular dataset.
+
+    \section{Looking at different performance evaluation
+metrics}\label{looking-at-different-performance-evaluation-metrics}
+
+    In the previous sections and chapters, we evaluated our models using
+model accuracy, which is a useful metric with which to quantify the
+performance of a model in general. However, there are several other
+performance metrics that can be used to measure a model's relevance,
+such as precision, recall, and F1-score.
+
+    \subsection{Reading a confusion
+matrix}\label{reading-a-confusion-matrix}
+
+    Before we get into the details of different scoring metrics, let's take
+a look at a \textbf{confusion matrix}, a matrix that lays out the
+performance of a learning algorithm. The confusion matrix is simply a
+square matrix that reports the counts of the \emph{True positive (TP),
+True negative (TN), False positive (FP) and False negative (FN)}
+predictions of a classifier, as shown in the following figure:
+
+    Although these metrics can be easily computed manually by comparing the
+true and predicted class labels, scikit-learn provides a convenient
+\emph{confusion\_matrix} function that we can use, as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         
+         \PY{n}{pipe\PYZus{}svc}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{pipe\PYZus{}svc}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{confmat} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{o}{=}\PY{n}{y\PYZus{}pred}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{confmat}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[71  1]
+ [ 2 40]]
+
+    \end{Verbatim}
+
+    The array that was returned after executing the code provides us with
+information about the different types of error the classifier made on
+the test dataset. We can map this information onto the confusion matrix
+illustration in the previous figure using Matplotlib's \emph{matshow}
+function:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mf}{2.5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{matshow}\PY{p}{(}\PY{n}{confmat}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Blues}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{confmat}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{confmat}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{j}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{i}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{n}{confmat}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{,} 
+                         \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{true labels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Assuming that class 1 (malignant) is the positive class in this example,
+our model correctly classified 71 of the samples that belong to class 0
+(TNs) and 40 samples that belong to class 1 (TPs), respectively.
+However, our model also incorrectly misclassified two samples from class
+1 as class 0 (FN), and it predicted that one sample is malignant
+although it is a benign tumor (FP). In the next section, we will learn
+how we can use this information to calculate various error metrics.
+
+    \subsection{Optimizing the precision and recall of a classification
+model}\label{optimizing-the-precision-and-recall-of-a-classification-model}
+
+    Both the precision \textbf{error (ERR)} and \textbf{accuracy (ACC)}
+provide general information about how many samples are misclassified.
+The error can be understood as the sum of all false predictions divided
+by the number of total predications, and the accuracy is calculated as
+the sum of corrected predictions divided by the total number of
+predictions, respectively:
+
+\[ERR = \frac{FP + FN}{FP + FN + TP + TN}\]
+
+The prediction accuracy can then be calculated directly from the error:
+
+\[ACC = \frac{TP + TN}{FP + FN + TP + TN} = 1 - ERR\]
+
+The \textbf{True positive rate (TPR)} and \textbf{False positive rate
+(FPR)} are performance metrics that are especially useful for imbalanced
+class problems:
+
+\[FPR = \frac{FP}{N} = \frac{FP}{FP+TN}\]
+
+\[TPR = \frac{TP}{N} = \frac{TP}{FN+TN}\]
+
+In tumor diagnosis, for example, we are more concerned about the
+detection of malignant tumors in order to help the patient with the
+appropriate treatment. However, it is also important to decrease the
+number of benign tumors that are incorrectly classified as malignant
+(FPs) to not unnecessarily concern a patient. In contrast to the FPR,
+the TPR provides useful information about the fraction of positive (or
+relevant) samples that were correctly identified out of the total pool
+of positives (P).
+
+The performance metrics \textbf{precision (PRE)} and \textbf{recall
+(REC)} are related to those true positive and negative rates, and in
+fact, REC is synonymous with TPR:
+
+\[PRE = \frac{TP}{TP + FP}\]
+
+\[REC = TPR = \frac{TP}{P} = \frac{TP}{FN + TP}\]
+
+In practice, often a combination of PRE and REC is used, the so-called
+\textbf{F1-score}:
+
+\[F1 = 2\frac{PRE * REC}{PRE + REC}\]
+
+    Those scoring metrics are all implemented in scikit-learn and can be
+imported from the \emph{scikit-metrics} module as shown in the following
+snippet:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{precision\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{recall\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{f1\PYZus{}score}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precision: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{precision\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{o}{=}\PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Recall: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{recall\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{o}{=}\PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F1: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{o}{=}\PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Precision: 0.976
+Recall: 0.952
+F1: 0.964
+
+    \end{Verbatim}
+
+    Furthermore, we can use a different scoring metric than accuracy in the
+\emph{GridSearchCV} via the scoring parameter.
+
+Remember that the positive class in scikit-learn is the class that is
+labeled as class 1. If we want to specify a different \emph{positive
+label}, we can construct our own scorer via the \emph{make\_scorer}
+function, which we can then directly provide as argument to the scoring
+parameter in \emph{GridSearchCV} (in this example, using the
+\emph{f1\_score} as a metric):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{make\PYZus{}scorer}
+         
+         \PY{n}{scorer} \PY{o}{=} \PY{n}{make\PYZus{}scorer}\PY{p}{(}\PY{n}{f1\PYZus{}score}\PY{p}{,} \PY{n}{pos\PYZus{}label}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{gs} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{pipe\PYZus{}svc}\PY{p}{,} 
+                           \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{,} 
+                           \PY{n}{scoring}\PY{o}{=}\PY{n}{scorer}\PY{p}{,} 
+                           \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{gs} \PY{o}{=} \PY{n}{gs}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{gs}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.9880219137963148
+\{'svc\_\_C': 100.0, 'svc\_\_gamma': 0.001, 'svc\_\_kernel': 'rbf'\}
+
+    \end{Verbatim}
+
+    \subsection{Plotting a receiver operating
+characteristic}\label{plotting-a-receiver-operating-characteristic}
+
+    \textbf{Receiver Operating Characteristic (ROC)} graphs are useful tools
+to select models for classification based on their performance with
+respect to the FPR and TPR, which are computed by shifting the decision
+threshold of the classifier. The diagonal of an ROC graph can be
+interpreted as \emph{random\_guessing}, and classification models that
+fall below the diagonal are considered as worse than random guessing. A
+perfect classifier would fall into the top left corner of the graph with
+a TPR of 1 and an FPR of 0. Based on the ROC curve, we can then compute
+the so-called \textbf{ROC Area Under the Curve (ROC AUC)} to
+characterize the performance of a classification model.
+
+Similar to ROC curves, we can compute \textbf{precision-recall curves}
+for different probability thresholds of a classifier. A function for
+plotting those precision-recall curves is also implemented in
+scikit-learn (\emph{precision\_recall\_curve}).
+
+Executing the following code example, we will plot an ROC curve of a
+classifier that only uses two features from the Breast Cancer Wisconsin
+dataset to predict whether a tumor is belign or malignant. Although we
+are going to use the same logistic regression pipeline that we defined
+previously, we are making the classification task more challenging for
+the classifier so that the resulting ROC curve become visually
+interesting. For similar reasons, we are also reducing the number of
+folds in the \emph{StratifiedKFold} validation to three. The code is as
+follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{roc\PYZus{}curve}\PY{p}{,} \PY{n}{auc}
+         \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{interp}
+         
+         \PY{n}{pile\PYZus{}lr} \PY{o}{=} \PY{n}{make\PYZus{}pipeline}\PY{p}{(}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+                                 \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} 
+                                 \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                    \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                                    \PY{n}{C}\PY{o}{=}\PY{l+m+mf}{100.0}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{X\PYZus{}train2} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{]}\PY{p}{]}
+         \PY{n}{cv} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{StratifiedKFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} 
+                                   \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{mean\PYZus{}tpr} \PY{o}{=} \PY{l+m+mf}{0.0}
+         \PY{n}{mean\PYZus{}fpr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{all\PYZus{}tpr} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{test}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{cv}\PY{p}{)}\PY{p}{:}
+             \PY{n}{probas} \PY{o}{=} \PY{n}{pipe\PYZus{}lr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train2}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}train2}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{p}{)}
+             \PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{,} \PY{n}{thresholds} \PY{o}{=} \PY{n}{roc\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{p}{,} 
+                                              \PY{n}{probas}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                              \PY{n}{pos\PYZus{}label}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{mean\PYZus{}tpr} \PY{o}{+}\PY{o}{=} \PY{n}{interp}\PY{p}{(}\PY{n}{mean\PYZus{}fpr}\PY{p}{,} \PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{)}
+             \PY{n}{mean\PYZus{}tpr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.0}
+             \PY{n}{roc\PYZus{}auc} \PY{o}{=} \PY{n}{auc}\PY{p}{(}\PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{,} 
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ROC fold }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ (area = }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{roc\PYZus{}auc}\PY{p}{)}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{color}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{)}\PY{p}{,} 
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random guessing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{mean\PYZus{}tpr} \PY{o}{/}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{cv}\PY{p}{)}
+         \PY{n}{mean\PYZus{}tpr}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.0}
+         \PY{n}{mean\PYZus{}auc}\PY{o}{=} \PY{n}{auc}\PY{p}{(}\PY{n}{mean\PYZus{}fpr}\PY{p}{,} \PY{n}{mean\PYZus{}tpr}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{mean\PYZus{}fpr}\PY{p}{,} \PY{n}{mean\PYZus{}tpr}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean ROC (area = }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{mean\PYZus{}auc}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perfect performance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{l+m+mf}{1.05}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{false positive rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{true positive rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_70_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In the preceding code example, we used the already familiar
+\emph{StratifiedKFold} class from scikit-learn and calculated the ROC
+performance of the \emph{LogisticRegression} classifier in our
+\emph{pipe\_lr} pipeline using the \emph{roc\_curve} function from
+\emph{sklearn.metrics} module separately for each iteration.
+Furthermore, we interpolated the average ROC curve from the three folds
+via the \emph{interp} function that we imported from SciPy and
+calculated the area under the curve via the \emph{auc} function. The
+resulting ROC curve indicates that there is a certain degree of variance
+between the different folds, and the average ROC AUC (0,.76) falls
+between a perfect score (1.0) and random guessing (0.5).
+
+Note if we are just interested in the ROC AUC score, we could also
+directly import the \emph{roc\_auc\_score} function from the
+\emph{sklearn.metrics} submodule.
+
+Reporting the performance of a classifier as the ROC AUC can yield
+further insights in a classifier's performance with respect to
+imbalanced samples. However, while the accuracy score can be interpreted
+as a single cut-off point on an ROC curve, A. P. Bradley showed that the
+ROC AUC and accuracy metrics mostly agree with each other.
+
+    \subsection{Scoring metrics for multiclass
+classification}\label{scoring-metrics-for-multiclass-classification}
+
+    The scoring metrics that we discussed in this section are specific to
+binary classification systems. However, scikit-learn also implements
+macro and micro averaging methods to extend those scoring metrics to
+multiclass problems via \textbf{One-versus-All (OvA)} classification.
+The micro-average is calculated from the individual TPs, TNs, FPs, and
+FNs of the system. For example, the micro-average of the precision score
+in a \emph{k}-class system can be calculated as follows:
+
+\[PRE_{micro} = \frac{TP_1 + \cdots + TP_k}{TP_1 + \cdots + TP_k + FP_1 + \cdots + FP_k}\]
+
+The macro-average is simply calculated as the average score of the
+different systems:
+
+\[PRE_{macro} = \frac{PRE_1 + \cdots + PRE_k}{k}\]
+
+Micro-averaging is useful if we want to weight each instance or
+prediction equally, whereas macro-averaging weights all classes equally
+to evaluate the overall performance of a classifier with regard to the
+most frequent class labels.
+
+If we are using binary performance metrics to evaluate multiclass
+classification models in scikit-learn, a normalized or weighted variant
+of the macro-average is used by default. The weighted macro-average is
+calculated by weighting the score of each class label by the number of
+true instances when calculating the average. The weighted macro-average
+is useful if we are dealing with class imbalances, that is, different
+numbers of instances for each label.
+
+While the weighted macro-average is the default for multiclass problems
+in scikit-learn, we can specify the averaging method via the
+\emph{average} parameter inside the different scoring functions that we
+import from the \emph{sklearn.metrics} module, for example, the
+\emph{precision\_score} or \emph{make\_scorer} functions:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{pre\PYZus{}scorer} \PY{o}{=} \PY{n}{make\PYZus{}scorer}\PY{p}{(}\PY{n}{score\PYZus{}func}\PY{o}{=}\PY{n}{precision\PYZus{}score}\PY{p}{,} 
+                                  \PY{n}{pos\PYZus{}label}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                  \PY{n}{greater\PYZus{}is\PYZus{}better}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                                  \PY{n}{average}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{micro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Dealing with class
+imbalance}\label{dealing-with-class-imbalance}
+
+    We have mentioned class imbalances several times throughout this
+chapter, and yet we have not actually discussed how to deal with such
+scenarios appropriately if they occur. Class imbalance is a quite common
+problem when working with real-world data - samples from one class or
+multiple class are over-represented in a dataset. Intuitively, we can
+think of several domains where this may occur, such as spam filtering,
+fraud detection, or screening for diseases.
+
+Imagine the breast cancer dataset that we have been working with in this
+chapter consisted of 90 percent healthy patients. In this case, we could
+achieve 90 percent accuracy on the test dataset by just predicting the
+majority class (benign tumor) for all samples, without the help of a
+supervised machine learning algorithm. Thus, training a model on such a
+dataset that achieves approximately 90 percent test accuracy would mean
+our model has not learning anything useful from the features provided in
+this dataset.
+
+In this section, we will briefly go over some of the techniques that
+could help with imbalanced datasets. But before we discuss different
+methods to approach this problem, let's create an imbalanced dataset
+from our breast cancer dataset, which originally consisted of 357 benign
+tumors (class 0) and 212 malignant tumors (class 1):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{X\PYZus{}imb} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{40}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{y\PYZus{}imb} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{40}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    In the previous code snippet, we took all 357 benign tumor samples and
+stacked them with the first 40 malignant samples to create a stark class
+imbalance. If we were to compute the accuracy of a model that always
+predicts the majority class (benign, class 0), we would achieve a
+prediction accuracy of approximately 90 percent:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{y\PYZus{}imb}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y\PYZus{}pred} \PY{o}{==} \PY{n}{y\PYZus{}imb}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} 89.92443324937027
+\end{Verbatim}
+            
+    Thus, when we fit classifiers on such datasets, it would make sense to
+focus on the other metrics than accuracy when comparing different
+models, such as precision, recall, the ROC curve - whatever we care most
+about in our application. For instance, our priority might be to
+identify the majority of patients with malignant cancer patients to
+recommend an additional screening, then recall should be our metric of
+choice. In spam filtering, where we do not want to label emails as spam
+if the system is not very certain, precision might be a more appropriate
+metric.
+
+Aside from evaluating machine learning models, class imbalance
+influences a learning algorithm during model fitting itself. Since
+machine learning algorithms typically optimize a reward or cost function
+that is computed as a sum over the training examples that it sees during
+fitting, the decision rule is likely going to be biased towards the
+majority class. In other words, the algorithm implicitly learns a model
+that optimizes the predictions based on the most abundant class in the
+dataset, in order to maximize the cost or maximize the reward during
+training.
+
+One way to deal with imbalanced class proportions during model fitting
+is to assign a larger penalty to wrong predictions on the minority
+class. Via scikit-learn, adjusting a penalty is as convenient as setting
+the \emph{class\_weight} parameter to \emph{class\_weight='balanced'},
+which is implemented for most classifiers.
+
+Other popular strategies for dealing with class imbalance include
+upsampling the minority class, downsampling the majority class, and the
+generation of synthetic training samples. Unfortunately, there is no
+universally best solution, no technique that works best across different
+problem domains. Thus, in practice, it is recommended to try out
+different strategies on a given problem, evaluate the results, and
+choose the technique that seems most appropriate.
+
+The scikit-learn library implements a simple \emph{resample} function
+that can help with the upsampling of the minority class by drawing new
+samples from the dataset with replacement. The following code will take
+the minority class from our imbalanced breast cancer dataset (here,
+class 1) and repeatedly draw new samples from it until it contains the
+same number of samples as class label 0:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k}{import} \PY{n}{resample}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of class 1 samples before:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+               \PY{n}{X\PYZus{}imb}\PY{p}{[}\PY{n}{y\PYZus{}imb}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X\PYZus{}upsampled}\PY{p}{,} \PY{n}{y\PYZus{}upsampled} \PY{o}{=} \PY{n}{resample}\PY{p}{(}\PY{n}{X\PYZus{}imb}\PY{p}{[}\PY{n}{y\PYZus{}imb}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                             \PY{n}{y\PYZus{}imb}\PY{p}{[}\PY{n}{y\PYZus{}imb}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                             \PY{n}{replace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                                             \PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{n}{X\PYZus{}imb}\PY{p}{[}\PY{n}{y\PYZus{}imb}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{123}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of class 1 samples after:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}upsampled}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of class 1 samples before: 40
+Number of class 1 samples after: 357
+
+    \end{Verbatim}
+
+    After resampling, we can then stack the original class 0 samples with
+the upsampled class 1 subset to obtain a balanced dataset as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{X\PYZus{}bal} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}upsampled}\PY{p}{)}\PY{p}{)}
+         \PY{n}{y\PYZus{}bal} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{y}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}upsampled}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    Consequently, a majority vote prediction rule would only achieve 50
+percent accuracy:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{y\PYZus{}bal}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y\PYZus{}pred} \PY{o}{==} \PY{n}{y\PYZus{}bal}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} 50.0
+\end{Verbatim}
+            
+    Similarly, we could downsample the majority class by removing training
+samples from the dataset. To perform downsampling using the
+\emph{resample} function, we could simply swap the class 1 label with
+class 0 in the previous code example and vice versa.
+
+Another technique for dealing with class imbalance is the generation of
+synthetic training samples, which is beyond the scope of this book. The
+probably most widely used algorithm for synthetic training sample
+generation is \textbf{Synthetic Minority Over-sampling Technique
+(SMOTE)}. It is also highly recommended to check out
+\emph{imbalanced-learn}, a Python library that is entirely focused on
+imbalanced datasets, including an implementation of SMOTE.
+
+    \section{Summary}\label{summary}
+
+    At the beginning of this chapter, we discussed how to chain different
+transformation techniques and classifiers in convenient model pipelines
+that helped us train and evaluate machine learning models more
+efficiently. We then used those pipelines to perform k-fold
+cross-validation, one of the essential techniques for model selection
+and evaluation. Using k-fold cross-validation, we plotted learning and
+validation curves to diagnose the common problems of learning
+algorithms, such as overfitting and underfitting. Using grid search, we
+further fine-tuned our model. We concluded this chapter by looking at a
+confusion matrix and various performance metrics that can be useful to
+further optimize a model's performance for a specific problem task. Now,
+we should be well-equipped with the essential techniques to build
+supervised machine learning models for classification successfully.
+
+In the next chapter, we will look at ensemble methods: methods that
+allow us to combine multiple models and classification algorithms to
+boost the predictive performance of a machine learning system even
+further.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

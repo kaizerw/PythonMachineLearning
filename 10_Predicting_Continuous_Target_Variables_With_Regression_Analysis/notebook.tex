@@ -1,0 +1,1674 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{10\_Predicting\_Continuous\_Target\_Variables\_With\_Regression\_Analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Predicting Continuous Target Variables with Regression
+Analysis}\label{predicting-continuous-target-variables-with-regression-analysis}
+
+    Throughout the previous chapters, you learned a lot about the main
+concepts behind \textbf{supervised leaning} and trained many different
+models for classification tasks to predict group memberships or
+categorical variables. In this chapter, we will dive into another
+subcategory of supervised learning: \textbf{regression analysis}.
+
+Regression models are used to predict target variables on a continuous
+scale, which makes them attractive for addressing many questions in
+science as well as applications in industry, such as understanding
+relationship between variables, evaluating trends, or making forecasts.
+One example would be predicting the sales of a company in future months.
+
+In this chapter, we will discuss the main concepts of regression models
+and cover the following topics:
+
+\begin{itemize}
+\tightlist
+\item
+  Exploring and visualizing dataset
+\item
+  Looking at different approachs to implement linear regression models
+\item
+  Training regression models that are robust to outliers
+\item
+  Evaluating regression models and diagnosing common problems
+\item
+  Fitting regression models to nonlinear data
+\end{itemize}
+
+    \section{Introducing linear
+regression}\label{introducing-linear-regression}
+
+    The goal of linear regression is to model the relationship between one
+or multiple features and a continuous target variable. As discussed
+earlier, regression analysis is a subcategory of supervised machine
+learning. In contrast to classification - another subcategory of
+supervised learning - regression analysis aims to predict outputs on a
+continuous scale rather than categorical class labels.
+
+In the following subsections, we will introduce the most basic type of
+linear regression, simple linear regression, and relate it to the more
+general, multivariate case (linear regression with multiple features).
+
+    \subsection{Simple linear regression}\label{simple-linear-regression}
+
+    The goal of simple (\textbf{univariate}) linear regression is to model
+the relationship between a singe feature (\textbf{explanatory variable}
+x) and a continuous valued \textbf{response} (\textbf{target variable}
+y). The equation of a linear model with one explanatory variable is
+defined as follows:
+
+\[y = w_0 + w_1x\]
+
+Here, the weigth \(w_0\) represents the \emph{y}-axis intercept and
+\(w_1\) is the weight coefficient of the explanatory variable. Our goal
+is to learn the weights of the linear equation to describe the
+relationship between the explanatory variable and the target variable,
+which can then be used to predict the responses of new explanatory
+variables that were not part of the training dataset.
+
+Based on the linear equation that we defined previously, linear
+regression can be understood as finding the best-fitting straight line
+through the sample points, as shown in the following figure:
+
+This best-fitting line is also called the \textbf{regression line}, and
+the vertical lines from the regression line to the sample points are the
+so-called \textbf{offsets} or \textbf{residuals} - the errors of our
+prediction.
+
+    \subsection{Multiple linear
+regression}\label{multiple-linear-regression}
+
+    The special case of linear regression with one explanatory variable that
+we introduced in the previous subsection is also called \textbf{simple
+linear regression}. Of course, we can also generalize the linear
+regression model to multiple explanatory variables; this process is
+called \textbf{multiple linear regression}:
+
+\[y = w_0x_0 + w_1x_1 + \ldots + w_mx_m = \sum_{i=0}^m w_ix_i = w^Tx\]
+
+Here, \(w_0\) is the \emph{y}-axis intercept with \(x_0 = 1\).
+
+The following figure shows how the two-dimensional, fitted hyperplane of
+a multiple linear regression model with two features could look:
+
+As we can see, visualizing multiple linear regression fits in
+three-dimensional scatter plot are already challenging to interpret when
+looking at static figures. Since we have no good means of visualizing
+hyperplanes with two dimensions in the scatterplot (multiple linear
+regression models fits to datasets with three or more features), the
+examples and visualizations in this chapter will mainly focus on the
+univariate case, using simple linear regression. However, simple and
+multiple linear regression are based on the same concepts and the same
+evaluation techniques; the code implementations that we will discuss in
+this chapter are also compatible with both types of regression model.
+
+    \section{Exploring the Housing
+dataset}\label{exploring-the-housing-dataset}
+
+    Before we implement our first linear regression model, we will introduce
+a new dataset, the Housing dataset, which contains information about
+houses in the suburbs of Boston collected by D. Harrison and D.L.
+Rubinfeld in 1978. The Housing dataset has been made freely available
+and is included in the code bundle of this book. As with each new
+dataset, it is always helpful to explore the data through a simple
+visualization, to get a better feeling of what we are working with.
+
+    \subsection{Loading the Housing dataset into a data
+frame}\label{loading-the-housing-dataset-into-a-data-frame}
+
+    In this section, we will load the Housing dataset using the pandas
+\emph{read\_csv} function, which is fast and versatile - a recommended
+tool for working with tabular data stored in a plaintext format.
+
+The features of the 506 samples in the Housing dataset are summarized
+here:
+
+\begin{itemize}
+\tightlist
+\item
+  CRIM: Per capita crime rate by town
+\item
+  ZN: Proportion of residential land zoned for lots over 25.000 sq. ft.
+\item
+  INDUS: Proportion of non-retail business acres per town
+\item
+  CHAS: Charler River dummy variable (= 1 if tract bounds river; 0
+  otherwise)
+\item
+  NOX: Nitric oxide concentration (parts per 10 million)
+\item
+  RM: Average number of rooms per dwelling
+\item
+  AGE: Proportion of owner-occupied units built prior to 1940
+\item
+  DIS: Weighted distances to five Boston employment centers
+\item
+  RAD: Index of accessibility to radial highways
+\item
+  TAX: Full-value property tax rate per \$10.000
+\item
+  PTRATIO: Pupil-teacher ratio by town
+\item
+  B: 1000(bk - 0.63)\^{}2, where Bk is the proportion of people of
+  African American descent by town
+\item
+  LSTAT: Percentage of lower status of the population
+\item
+  MEDV: Median value of owner-occupied homes in \$1000s
+\end{itemize}
+
+For the rest of this chapter, we will regard the house prices (MEDV) as
+our target variable - the variable that we want to predict using one or
+more of the 13 explanatory variables. Before we explore this dataset
+further, let us copy it from the UCI repository intoa pandas DataFrame:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{housing.data.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CRIM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{INDUS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CHAS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NOX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AGE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DIS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RAD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TAX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PTRATIO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LSTAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:}       CRIM    ZN  INDUS  CHAS    NOX     RM   AGE     DIS  RAD    TAX  \textbackslash{}
+        0  0.00632  18.0   2.31     0  0.538  6.575  65.2  4.0900    1  296.0   
+        1  0.02731   0.0   7.07     0  0.469  6.421  78.9  4.9671    2  242.0   
+        2  0.02729   0.0   7.07     0  0.469  7.185  61.1  4.9671    2  242.0   
+        3  0.03237   0.0   2.18     0  0.458  6.998  45.8  6.0622    3  222.0   
+        4  0.06905   0.0   2.18     0  0.458  7.147  54.2  6.0622    3  222.0   
+        
+           PTRATIO       B  LSTAT  MEDV  
+        0     15.3  396.90   4.98  24.0  
+        1     17.8  396.90   9.14  21.6  
+        2     17.8  392.83   4.03  34.7  
+        3     18.7  394.63   2.94  33.4  
+        4     18.7  396.90   5.33  36.2  
+\end{Verbatim}
+            
+    \subsection{Visualizing the important characteristics of a
+dataset}\label{visualizing-the-important-characteristics-of-a-dataset}
+
+    \textbf{Exploratory Data Analysis (EDA)} is an important and recommended
+first step prior to the training of a machine learning model. In the
+rest of this section, we will use some simple yet useful techniques from
+the graphical EDA toolbox that may help us to visually detect the
+presence of outliers, the distribution of the data, and the relationship
+between variables.
+
+First, we will create a \textbf{scatterplot matrix} that allows us to
+visualize the pair-wise correlations between the different features in
+this dataset in one place. To plot the scatterplot matrix, we will use
+the \emph{pairplot} function from the Seaborn library, which is a Python
+library for drawing statistical plots based on Matplotlib.
+
+You can install \emph{seaborn} package via \emph{pip install seaborn}.
+After the installation is complete, you can import the package and
+create the scatterplot matrix as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LSTAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{INDUS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NOX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mf}{2.5}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Due to space constaints and in the interest of readability, we only
+plotted five columns from the dataset: \emph{LSTAT}, \emph{INDUS},
+\emph{NOX}, \emph{RM}, and \emph{MEDV}. However, you are encouraged to
+create a scatterplot matrix of the whole \emph{DataFrame} to explore the
+dataset further by choosing different column names in the previous
+\emph{sns.pairplot} call, or include all variables in the scatterplot
+matrix by omitting the column selector (\emph{sns.pairplot(df)}).
+
+Using this scatterplot matrix, we can now quickly eyeball how the data
+is distributed and whether it contains outliers. For example, we can see
+that there is a linear relationship between \emph{RM} and house prices,
+\emph{MEDV} (the fifth column of the fourth row). Furthermore, we can
+see in the histogram - the lower-right subplot in the scatter plot
+matrix - that the \emph{MEDV} variable seems to be normally distributed
+but contains several outliers.
+
+Note that in contrast to common belief, training a linear regression
+model does not require that the explanatory or target variables are
+normally distributed. The normality assumption is only a requirement for
+certain statistics and hypothesis tests that are beyond the scope of
+this book.
+
+    \subsection{Looking at relationships using a correlation
+matrix}\label{looking-at-relationships-using-a-correlation-matrix}
+
+    In the previous section, we visualized the data distributions of the
+Housing dataset variables in the form of histograms and scatter plots.
+Next, we will create a correlation matrix to quantify and summarize
+linear relationships between variables. A correlation matrix is closely
+related to the covariance matrix that we have seen in the section about
+\textbf{Principal Component Analysis (PCA)}. Intuitively, we can
+interpret the correlation matrix as a rescaled version of the covariance
+matrix. In fact, the correlation matrix is identical to a covariance
+matrix computed from standardized features.
+
+The correlation matrix is a square matrix that contains the
+\textbf{Pearson product-moment correlation coefficient} (often
+abbreviated as \textbf{Pearson's r}), which measures the linear
+dependence between pairs of features. The correlation coefficients are
+in the range -1 to 1. Two features have a perfect positive correlation
+if \(r=1\), no correlation if \(r=0\), and a perfect negative
+correlation if \(r=-1\). As mentioned previously, Pearson's correlation
+coefficient can simply be calculated as the covariance between two
+features \(x\) and \(y\) (numerator) divided by the product of their
+standard deviations (denominator):
+
+\(r = \frac{\sum_{i=1}^n \left[ (x^{(i)} - \mu_x)(y^{(i)} - \mu_y) \right]}{\sqrt{\sum_{i=1}^n (x^{(i)} - \mu_x)^2} \sqrt{\sum_{i=1}^n(y^{(i)} - \mu_y)^2}} = \frac{\sigma_{xy}}{\sigma_x \sigma_y}\)
+
+Here, \(\mu\) denotes the sample mean of the corresponding feature,
+\(\sigma_{xy}\) is the covariance betweent the variables \(x\) and
+\(y\), and \(\sigma_x\) and \(\sigma_y\) are the features' standard
+deviation.
+
+In the following code example, we will use NumPy's \emph{corrcoef}
+function on the five feature columns that we previously visualized in
+the scatterplot matrix, and we will use Seaborn's \emph{heatmap}
+function to plot the correlation matrix array as a heat map:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{cm} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{)}
+        \PY{n}{hm} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{cbar}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{square}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                         \PY{n}{fmt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.2f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{15}\PY{p}{\PYZcb{}}\PY{p}{,} 
+                         \PY{n}{yticklabels}\PY{o}{=}\PY{n}{cols}\PY{p}{,} \PY{n}{xticklabels}\PY{o}{=}\PY{n}{cols}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    To fit a linear regression model, we are interested in those features
+that have a high correlation with our target variable \emph{MEDV}.
+Looking at the previous correlation matrix, we see that our target
+variable \emph{MEDV} shows the largest correlation with the \emph{LSTAT}
+variable (-0.74); however, as you might remember from inspecting the
+scatterplot matrix, there is a clean nonlinear relationship between
+\emph{LSTAT} and \emph{MEDV}. On the other hand, the correlation between
+\emph{RM} and \emph{MEDV} is also relatively high (0.70). Given the
+linear relationship between these two variables that we observed in the
+scatterplot, \emph{RM} seems to be a good choice for an exploratory
+variable to introduce the concepts of a simple linear regression model
+in the following subsection.
+
+    \section{Implementing an ordinary least squares linear regression
+model}\label{implementing-an-ordinary-least-squares-linear-regression-model}
+
+    At the beginning of this chapter, we mentioned that linear regression
+can be understood as obtaining the best-fitting straight line through
+the sample points of our training data. However, we have neither defined
+the term \textbf{best-fitting} nor have we discussed the different
+techniques of fitting such a model. In the following subsections, we
+will fill in the missing pieces of this puzzle using the
+\textbf{Ordinary Least Squares (OLS)} method (sometimes also called
+\textbf{linear least squares}) to estimate the parameters of the linear
+regression line that minimizes the sum of the squared vertical distances
+(residuals or errors) to the sample points.
+
+    \subsection{Solving regression for regression parameters with gradient
+descent}\label{solving-regression-for-regression-parameters-with-gradient-descent}
+
+    Consider our implementations of the \textbf{ADAptive LInear NEuron
+(Adaline)}; we remember that the artificial neuron uses a linear
+activation function. Also, we defined a cost function \(J\), which we
+minimized to learn the weights via optimizatino algorithms, such as
+\textbf{Gradient Descent (GD)} and \textbf{Stochastic Gradient Descent
+(SGD)}. This cost function in Adaline is the \textbf{Sum of Squared
+Errors (SSE)}, which is identical to the cost function that we use for
+OLS:
+
+\[J(w) = \frac{1}{2}\sum_{i=1}^n(y^{(i)} - ŷ^{(i)})^2\]
+
+Here, \(ŷ\) is the predicted value \(ŷ = w^Tx\). Essentialy, OLS
+regression can be understood as Adaline without the unit step function
+so that we obtain continuous target values instead of the class models
+-1 and 1. To demonstrate this, let us take the GD implementation of the
+Adaline and remove the unit step function to implement our first linear
+regression model:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{class} \PY{n+nc}{LinearRegressionGD}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{=} \PY{n}{eta}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}iter} \PY{o}{=} \PY{n}{n\PYZus{}iter}
+                
+            \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cost\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}iter}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{output} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{net\PYZus{}input}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                    \PY{n}{errors} \PY{o}{=} \PY{p}{(}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{output}\PY{p}{)}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{*} \PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{errors}\PY{p}{)}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{*} \PY{n}{errors}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                    \PY{n}{cost} \PY{o}{=} \PY{p}{(}\PY{n}{errors}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.0}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cost}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}
+            
+            \PY{k}{def} \PY{n+nf}{net\PYZus{}input}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            
+            \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{net\PYZus{}input}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    To see our \emph{LinearRegressionGD} regressor in action, let's use the
+\emph{RM} (number of rooms) variable from the Housing dataset as the
+explanatory variable and train a model that can predict \emph{MEDV}
+(house prices). Furthermore, we will standardize the variables for
+better convergence of the GD algorithm. The code is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        
+        \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        
+        \PY{n}{sc\PYZus{}x} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+        \PY{n}{sc\PYZus{}y} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{X\PYZus{}std} \PY{o}{=} \PY{n}{sc\PYZus{}x}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        \PY{n}{y\PYZus{}std} \PY{o}{=} \PY{n}{sc\PYZus{}y}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{lr} \PY{o}{=} \PY{n}{LinearRegressionGD}\PY{p}{(}\PY{p}{)}
+        \PY{n}{lr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}std}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} <\_\_main\_\_.LinearRegressionGD at 0x7f33e4b7d320>
+\end{Verbatim}
+            
+    We discussed previously that it is always a good idea to plot the cost
+as a function of the number of epochs passes over the training dataset
+when we are using optimization algorithms, such as gradient descent, to
+check the algorithm converged to a cost minimum (here, a global cost
+minimum):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{reset\PYZus{}orig}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{lr}\PY{o}{.}\PY{n}{n\PYZus{}iter}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{.}\PY{n}{cost\PYZus{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Next, let's visualized how well the linear regression line fits to the
+training data. To do so, we will define a simple helper function that
+will plot a scatterplot of the training samples and add the regression
+line:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{lin\PYZus{}regplot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{steelblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{70}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{k}{return} \PY{k+kc}{None}
+\end{Verbatim}
+
+
+    Now, we will use this \emph{lin\_regplot} function to plot the number of
+rooms against house price:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{lin\PYZus{}regplot}\PY{p}{(}\PY{n}{X\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}std}\PY{p}{,} \PY{n}{lr}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average number of rooms [RM] (standardized)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price in \PYZdl{}1000s [MED] (standardized)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting plot, the linear regression line reflects
+the general trend that house prices tend to increase with the number of
+rooms.
+
+Although this observation makes intuitive sense, the data also tells us
+that the number of rooms does not explain the house prices very well in
+many cases. Later in this chapter, we will discuss how to quantify the
+performance of a regression model. Interestingly, we also observe that
+several data points lined up at \(y=3\), which suggests that the prices
+may have been clipped. In certain applications, it may also be important
+to report the predicted outcome variables on their original scale. To
+scale the predicted price outcome back onto \emph{Price in \$1000s}
+axis, we can simply apply the \emph{inverse\_transform} method of the
+\emph{StandardScaler}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{num\PYZus{}rooms\PYZus{}std} \PY{o}{=} \PY{n}{sc\PYZus{}x}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{5.0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{price\PYZus{}std} \PY{o}{=} \PY{n}{lr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{num\PYZus{}rooms\PYZus{}std}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price in \PYZdl{}1000s: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{sc\PYZus{}y}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{price\PYZus{}std}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Price in \$1000s: 10.840
+
+    \end{Verbatim}
+
+    In this code example, we used the previously trained linear regression
+model to predict the price of a house with five rooms. According to our
+model, such a house is worth \$10.840.
+
+On a side note, it is also worth mentioning that we technically do not
+have to update the weights of the intercept if we are working with
+standardized variables since the \emph{y}-axis intercept is always 0 in
+those cases. We can quickly confirm this by printing the weights:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Slope: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{lr}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intercept: }\PY{l+s+si}{\PYZpc{}3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{lr}\PY{o}{.}\PY{n}{w\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Slope: 0.695
+Intercept: -0.000000
+
+    \end{Verbatim}
+
+    \subsection{Estimating coefficient of a regression model via
+scikit-learn}\label{estimating-coefficient-of-a-regression-model-via-scikit-learn}
+
+    In the previous section, we implemented a working model for regression
+analysis; however, in a real-world application we may be interested in
+more efficient implementations. For example, many of scikit-learn's
+estimators for regression make use of the \textbf{LIBLINEAR} library,
+advanced optimization algorithms, and other code optimizations that work
+better with unstandardized variables, which is sometimes desirable for
+certain applications:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         
+         \PY{n}{slr} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{slr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Slope: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{slr}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intercept: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{slr}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Slope: 9.102
+Intercept: -34.671
+
+    \end{Verbatim}
+
+    As we can see from executing this code, scikit-learn's
+\emph{LinearRegression} model, fitted with the unstardardized \emph{RM}
+and \emph{MEDV} variables, yielded different model coefficients. Let's
+compare it to our GD implementation by plotting \emph{MEDV} against
+\emph{RM}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{lin\PYZus{}regplot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{slr}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average number of rooms [RM] (standardized)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price in \PYZdl{}1000s [MEDV] (standardized)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Now, when we plot the training data and our fitted model by executing
+this code, we can see that the overall result looks identical to our GD
+implementation.
+
+As an alternative to using machine learning libraries, there is also a
+closed-form solution for solving OLS involving a system of linear
+equations that can be found in most introductory statistics textbooks:
+
+\[w = (X^TX)^{-1}X^Ty\]
+
+We can implement it in Python as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{Xb} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{)}
+         \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{z} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{Xb}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{Xb}\PY{p}{)}\PY{p}{)}
+         \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{Xb}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Slope: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{w}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intercept: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{w}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Slope: 9.102
+Intercept: -34.671
+
+    \end{Verbatim}
+
+    The advantage of this method is that it is guaranteed to find the
+optimal solution analytically. However, if we are working with very
+large databasets, it can be computationally too expensive to inverte the
+matrix in this formula (sometimes also called the \textbf{normal
+equation}) or the sample matrix may be singular (non-invertible), which
+is why we may prefer iterative methods in certain cases.
+
+    \section{Fitting a robust regression model using
+RANSAC}\label{fitting-a-robust-regression-model-using-ransac}
+
+    Linear regression models can be heavily impacted by the presence of
+outliers. In certain situation, a very small subset of our data can have
+a big effect on the estimated model coefficients. There are many
+statistical tests that can be used to detect outliers, which are beyond
+the scop of the book. However, removing outliers always require our own
+judgement as data scientists as well as our domain knowledge.
+
+As an alternative to throwing out outliers, we will look at a robust
+method of regression using the \textbf{RANdom SAmple Consensus (RANSAC)}
+algorithm, which fits a regression model to a subset of the data, the
+so-called inliers.
+
+We can summarize the iterative RANSAC algorithm as follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Select a random number of samples to be inliers and fit the model.
+\item
+  Test all other data points against the fitted model and add those
+  points that fall within a user-given tolerance to the inliers.
+\item
+  Refit the model using all inliers.
+\item
+  Estimate the error of the fitted model versus the inliers.
+\item
+  Terminate the algorithm if the performance meets a certain
+  user-defined threshold or if a fixed number of iterations were
+  reached; go back to step 1 otherwise.
+\end{enumerate}
+
+Let us wrap our linear model in the RANSAC algorithm using
+scikit-learn'a \emph{RANSACRegressor} class:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{RANSACRegressor}
+         
+         \PY{n}{ransac} \PY{o}{=} \PY{n}{RANSACRegressor}\PY{p}{(}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+                                  \PY{n}{max\PYZus{}trials}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} 
+                                  \PY{n}{min\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} 
+                                  \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{absolute\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                  \PY{n}{residual\PYZus{}threshold}\PY{o}{=}\PY{l+m+mf}{5.0}\PY{p}{,} 
+                                  \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{ransac}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} RANSACRegressor(base\_estimator=LinearRegression(copy\_X=True, fit\_intercept=True, n\_jobs=1, normalize=False),
+                 is\_data\_valid=None, is\_model\_valid=None, loss='absolute\_loss',
+                 max\_skips=inf, max\_trials=100, min\_samples=50, random\_state=0,
+                 residual\_metric=None, residual\_threshold=5.0, stop\_n\_inliers=inf,
+                 stop\_probability=0.99, stop\_score=inf)
+\end{Verbatim}
+            
+    We set the maximum number of iterations of the \emph{RANSACRegressor} to
+100, and using \emph{min\_samples=50}, we set the minimum number of the
+randomly chosen samples to be at least 50. Using the
+\emph{'absolute\_loss'} as an argument for the \emph{residual\_metric}
+parameter, the algorithm computes absolute vertical distances between
+the fitted line and the sample points. By setting the
+\emph{residual\_threshold} parameter to 5.0, we only allowed samples to
+be included in the inlier set if their vertical distance to the fitted
+line is within 5 distance units, which works well on this particular
+dataset.
+
+By default, scikit-learn uses the \textbf{MAD} estimate to select the
+inlier threshold, where MAD stands for the \textbf{Median Absolute
+Deviation} of the target values \emph{y}. However, the choice of an
+appropriate value for the inlier threshold is problem-specific, which is
+one disadvantage of RANSAC. Many different approaches have been
+developed in recent years to select a good inlier threshold
+automatically.
+
+After we fit the RANSAC model, let's obtain the inliers and outliers
+from the fitted RANSAC-linear regression model and plot them together
+with the linear fit:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{inlier\PYZus{}mask} \PY{o}{=} \PY{n}{ransac}\PY{o}{.}\PY{n}{inlier\PYZus{}mask\PYZus{}}
+         \PY{n}{outlier\PYZus{}mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}not}\PY{p}{(}\PY{n}{inlier\PYZus{}mask}\PY{p}{)}
+         
+         \PY{n}{line\PYZus{}X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{line\PYZus{}y\PYZus{}ransac} \PY{o}{=} \PY{n}{ransac}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{line\PYZus{}X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{inlier\PYZus{}mask}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{inlier\PYZus{}mask}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{steelblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Inliers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{outlier\PYZus{}mask}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{outlier\PYZus{}mask}\PY{p}{]}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{limegreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Outliers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{line\PYZus{}X}\PY{p}{,} \PY{n}{line\PYZus{}y\PYZus{}ransac}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average number of rooms [RM]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price in \PYZdl{}1000s [MEDV]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting scatterplot, the linear regression model
+was fitted on the detected set of inliers, shown as circles.
+
+When we print the slope and intercept of the model by executing the
+following code, we can see that the linear regression line is slightly
+different from the fit that we obtained in the previous section without
+using RANSAC:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Slope: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{ransac}\PY{o}{.}\PY{n}{estimator\PYZus{}}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intercept: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{ransac}\PY{o}{.}\PY{n}{estimator\PYZus{}}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Slope: 10.735
+Intercept: -44.089
+
+    \end{Verbatim}
+
+    Using RANSAC, we reduced the potential effect of the outliers in this
+dataset, but we do not know if this approach has a positive effect on
+the predictive performance for unseen data. Thus, in the next section we
+will look at different approaches to evaluating a regression model,
+which is a crucial part of building systems for predictive modeling.
+
+    \section{Evaluating the performance of linear regression
+models}\label{evaluating-the-performance-of-linear-regression-models}
+
+    In the previous section, we learned how to fit a regression model on
+training data. However, you learned in the previous chapters that it is
+crucial to test the model on data that it has not seen during training
+to obtain a more unbiased estimate of its performance.
+
+As we remember, we want to split our dataset into separate training and
+test datasets where we use the former to fit the model and the latter to
+evaluate its performance to generalize to unseen data. Instead of
+proceeding with the simple regression model, we will now use all
+variables in the dataset and train a multiple regression model:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         
+         \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PYZbs{}
+             \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{slr} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{slr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{slr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{slr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    Since our model uses multiple explanatory variables, we cannot visualize
+the linear regression line (or hyperplane to be precise) in a
+two-dimensional plot, but we can plot the residuals (the differences or
+vertical distances between the actual and predicted values) versus the
+predicted values to diagnose our regression model. \textbf{Residual
+plots} are a commonly used graphical tool for diagnosing regression
+models. They can help detect nonlinearity and outliers, and check
+whether the errors are randomly distributed.
+
+Using the following code, we will now plot a residual plot where we
+simply subtract the true target variables from our predicted responses:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}train}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{steelblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}test}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{limegreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted values}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Residuals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hlines}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{xmin}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{xmax}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In case of a perfect prediction, the residuals would be exactly zero,
+which we will probably never encounter in realistic and practical
+applications. However, for a good regression model, we would expect that
+the errors are randomly distributed and the residuals should be randomly
+scattered around the centerline. If we see patterns in a residual plot,
+it means that our model is unable to capture some explanatory
+information, which has leaked into the residuals, as we can slightly see
+in our previous residual plot. Furthermore, we can also use residual
+plots to detect outliers, which are represented by the points with a
+large deviation from the centerline.
+
+Another useful quantitative measure of a model's performance is the
+so-called \textbf{Mean Squared Error (MSE)}, which is simply the
+averaged value of the SSE cost that we minimized to fit the linear
+regression model. The MSE is useful to compare different regression
+models or for tuning their parameters via grid search and
+cross-validation, as it normalizes the SSE by the sample size.
+
+Let's compute the MSE of our training and test predictions:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} 
+               \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,} 
+                  \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE train: 19.958, test: 27.196
+
+    \end{Verbatim}
+
+    We see that the MSE on the training set is 19.96, and the MSE of the
+test set is much larger, with a value of 27.20, which is an indicator
+that our model is overfitting the training data.
+
+Sometimes it may be more useful to report the \textbf{coefficient of
+determination \(R^2\)}, which can be understood as a standardized
+version of the MSE, for better interpretability of the model's
+performance. Or in other words, \(R^2\) is the fraction of response
+variance that is captured by the model. The \(R^2\) value is defined as:
+
+\[R^2 = 1 - \frac{SSE}{SST}\]
+
+Here, SSE is the sum of squared errors and SST is the total sum of
+squares:
+
+\[SST = \sum_{i=1}^n (y^{(i)} - \mu_\gamma)^2\]
+
+In other words, SST is simply the variance of the response.
+
+For the training dataset, the \(R^2\) is bounded between 0 and 1, but it
+can become negative for the test set. If \(R^2 = 1\), the model fits the
+data perfectly with a corresponding MSE = 0.
+
+Evaluated on the training data, the \(R^2\) of our model is 0.765, which
+does not sound too bad. However, the \(R^2\) on the test dataset is only
+0.673, which we can compute by executing the following code:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{r2\PYZus{}score}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZca{}2 train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} 
+               \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,} 
+                  \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+R\^{}2 train: 0.765, test: 0.673
+
+    \end{Verbatim}
+
+    \section{Using regularized methods for
+regression}\label{using-regularized-methods-for-regression}
+
+    As we discussed before, regularization is one approach to tackle the
+problem of overfitting by adding additional information, and thereby
+shrinking the parameter values of the model to induce a penalty against
+complexity. The most popular approaches to regularized linear regression
+are the so-called \textbf{Ridge Regression, Least Absolute Shrinkage and
+Selection Operator (LASSO)}, and \textbf{Elastic Net}.
+
+Ridge regression is an L2 penalized model where we simply add the
+squared sum of the weights to our least-squares cost function.
+
+By increasing the value of hyperparameter \(\gamma\), we increase the
+regularization strength and shrink the weights of our model. Please note
+that we do not regularize the intercept term \(w_0\).
+
+An alternative approach that can lead to sparse models is LASSO.
+Depending on the regularization strength, certain weights can become
+zero, which also makes LASSO useful as a supervised feature selection
+technique.
+
+However, a limitation of LASSO is that it selects at most \(n\)
+variables if \(m > n\). A compromise between Ridge regression and LASSO
+is Elastic Net, which has an L1 penalty to generate sparsity and an L2
+penalty to overcome some of the limitations of LASSO, such as the number
+of selected variables.
+
+Those regularized regression models are all available via scikit-learn,
+and the usage is similar to the regular regression model except that we
+have to specify the regularization strength via the parameter
+\(\gamma\), for example, optimized via k-fold cross-validation.
+
+A Ridge regression model can be initialized via:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Ridge}
+         
+         \PY{n}{ridge} \PY{o}{=} \PY{n}{Ridge}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}
+\end{Verbatim}
+
+
+    Note that the regularization strength is regulated by the parameter
+\emph{alpha}, which is similar to the parameter \(\lambda\). Likewise,
+we can initialize a LASSO regressor from the \emph{linear\_model}
+submodule:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Lasso}
+         
+         \PY{n}{lasso} \PY{o}{=} \PY{n}{Lasso}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}
+\end{Verbatim}
+
+
+    Lastly, the \emph{ElasticNet} implementation allows us to vary the L1
+and L2 ratio:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{ElasticNet}
+         
+         \PY{n}{elanet} \PY{o}{=} \PY{n}{ElasticNet}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+\end{Verbatim}
+
+
+    For example, if we set the \emph{l1\_ratio} to 1.0, the
+\emph{ElasticNet} regressor would be equal to the LASSO regression.
+
+    \section{Turning a linear regression model into a curve - polynomial
+regression}\label{turning-a-linear-regression-model-into-a-curve---polynomial-regression}
+
+    In the previous sections, we assumed a linear relationship between
+explanatory and response variables. One way to account for the violation
+of linearity assumption is to use a polynomial regression model by
+adding polynomial terms:
+
+\[y = w_0 + w_1x + w_2x^2 + \ldots + w_dx^d\]
+
+Here, \(d\) denotes the degree of the polynomial. Although we can use
+polynomial regression to model a nonlinear relationship, it is still
+considered a multiple linear regression model because of the linear
+regression coefficients \(w\). In the following subsections, we will see
+how we can add such polynomial terms to an existing dataset conveniently
+and fit a polynomial regression model.
+
+    \subsection{Adding a polynomial terms using
+scikit-learn}\label{adding-a-polynomial-terms-using-scikit-learn}
+
+    We will now learn how to use \emph{PolynomialFeatures} transform class
+from scikit-learn to add a quadratic term (\(d = 2\)) to a simple
+regression problem with one explanatory variable. Then, we compare the
+polynomial to the linear fit following these steps:
+
+    1 - Add a second degree polynomial term:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+         
+         \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{258.0}\PY{p}{,} \PY{l+m+mf}{270.0}\PY{p}{,} \PY{l+m+mf}{294.0}\PY{p}{,} \PY{l+m+mf}{320.0}\PY{p}{,} \PY{l+m+mf}{342.0}\PY{p}{,} 
+                       \PY{l+m+mf}{368.0}\PY{p}{,} \PY{l+m+mf}{396.0}\PY{p}{,} \PY{l+m+mf}{446.0}\PY{p}{,} \PY{l+m+mf}{480.0}\PY{p}{,} \PY{l+m+mf}{586.0}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{236.4}\PY{p}{,} \PY{l+m+mf}{234.4}\PY{p}{,} \PY{l+m+mf}{252.8}\PY{p}{,} \PY{l+m+mf}{298.6}\PY{p}{,} \PY{l+m+mf}{314.2}\PY{p}{,} 
+                       \PY{l+m+mf}{342.2}\PY{p}{,} \PY{l+m+mf}{360.8}\PY{p}{,} \PY{l+m+mf}{368.0}\PY{p}{,} \PY{l+m+mf}{391.2}\PY{p}{,} \PY{l+m+mf}{390.8}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{lr} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{pr} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{quadratic} \PY{o}{=} \PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{X\PYZus{}quad} \PY{o}{=} \PY{n}{quadratic}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    2 - Fit a simple linear regression model for comparison:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{lr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{X\PYZus{}fit} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{600}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+         \PY{n}{y\PYZus{}lin\PYZus{}fit} \PY{o}{=} \PY{n}{lr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{)}
+\end{Verbatim}
+
+
+    3 - Fit a multiple regression model on the transformed features for
+polynomial regression:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{pr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}quad}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{y\PYZus{}quad\PYZus{}fit} \PY{o}{=} \PY{n}{pr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{quadratic}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    4 - Plot the results:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{,} \PY{n}{y\PYZus{}lin\PYZus{}fit}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear fit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{,} \PY{n}{y\PYZus{}quad\PYZus{}fit}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quadratic fit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_82_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In the resulting plot, we can see that the polynomial fit captures the
+relationship between the response and explanatory variable much better
+than the linear fit.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{y\PYZus{}lin\PYZus{}pred} \PY{o}{=} \PY{n}{lr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{y\PYZus{}quad\PYZus{}pred} \PY{o}{=} \PY{n}{pr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}quad}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training MSE linear: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, quadratic: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}}
+                \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}lin\PYZus{}pred}\PY{p}{)}\PY{p}{,} 
+                   \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}quad\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training R\PYZca{}2 linear: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, quadratic: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}}
+                \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}lin\PYZus{}pred}\PY{p}{)}\PY{p}{,} 
+                   \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}quad\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training MSE linear: 569.780, quadratic: 61.330
+Training R\^{}2 linear: 0.832, quadratic: 0.982
+
+    \end{Verbatim}
+
+    As we can see after executing the code, the MSE decreased from 570
+(linear fit) to 61 (quadratic fit); also, the coefficiet of
+determination reflects a closer fit of the quadratic model
+(\(R^2 = 0.982\)) as opposed to the linear fit (\(R^2 = 0.832\)) in this
+particular toy problem.
+
+    \subsection{Modeling nonlinear relationships in the Housing
+dataset}\label{modeling-nonlinear-relationships-in-the-housing-dataset}
+
+    After we learned how to construct polynomial features to fit nonlinear
+relationships in a toy problem, let's now take a look at a more concrete
+example and apply those concepts to the data in the Housing dataset. By
+executing the following code, we will model the relationship between
+house prices and \emph{LSTAT} (percent lower status of the population)
+as using second degree (quadratic) and third degree (cubic) polynomials
+and compare it to a linear fit:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LSTAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         
+         \PY{n}{regr} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} create quadratic features}
+         \PY{n}{quadratic} \PY{o}{=} \PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{cubic} \PY{o}{=} \PY{n}{PolynomialFeatures}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{X\PYZus{}quad} \PY{o}{=} \PY{n}{quadratic}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{X\PYZus{}cubic} \PY{o}{=} \PY{n}{cubic}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} fit features}
+         \PY{n}{X\PYZus{}fit} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+         
+         \PY{n}{regr} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{y\PYZus{}lin\PYZus{}fit} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{)}
+         \PY{n}{linear\PYZus{}r2} \PY{o}{=} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{regr} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}quad}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{y\PYZus{}quad\PYZus{}fit} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{quadratic}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{)}\PY{p}{)}
+         \PY{n}{quadratic\PYZus{}r2} \PY{o}{=} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}quad}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{regr} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}cubic}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{y\PYZus{}cubic\PYZus{}fit} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{cubic}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{)}\PY{p}{)}
+         \PY{n}{cubic\PYZus{}r2} \PY{o}{=} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}cubic}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot results}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{,} \PY{n}{y\PYZus{}lin\PYZus{}fit}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear (d=1), \PYZdl{}R\PYZca{}2=}\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{linear\PYZus{}r2}\PY{p}{,} 
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{,} \PY{n}{y\PYZus{}quad\PYZus{}fit}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quadratic (d=2), \PYZdl{}R\PYZca{}2=}\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{quadratic\PYZus{}r2}\PY{p}{,} 
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{,} \PY{n}{y\PYZus{}cubic\PYZus{}fit}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cubic (d=3), \PYZdl{}R\PYZca{}2=}\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{cubic\PYZus{}r2}\PY{p}{,} 
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} lo}\PY{l+s+s1}{wer status of the population [LSTAT]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price in \PYZdl{}1000s [MEDV]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_88_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see, the cubic fit captures the relationship between house
+prices and LSTAT better than the linear and quadratic fit. However, we
+should be aware that adding more and more polynomial features increases
+the complexity of a model and therefore increases the chance of
+overfitting. Thus, in practice it is always recommended to evaluate the
+performance of the model on a separate test dataset to estimate the
+generalization performance.
+
+In addition, polynomial features are not always the best choice for
+modeling nonlinear relationships. For example, with some experience or
+intuition, just looking at the MEDV-LSTAT scatterplot may lead to the
+hypothesis that a log-transformation of the LSTAT feature variable and
+the square root of the MEDV may project the data onto a linear feature
+space suitable for a linear regression fit. For instance, my perception
+is that this relationship between the two variables looks quite similar
+to an exponential function:
+
+\[f(x) = 2^{-x}\]
+
+Since the natural logarithm of an exponential function is a straigth
+line, I assume that such a log-transformation can be usefully applied
+here:
+
+\[log(f(x)) = -x\]
+
+Let's test this hypothesis by executing the following code:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} transform features}
+         \PY{n}{X\PYZus{}log} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{y\PYZus{}sqrt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} fit features}
+         \PY{n}{X\PYZus{}fit} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{X\PYZus{}log}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{X\PYZus{}log}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+         \PY{n}{regr} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}log}\PY{p}{,} \PY{n}{y\PYZus{}sqrt}\PY{p}{)}
+         \PY{n}{y\PYZus{}lin\PYZus{}fit} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{)}
+         \PY{n}{linear\PYZus{}r2} \PY{o}{=} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}sqrt}\PY{p}{,} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}log}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot results}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}log}\PY{p}{,} \PY{n}{y\PYZus{}sqrt}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}fit}\PY{p}{,} \PY{n}{y\PYZus{}lin\PYZus{}fit}\PY{p}{,} 
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear (d=1), \PYZdl{}R\PYZca{}2=}\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{linear\PYZus{}r2}\PY{p}{,} 
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log(}\PY{l+s+si}{\PYZpc{} lo}\PY{l+s+s1}{wer status of the population [LSTAT])}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{Price }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{; in }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{; }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{\PYZdl{}1000s }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{; [MEDV]\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_90_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    After transforming the explanatory onto the log space and taking the
+square root of the target variables, we were able to capture the
+relationship between the two variables with a linear regression line
+that seems to fit the data better (\(R^2=0.69\)) than any of the
+polynomial feature transformations previously.
+
+    \section{Dealing with nonlinear relationships using random
+forests}\label{dealing-with-nonlinear-relationships-using-random-forests}
+
+    In this section, we are going to take a look at \textbf{random forest}
+regression, which is conceptually different from the previous regression
+models in this chapter. A random forest, which is an ensemble of
+multiple \textbf{decision trees}, can be understood as the sum of
+piecewise linear functions in contrast to the global linear and
+polynomial regression models that we discussed previously. In other
+words, via the decision tree algorithm, we are subdividing the input
+space into smaller regions that become more manageable.
+
+    \subsection{Decision tree regression}\label{decision-tree-regression}
+
+    An advantage of the decision tree algorithm is that it does not require
+any transformation of the features if we are dealing with nonlinear
+data. We remember that we grow a decision tree by iteratively splitting
+its nodes until the leaves are pure or a stopping critetion is
+satistied. When we used decision trees for classification, we defined
+entropy as a measure of impurity to determine which feature split
+maximizes the \textbf{Information Gain (IG)}, which can be defined as
+follows for a binary split:
+
+\[IG(d_v, x_i) = I(D_v) - \frac{N_{left}}{N_y}I(D_{left})-\frac{N_{right}}{N_p}I(D_{right})\]
+
+Here, \(x\) is the feature to perform the split, \(N_p\) is the number
+of samples in the parent node, \(I\) is the impurity function, \(D_v\)
+is the subset of training samples at the parent node, and \(D_{left}\)
+and \(D_{right}\) are the subsets of training samples at the left and
+right child node after the split. Remember that our goal is to find the
+feature split that maximizes the information gain; in other words, we
+want to find the feature split that reduces the impurities in the child
+nodes most. We discussed Gini impurity and entropy as measures of
+impurity, which are both useful criteria for classification. To use a
+decision tree for regression, however, we need an impurity metric that
+is suitable for continuous variables, so we define the impurity measure
+of a node \(t\) as the MSE instead:
+
+\[l(t) = MSE(t) = \frac{1}{N_t}\sum(y^{(i)} - ŷ_t)^2\]
+
+Here, \(N_t\) is the number of training samples at node \(t\), \(D_t\)
+is the training subset at node \(t\), \(y^{(i)}\) is the true target
+value, and \(ŷ_t\) is the predicted target value (sample mean):
+
+\[ŷ_t = \frac{1}{N_t}\sum_{i \in D_t}y^{(i)}\]
+
+In the context of decision tree regression, the MSE is often also
+referred to as \textbf{within-node variance}, which is why the splitting
+criterion is lso better known as \textbf{variance reduction}. To see
+what the line fit of a decision tree looks like, let us use the
+\emph{DecisionTreeRegressor} implemented in scikit-learn to model the
+nonlinear relationship between the \emph{MEDV} and \emph{LSTAT}
+variables:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeRegressor}
+         
+         \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LSTAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         
+         \PY{n}{tree} \PY{o}{=} \PY{n}{DecisionTreeRegressor}\PY{p}{(}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{tree}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{n}{sort\PYZus{}idx} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}
+         \PY{n}{lin\PYZus{}regplot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{sort\PYZus{}idx}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{sort\PYZus{}idx}\PY{p}{]}\PY{p}{,} \PY{n}{tree}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} lo}\PY{l+s+s1}{wer status of the populatin [LSTAT]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price in \PYZdl{}1000s [MEDV]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_96_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting plot, the decision tree captures the
+general trend in the data. However, a limitation of this model is that
+it does not capture the continuity and differenciability of the desired
+prediction. In addition, we need to be careful about choosing an
+appropriate value for the depth of the tree to not overfit or underfit
+the data; here, a depth of three seemed to be a good choice. In the next
+section, we will take a look at a more robust way of fitting regression
+trees: random forests.
+
+    \subsection{Random forest regression}\label{random-forest-regression}
+
+    As we learned, the random forest algorithm is an ensemble technique that
+combines multiple decision trees. A random forest usually has a better
+generalization performance than an individual decision tree due to
+randomness, which helps to decrease the model's variance. Other
+advantages of random forests are that they are less sensitive to
+outliers in the dataset and do not require much parameter tuning. The
+only parameter in random forests that we typically need to experiment
+with is the number of trees in the ensemble. The basic random forest
+algorithm for regression is almost identical to the random forest
+algorithm for classification that we discussed earlier, the only
+difference is that we use the MSE criterion to grow the individual
+decision trees, and the predicted target variable is calculated as the
+average prediction over all decision trees.
+
+Now, let's use all features in the Housing dataset to fit a random
+forest regression model on 60 percent of the samples and evaluate its
+performance on the remaining 40 percent. The code is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PYZbs{}
+           \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestRegressor}
+         
+         \PY{n}{forest} \PY{o}{=} \PY{n}{RandomForestRegressor}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} 
+                                        \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                        \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                        \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{forest}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} RandomForestRegressor(bootstrap=True, criterion='mse', max\_depth=None,
+                    max\_features='auto', max\_leaf\_nodes=None,
+                    min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                    min\_samples\_leaf=1, min\_samples\_split=2,
+                    min\_weight\_fraction\_leaf=0.0, n\_estimators=1000, n\_jobs=-1,
+                    oob\_score=False, random\_state=1, verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{forest}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{forest}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} 
+               \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,} 
+                  \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZca{}2 train: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{, test: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} 
+               \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,} 
+                  \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+MSE train: 1.642, test: 11.052
+R\^{}2 train: 0.979, test: 0.878
+
+    \end{Verbatim}
+
+    Unfortunately, we see that the random forest tends to overfit the
+training data. However, it is still able to explain the relationship
+between the target and explanatory variables relatively well
+(\(R^2 = 0.871\) on the test dataset).
+
+Lastly, let us take a look at the residuals of the prediction:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}train}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{steelblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} 
+                     \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}test}\PY{p}{,} 
+                     \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{limegreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{35}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.9}\PY{p}{,} 
+                     \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted values}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Residuals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hlines}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{xmin}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{xmax}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_104_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As it was already summarized by the \(R^2\) coefficient, we can see that
+the model fits the training data better than the test data, as indicated
+by the outliers in the \(y\)-axis direction. Also, the distribution of
+the residual does not seem to be completely random around the zero
+center point, indicating that the model is not able to capture all the
+explanatory information. However, the residual indicates a large
+improvement over the residual plot of the linear model that we plotted
+earlier in this chapter.
+
+Ideally, our model error should be random or unpredictable. In other
+words, the error of the predictions should not be related to any of the
+information contained in the explanatory variables, but should reflect
+the randomness of the real-world distributions or patterns. If we
+observe patterns in the prediction errors, for example, by inspecting
+the residual plot, it means that the residual plots contain predictive
+information. A common reason for this could be that explanatory
+information is leaking into those residuals.
+
+Unfortunately, there is now a universal approach for dealing with
+non-randomness in resisual plot, and it requires experimentation.
+Depending on the data that is available to us, we may be able to improve
+the model by transforming variables, tuning the hyperparameters of the
+learning algorithm, choosing simpler or more complex models, removing
+outliers, or including additional variables.
+
+    Previously, we also learned about the kernel trick, which can be used in
+combination with a \textbf{Support Vector Machine (SVM)} for
+classification, and is useful if we are dealing with nonlinear problems.
+Although a discussion is beyond the scope of this book, SVMs can also be
+used in nonlinear regression tasks. An SVM regressor is also implemented
+in scikit-learn.
+
+    \section{Summary}\label{summary}
+
+    At the beginning of this chapter, you learned about simple linear
+regression analysis to model the relationship between a single
+explanatory variable and a continuous response variable. We then
+discussed a useful explanatory data analysis techniques to look at
+patterns and anomalies in data, which is an important first step in
+predictive modeling tasks.
+
+We built our first model by implementing linear regression using a
+gradient-based optimization approach. We then saw how to utilize
+scikit-learn's linear models for regression and also implement a robust
+regression technique (RANSAC) as an approach for dealing with outliers.
+To assess the predictive performance of regression models, we computed
+the mean sum of squared errors and the related \(R^2\) metric.
+Furthermore, we also discussed a useful graphical approach to diagnose
+problems of regression models: the residual plot.
+
+After we discussed how regularization can be applied to regression
+models to reduce the model complexity and avoid overfitting, we also
+introduced several approaches to model nonlinear relationships including
+polynomial feature transformation and random forest regressors.
+
+We have discussed supervised learning, classification, and regression
+analysis in great detail throughout the previous chapters. In the next
+chapter, we are going to learn about another interesting subfield of
+machine learning, unsupervised learning and also we will learn how to
+use cluster analysis for finding hidden patterns structures in data in
+the absence of target variables.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

@@ -1,0 +1,1388 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{9\_Embedding\_A\_Machine\_Learning\_Model\_Into\_A\_Web\_Application}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Embedding a Machine Learning Model into a Web
+Application}\label{embedding-a-machine-learning-model-into-a-web-application}
+
+    In the previous chapters, you learned about the many different machine
+learning concepts and algorithms that can help us with better and more
+efficient decision-making. However, machine learning techniques are not
+limited to offline applications and analysis, and they can be the
+predictive engine of your web services. For example, popular and useful
+applications of machine learning models in web applications include spam
+detection in submission forms, search engines, recommendation systems
+for media or shopping portals, and many more.
+
+In this chapter, you will learn how to embed a machine learning model
+into a web application that can not only classify, but also learn from
+data in real time. The topics that we will cover are as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  Saving the current state of a trained machine learning model
+\item
+  Using SQLite databases for data storage
+\item
+  Developing a web application using the popular Flask web framework
+\item
+  Deploying a machine learning application to a public web server
+\end{itemize}
+
+    \section{Serializing fitted scikit-learn
+estimators}\label{serializing-fitted-scikit-learn-estimators}
+
+    Training a machine learning model can be computationally quite
+expensive, as we have seen previously. Surely we do not want to train
+our model every time we close our Python interpreter and want to make a
+new prediction or reload our web application? One option for model
+persistence is Python's in-built \emph{pickle} module, which allows us
+to serialize and deserialize Python object structures to compact
+bytecode so that we can save our classifier in its current state and
+reload it if we want to classify new samples, without needing the model
+to learn from the training data all over again. Before you execute the
+following code, please make sure that you have trained the out-of-core
+logistic regression model from the last section of the previous chapter
+and have it ready in your current Python session:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{import pickle }
+        \PY{l+s+sd}{import os}
+        
+        \PY{l+s+sd}{dest = os.path.join(\PYZsq{}movieclassifier\PYZsq{}, \PYZsq{}pkl\PYZus{}objects\PYZsq{})}
+        \PY{l+s+sd}{if not os.path.exists(dest):}
+        \PY{l+s+sd}{    os.makedirs(dest)}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{pickle.dump(stop, open(os.path.join(dest, \PYZsq{}stopwords.pkl\PYZsq{}), \PYZsq{}wb\PYZsq{}), protocol=4)}
+        \PY{l+s+sd}{pickle.dump(clf, open(os.path.join(dest, \PYZsq{}classifier.pkl\PYZsq{}), \PYZsq{}wb\PYZsq{}), protocol=4)}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    Using the preceding code, we create a \emph{movieclassifier} directory
+where we will later store the files and data for our web application.
+Within this \emph{movieclassifier} directory, we created a
+\emph{pkl\_objects} subdirectory to save the serialized Python objects
+to our local drive. Via the \emph{dump} method of the \emph{pickle}
+module, we then serialized the trained logistic regression model as well
+as the stop word set from the \textbf{Natural Language Toolkit (NLTK)}
+library, so that we do not have to install the NLTK vocabulary on our
+server.
+
+The \emph{dump} method takes as its first argument the object that we
+want to pickle, and for the second argument we provied an open file
+object that the Python object will be written to. Via the \emph{wb}
+argument inside the \emph{open} function, we opened the file in binary
+mode for pickle, and we set \emph{protocol=4} to choose the latest and
+most efficient pickle protocol that has been added to Python 3.4, which
+is compatible with Python 3.4 or newer.
+
+We do not need to pickle \emph{HashingVectorizer}, since it does not
+need to be fitted. Instead, we can create a new Python script file from
+which we can import the vectorizer into our current Python session. Now,
+copy the following code and save it as \emph{vectorizer.py} in the
+\emph{movieclassifier} directory:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{from sklearn.feature\PYZus{}extraction.text import HashingVectorizer}
+        \PY{l+s+sd}{import re}
+        \PY{l+s+sd}{import os}
+        \PY{l+s+sd}{import pickle}
+        
+        \PY{l+s+sd}{cur\PYZus{}dir = os.path.dirname(\PYZus{}\PYZus{}file\PYZus{}\PYZus{})}
+        \PY{l+s+sd}{stop = pickle.load(open(os.path.join(cur\PYZus{}dir,\PYZsq{}pkl\PYZus{}objects\PYZsq{},\PYZsq{}stopwords.pkl\PYZsq{}), \PYZsq{}rb\PYZsq{}))}
+        
+        \PY{l+s+sd}{def tokenizer(text):}
+        \PY{l+s+sd}{    text = re.sub(\PYZsq{}\PYZlt{}[\PYZca{}\PYZgt{}]*\PYZgt{}\PYZsq{}, \PYZsq{}\PYZsq{}, text)}
+        \PY{l+s+sd}{    emoticons = re.findall(\PYZsq{}(?::|;|=)(?:\PYZhy{})?(?:\PYZbs{})|\PYZbs{}(|D|P)\PYZsq{},text.lower())}
+        \PY{l+s+sd}{    text = re.sub(\PYZsq{}[\PYZbs{}W]+\PYZsq{}, \PYZsq{} \PYZsq{}, text.lower()) + \PYZsq{} \PYZsq{}.join(emoticons).replace(\PYZsq{}\PYZhy{}\PYZsq{}, \PYZsq{}\PYZsq{})}
+        \PY{l+s+sd}{    tokenized = [w for w in text.split() if w not in stop]}
+        \PY{l+s+sd}{    return tokenized}
+        
+        \PY{l+s+sd}{vect = HashingVectorizer(decode\PYZus{}error=\PYZsq{}ignore\PYZsq{},n\PYZus{}features=2**21,preprocessor=None,tokenizer=tokenizer)}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    After we have pickled the Python objects and created the
+\emph{vectorizer.py} file, it would now be a good idea to restart our
+Python interpreter or IPython Notebook kernel to test if we can
+deserialize the objects without error.
+
+From your terminal, navigate to the \emph{movieclassifier} directory,
+start a new Python session and execute the following code to verify that
+you can import the \emph{vectorizer} and unpickle the classifier:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{k+kn}{import} \PY{n+nn}{re}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{from} \PY{n+nn}{movieclassifier}\PY{n+nn}{.}\PY{n+nn}{vectorizer} \PY{k}{import} \PY{n}{vect}
+        
+        \PY{n}{clf} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movieclassifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pkl\PYZus{}objects}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    After we have successfully loaded the \emph{vectorizer} and unpickled
+the classifier, we can now use these objects to preprocess documents
+samples and make predictions about their sentiment:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{label} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{negative}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{positive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{example} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I love this movie}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{vect}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{example}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Probability: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}
+               \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{label}\PY{p}{[}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Prediction: positive
+Probability: 86.25\%
+
+    \end{Verbatim}
+
+    Since our classifier returns the class labels as integers, we defined a
+simple Python dictionary to map these integers to their sentiment. We
+then used \emph{HashingVectorizer} to transform the simple example
+document into a word vector \emph{x}. Finally, we used the
+\emph{predict} method of the logist regression classifier to predict the
+class label, as well as the \emph{predict\_proba} method to return the
+corresponding probability of our prediction. Note that the
+\emph{predict\_proba} method call returns an array with a probability
+value for each unique class label. Since the class label with the
+largest probability corresponds to the class that is returned by the
+\emph{predict} call, we used the \emph{np.max} function to return the
+probability of the predicted class.
+
+    \section{Setting up an SQLite database for data
+storage}\label{setting-up-an-sqlite-database-for-data-storage}
+
+    In this section, we wil set up a simple SQLite database to collect
+optional feedback about the predictions from users of the web
+application. We can use this feedback to update our classification
+model. SQLite is a open source SQL database engine that does not require
+a separate server to operate, which makes it ideal for smaller projects
+and simple web applications. Essentially, a SQLite dataset can be
+understood as a single, self-contained database file that allows us to
+directly access storage files.
+
+Furthermore, SQLite does not require any system-specific configuration
+and is support by all common operating systems. It has gained a
+reputation for being very reliable as it is used by popular companies,
+such as Google, Mozilla, Adobe, Apple, Microsoft, and many more.
+
+Fortunately, following Python's \emph{batteries included} philosophy,
+there is already an API in the Python standard library, \emph{sqlite3},
+which allows us to work with SQLite databases.
+
+By executing the following code, we will create a new SQLite database
+inside the \emph{movieclassifier} directory and store two example movie
+reviews:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{sqlite3}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        
+        \PY{n}{bd\PYZus{}file} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movieclassifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reviews.sqlite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{k}{if} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{n}{bd\PYZus{}file}\PY{p}{)}\PY{p}{:}
+            \PY{n}{os}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{bd\PYZus{}file}\PY{p}{)}
+        
+        \PY{n}{conn} \PY{o}{=} \PY{n}{sqlite3}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{bd\PYZus{}file}\PY{p}{)}
+        \PY{n}{c} \PY{o}{=} \PY{n}{conn}\PY{o}{.}\PY{n}{cursor}\PY{p}{(}\PY{p}{)}
+        \PY{n}{c}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CREATE TABLE review\PYZus{}db}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ (review TEXT, sentiment INTEGER, date TEXT)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{n}{example1} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I love this movie}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{c}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{INSERT INTO review\PYZus{}db}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ (review, sentiment, date) VALUES}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ (?, ?, DATETIME(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{now}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{))}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{(}\PY{n}{example1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{example2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I disliked this movie}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{c}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{INSERT INTO review\PYZus{}db}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ (review, sentiment, date) VALUES}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ (?, ?, DATETIME(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{now}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{))}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{(}\PY{n}{example2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{conn}\PY{o}{.}\PY{n}{commit}\PY{p}{(}\PY{p}{)}
+        \PY{n}{conn}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Following the preceding code example, we created a connection
+(\emph{conn}) to a SQLite database file by calling the \emph{connect}
+method of the \emph{sqlite3} library, which created the new database
+file \emph{reviews.sqlite} in the \emph{movieclassifier} directory if it
+did not already exist. Please note that SQLite does not implement a
+replace function for existing tables; you need to delete the database
+file manually from your file browser if you want to execute the code a
+second time.
+
+Next, we created a cursor via the \emph{cursor} method, which allows us
+to transverse over the database records using the versatile SQL syntax.
+Via the first \emph{execute} call, we then created a new database table,
+\emph{review\_db}. We used this to store and access database entries.
+Along with \emph{review\_db}, we also created three columns in this
+database table: \emph{review}, \emph{sentiment}, and \emph{date}. We
+used these to store two example movie reviews and respective class
+labels (sentiments).
+
+Using the \emph{DATETIME('now')} SQL command, we also added date and
+timestamps to our entries. In addition to the timestamps, we used the
+question mark symbol (\emph{?}) to pass the movie review texts
+(\emph{example1} and \emph{example2}) and the corresponding class label
+(1 and 0) as positional arguments to the \emph{execute} method, as
+members of a tuple. Lastly, we called the \emph{commit} method to save
+the changes that we made to the database and closed the connection via
+the \emph{close} method.
+
+To check if the entries have been stored in the database table
+correctly, we will now reopen the connection to the database and use the
+SQL \emph{SELECT} command to fetch all rows in the database table that
+have been commited between the beginning of the year 2017 and today:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{conn} \PY{o}{=} \PY{n}{sqlite3}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{bd\PYZus{}file}\PY{p}{)}
+        \PY{n}{c} \PY{o}{=} \PY{n}{conn}\PY{o}{.}\PY{n}{cursor}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{c}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SELECT * FROM review\PYZus{}db WHERE date}\PY{l+s+s2}{\PYZdq{}}\PYZbs{}
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ BETWEEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{2017\PYZhy{}01\PYZhy{}01 00:00:00}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ AND DATETIME(}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{now}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{results} \PY{o}{=} \PY{n}{c}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{conn}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[('I love this movie', 1, '2018-04-13 09:50:09'), ('I disliked this movie', 0, '2018-04-13 09:50:09')]
+
+    \end{Verbatim}
+
+    \section{Developing a web application with
+Flask}\label{developing-a-web-application-with-flask}
+
+    Having prepared the code for classifying movie reviews in the previous
+subsection, let's discuss the basics of the Flask web framework to
+develop our web application. After Armin Ronacher's initial release of
+Flask in 2010, the framework has gained huge popularity over the years,
+and examples of popular applications that make use of Flask include
+Linkedin and Pinterest. Since Flask is written in Python, it provides us
+Python programmers with a convenient interface for embedding existing
+Python code, such as our movie classifier.
+
+If the Flask library is not already installed in your current Python
+environment, you can simply install it via \emph{pip install flask}.
+
+    \subsection{Our first Flask web
+application}\label{our-first-flask-web-application}
+
+    In this subsection, we will develop a very simple web application to
+become more familiar with the Flask API before we implement our movie
+classifier. This first application we are going to build consists of a
+simple web page with a form field that let us enter a name. After
+submitting the name to the web application, it will render it on a new
+page. While this is a very simple example of web application, it helps
+with building intuition about how to store and pass variables and values
+between the different parts of our code within the Flask framework.
+
+First, we create a directory tree:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{1st\PYZus{}flask\PYZus{}app1/}
+        \PY{l+s+sd}{    app.py}
+        \PY{l+s+sd}{    templates/}
+        \PY{l+s+sd}{        first\PYZus{}app.html}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    The \emph{app.py} file will contain the main code that will be executed
+by the Python interpreter to run the Flask web application. The
+\emph{templates} directory is the directory in which Flask will look for
+static HTML files for rendering in the web browser. Let's now take a
+look at the contents of \emph{app.py}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{from flask import Flask, render\PYZus{}template}
+        
+        \PY{l+s+sd}{app = Flask(\PYZus{}\PYZus{}name\PYZus{}\PYZus{})}
+        
+        \PY{l+s+sd}{@app.route(\PYZsq{}/\PYZsq{})}
+        \PY{l+s+sd}{def index():}
+        \PY{l+s+sd}{    return render\PYZus{}template(\PYZsq{}first\PYZus{}app.html\PYZsq{})}
+        
+        \PY{l+s+sd}{if \PYZus{}\PYZus{}name\PYZus{}\PYZus{} == \PYZsq{}\PYZus{}\PYZus{}main\PYZus{}\PYZus{}\PYZsq{}: }
+        \PY{l+s+sd}{    app.run()}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    After looking at the previous code example, let's discuss the individual
+pieces step by step:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We ran our application as a single module; thus we initialized a new
+  Flask instance with the argument \emph{\textbf{name}} to let Flask
+  know that it can find the HTML template folder (\emph{templates}) in
+  the same directory where it is located.
+\item
+  Next, we used the route decorator (\emph{@app.route('/')}) to specify
+  the URL that should trigger the execution of the \emph{index}
+  function.
+\item
+  Here, our \emph{index} function simply rendered the
+  \emph{first\_app.html} HTML file, which is located in the
+  \emph{templates} folder.
+\item
+  Lastly, we used the \emph{run} function to only run the application on
+  the server when this script is directly executed by the Python
+  interpreter, which we ensured using the \emph{if} statement with
+  \emph{\textbf{name} == '\textbf{main}'}.
+\end{enumerate}
+
+Now, let's take a look at the contents of the \emph{first\_app.html}
+file:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{\PYZlt{}!doctype html\PYZgt{}}
+        \PY{l+s+sd}{\PYZlt{}html\PYZgt{}}
+        \PY{l+s+sd}{    \PYZlt{}head\PYZgt{}}
+        \PY{l+s+sd}{        \PYZlt{}title\PYZgt{}First app\PYZlt{}/title\PYZgt{}}
+        \PY{l+s+sd}{    \PYZlt{}/head\PYZgt{}}
+        \PY{l+s+sd}{    \PYZlt{}body\PYZgt{}}
+        \PY{l+s+sd}{        \PYZlt{}div\PYZgt{}Hi, this is my first Flask web app!\PYZlt{}/div\PYZgt{}}
+        \PY{l+s+sd}{    \PYZlt{}/body\PYZgt{}}
+        \PY{l+s+sd}{\PYZlt{}/html\PYZgt{}}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    Here, we have simply filled an empty HTML template file with a *
+
+\begin{itemize}
+\tightlist
+\item
+  element (a block level element) that contains this sentence: \emph{Hi,
+  this is my first Flask web app!}.
+\end{itemize}
+
+Conveniently, Flask allows us to run our applications locally, which is
+useful for developing and testing web applications before we deploy them
+on a public web server. Now, let's start our web application by
+executing the command from the Terminal inside the
+\emph{1st\_first\_app} directory:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{python3 app.py}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    We should see a line such as the following displayed in the terminal:
+
+*\textbf{Running on http:/127.0.0.1:5000/}
+
+This line contains the address of our local server. We can enter this
+address in our web browser to see the web application in action. If
+everything has executed correctly, we should see a simple website with
+the content \emph{Hi, this is my first Flask web app!}.
+
+    \subsection{Form validation and
+rendering}\label{form-validation-and-rendering}
+
+    In this subsection, we will extend our simple Flask web application with
+HTML form elements to learn how to collect data from a user using the
+WTForms library, which can be installed via \emph{pip install wtforms}.
+
+    \subsubsection{Setting up the directory
+structure}\label{setting-up-the-directory-structure}
+
+    The new directory structure that we need to set up for this application
+looks like this:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{1st\PYZus{}flask\PYZus{}app\PYZus{}2/}
+        \PY{l+s+sd}{    app.py}
+        \PY{l+s+sd}{    static/}
+        \PY{l+s+sd}{        style.css}
+        \PY{l+s+sd}{    templates/}
+        \PY{l+s+sd}{        \PYZus{}formhelpers.html}
+        \PY{l+s+sd}{        first\PYZus{}app.html}
+        \PY{l+s+sd}{        hello.html}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    The following are the contents of our modified \emph{app.py} file:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{from flask import Flask, render\PYZus{}template, request}
+        \PY{l+s+sd}{from wtforms import Form, TextAreaField, validators}
+        
+        \PY{l+s+sd}{app = Flask(\PYZus{}\PYZus{}name\PYZus{}\PYZus{})}
+        
+        \PY{l+s+sd}{class HelloForm(Form):}
+        \PY{l+s+sd}{    sayhello = TextAreaField(\PYZsq{}\PYZsq{}, [validators.DataRequired()])}
+        
+        \PY{l+s+sd}{@app.route(\PYZsq{}/\PYZsq{})}
+        \PY{l+s+sd}{def index():}
+        \PY{l+s+sd}{    form = HelloForm(request.form)}
+        \PY{l+s+sd}{    return render\PYZus{}template(\PYZsq{}first\PYZus{}app.html\PYZsq{}, form=form)}
+        
+        \PY{l+s+sd}{@app.route(\PYZsq{}/hello\PYZsq{}, methods=[\PYZsq{}POST\PYZsq{}])}
+        \PY{l+s+sd}{def hello():}
+        \PY{l+s+sd}{    form = HelloForm(request.form)}
+        \PY{l+s+sd}{    if request.method == \PYZsq{}POST\PYZsq{} and form.validate():}
+        \PY{l+s+sd}{            name = request.form[\PYZsq{}sayhello\PYZsq{}]}
+        \PY{l+s+sd}{            return render\PYZus{}template(\PYZsq{}hello.html\PYZsq{}, name=name)}
+        \PY{l+s+sd}{    return render\PYZus{}template(\PYZsq{}first\PYZus{}app.html\PYZsq{}, form=form)}
+        
+        \PY{l+s+sd}{if \PYZus{}\PYZus{}name\PYZus{}\PYZus{} == \PYZsq{}\PYZus{}\PYZus{}main\PYZus{}\PYZus{}\PYZsq{}: }
+        \PY{l+s+sd}{    app.run(debug=True)}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    Let's discuss what the previous code does step by step:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Using \emph{wtforms}, we extended the \emph{index} function with a
+  text field that we will embed in our start page using the
+  \emph{TextAreaField} class, which automatically checks whether a user
+  has provided valid input text or not.
+\item
+  Furthermore, we defined a new function, \emph{hello}, which will
+  render an HTML page \emph{hello.html} after validating the HTML form.
+\item
+  Here, we used the \emph{POST} method to transport the form data to the
+  server in the message body. Finally, by setting the \emph{debug=True}
+  argument inside the \emph{app.run} method, we further activated
+  Flask's debugger. This is a useful feature for developing new web
+  applications.
+\end{enumerate}
+
+    \subsubsection{Implementing a macro using the Jinja2 templating
+engine}\label{implementing-a-macro-using-the-jinja2-templating-engine}
+
+    Now, we will implement a generic macro in the *\_formhelpers.html* file
+via the Jinja2 templating engine, which we will later import in our
+\emph{first\_app.html} file to render the text field:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{\PYZob{}\PYZpc{} macro render\PYZus{}field(field) \PYZpc{}\PYZcb{}}
+         \PY{l+s+sd}{    \PYZlt{}dt\PYZgt{}\PYZob{}\PYZob{} field.label \PYZcb{}\PYZcb{}}
+         \PY{l+s+sd}{    \PYZlt{}dd\PYZgt{}\PYZob{}\PYZob{} field(**kwargs)|safe \PYZcb{}\PYZcb{}}
+         \PY{l+s+sd}{    \PYZob{}\PYZpc{} if field.errors \PYZpc{}\PYZcb{}}
+         \PY{l+s+sd}{        \PYZlt{}ul class=errors\PYZgt{}}
+         \PY{l+s+sd}{        \PYZob{}\PYZpc{} for error in field.errors \PYZpc{}\PYZcb{}}
+         \PY{l+s+sd}{            \PYZlt{}li\PYZgt{}\PYZob{}\PYZob{} error \PYZcb{}\PYZcb{}\PYZlt{}/li\PYZgt{}}
+         \PY{l+s+sd}{        \PYZob{}\PYZpc{} endfor \PYZpc{}\PYZcb{}}
+         \PY{l+s+sd}{        \PYZlt{}/ul\PYZgt{}}
+         \PY{l+s+sd}{    \PYZob{}\PYZpc{} endif \PYZpc{}\PYZcb{}}
+         \PY{l+s+sd}{    \PYZlt{}/dd\PYZgt{}}
+         \PY{l+s+sd}{    \PYZlt{}/dt\PYZgt{}}
+         \PY{l+s+sd}{\PYZob{}\PYZpc{} endmacro \PYZpc{}\PYZcb{}}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    \subsubsection{Adding style via CSS}\label{adding-style-via-css}
+
+    Next, we set up a simple \textbf{Cascading Style Sheet (CSS)} file,
+\emph{style.css}, to demonstrate how the look and feel of HTML documents
+can be modified. We have to save the following CSS file, which will
+simply double the font size of our HTML body elements, in a subdirectory
+called \emph{static}, which is the default directory where Flask looks
+for static files such as CSS. The file content is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{body \PYZob{}}
+         \PY{l+s+sd}{    font\PYZhy{}size: 2em;}
+         \PY{l+s+sd}{\PYZcb{}}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    The following are the contents of the modified \emph{first\_app.html}
+file that will now render a text form where a user can enter a name:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{\PYZlt{}!doctype html\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}html\PYZgt{}}
+         \PY{l+s+sd}{    \PYZlt{}head\PYZgt{}}
+         \PY{l+s+sd}{        \PYZlt{}title\PYZgt{}First app\PYZlt{}/title\PYZgt{}}
+         \PY{l+s+sd}{        \PYZlt{}link rel=\PYZdq{}stylesheet\PYZdq{} href=\PYZdq{}\PYZob{}\PYZob{} url\PYZus{}for(\PYZsq{}static\PYZsq{},}
+         \PY{l+s+sd}{        filename=\PYZsq{}style.css\PYZsq{}) \PYZcb{}\PYZcb{}\PYZdq{}\PYZgt{}}
+         \PY{l+s+sd}{    \PYZlt{}/head\PYZgt{}}
+         \PY{l+s+sd}{    \PYZlt{}body\PYZgt{}}
+         \PY{l+s+sd}{        \PYZob{}\PYZpc{} from \PYZdq{}\PYZus{}formhelpers.html\PYZdq{} import render\PYZus{}field \PYZpc{}\PYZcb{}}
+         \PY{l+s+sd}{        \PYZlt{}div\PYZgt{}What\PYZsq{}s your name?\PYZlt{}/div\PYZgt{}}
+         \PY{l+s+sd}{        \PYZlt{}form method=post action=\PYZdq{}/hello\PYZdq{}\PYZgt{}}
+         \PY{l+s+sd}{            \PYZlt{}dl\PYZgt{}}
+         \PY{l+s+sd}{                \PYZob{}\PYZob{} render\PYZus{}field(form.sayhello) \PYZcb{}\PYZcb{}}
+         \PY{l+s+sd}{            \PYZlt{}/dl\PYZgt{}}
+         \PY{l+s+sd}{        \PYZlt{}input type=submit value=\PYZsq{}Say Hello\PYZsq{} name=\PYZsq{}submit\PYZus{}btn\PYZsq{}\PYZgt{}}
+         \PY{l+s+sd}{        \PYZlt{}/form\PYZgt{}}
+         \PY{l+s+sd}{    \PYZlt{}/body\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}/html\PYZgt{}}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    In the header section of \emph{first\_app.html}, we loaded the CSS file.
+It should now alter the size of all text elements in the HTML body. In
+the HTML body section, we imported the form macro from
+*\_formhelpers.html\emph{, and we rendered the }sayhello* form that we
+specified in the \emph{app.py} file. Furthermore, we added a button to
+the same form element so that a user can submit the text field entry.
+
+    \subsubsection{Creating the result page}\label{creating-the-result-page}
+
+    Lastly, we will create a \emph{hello.html} file that will be rendered
+via the \emph{render\_template('hello.html', name=name)} line return
+inside the \emph{hello} function, which we defined in the \emph{app.py}
+script to display the text that a user submitted via the text field. The
+file content is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{\PYZlt{}!doctype html\PYZgt{}}
+        \PY{l+s+sd}{\PYZlt{}html\PYZgt{}}
+        \PY{l+s+sd}{    \PYZlt{}head\PYZgt{}}
+        \PY{l+s+sd}{        \PYZlt{}title\PYZgt{}First app\PYZlt{}/title\PYZgt{}}
+        \PY{l+s+sd}{    \PYZlt{}link rel=\PYZdq{}stylesheet\PYZdq{} href=\PYZdq{}\PYZob{}\PYZob{} url\PYZus{}for(\PYZsq{}static\PYZsq{}, filename=\PYZsq{}style.css\PYZsq{}) \PYZcb{}\PYZcb{}\PYZdq{}\PYZgt{}}
+        \PY{l+s+sd}{    \PYZlt{}/head\PYZgt{}}
+        \PY{l+s+sd}{    \PYZlt{}body\PYZgt{}}
+        \PY{l+s+sd}{        \PYZlt{}div\PYZgt{}Hello \PYZob{}\PYZob{} name \PYZcb{}\PYZcb{}\PYZlt{}/div\PYZgt{}}
+        \PY{l+s+sd}{    \PYZlt{}/body\PYZgt{}}
+        \PY{l+s+sd}{\PYZlt{}/html\PYZgt{}}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    Having set up our modified Flask web application, we can run it locally
+by executing the following command from the application's main
+directory, and we can view the results in our web browser at
+\emph{http://127.0.0.1:5000}:
+
+\textbf{python3 app.py}
+
+    \section{Turning the movie review classifier into a web
+application}\label{turning-the-movie-review-classifier-into-a-web-application}
+
+    Now that we are somewhat familiar with the basics of Flask web
+development, let's advance to the next step and implement our movie
+classifier into a web application. In this section, we will develop a
+web application that will first prompt a user to enter a movie review.
+
+After the review has been submitted, the user will see a new page that
+shows the predicted class label and the probability of the prediction.
+Furthermore, the user will be able to provide feedback about this
+prediction by clicking on the \textbf{Correct} or \textbf{Incorrect}
+button.
+
+If a user clicked on either the \textbf{Correct} or \textbf{Incorrect}
+button, our classification model will be updated with respect to the
+user's feedback. Furthermore, we will also store the movie review text
+provided by the user as well as the suggested class label, which can be
+inferred from the button click, in a SQLite database for future
+reference. Alternatively, a user could skip the update step and click
+the \textbf{Submit another review} button to submit another review.
+
+The third page that the user will see after clicking on one of the
+feedback buttons is a simple \emph{thank you} screen with a
+\textbf{Submit another review} button that redirects the user back to
+the start page.
+
+    \subsection{Files and folders - looking at the directory
+tree}\label{files-and-folders---looking-at-the-directory-tree}
+
+    To start with the big picture, let's take a look at the directory tree
+that we are going to create for this movie classification application,
+which is shown here:
+
+    In the previous section of this chapter, we already created the
+\emph{vectorizer.py} file, the SQLite database \emph{reviews.sqlite},
+and the \emph{pkl\_objects} subdirectory with the pickled Python
+objects.
+
+The \emph{app.py} file in the main directory is the Python script that
+contains our Flask code, and we will use the \emph{reviews.sqlite}
+database file to store the movie reviews that are being submitted to our
+web application. The \emph{templates} subdirectory contains the HTML
+templates that will be rendered by Flask and displayed in the browser,
+and the \emph{static} subdirectory will contain a simple CSS file to
+adjust the look of the rendered HTML code.
+
+    \subsection{Implementing the main application as
+app.py}\label{implementing-the-main-application-as-app.py}
+
+    Since the \emph{app.py} file is rather long, we will conquer it in two
+steps. The first section of \emph{app.py} imports the Python modules and
+objects that we are going to need, as well as the code to unpickle and
+set up our classification model:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{from flask import Flask, render\PYZus{}template, request}
+         \PY{l+s+sd}{from wtforms import Form, TextAreaField, validators}
+         \PY{l+s+sd}{import pickle}
+         \PY{l+s+sd}{import sqlite3}
+         \PY{l+s+sd}{import os}
+         \PY{l+s+sd}{import numpy as np}
+         
+         \PY{l+s+sd}{\PYZsh{} import HashingVectorizer from local dir}
+         \PY{l+s+sd}{from vectorizer import vect}
+         
+         \PY{l+s+sd}{app = Flask(\PYZus{}\PYZus{}name\PYZus{}\PYZus{})}
+         
+         \PY{l+s+sd}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Preparing the Classifier}
+         \PY{l+s+sd}{cur\PYZus{}dir = os.path.dirname(\PYZus{}\PYZus{}file\PYZus{}\PYZus{})}
+         \PY{l+s+sd}{clf = pickle.load(open(os.path.join(cur\PYZus{}dir,}
+         \PY{l+s+sd}{                 \PYZsq{}pkl\PYZus{}objects\PYZsq{},}
+         \PY{l+s+sd}{                 \PYZsq{}classifier.pkl\PYZsq{}), \PYZsq{}rb\PYZsq{}))}
+         \PY{l+s+sd}{db = os.path.join(cur\PYZus{}dir, \PYZsq{}reviews.sqlite\PYZsq{})}
+         
+         \PY{l+s+sd}{def classify(document):}
+         \PY{l+s+sd}{    label = \PYZob{}0: \PYZsq{}negative\PYZsq{}, 1: \PYZsq{}positive\PYZsq{}\PYZcb{}}
+         \PY{l+s+sd}{    X = vect.transform([document])}
+         \PY{l+s+sd}{    y = clf.predict(X)[0]}
+         \PY{l+s+sd}{    proba = np.max(clf.predict\PYZus{}proba(X))}
+         \PY{l+s+sd}{    return label[y], proba}
+         
+         \PY{l+s+sd}{def train(document, y):}
+         \PY{l+s+sd}{    X = vect.transform([document])}
+         \PY{l+s+sd}{    clf.partial\PYZus{}fit(X, [y])}
+         
+         \PY{l+s+sd}{def sqlite\PYZus{}entry(path, document, y):}
+         \PY{l+s+sd}{    conn = sqlite3.connect(path)}
+         \PY{l+s+sd}{    c = conn.cursor()}
+         \PY{l+s+sd}{    c.execute(\PYZdq{}INSERT INTO review\PYZus{}db (review, sentiment, date)\PYZdq{}\PYZbs{}}
+         \PY{l+s+sd}{    \PYZdq{} VALUES (?, ?, DATETIME(\PYZsq{}now\PYZsq{}))\PYZdq{}, (document, y))}
+         \PY{l+s+sd}{    conn.commit()}
+         \PY{l+s+sd}{    conn.close()}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    The first part of the \emph{app.py} script should look very similar to
+us by now. We simply imported the \emph{HashingVectorizer} and unpickled
+the logistic regression classifier. Next, we defined a \emph{classify}
+function to return the predicted class label as well as the
+corresponding probability prediction of a given text document. The
+\emph{train} function can be used to update the classifier, given that a
+document and a class label are provided.
+
+Using the \emph{sql\_entry} function, we can store a submitted movie
+review in our SQLite database along with its class label and timestamp
+for our personal records. Note that the \emph{clf} object will be reset
+to its original, pickled state if we restart the web application. At the
+end of this chapter, you will learn how to use the data that we collect
+in the SQLite database to update the classifier permanently.
+
+The concepts in the second part of the \emph{app.py} script should also
+look quite familiar to us:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Flask}
+         \PY{l+s+sd}{class ReviewForm(Form):}
+         \PY{l+s+sd}{    moviereview = TextAreaField(\PYZsq{}\PYZsq{},}
+         \PY{l+s+sd}{                                [validators.DataRequired(),}
+         \PY{l+s+sd}{                                validators.length(min=15)])}
+         
+         \PY{l+s+sd}{@app.route(\PYZsq{}/\PYZsq{})}
+         \PY{l+s+sd}{def index():}
+         \PY{l+s+sd}{    form = ReviewForm(request.form)}
+         \PY{l+s+sd}{    return render\PYZus{}template(\PYZsq{}reviewform.html\PYZsq{}, form=form)}
+         
+         \PY{l+s+sd}{@app.route(\PYZsq{}/results\PYZsq{}, methods=[\PYZsq{}POST\PYZsq{}])}
+         \PY{l+s+sd}{def results():}
+         \PY{l+s+sd}{    form = ReviewForm(request.form)}
+         \PY{l+s+sd}{    if request.method == \PYZsq{}POST\PYZsq{} and form.validate():}
+         \PY{l+s+sd}{        review = request.form[\PYZsq{}moviereview\PYZsq{}]}
+         \PY{l+s+sd}{        y, proba = classify(review)}
+         \PY{l+s+sd}{        return render\PYZus{}template(\PYZsq{}results.html\PYZsq{},}
+         \PY{l+s+sd}{                                content=review,}
+         \PY{l+s+sd}{                                prediction=y,}
+         \PY{l+s+sd}{                                probability=round(proba*100, 2))}
+         \PY{l+s+sd}{    return render\PYZus{}template(\PYZsq{}reviewform.html\PYZsq{}, form=form)}
+         
+         \PY{l+s+sd}{@app.route(\PYZsq{}/thanks\PYZsq{}, methods=[\PYZsq{}POST\PYZsq{}])}
+         \PY{l+s+sd}{def feedback():}
+         \PY{l+s+sd}{    feedback = request.form[\PYZsq{}feedback\PYZus{}button\PYZsq{}]}
+         \PY{l+s+sd}{    review = request.form[\PYZsq{}review\PYZsq{}]}
+         \PY{l+s+sd}{    prediction = request.form[\PYZsq{}prediction\PYZsq{}]}
+         
+         \PY{l+s+sd}{    inv\PYZus{}label = \PYZob{}\PYZsq{}negative\PYZsq{}: 0, \PYZsq{}positive\PYZsq{}: 1\PYZcb{}}
+         \PY{l+s+sd}{    y = inv\PYZus{}label[prediction]}
+         \PY{l+s+sd}{    if feedback == \PYZsq{}Incorrect\PYZsq{}:}
+         \PY{l+s+sd}{        y = int(not(y))}
+         \PY{l+s+sd}{    train(review, y)}
+         \PY{l+s+sd}{    sqlite\PYZus{}entry(db, review, y)}
+         \PY{l+s+sd}{    return render\PYZus{}template(\PYZsq{}thanks.html\PYZsq{})}
+         
+         \PY{l+s+sd}{if \PYZus{}\PYZus{}name\PYZus{}\PYZus{} == \PYZsq{}\PYZus{}\PYZus{}main\PYZus{}\PYZus{}\PYZsq{}:}
+         \PY{l+s+sd}{    app.run(debug=True)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    We defined a \emph{ReviewForm} class that instantiates a
+\emph{TextAreaField}, which will be rendered in the
+\emph{reviewform.html} template file (the landing page of our web
+application). This, in turn, is rendered by the \emph{index} function.
+With the \emph{validators.length(min=15)} parameter, we require the user
+to enter a review that contains at least 15 characters. Inside the
+\emph{results} function, we fetch the contents of the submitted web form
+and pass it on to our classifier to predict the sentiment of the movie
+review, which will then be displayed in the rendered \emph{results.html}
+template.
+
+The \emph{feedback} function, which we implemented in \emph{app.py} in
+the previous subsection, may look a little bit complicated at first
+glance. It essentially fetches the predicted class label from the
+\emph{results.html} template if a user clicked on the \textbf{Correct}
+or \textbf{Incorrect} feedback button, and transforms the predicted
+sentiment back into an integer class label that will be used to update
+the classifier via the \emph{train} function, which we implemented in
+the first section of the \emph{app.py} script. Also, a new entry to the
+SQLite database will be made via the \emph{sql\_entry} function if
+feedback was provided, and eventually the \emph{thanks.html} template
+will be rendered to thank the user for the feedback.
+
+    \subsection{Setting up the review
+form}\label{setting-up-the-review-form}
+
+    Next, let's take a look at the \emph{reviewform.html} template, which
+constitutes the starting page of our application:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{\PYZlt{}!doctype html\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}html\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}head\PYZgt{}}
+         \PY{l+s+sd}{    \PYZlt{}title\PYZgt{}Movie Classification\PYZlt{}/title\PYZgt{}}
+         \PY{l+s+sd}{	\PYZlt{}link rel=\PYZdq{}stylesheet\PYZdq{} href=\PYZdq{}\PYZob{}\PYZob{} url\PYZus{}for(\PYZsq{}static\PYZsq{}, filename=\PYZsq{}style.css\PYZsq{}) \PYZcb{}\PYZcb{}\PYZdq{}\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}/head\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}body\PYZgt{}}
+         
+         \PY{l+s+sd}{\PYZlt{}h2\PYZgt{}Please enter your movie review:\PYZlt{}/h2\PYZgt{}}
+         
+         \PY{l+s+sd}{\PYZob{}\PYZpc{} from \PYZdq{}\PYZus{}formhelpers.html\PYZdq{} import render\PYZus{}field \PYZpc{}\PYZcb{}}
+         
+         \PY{l+s+sd}{\PYZlt{}form method=post action=\PYZdq{}/results\PYZdq{}\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}dl\PYZgt{}}
+         \PY{l+s+sd}{	\PYZob{}\PYZob{} render\PYZus{}field(form.moviereview, cols=\PYZsq{}30\PYZsq{}, rows=\PYZsq{}10\PYZsq{}) \PYZcb{}\PYZcb{}}
+         \PY{l+s+sd}{  \PYZlt{}/dl\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}div\PYZgt{}}
+         \PY{l+s+sd}{	  \PYZlt{}input type=submit value=\PYZsq{}Submit review\PYZsq{} name=\PYZsq{}submit\PYZus{}btn\PYZsq{}\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}/div\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}/form\PYZgt{}}
+         
+         \PY{l+s+sd}{  \PYZlt{}/body\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}/html\PYZgt{}}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    Here, we simply imported the same *\_formhelpers.html* template that we
+defined earlier. The \emph{render\_field} function of this macro is used
+to render a \emph{TextAreaField} where a user can provide a movie review
+and submit it via the \textbf{Submit review} button displayed at the
+bottom of the page. This \emph{TextAreaField} is 30 columns wide and 10
+rows tall, and would look like this:
+
+    \subsection{Creating a results page
+template}\label{creating-a-results-page-template}
+
+    Our next template, \emph{results.html}, looks a little bit more
+interesting:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{\PYZlt{}!doctype html\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}html\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}head\PYZgt{}}
+         \PY{l+s+sd}{    \PYZlt{}title\PYZgt{}Movie Classification\PYZlt{}/title\PYZgt{}}
+         \PY{l+s+sd}{	\PYZlt{}link rel=\PYZdq{}stylesheet\PYZdq{} href=\PYZdq{}\PYZob{}\PYZob{} url\PYZus{}for(\PYZsq{}static\PYZsq{}, filename=\PYZsq{}style.css\PYZsq{}) \PYZcb{}\PYZcb{}\PYZdq{}\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}/head\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}body\PYZgt{}}
+         
+         \PY{l+s+sd}{\PYZlt{}h3\PYZgt{}Your movie review:\PYZlt{}/h3\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}div\PYZgt{}\PYZob{}\PYZob{} content \PYZcb{}\PYZcb{}\PYZlt{}/div\PYZgt{}}
+         
+         \PY{l+s+sd}{\PYZlt{}h3\PYZgt{}Prediction:\PYZlt{}/h3\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}div\PYZgt{}This movie review is \PYZlt{}strong\PYZgt{}\PYZob{}\PYZob{} prediction \PYZcb{}\PYZcb{}\PYZlt{}/strong\PYZgt{}}
+         \PY{l+s+sd}{	 (probability: \PYZob{}\PYZob{} probability \PYZcb{}\PYZcb{}\PYZpc{}).\PYZlt{}/div\PYZgt{}}
+         
+         \PY{l+s+sd}{\PYZlt{}div id=\PYZsq{}button\PYZsq{}\PYZgt{}}
+         \PY{l+s+sd}{	  \PYZlt{}form action=\PYZdq{}/thanks\PYZdq{} method=\PYZdq{}post\PYZdq{}\PYZgt{}}
+         \PY{l+s+sd}{	    \PYZlt{}input type=submit value=\PYZsq{}Correct\PYZsq{} name=\PYZsq{}feedback\PYZus{}button\PYZsq{}\PYZgt{}}
+         \PY{l+s+sd}{		\PYZlt{}input type=submit value=\PYZsq{}Incorrect\PYZsq{} name=\PYZsq{}feedback\PYZus{}button\PYZsq{}\PYZgt{}}
+         \PY{l+s+sd}{		\PYZlt{}input type=hidden value=\PYZsq{}\PYZob{}\PYZob{} prediction \PYZcb{}\PYZcb{}\PYZsq{} name=\PYZsq{}prediction\PYZsq{}\PYZgt{}}
+         \PY{l+s+sd}{		\PYZlt{}input type=hidden value=\PYZsq{}\PYZob{}\PYZob{} content \PYZcb{}\PYZcb{}\PYZsq{} name=\PYZsq{}review\PYZsq{}\PYZgt{}}
+         \PY{l+s+sd}{	  \PYZlt{}/form\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}/div\PYZgt{}}
+         
+         \PY{l+s+sd}{\PYZlt{}div id=\PYZsq{}button\PYZsq{}\PYZgt{}}
+         \PY{l+s+sd}{	  \PYZlt{}form action=\PYZdq{}/\PYZdq{}\PYZgt{}}
+         \PY{l+s+sd}{	    \PYZlt{}input type=submit value=\PYZsq{}Submit another review\PYZsq{}\PYZgt{}}
+         \PY{l+s+sd}{	  \PYZlt{}/form\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}/div\PYZgt{}}
+         
+         \PY{l+s+sd}{  \PYZlt{}/body\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}/html\PYZgt{}}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    First, we inserted the submitted review, as well as the result of the
+prediction, in the corresponding field \emph{\{\{ content \}\}},
+\emph{\{\{ prediction \}\}}, and \emph{\{\{ probability \}\}}. You may
+notice that we used the \emph{\{\{ content \}\}} and \emph{\{\{
+prediction \}\}} placeholder variables a second time in the form that
+contains the \textbf{Correct} and \textbf{Incorrect} buttons. This is a
+workaround to \emph{POST} those values back to the server to update the
+classifier and store the review in case the user clicks on one of those
+two buttons.
+
+Furthermore, we imported a CSS file (\emph{style.css}) at the beginning
+of the \emph{results.html} file. The setup of this file is quite simple;
+it limits the width of the contents of this web application to 600
+pixels and moves the \textbf{Incorrect} and \textbf{Correct} buttons
+labeled with the div ID \emph{button} down by 20 pixels:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{body\PYZob{}}
+         \PY{l+s+sd}{	width:600px;}
+         \PY{l+s+sd}{\PYZcb{}}
+         
+         \PY{l+s+sd}{.button\PYZob{}}
+         \PY{l+s+sd}{	padding\PYZhy{}top: 20px;}
+         \PY{l+s+sd}{\PYZcb{}}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    This CSS file is merely a placeholder, so please feel free to adjust it
+to adjust the look and feel of the web application to your liking.
+
+The last HTML file we will implement for our web application is the
+\emph{thanks.html} template. As the name suggests, it simply provides a
+nice \emph{thank you} message to the user after proving feedback via the
+\textbf{Correct} or \textbf{Incorrect} button. Furthermore, we will put
+a \textbf{Submit another review} button at the bottom of this page,
+which will redirect the user to the starting page. The contents of the
+\emph{thanks.html} file are as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{\PYZlt{}!doctype html\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}html\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}head\PYZgt{}}
+         \PY{l+s+sd}{    \PYZlt{}title\PYZgt{}Movie Classification\PYZlt{}/title\PYZgt{}}
+         \PY{l+s+sd}{	\PYZlt{}link rel=\PYZdq{}stylesheet\PYZdq{} href=\PYZdq{}\PYZob{}\PYZob{} url\PYZus{}for(\PYZsq{}static\PYZsq{}, filename=\PYZsq{}style.css\PYZsq{}) \PYZcb{}\PYZcb{}\PYZdq{}\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}/head\PYZgt{}}
+         \PY{l+s+sd}{  \PYZlt{}body\PYZgt{}}
+         
+         \PY{l+s+sd}{\PYZlt{}h3\PYZgt{}Thank you for your feedback!\PYZlt{}/h3\PYZgt{}}
+         
+         \PY{l+s+sd}{\PYZlt{}div id=\PYZsq{}button\PYZsq{}\PYZgt{}}
+         \PY{l+s+sd}{	  \PYZlt{}form action=\PYZdq{}/\PYZdq{}\PYZgt{}}
+         \PY{l+s+sd}{	    \PYZlt{}input type=submit value=\PYZsq{}Submit another review\PYZsq{}\PYZgt{}}
+         \PY{l+s+sd}{	  \PYZlt{}/form\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}/div\PYZgt{}}
+         
+         \PY{l+s+sd}{  \PYZlt{}/body\PYZgt{}}
+         \PY{l+s+sd}{\PYZlt{}/html\PYZgt{}}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    Now, it would be a good idea to start the web application locally from
+our terminal via the following command before we advance to the next
+subsection and deploy it on a public web server:
+
+\textbf{python3 app.py}
+
+After we have finished testing our application, we also should not
+forget to remove the \emph{debug=True} argument in the \emph{app.run()}
+command of our \emph{app.py} script.
+
+    \section{Deploying the web application to a public
+server}\label{deploying-the-web-application-to-a-public-server}
+
+    After we have tested the web application locally, we are now ready the
+employ our web application onto a public web server. For this tutorial,
+we will be using the PythonAnywhere web hosting service, which
+specializes in the hosting of Python web applications and makes it
+extremely simple and hassle-free. Furthermore, PythonAnywhere offers a
+beginner account option that lets us run a single web application free
+of charge.
+
+    \subsection{Creating a PythonAnywhere
+account}\label{creating-a-pythonanywhere-account}
+
+    To create a new PythonAnywhere account, we visit the website at
+https://www.pythonanywhere.com/ and click on the \textbf{Pricing \&
+signup} link that is located in the top-right corner. Next, we click on
+the \textbf{Create a Beginner account} button where we need to provide a
+username, password, and valid email address. After we have read and
+agreed to the terms and conditions, we should have a new account.
+
+Unfortunately, the free beginner account does not allow us to access the
+remote server via the SSH protocol from our terminal. Thus, we need to
+use the PythonAnywhere web interface to manage our web application. But
+before we can upload our local application files to the server, we need
+to create a new web application for our PythonAnywhere account. After we
+click on the \textbf{Dashboard} button in the top-right corner, we have
+access to the control panel shown at the top of the page. Next, we click
+on the \textbf{Web} tab that is not visible at the top of the page. We
+proceed by clicking on the \textbf{+Add a new web app} button on the
+left, which lets us create a new Python 3.5 Flask web application that
+we name \emph{movieclassifier}.
+
+    \subsection{Uploading the movie classifier
+application}\label{uploading-the-movie-classifier-application}
+
+    After creating a new application for our PythonAnywhere account, we head
+over to the \textbf{Files} tab, to upload the flies from our local
+\emph{movieclassifier} directory using the PythonAnywhere web interface.
+After uploading the web application files that we created locally on our
+computer, we should have a \emph{movieclassifier} directory in our
+PythonAnywhere account. It contains the same directories and files as
+our local \emph{movieclassifier} directory has.
+
+Lastly, we have over to the \textbf{Web} one more time and click on the
+\textbf{Reload username.pythonanywhere.com} button to propagate the
+change and refresh our web application. Finally, our web application
+should now be up and running and publicly available via
+\emph{username.pythonanywhere.com}.
+
+    \section{Updating the movie
+classifier}\label{updating-the-movie-classifier}
+
+    While our predictive model is updated on the fly whenever a user
+provides feedback about the classification, the updates to the
+\emph{clf} object will be reset if the web server crashes or restarts.
+If we reload the web application, the \emph{clf} object will be
+reinitialized from the \emph{classifier.pkl} pickle file. One option to
+apply the updates permanently would be to pickle the \emph{clf} object
+once again after each update. However, this would become computationally
+very inefficient with a growing number of users, and could corrupt the
+pickle file if users provide feedback simultaneously.
+
+An alternative solution is to update the predictive model from the
+feedback data that is being collected in the SQLite database. One option
+would be to download the SQLite database from the PythonAnywhere server,
+update the \emph{clf} object locally on our computer, and upload the new
+pickle file to PythonAnywhere. To update the classifier locally on our
+computer, we create an \emph{update.py} script file in the
+\emph{movieclassifier} directory with the following contents:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{import pickle }
+        \PY{l+s+sd}{import sqlite3}
+        \PY{l+s+sd}{import numpy as np}
+        \PY{l+s+sd}{import os}
+        
+        \PY{l+s+sd}{\PYZsh{}import HashingVectorizer from local dir}
+        \PY{l+s+sd}{from vectorizer import vect}
+        
+        \PY{l+s+sd}{def update\PYZus{}model(df\PYZus{}path, model, batch\PYZus{}size=10000):}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    conn = sqlite3.connect(db\PYZus{}path)}
+        \PY{l+s+sd}{    c = conn.cursor()}
+        \PY{l+s+sd}{    c.execute(\PYZsq{}SELECT * from review\PYZus{}db\PYZsq{})}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    results = c.fetchmany(batch\PYZus{}size)}
+        \PY{l+s+sd}{    while results: }
+        \PY{l+s+sd}{        data = np.array(results)}
+        \PY{l+s+sd}{        X = data[:, 0]}
+        \PY{l+s+sd}{        y = data[:, 1].astype(int)}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{        classes = np.array([0, 1])}
+        \PY{l+s+sd}{        X\PYZus{}train = vect.transform(X)}
+        \PY{l+s+sd}{        model.partial\PYZus{}fit(X\PYZus{}train, y, classes=classes)}
+        \PY{l+s+sd}{        results = c.fetchmany(batch\PYZus{}size)}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    conn.close()}
+        \PY{l+s+sd}{    return model}
+        
+        \PY{l+s+sd}{cur\PYZus{}dir = os.path.dirname(\PYZus{}\PYZus{}file\PYZus{}\PYZus{})}
+        
+        \PY{l+s+sd}{clf = pickle.load(open(os.path.join(cur\PYZus{}dir, \PYZsq{}pkl\PYZus{}objects\PYZsq{}, \PYZsq{}classifier.pkl\PYZsq{}), \PYZsq{}rb\PYZsq{}))}
+        \PY{l+s+sd}{db = os.path.join(cur\PYZus{}dir, \PYZsq{}reviews.sqlite\PYZsq{})}
+        
+        \PY{l+s+sd}{clf = update\PYZus{}model(db\PYZus{}path=db, model=clf, batch\PYZus{}size=10000)}
+        
+        \PY{l+s+sd}{pickle.dump(clf, open(os.path.join(cur\PYZus{}dir, \PYZsq{}pkl\PYZus{}objects\PYZsq{}, \PYZsq{}classifier.pkl\PYZsq{}), \PYZsq{}wb\PYZsq{}), protocol=4)}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    The \emph{update\_model} function will fetch entries from the SQLite
+database in batches of 10000 entries at a time, unless the database
+contains fewer entries. Alternatively, we could also fetch one entry at
+a time by using \emph{fetchone} instead of \emph{fetchmany}, which would
+be computationally very inneficient. However, keep in mind that using
+the alternative \emph{fetchall} method would be a problem if we are
+working with large datasets that exceed the computer or server's memory
+capacity.
+
+Now that we have created the \emph{update.py} script, we could also
+upload it to the \emph{movieclassifier} directory on PythonAnywhere, and
+import the \emph{update\_model} function in the main application script
+\emph{app.py} to update the classifier from the SQLite database every
+time we restart the web application. In order to do so, we just need a
+line of code to import the \emph{update\_model} function from the
+\emph{update.py} script at the top of \emph{app.py}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}from update import update\PYZus{}model}
+\end{Verbatim}
+
+
+    We then need to call the \emph{update\_model} function in the main
+application body:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{if \PYZus{}\PYZus{}name\PYZus{}\PYZus{} == \PYZsq{}\PYZus{}\PYZus{}main\PYZus{}\PYZus{}\PYZsq{}:}
+        \PY{l+s+sd}{    clf = update\PYZus{}model(db\PYZus{}path=db, model=clf, batch\PYZus{}size=10000)}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    As discussed, the modification in the previous code snippet will update
+the pickle file on PythonAnywhere. However, in practice, we do not often
+have to restart our web application, and it would make sense to validate
+the user feedback in the SQLite database prior to the update to make
+sure the feedback is valuable information for the classifier.
+
+    \section{Summary}\label{summary}
+
+    In this chapter, you learned about many useful and practical topics that
+extend our knowledge of machine learning theory. You learned how to
+serialize a model after training and how to load it for later use cases.
+Furthermore, we created a SQLite database for efficient data storage and
+created a web application that let us make our movie classifier
+available to the outside world.
+
+Throughout this book, we have really discussed a lot about machine
+learning concepts, best practices, and supervised models for
+classification. In the next chapter, we will take a look at another
+subcategory of supervised learning, regression analysis, which lets us
+predict outcome variables on a continuous scale, in contrast to the
+categorical class labels of the classification models that we have been
+working with so far.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

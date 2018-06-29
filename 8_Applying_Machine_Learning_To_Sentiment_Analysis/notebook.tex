@@ -1,0 +1,1519 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{8\_Applying\_Machine\_Learning\_To\_Sentiment\_Analysis}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Applying Machine Learning to Sentiment
+Analysis}\label{applying-machine-learning-to-sentiment-analysis}
+
+    In this internet and social media age, people's opinions, reviews, and
+recommendations have become a valuable resource of political science and
+business. Thanks to modern technologies, we are now able to collect and
+analyze such data most efficiently. In this chapter, we will delve into
+a subfield of \textbf{Natural Language Processing (NLP)} called
+\textbf{sentiment analysis} and learn how to use machine learning
+algorithms to classify documents based on their polarity: the attitude
+of the writer. In particular, we are going to work with a a dataset of
+50.000 movie reviews from the \textbf{Internet Movie Database (IMDb)}
+and build a predict that can distinguish between positive and negative
+reviews.
+
+The topics that we will cover in the following sections include the
+following:
+
+\begin{itemize}
+\tightlist
+\item
+  Cleaning and preparing text data
+\item
+  Building feature vectors from text documents
+\item
+  Training a machine learning model to classify positive and negative
+  movie reviews
+\item
+  Working with large text datasets using out-of-core learning
+\item
+  Inferring topics from document collections for categorization
+\end{itemize}
+
+    \subsection{Preparing the IMDb movie review data for text
+processing}\label{preparing-the-imdb-movie-review-data-for-text-processing}
+
+    Sentiment analysis, sometimes also called \textbf{opinion mining}, is a
+popular subdiscipline of the broader field of NLP; it is concerned with
+analyzing the polarity of documents. A popular task in sentiment
+analysis is the classification of documents based on the expressed
+opinions or emotions of the authors with regard to a particualr topic.
+
+In this chapter, we will be working with a large dataset of movie
+reviews from the IMDb that has been collected by Maas and others. The
+movie review datasets consists of 50.000 polar movie reviews that are
+labeled as either positive or negative; here, positive means that a
+movie was rated with more than six stars on IMBDb, and negative means
+that a movie was rated with fewer than five stars on IMDb. In the
+following sections, we will download the dataset, preprocess it into a
+useable format for machine learning tools, and extract meaningful
+information from a subset of these movie reviews to build a machine
+learning model that can predict whether a certain reviewer liked or
+disliked a movie.
+
+    \subsection{Obtaining the movie review
+dataset}\label{obtaining-the-movie-review-dataset}
+
+    A compressed archive of the movie review dataset (84.1 MB) can be
+downloaded from
+http://ai.stanford.edu/\textasciitilde{}amaas/data/sentiment/ as a
+Gzip-compressed tarball archive. You can unpack the Gzip-compressed
+tarball archive directly in Python as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{tarfile}
+        
+        \PY{k}{with} \PY{n}{tarfile}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aclImdb\PYZus{}v1.tar.gz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r:gz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{tar}\PY{p}{:}
+            \PY{n}{tar}\PY{o}{.}\PY{n}{extractall}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Preprocessing the movie dataset into more convenient
+format}\label{preprocessing-the-movie-dataset-into-more-convenient-format}
+
+    Having successfully extracted the dataset, we will now assemble the
+individual text documents from the decompressed download archive into a
+single CSV file. In the following code section, we will be reading the
+movie reviews into a pandas \emph{DataFrame} object, which can take up
+to 10 minutes on a standard desktop computer. To visualize the progress
+and estimated time until completion, we will use the \textbf{Python
+Progress Indicator (PyPrind)} package. PyPrind can be installed by
+executing the \emph{pip install pyprind} command.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{pyprind}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        
+        \PY{n}{basepath} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aclImdb}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{labels} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{\PYZcb{}}
+        \PY{n}{pbar} \PY{o}{=} \PY{n}{pyprind}\PY{o}{.}\PY{n}{ProgBar}\PY{p}{(}\PY{l+m+mi}{50000}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+        \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{n}{path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{basepath}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{l}\PY{p}{)}
+                \PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{file}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                              \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{infile}\PY{p}{:}
+                        \PY{n}{txt} \PY{o}{=} \PY{n}{infile}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+                    \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{txt}\PY{p}{,} \PY{n}{labels}\PY{p}{[}\PY{n}{l}\PY{p}{]}\PY{p}{]}\PY{p}{]}\PY{p}{,} 
+                                   \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                    \PY{n}{pbar}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sentiment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#] 100\% | ETA: 00:00:00
+Total time elapsed: 00:01:20
+
+    \end{Verbatim}
+
+    In the preceding code, we first initialized a new progress bar object
+\emph{pbar} with 50.000 iterations, which is the number of documents we
+were going to read in. Using the nested \emph{for} loops, we iterated
+over the \emph{train} and \emph{test} subdirectories in the main
+\emph{aclImdb} directory and read the individual text files from the
+\emph{pos} and \emph{neg} subdirectories that we eventually appended to
+the \emph{df} pandas \emph{DataFrame}, together with an integer class
+label (1 = positive and 0 = negative).
+
+Since the class labels in the assembled dataset are sorted, we will now
+shuffle \emph{DataFrame} using the \emph{permutation} function from the
+\emph{np.random} submodule - this will be useful to split the dataset
+into training and test sets in later sections when we will stream the
+data from our local drive directly. For our own convenience, we will
+also store the assembled and shuffled movie review dataset as a CSV
+file:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{reindex}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Since we are going to use this dataset later in this chapter, let's
+quickly confirm that we have successfully saved the data in the right
+format by reading in the CSV and printing an excerpt of the first three
+samples:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}                                               review  sentiment
+        0  This movie is the absolutely perfect way to ex{\ldots}          1
+        1  I don't usually like TV movies, I reckon that {\ldots}          0
+        2  First of all, I am not a huge fan of contempor{\ldots}          0
+\end{Verbatim}
+            
+    \subsection{Introducing the bag-of-words
+model}\label{introducing-the-bag-of-words-model}
+
+    You may remember that we have to convert categorical data, such as text
+or words, into a numerical form before we can pass it on to a machine
+learning algorithm. In this section, we will introduce the
+\textbf{bag-of-words}, which allows us to represent text as numerical
+feature vectors. The idea behind the bag-of-words model is quite simple
+and can be summarized as follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We create a vocabulary of unique tokens - for example, words - from
+  the entire set of documents.
+\item
+  We construct a feature vector from each document that contains the
+  counts of how often each word occurs in the particular document.
+\end{enumerate}
+
+Since the unique words in each document represent only a small subset of
+all the words in the bag-of-words vocabulary, the feature vectors will
+mosly consist of zeros, which is why we call them \textbf{sparse}. Do
+not worry if this sounds too abstract; in the following subsections, we
+will walk through the process of creating a simple bag-of-words model
+step-by-step.
+
+    \subsection{Transforming words into feature
+vectors}\label{transforming-words-into-feature-vectors}
+
+    To construct a bag-of-words model based on the word counts in the
+respective documents, we can use the \emph{CountVectorizer} class
+implemented in scikit-learn. As we will see in the following code
+section, \emph{CountVectorizer} takes an array of text data, which can
+be documents or sentences, and constructs the bag-of-words model for us:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{CountVectorizer}
+        
+        \PY{n}{count} \PY{o}{=} \PY{n}{CountVectorizer}\PY{p}{(}\PY{p}{)}
+        \PY{n}{docs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The sun is shining}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The weather is sweet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The sun is shining and the weather is sweet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{bag} \PY{o}{=} \PY{n}{count}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{docs}\PY{p}{)}
+\end{Verbatim}
+
+
+    By calling the \emph{fit\_transform} method on \emph{CountVectorizer},
+we constructed the vocabulary of the bag-of-words model and transformed
+the following three sentences into sparse feature vectors:
+
+\begin{itemize}
+\tightlist
+\item
+  'The sun is shining'
+\item
+  'The weather is sweet'
+\item
+  'The sun is shining and the weather is sweet'
+\end{itemize}
+
+Now let's print the contents of the vocabulary to get a better
+understanding of the underlying concepts:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{count}\PY{o}{.}\PY{n}{vocabulary\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'the': 5, 'sun': 3, 'is': 1, 'shining': 2, 'weather': 6, 'sweet': 4, 'and': 0\}
+
+    \end{Verbatim}
+
+    As we can see from executing the preceding command, the vocabulary is
+stored in a Python dictionary that maps the unique words to integer
+indices. Next, let's print the feature vectors that we just created:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{bag}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[0 1 1 1 0 1 0]
+ [0 1 0 0 1 1 1]
+ [1 2 1 1 1 2 1]]
+
+    \end{Verbatim}
+
+    Each index position in the feature vectors shown here corresponds to the
+integer values that are stored as dictionary items in the
+\emph{CountVectorizer} vocabulary. For example, the first feature at
+index position 0 resembles the count of the word \emph{'and'}, which
+only occurs in the last document, and the word \emph{'is'}, at index
+position 1 (the second feature in the document vectors), occurs in all
+three sentences. These values in the feature vectors are also called the
+\textbf{raw term frequencies (tf(t, d))} - the number of times a term
+\emph{t} occurs in a document \emph{d}.
+
+The sequence of items in the bag-of-words model that we just created is
+also called the \textbf{1-gram} or \textbf{unigram} model - each item or
+token in the vocabulary represents a single word. More generally, the
+contiguous sequences of item in NLP - words, letters, or symbols - are
+also called \textbf{n-grams}. The choice of the number \emph{n} in the
+n-gram model depends on the particular application; for example, a study
+by Kanaris and other revealedthat n-grams of size 3 or 4 yield good
+performance in anti-spam filtering of email messages. To summarize the
+concept of the n-gram representation, the 1-gram and 2-gram
+representations of our first document 'the sun is shining' would be
+constructed as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  1-gram: 'the', 'sun', 'is', 'shining'
+\item
+  2-gram: 'the sun', 'sun is', 'is shining'
+\end{itemize}
+
+The \emph{CountVectorizer} class in scikit-learn allows us to use
+different n-gram models via its \emph{ngram\_range} parameter. While a
+1-gram representation is used by default, we could switch to a 2-gram
+representation by initializing a new \emph{CountVectorizer} instance
+with \emph{ngram\_range=(2,2)}.
+
+    \subsection{Assessing word relevancy via term frequency-inverse document
+frequency}\label{assessing-word-relevancy-via-term-frequency-inverse-document-frequency}
+
+    When we are analyzing text data, we often encounter words that occur
+across multiple documents from both classes. These frequently occurring
+words typically do not contain useful or discriminatory information. In
+this subsection, we will learn about a useful technique called
+\textbf{term frequency-inverse document frequency (tf-idf)} that can be
+used to downweight these frequently occurring words in the feature
+vectors. The tf-idf can be defined as the product of the term frequency
+and the inverse document frequency:
+
+\[\text{tf-idf}(t,d) = tf(t,d) \times idf(t,d)\]
+
+Here, the \(tf(t,d)\) is the term frequency that we introduced in the
+previous section, and \(idf(t,d)\) is the inverse document frequency and
+can be calculated as follows:
+
+\[idf(t,d) = log\frac{n_d}{1+df(d,t)}\]
+
+Here, \(n_d\) is the total number of documents, and \(df(d,t)\) is the
+number of documents \(d\) that contain the term \(t\). Note that adding
+the constant 1 to the denominator is optional and serves the purpose of
+assigning a non-zero value to terms that occur in all training samples;
+the \emph{log} is used to ensure that low document frequencies are not
+given too much weight.
+
+The scikit-learn library implements yet another transformer, the
+\emph{TfidfTransformer} class, that takes the raw term frequencies from
+the \emph{CountVectorizer} class as input and transforms them into
+tf-idfs:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{TfidfTransformer}
+        
+        \PY{n}{tfidf} \PY{o}{=} \PY{n}{TfidfTransformer}\PY{p}{(}\PY{n}{use\PYZus{}idf}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{norm}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                 \PY{n}{smooth\PYZus{}idf}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{np}\PY{o}{.}\PY{n}{set\PYZus{}printoptions}\PY{p}{(}\PY{n}{precision}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{tfidf}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{count}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{docs}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[0.   0.43 0.56 0.56 0.   0.43 0.  ]
+ [0.   0.43 0.   0.   0.56 0.43 0.56]
+ [0.4  0.48 0.31 0.31 0.31 0.48 0.31]]
+
+    \end{Verbatim}
+
+    As we saw in the previous subsection, the word \emph{'is'} had the
+largest term frequency in the third document, being the most frequently
+occurring word. However, after transforming the same feature vector into
+tf-idfs, we see that the work \emph{'is'} s now associated with a
+relatively small tf-idf (0.48) in the third document, since it is also
+present in the first and second document and thus is unlikely to contain
+any useful discriminatory information.
+
+However, if we would manually calculated the tf-idfs of the individual
+terms in our feature vector, we would notice that
+\emph{TfidfTransformer} calculates the tf-idfs slightly different
+compared to the standard textbook equations that we defined previously.
+
+While it is also more typical to normalize the raw terms frequencies
+before calculating the tf-idfs, \emph{TfidfTranformer} class normalizes
+the tf-idfs directly. By default (norm = 'l2'), scikit-learn's
+\emph{TfidfTransformer} applies the L2-normalization, which returns a
+vector of length 1 by dividing an un-normalized feature vector \emph{v}
+by its L2-norm.
+
+    \subsection{Cleaning text data}\label{cleaning-text-data}
+
+    In the previous subsections, we learned about the bag-of-words model,
+term frequencies, and tf-idfs. However, the first important step -
+before we build our bag-of-words model - is to clean the text data by
+stripping it of all unwanted characters. To illustrate why this is
+important, let's display the last 50 characters from the first document
+in the reshuffled movie review dataset:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{50}\PY{p}{:}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 'your hearts forever :-).<br /><br />Regards Klavs.'
+\end{Verbatim}
+            
+    As we can see here, the text contains HTML markup as well as punctuation
+and other non-letter characters. While HTML markup does not contain much
+useful semantics, punctuation marks can represent useful, additional
+information in certai NLP context. However, for simplicity, we will now
+remove all punctuation marks except for emoticon characters such as :)
+since those are certainly useful for sentiment analysis. To accomplish
+this task, we will use Python's \textbf{regular expression (regex)}
+library, \emph{re}, as shown here:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{import} \PY{n+nn}{re}
+         
+         \PY{k}{def} \PY{n+nf}{preprocessor}\PY{p}{(}\PY{n}{text}\PY{p}{)}\PY{p}{:}
+             \PY{n}{text} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}[\PYZca{}\PYZgt{}]*\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{text}\PY{p}{)}
+             \PY{n}{emoticons} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(?::|;|=)(?:\PYZhy{})?(?:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{)|}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{(|D|P)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{text}\PY{p}{)}
+             \PY{n}{text} \PY{o}{=} \PY{p}{(}\PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{W]+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{text}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{emoticons}\PY{p}{)}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{text}
+\end{Verbatim}
+
+
+    Via the first regex in the preceding code section, we tried to remove
+all of the HTML markup from the movie reviews. Although many programmers
+generally advice against the use of regex to parse HTML, this regex
+should be sufficient to \emph{clean} this particular dataset. After we
+removed the HTML markup, we used a slightly more complex regex to find
+emoticons, which we temporarily stored as \emph{emoticons}. Next, we
+removed all non-word characters from the text via the last regex and
+converted the text into lowercase characters.
+
+Eventually, we added the temporarily stored \emph{emoticons} to the end
+of the processed document string. Additionally, we remove the
+\emph{nose} character (-) from the emoticons for consistency.
+
+Although the addition of the emoticon characters to the end of the
+cleaned document string may not look like the most elegant approach, we
+shall note that the order of the words does not matter in our
+bag-of-words model if our vocabulary consists of only one-word tokens.
+But before we talk more about the splitting of documents into individual
+term, words, or tokens, let's confirm that our preprocessor works
+correctly:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{preprocessor}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{50}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 'your hearts forever regards klavs :)'
+\end{Verbatim}
+            
+    Lastly, since we will make use of the cleaned text data over and over
+again during the next sections, let us now apply our \emph{preprocessor}
+function to all the movie reviews in our \emph{DataFrame}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{preprocessor}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Preprocessing documents into
+tokens}\label{preprocessing-documents-into-tokens}
+
+    After successfully preparing the movie review dataset, we now need to
+think about how to split the text corpora into individual elements. One
+way to \emph{tokenize} documents is to split them into individual words
+by splitting the cleaned documents at its whitespace characters:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{tokenizer}\PY{p}{(}\PY{n}{text}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{text}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+         \PY{n}{tokenizer}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runners like running and thus they run}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} ['runners', 'like', 'running', 'and', 'thus', 'they', 'run']
+\end{Verbatim}
+            
+    In the context of tokenization, another useful tecnique is \textbf{word
+stemming}, which is the process of transforming a work into its root
+form. It allows us to map related words to the same steam. The original
+stemming algorithm was developed by Martin F. Porter in 1979 and is
+hence known as the \textbf{Porter stemmer} algorithm. The
+\textbf{Natural Language Toolkit (NLTK)} for Python implements the
+Porter stemming algorithm, which we will use in the following code
+section. In order to install the NLTK, you can simply execute \emph{pip
+install nltk}.
+
+The following code shows how to use the Porter stemming algorithm:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{stem}\PY{n+nn}{.}\PY{n+nn}{porter} \PY{k}{import} \PY{n}{PorterStemmer}
+         
+         \PY{n}{porter} \PY{o}{=} \PY{n}{PorterStemmer}\PY{p}{(}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{tokenizer\PYZus{}porter}\PY{p}{(}\PY{n}{text}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{p}{[}\PY{n}{porter}\PY{o}{.}\PY{n}{stem}\PY{p}{(}\PY{n}{word}\PY{p}{)} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{text}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+         \PY{n}{tokenizer\PYZus{}porter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runners like to running and thus they run}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} ['runner', 'like', 'to', 'run', 'and', 'thu', 'they', 'run']
+\end{Verbatim}
+            
+    Using the \emph{PorterStemmer} from the \emph{nltk} package, we modified
+our \emph{tokenizer} function to reduce words to their root form, which
+was illustrated by the simple preceding example where the word
+\emph{'running'} was \emph{stemmed} to its root form \emph{'run'}.
+
+The Porter stemming algorithm is probably the oldest and simplest
+stemming algorithm. Other popular stemming algorithms include the newer
+\textbf{Snowball stemmer} and the \textbf{Lancaster stemmer}, which is
+fater but also more aggressive then the Porter stemmer.
+
+While stemming can create non-real words, such as \emph{'thu'} (from
+\emph{'thus'}), as shown in the previous example, a technique called
+\textbf{lemmatization} aims to obtain the canonical (grammatically
+correct) forms of individual words - the so-called \textbf{lemmas}.
+However, lemmatization is computationally more difficulty and expensive
+compared to stemming and, in practice, it has been observed that
+stemming and lemmatization have little impact on the performance of text
+classification.
+
+Before we jump into the next section, where we will train a machine
+learning model using the bag-of-words model, let's briefly talk about
+another useful topic called \textbf{stop-word removal}. Stop-words are
+simply those words that are extremely common in all sorts of texts and
+probably bear no (or only little) useful information that can be used to
+distinguish between different classes of documents. Examples of
+stop-words are \emph{is}, \emph{and}, \emph{has}, and \emph{like}.
+Removing stop-words can be useful if we are working with raw or
+normalized term frequencies rather than tf-idfs, which are already
+downweighting frequently occurring words.
+
+In order to remove stop-words from the movie reviews, we will use the
+set of 127 English stop-words that is available from the NLTK library,
+which can be obtained by calling the \emph{nltk.download} function:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{import} \PY{n+nn}{nltk}
+         
+         \PY{n}{nltk}\PY{o}{.}\PY{n}{download}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stopwords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[nltk\_data] Downloading package stopwords to /home/wesley/nltk\_data{\ldots}
+[nltk\_data]   Package stopwords is already up-to-date!
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} True
+\end{Verbatim}
+            
+    After we download the stop-words set, we can load and apply the English
+stop-word set as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{corpus} \PY{k}{import} \PY{n}{stopwords}
+         
+         \PY{n}{stop} \PY{o}{=} \PY{n}{stopwords}\PY{o}{.}\PY{n}{words}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{p}{[}\PY{n}{w} \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{tokenizer\PYZus{}porter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a runner likes running and runs a lot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{:}\PY{p}{]}  \PY{k}{if} \PY{n}{w} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{stop}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} ['runner', 'like', 'run', 'run', 'lot']
+\end{Verbatim}
+            
+    \subsection{Training a logistic regression model for document
+classification}\label{training-a-logistic-regression-model-for-document-classification}
+
+    In this section, we will train a logistic regression model to classify
+the movie reviews into positive and negative reviews. First, we will
+divide the \emph{DataFrame} of cleaned text documents into 25.000
+documents for training and 25.000 documents for testing:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{25000}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{25000}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sentiment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{25000}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{25000}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sentiment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    Next, we will use a \emph{GridSearchCV} object to find the optimal set
+of parameters for our logistic regression model using 5-fold stratified
+cross-validation:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{TfidfVectorizer}
+         
+         \PY{n}{tfidf} \PY{o}{=} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{n}{strip\PYZus{}accents}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{lowercase}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} 
+                                 \PY{n}{preprocessor}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect\PYZus{}\PYZus{}ngram\PYZus{}range}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect\PYZus{}\PYZus{}stop\PYZus{}words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{stop}\PY{p}{,} \PY{k+kc}{None}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect\PYZus{}\PYZus{}tokenizer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{tokenizer}\PY{p}{,} \PY{n}{tokenizer\PYZus{}porter}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}\PYZus{}penalty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}\PYZus{}C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{10.0}\PY{p}{,} \PY{l+m+mf}{100.0}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{,} 
+                       \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect\PYZus{}\PYZus{}ngram\PYZus{}range}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect\PYZus{}\PYZus{}stop\PYZus{}words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{stop}\PY{p}{,} \PY{k+kc}{None}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect\PYZus{}\PYZus{}tokenizer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{tokenizer}\PY{p}{,} \PY{n}{tokenizer\PYZus{}porter}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect\PYZus{}\PYZus{}use\PYZus{}idf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{False}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect\PYZus{}\PYZus{}norm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}\PYZus{}penalty}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}\PYZus{}C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{10.0}\PY{p}{,} \PY{l+m+mf}{100.0}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{]}
+         \PY{n}{lr\PYZus{}tfidf} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{tfidf}\PY{p}{)}\PY{p}{,} 
+                              \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n}{gs\PYZus{}lr\PYZus{}tfidf} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{lr\PYZus{}tfidf}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} 
+                                    \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                    \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{gs\PYZus{}lr\PYZus{}tfidf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 5 folds for each of 48 candidates, totalling 240 fits
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=-1)]: Done  34 tasks      | elapsed: 13.1min
+[Parallel(n\_jobs=-1)]: Done 184 tasks      | elapsed: 73.0min
+[Parallel(n\_jobs=-1)]: Done 240 out of 240 | elapsed: 98.9min finished
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} GridSearchCV(cv=5, error\_score='raise',
+                estimator=Pipeline(memory=None,
+              steps=[('vect', TfidfVectorizer(analyzer='word', binary=False, decode\_error='strict',
+                 dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+                 lowercase=False, max\_df=1.0, max\_features=None, min\_df=1,
+                 ngram\_range=(1, 1), norm='l2', preprocessor=None, smooth\_idf=True,
+          {\ldots}nalty='l2', random\_state=0, solver='liblinear', tol=0.0001,
+                   verbose=0, warm\_start=False))]),
+                fit\_params=None, iid=True, n\_jobs=-1,
+                param\_grid=[\{'vect\_\_ngram\_range': [(1, 1)], 'vect\_\_stop\_words': [['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 'hers', 'herself', 'it', "it's{\ldots}se\_idf': [False], 'vect\_\_norm': [None], 'clf\_\_penalty': ['l1', 'l2'], 'clf\_\_C': [1.0, 10.0, 100.0]\}],
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring='accuracy', verbose=1)
+\end{Verbatim}
+            
+    When we initialized the \emph{GridSearchCV} object and its parameter
+grid using the preceding code, we restricted ourselves to a limited
+number of parameter combinations, since the number of feature vectors,
+as well as the large vocabulary, can make the grid search
+computationally quite expensive. Using a standard desktop computer, our
+grid search may take up to 40 minutes to complete.
+
+In the previous code example, we replaced \emph{CountVectorizer} and
+\emph{TfidfTransformer} from the previous subsection with
+\emph{TfidfVectorizer}, which combines the latter transformer objects.
+Our \emph{param\_grid} consisted of two parameter dictionaries. In the
+first dictionary, we used the \emph{TfidfVectorizer} with its default
+settings (\emph{use\_idf=True}, \emph{smooth\_idf=True}, and
+\emph{norm='l2'}) to calculate the tf-idfs; in the second dictionary, we
+set those parameters to \emph{use\_idf=False}, \emph{smooth\_idf=False},
+and \emph{norm=None} in order to train a model based on raw term
+frequencies. Furthermore, for the logistic regression classifier itself,
+we trained models using L2 and L1 regularization via the penalty
+parameter and compared different regularization strengths by defining a
+range of values for the inverse-regularization parameter C.
+
+After the grid search has finished, we can print the best parameters
+set:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best parameter set: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{gs\PYZus{}lr\PYZus{}tfidf}.best\PYZus{}params\PYZus{})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Best parameter set: \{'clf\_\_C': 10.0, 'clf\_\_penalty': 'l2', 'vect\_\_ngram\_range': (1, 1), 'vect\_\_stop\_words': None, 'vect\_\_tokenizer': <function tokenizer at 0x7efc0c05a6a8>\}
+
+    \end{Verbatim}
+
+    As we can see in the preceding output, we obtained the best grid search
+results using the regular \emph{tokenizer} without Porter stemming, no
+stop-word library, and tf-idfs in combination with a logistic regression
+that uses L2-regularization with the regularization strength of 10.0.
+
+Using the best model from this grid search, let's print the average
+5-fold cross-validation accuracy scores on the training set and the
+classification accuracy on the test dataset:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV Accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{gs\PYZus{}lr\PYZus{}tfidf}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{gs\PYZus{}lr\PYZus{}tfidf}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CV Accuracy: 0.897
+Test Accuracy: 0.896
+
+    \end{Verbatim}
+
+    The results reveal that our machine learning model can predict whether a
+movie review is positive or negative with 90 percent accuracy.
+
+A still very popular classifier for text classification is the Naive
+Bayes classifier, which gained popularity in applications of email spam
+filtering. Naive Bayes classifiers are easy to implement,
+computationally efficient, and tend to perform particularly well on
+relatively small datasets compared to other algorithms.
+
+    \section{Working with bigger data - online algorithms and out-of-core
+learning}\label{working-with-bigger-data---online-algorithms-and-out-of-core-learning}
+
+    If you executed the code examples in the previous section, you may have
+noticed that it could be computationally quite expensive to construct
+the feature vectors for the 50.000 movie review dataset during grid
+search. In many real-world applications, it is not common to work with
+even larger datasets that can exceed our computer's memory. Since not
+everyone has access to supercomputer facilities, we will now apply a
+techinique called \textbf{out-of-core learning}, which allows us to work
+with such large datasets by fitting the classifier incrementally on
+smaller batches of the dataset.
+
+We introduced earlier the concept of \textbf{stochastic gradient
+descent}, which is an optimization algorithm that updates the model's
+weights using one sample at a time. In this section, we will make use of
+the \emph{partial\_fit} function of \emph{SGDClassifier} in scikit-learn
+to stream the documents directly from our local drive, and train a
+logistic regression model using small mini-batches of documents.
+
+First, we define a \emph{tokenizer} function that cleans the unprocessed
+text data from the \emph{movie\_data.csv} file that we constructed at
+the beginning of this chapter and separate it into token words while
+removing stop words:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{re}
+         \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{corpus} \PY{k}{import} \PY{n}{stopwords}
+         
+         \PY{n}{stop} \PY{o}{=} \PY{n}{stopwords}\PY{o}{.}\PY{n}{words}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{tokenizer}\PY{p}{(}\PY{n}{text}\PY{p}{)}\PY{p}{:}
+             \PY{n}{text} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}[\PYZca{}\PYZgt{}]*\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{text}\PY{p}{)}
+             \PY{n}{emoticons} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(?::|;|=)(?:\PYZhy{})?(?:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{)|}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{(|D|P)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{text}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n}{text} \PY{o}{=} \PY{p}{(}\PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{W]+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{text}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{emoticons}\PY{p}{)}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             \PY{n}{tokenized} \PY{o}{=} \PY{p}{[}\PY{n}{w} \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{text}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{w} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{stop}\PY{p}{]}
+             \PY{k}{return} \PY{n}{tokenized}
+\end{Verbatim}
+
+
+    Next, we define a generator function \emph{stream\_docs} that reads in
+and return one document at a time:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{stream\PYZus{}docs}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{:}
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{csv}\PY{p}{:}
+                 \PY{n+nb}{next}\PY{p}{(}\PY{n}{csv}\PY{p}{)} \PY{c+c1}{\PYZsh{} skip header}
+                 \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{csv}\PY{p}{:}
+                     \PY{n}{text}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{line}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{line}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{yield} \PY{n}{text}\PY{p}{,} \PY{n}{label}
+\end{Verbatim}
+
+
+    To verify that our \emph{stream\_docs} functions works correctly, let's
+read in the first document from the \emph{'movie\_data.csv'} file, which
+should return a tuple consisting of the review text as well as the
+corresponding class label:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n+nb}{next}\PY{p}{(}\PY{n}{stream\PYZus{}docs}\PY{p}{(}\PY{n}{path}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} ('"This movie is the absolutely perfect way to explain what a good movie is. It is a movie both for children and parents, and it is ""timeless"". I saw this movie before Ocean\textbackslash{}'s Eleven and must admit that the actors in OE has class in advance, but the play of Klatretøsen is much more down-to-earth and moving. Why i say Ocean\textbackslash{}'s Eleven, is the fact that these 2 movies has many things in common and Klatretøsen is THAT good ! that it can bear comparison with OE. The 3 youngsters play their part in a perfect way not to believe, compared to what we are used to in Denmark. The different cases of impossible acts, is handled in a way that you wouldn\textbackslash{}'t belive from many young actors (and sometimes not even from the ""old boys""). The story ? again it has things in common with Ocean\textbackslash{}'s Eleven except for the reason of stealing the money and in Klatretøsen they need to climb up to the strongroom. The part in which the young people has to take care of Ida\textbackslash{}'s younger brother, gives a fine element in the movie. Try to imagine how to rob a bank with a 2 year child with a nappy, on your arm :-).<br /><br />This movie can bear comparison with most ""grown up"" movie like MI2 and Ocean\textbackslash{}'s Eleven. Yes i do believe it is THAT good. It is best to see it in a theater, as all the children in the room comments the movie and these comments will stay in your hearts forever :-).<br /><br />Regards Klavs."',
+          1)
+\end{Verbatim}
+            
+    We will now define a function, \emph{get\_minibatch}, that will take a
+document stream from the \emph{stream\_docs} function and return a
+particular number of documents specified by the \emph{size} parameter:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}minibatch}\PY{p}{(}\PY{n}{doc\PYZus{}stream}\PY{p}{,} \PY{n}{size}\PY{p}{)}\PY{p}{:}
+             \PY{n}{docs}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+             \PY{k}{try}\PY{p}{:} 
+                 \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{size}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{text}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{doc\PYZus{}stream}\PY{p}{)}
+                     \PY{n}{docs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{text}\PY{p}{)}
+                     \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{label}\PY{p}{)}
+             \PY{k}{except} \PY{n+ne}{StopIteration}\PY{p}{:}
+                 \PY{k}{return} \PY{k+kc}{None}\PY{p}{,} \PY{k+kc}{None}
+             \PY{k}{return} \PY{n}{docs}\PY{p}{,} \PY{n}{y}
+\end{Verbatim}
+
+
+    Unfortunately, we cannot use \emph{CountVectorizer} for out-of-core
+learning since it requires holding the complete vocabulary in memory.
+Also, \emph{TfidfVectorizer} needs to keep all the feature vectors of
+the training dataset in memory to calculate the inverse documents
+frequencies. However, another useful vectorizer for text processing
+implemented in scikit-learn is \emph{HashingVectorizer}.
+\emph{HashingVectorizer} is data-independent and makes use of the
+hashing trick via the 32-bit \emph{MurmurHash3} function.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{HashingVectorizer}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{SGDClassifier}
+         
+         \PY{n}{vect} \PY{o}{=} \PY{n}{HashingVectorizer}\PY{p}{(}\PY{n}{decode\PYZus{}error}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                  \PY{n}{n\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{21}\PY{p}{,} 
+                                  \PY{n}{preprocessor}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} 
+                                  \PY{n}{tokenizer}\PY{o}{=}\PY{n}{tokenizer}\PY{p}{)}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{doc\PYZus{}stream} \PY{o}{=} \PY{n}{stream\PYZus{}docs}\PY{p}{(}\PY{n}{path}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Using the preceding code, we initialized \emph{HashingVectorizer} with
+our tokenizer function and set the number of features to \emph{2\^{}21}.
+Furthermore, we reinitialized a logistic regression classifier by
+setting the \emph{loss} parameter of the \emph{SGDClassifier} to
+\emph{'log'} - note that by choosing a large number of features in the
+\emph{HashingVectorizer}, we reduce the chance of causing hash
+collisions, but we also increase the number of coefficients in our
+logistic regression model. Now comes the really interesting part. Having
+set up all the complementary functions, we can now start the out-of-core
+learning using the following code:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{import} \PY{n+nn}{pyprind} 
+         
+         \PY{n}{pbar} \PY{o}{=} \PY{n}{pyprind}\PY{o}{.}\PY{n}{ProgBar}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{classes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}\PY{p}{:}
+             \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{get\PYZus{}minibatch}\PY{p}{(}\PY{n}{doc\PYZus{}stream}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+             \PY{k}{if} \PY{o+ow}{not} \PY{n}{X\PYZus{}train}\PY{p}{:}
+                 \PY{k}{break}
+             \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{vect}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+             \PY{n}{clf}\PY{o}{.}\PY{n}{partial\PYZus{}fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{classes}\PY{o}{=}\PY{n}{classes}\PY{p}{)}
+             \PY{n}{pbar}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#                             ] 100\% | ETA: 00:00:23/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#                            ] 100\% | ETA: 00:00:23/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#                           ] 100\% | ETA: 00:00:22/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#                          ] 100\% | ETA: 00:00:20/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#                         ] 100\% | ETA: 00:00:20/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#                        ] 100\% | ETA: 00:00:19/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#                       ] 100\% | ETA: 00:00:18/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#                      ] 100\% | ETA: 00:00:18/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#                     ] 100\% | ETA: 00:00:17/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#                    ] 100\% | ETA: 00:00:15/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#                   ] 100\% | ETA: 00:00:15/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#                  ] 100\% | ETA: 00:00:14/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#                 ] 100\% | ETA: 00:00:13/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#                ] 100\% | ETA: 00:00:13/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#               ] 100\% | ETA: 00:00:11/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#              ] 100\% | ETA: 00:00:10/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#             ] 100\% | ETA: 00:00:10/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#            ] 100\% | ETA: 00:00:09/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#           ] 100\% | ETA: 00:00:08/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#          ] 100\% | ETA: 00:00:08/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#         ] 100\% | ETA: 00:00:07/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#        ] 100\% | ETA: 00:00:05/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#       ] 100\% | ETA: 00:00:05/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#      ] 100\% | ETA: 00:00:04/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#     ] 100\% | ETA: 00:00:03/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#    ] 100\% | ETA: 00:00:03/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#   ] 100\% | ETA: 00:00:02/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#  ] 100\% | ETA: 00:00:01/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# ] 100\% | ETA: 00:00:00/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+0\% [\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#] 100\% | ETA: 00:00:00
+Total time elapsed: 00:00:24
+
+    \end{Verbatim}
+
+    Again, we made use of PyPrind package in order to estimate the progress
+of our learning algorithm. We initialized the progress bar object with
+45 iterations and, in the following \emph{for} loop, we iterated over 45
+mini-batches of documents were each mini-batch consists of 1.000
+documents. Having completed the incremental learning process, we will
+use the last 5.000 documents to evaluate the performance of our model:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{get\PYZus{}minibatch}\PY{p}{(}\PY{n}{doc\PYZus{}stream}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{)}
+         \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{vect}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{clf}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.872
+
+    \end{Verbatim}
+
+    As we can see, the accuracy of the model is approximately 88 percent,
+slight below the accuracy that we achieved in the previous section using
+the grid search for hyperparameter tuning. However, out-of-core learning
+is very memory efficient and took less than a minute to complete.
+Finally, we can use the last 5.000 documents to update our model:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{clf} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{partial\PYZus{}fit}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/lib/python3.6/site-packages/sklearn/linear\_model/stochastic\_gradient.py:117: DeprecationWarning: n\_iter parameter is deprecated in 0.19 and will be removed in 0.21. Use max\_iter and tol instead.
+  DeprecationWarning)
+
+    \end{Verbatim}
+
+    If you are planning to continue directly to the next chapter, I
+recommend you keep the current Python session open. In the next chapter,
+we will use the model that we just trained to learn how to save it to
+the disk for later use and embed it into a web application.
+
+    \section{Topic modeling with Latent Dirichlet
+Allocation}\label{topic-modeling-with-latent-dirichlet-allocation}
+
+    Topic modeling describes the broad task of assigning topis to unlabelled
+text documents. For example, a typical application would be the
+categorization of documents in a large text corpus of newspaper articles
+where we do not know on which specific page or category they appear in.
+In applications of topic modeling, we then aim to assign category labels
+to those articles - for example, sports, finance, world news, politics,
+local news, and so forth. Thus, in the context of the broad categories
+of machine learning, we can consider topic modeling as a clustering
+task, a subcategory of unsupervised learning.
+
+In this section, we will introduce a popular technique for topic
+modeling called \textbf{Latent Dirichlet Allocation (LDA)}. However,
+note that while Latent Dirichlet Allocation if often abbreviated as LDA,
+it is not to be confused with Linear Discriminant Analysis, a supervised
+dimensionality reduction technique.
+
+    \subsection{Decomposing text documents with
+LDA}\label{decomposing-text-documents-with-lda}
+
+    Since the mathematics behind LDA is quite involved and requires
+knowledge about Bayesian inference, we will approach this topic from a
+practitioner's perspective and interpret LDA using layman's terms.
+
+LDA is a generative probabilistic model that tries to find groups of
+words that appear frequently together across different documents. These
+frequently appearing words represent our topics, assuming that each
+document is a mixture of different words. The input to a LDA is the
+bag-of-words model we discusse earlier in this chapter. Given a
+bag-of-words matrix as input, LDA decomposes it into two new matrices:
+
+\begin{itemize}
+\tightlist
+\item
+  A document of topic matrix
+\item
+  A word to topic matrix
+\end{itemize}
+
+LDA decomposes the bag-of-words matrix in such a way that if we multiply
+those two matrices together, we would be able to reproduce the input,
+the bag-of-words matrix, with the lowest possible error. In practice, we
+are interested in those topics that LDA found in the bag-of-words
+matrix. The only downside may be that we must define the number of
+topics beforehand - the number of topics is a hyperparameter of LDA that
+has to be specified manually.
+
+    \subsection{LDA with scikit-learn}\label{lda-with-scikit-learn}
+
+    In this subsection, we will use the \emph{LatentDirichAllocation} class
+implemented in scikit-learn to decompose the movie review dataset and
+categorize it into different topics. In the following example, we
+restrict the analysis to 10 different topics, but readers are encouraged
+to experiment with the hyperparameters of the algorithm to explore the
+topics that can be found in this dataset further.
+
+First, we are going to load the dataset into a pandas \emph{DataFrame}
+using the local \emph{movie\_data.csv} file of the movie reviews that we
+have created at the beginning of this chapter:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movie\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Next, we are going to use the already familiar \emph{CountVectorizer} to
+create the bag-of-words matrix as input to the LDA. For convenience, we
+will use scikit-learn's built-in English stop word library via
+\emph{stop\_words='english'}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{CountVectorizer}
+         
+         \PY{n}{count} \PY{o}{=} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                 \PY{n}{max\PYZus{}df}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} 
+                                 \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{count}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+
+
+    Notice that we set the maximum document frequency of words to be
+considered to 10 percent (\emph{max\_df=.1}) to exclude words that occur
+too frequently across documents. The rationale behind the removal of
+frequently occuring words is that these might be common words appearing
+across all documents and are therefore less likely associated with a
+specific topic category of a given document. Also, we limited the number
+of words to be considered to the most frequently occuring 5.000 words
+(\emph{max\_features=5000}), to limit the dimensionality of this dataset
+so that it improves the inference performed by LDA. However, both
+\emph{max\_df-.1} and \emph{max\_features=5000} are hyperparameter
+values that I chose arbitrarily, and readers are encouraged to tune them
+while comparing the results.
+
+The following code example demonstrates how to fit a
+\emph{LatentDirichletAllocation} estimator to the bag-of-words matrix
+and infer the 10 different topics from the documents (note that the
+model fitting can take up to five minutes or more on a laptop or
+standard desktop computer):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{LatentDirichletAllocation}
+         
+         \PY{n}{lda} \PY{o}{=} \PY{n}{LatentDirichletAllocation}\PY{p}{(}\PY{n}{n\PYZus{}topics}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} 
+                                         \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{123}\PY{p}{,} 
+                                         \PY{n}{learning\PYZus{}method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{X\PYZus{}topics} \PY{o}{=} \PY{n}{lda}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/lib/python3.6/site-packages/sklearn/decomposition/online\_lda.py:294: DeprecationWarning: n\_topics has been renamed to n\_components in version 0.19 and will be removed in 0.21
+  DeprecationWarning)
+
+    \end{Verbatim}
+
+    By setting \emph{learning\_method='batch'}, we let the \emph{lda}
+estimator do its estimation based on all available training data (the
+bag-of-words matrix) in one iteration, which is slower than the
+alternative \emph{'online'} learning method but can lead to more
+accurate results (setting \emph{learning\_method='online'} is analogous
+to online and mini-batch learning that we discussed previously).
+
+    After fitting the LDA, we now have access to the \emph{components\_}
+attribute of the \emph{lda} instance, which stores a matrix containing
+the word importance (here, 5000) for each of the 10 topics in increasing
+order:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{lda}\PY{o}{.}\PY{n}{components\PYZus{}}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} (10, 5000)
+\end{Verbatim}
+            
+    To analyse the results, let's print the five most important words for
+each of the 10 topics. Note that the word importance are ranked in
+increasing order. Thus, to print the five top words, we need to sort the
+\emph{topic} array in reverse order:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{n\PYZus{}top\PYZus{}words} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{feature\PYZus{}names} \PY{o}{=} \PY{n}{count}\PY{o}{.}\PY{n}{get\PYZus{}feature\PYZus{}names}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{topic\PYZus{}idx}\PY{p}{,} \PY{n}{topic} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{lda}\PY{o}{.}\PY{n}{components\PYZus{}}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Topic }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{topic\PYZus{}idx} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{feature\PYZus{}names}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{topic}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}top\PYZus{}words}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Topic 1:
+worst minutes script awful stupid
+Topic 2:
+family mother father children girl
+Topic 3:
+american war dvd music tv
+Topic 4:
+human audience cinema art sense
+Topic 5:
+police dead guy car murder
+Topic 6:
+horror house sex girl woman
+Topic 7:
+role performance comedy actor performances
+Topic 8:
+series episode war episodes season
+Topic 9:
+book version original effects read
+Topic 10:
+action fight guy guys cool
+
+    \end{Verbatim}
+
+    Based on reading the five most important words for each topic, we may
+guess that the LDA identified the following topics:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Generally bad movies (not really a topic category)
+\item
+  Movies about families
+\item
+  War movies
+\item
+  Art movies
+\item
+  Crime movies
+\item
+  Horror movies
+\item
+  Comedy movies
+\item
+  Movies somehow related to TV shows
+\item
+  Movies based on books
+\item
+  Action movies
+\end{enumerate}
+
+To confirm that the categories make sense based on the reviews, let's
+plot three movies from the horror movie category (horror movies belong
+to category 6 at index position 5):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{horror} \PY{o}{=} \PY{n}{X\PYZus{}topics}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{k}{for} \PY{n}{iter\PYZus{}idx}\PY{p}{,} \PY{n}{movie\PYZus{}idx} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{horror}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Horror movie \PYZsh{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{iter\PYZus{}idx} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{movie\PYZus{}idx}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{300}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{...}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Horror movie \#1:
+Once upon a time in a castle{\ldots} Two little girls are playing in the garden's castle. They are sisters. A blonde little girl (Kitty) and a brunette one (Evelyn). Evelyn steals Kitty's doll. Kitty pursues Evelyn. Running through long corridors, they reach the room where their grandfather, sitting o {\ldots}
+
+Horror movie \#2:
+House of Dracula works from the same basic premise as House of Frankenstein from the year before; namely that Universal's three most famous monsters; Dracula, Frankenstein's Monster and The Wolf Man are appearing in the movie together. Naturally, the film is rather messy therefore, but the fact that {\ldots}
+
+Horror movie \#3:
+<br /><br />Horror movie time, Japanese style. Uzumaki/Spiral was a total freakfest from start to finish. A fun freakfest at that, but at times it was a tad too reliant on kitsch rather than the horror. The story is difficult to summarize succinctly: a carefree, normal teenage girl starts coming fac {\ldots}
+
+    \end{Verbatim}
+
+    Using the preceding code example, we printed the first 300 characters
+from the top three horror movies, and we can see that the reviews - even
+though we do not know which exact movie they belong to - sound like
+reviews of horror movies (however, one might argue that \emph{Horror
+movie \#2} could also be a good fit for topic category 1:
+\emph{Generally bad movies}).
+
+    \section{Summary}\label{summary}
+
+    In this chapter, we learned how to use machine learning algorithms to
+classify text documents based on their polarity, which is a basic task
+in sentiment analysis in the field of NLP. Not only did we learn how to
+encode a document as a feature vector using the bag-of-words model, but
+we also learned how to weight the term frequency by relevance using
+tf-idf.
+
+Working with text data can be computationally quite expensive due to the
+large feature vectors that are created during this process; in the last
+section, we learned how to utilize out-of-core or incremental learning
+to train a machine learning algorith without loading the whole dataset
+into a computer's memory.
+
+Lastly, we introduced the concept of topic modeling using LDA to
+categorize the movie reviews into different categories in unsupervised
+fashion.
+
+In the next chapter, we will use our document classifier and learn how
+to embed it into a web application.
+
+    \section{Serializing fitted scikit-learn
+estimators}\label{serializing-fitted-scikit-learn-estimators}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k+kn}{import} \PY{n+nn}{pickle} 
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         
+         \PY{n}{dest} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{movieclassifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pkl\PYZus{}objects}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{n}{dest}\PY{p}{)}\PY{p}{:}
+             \PY{n}{os}\PY{o}{.}\PY{n}{makedirs}\PY{p}{(}\PY{n}{dest}\PY{p}{)}
+             
+         \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{stop}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{dest}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stopwords.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{protocol}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n+nb}{open}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{dest}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{protocol}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

@@ -1,0 +1,1743 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{4\_Building\_Good\_Training\_Sets\_Data\_Preprocessing}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Building Good Training Sets - Data
+Preprocessing}\label{building-good-training-sets---data-preprocessing}
+
+    The quality of the data and the amount of useful information that it
+contains are key factors that determine how well a machine learning
+algorithm can learn. Therefore, it is absolutely critical that we make
+sure of examine and preprocess a dataset before we feed it to a learning
+algorithm. In this chapter, we will discuss the essential data
+preprocessing techniques that will help us build good machine learning
+models.
+
+The topics what we will cover in this chapter are as follows: * Removing
+and imputing missing values from the dataset * Getting categorical data
+into shape for machine learning algorithms * Selecting relevant features
+for the model construction
+
+    \section{Dealing with missing data}\label{dealing-with-missing-data}
+
+    It is not uncommon in real-world applications for our samples to be
+missing one or more values for various reasons. There could have been an
+error in the data collection process, certain measurements are not
+applicable, or particular fields could have been simply left blank in a
+survey, for example. We typically see missing values as the blank spaces
+in our data table or as placeholder strings such as \emph{NaN}, which
+stands for not a number, or \emph{NULL} (a commonly used indicator of
+unknown values in relational databases).
+
+Unfortunately, most computational tools are unable to handle such
+missing values, or produce unpredictable results if we simply ignore
+them. Therefore, it is crucial that we take care of those missing values
+before we proceed with further analyses. In this section, we will work
+through several practical techniques for dealing with missing values by
+removing entries from our dataset or imputing missing values from other
+samples and features.
+
+    \section{Identifying missing values in tabular
+data}\label{identifying-missing-values-in-tabular-data}
+
+    But before we discuss several techniques for dealing with missing
+values, let's create a simple example data frame from a
+\textbf{Comma-separated Values (CSV)} file to get a better grasp of the
+problem:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{io} \PY{k}{import} \PY{n}{StringIO}
+        
+        \PY{n}{csv\PYZus{}data} \PY{o}{=} \PYZbs{}
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}A,B,C,D}
+        \PY{l+s+sd}{1.0,2.0,3.0,4.0}
+        \PY{l+s+sd}{5.0,6.0,,8.0}
+        \PY{l+s+sd}{10.0,11.0,12.0,\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{StringIO}\PY{p}{(}\PY{n}{csv\PYZus{}data}\PY{p}{)}\PY{p}{)}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:}       A     B     C    D
+        0   1.0   2.0   3.0  4.0
+        1   5.0   6.0   NaN  8.0
+        2  10.0  11.0  12.0  NaN
+\end{Verbatim}
+            
+    Using the preceding code, we read CSV-formatted data into a pandas
+\emph{DataFrame} via the \emph{read\_csv} function and noticed that the
+two missing cells were replaced by \emph{NaN}. The \emph{StringIO}
+function in the preceding code example was simply used for the purposes
+of illustration. It allows us to read the string assigned to
+\emph{csv\_data} into a pandas \emph{DataFrame} as if it was a regular
+CSV file on our hard drive.
+
+For a larger \emph{DataFrame}, it can be tedious to look for missing
+values manually; in this case, we can use the \emph{isnull} method to
+return a \emph{DataFrame} with Boolean values that indicate whether a
+cell contains a numeric value (False) or if data is missing (True).
+Using the \emph{sum} method, we can then return the number of missing
+values per column as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} A    0
+        B    0
+        C    1
+        D    1
+        dtype: int64
+\end{Verbatim}
+            
+    This way, we can count the number of missing values per column; in the
+following subsections, we will take a look at different strategies for
+how to deal with this missing data.
+
+    Although scikit-learn was developed for working with NumPy arrays, it
+can sometimes be more convenient to preprocess data using pandas'
+\emph{DataFrame}. We can always access the underlying NumPy array of a
+\emph{DataFrame} via the \emph{values} attribute before we feed it into
+a scikit-learn estimator:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} array([[ 1.,  2.,  3.,  4.],
+               [ 5.,  6., nan,  8.],
+               [10., 11., 12., nan]])
+\end{Verbatim}
+            
+    \section{Eliminating samples of features with missing
+values}\label{eliminating-samples-of-features-with-missing-values}
+
+    One of the easiest ways to deal with missing data is to simply remove
+the corresponding features (columns) or samples (rows) from the dataset
+entirely; rows with missing values can be easily dropped via the
+\emph{dropna} method:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}      A    B    C    D
+        0  1.0  2.0  3.0  4.0
+\end{Verbatim}
+            
+    Similarly, we can drop columns that have at least one \emph{NaN} in any
+row by setting the \emph{axis} argument to \emph{1}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}       A     B
+        0   1.0   2.0
+        1   5.0   6.0
+        2  10.0  11.0
+\end{Verbatim}
+            
+    The \emph{dropna} method supports several additional parameters that can
+come in handy:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} only drops rows where all columns are NaN}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} drop rows that have less then 4 real values}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{thresh}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} only drop rows where NaN appear in specific columns}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+      A     B     C    D
+0   1.0   2.0   3.0  4.0
+1   5.0   6.0   NaN  8.0
+2  10.0  11.0  12.0  NaN 
+
+     A    B    C    D
+0  1.0  2.0  3.0  4.0 
+
+      A     B     C    D
+0   1.0   2.0   3.0  4.0
+2  10.0  11.0  12.0  NaN 
+
+
+    \end{Verbatim}
+
+    Although the removal of missing data seems to be a convenient approach,
+it also comes with certain disadvantages; for example, we may end up
+removing too many samples, which will make a reliable analysis
+impossible. Or, if we remove too many feature columns, we will run the
+risk of losing valuable information that our classifier needs to
+discriminate between classes. In the next section, we will thus look at
+one of the most commonly used alternatives for dealing with missing
+values: interpolation techniques.
+
+    \section{Imputing missing values}\label{imputing-missing-values}
+
+    Often, the removal of samples or dropping of entire feature columns is
+simply no feasible, because we might lose too much valuable data. In
+this case, we can use different interpolation techniques to estimate the
+missing values from the other training samples in our dataset. One of
+the most common interpolation techniques is \textbf{mean imputation},
+where we simply replace the missing value with the mean value of the
+entire feature column. A convenient way to achieve this is by using the
+\emph{Imputer} class from scikit-learn, as shown in the following code:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{Imputer}
+        
+        \PY{n}{imr} \PY{o}{=} \PY{n}{Imputer}\PY{p}{(}\PY{n}{missing\PYZus{}values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NaN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{strategy}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{imr} \PY{o}{=} \PY{n}{imr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+        \PY{n}{imputed\PYZus{}data} \PY{o}{=} \PY{n}{imr}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+        \PY{n}{imputed\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} array([[ 1. ,  2. ,  3. ,  4. ],
+               [ 5. ,  6. ,  7.5,  8. ],
+               [10. , 11. , 12. ,  6. ]])
+\end{Verbatim}
+            
+    Here, we replaced each \emph{NaN} value with the corresponding mean,
+which is separately calculated for each feature column. If we changed
+the \emph{axis=0} setting to \emph{axis=1}, we would calculate the row
+means. Other options for the \emph{strategy} prameter are \emph{median}
+or \emph{most\_frequent}, where the latter replaces the missing values
+with the most frequent values. This is useful for imputing categorical
+feature values, for example, a feature column that stores an encoding of
+color names, such as red, green and blue, and we will encounter examples
+of such data later in this chapter.
+
+    \section{Understanding the scikit-learn estimator
+API}\label{understanding-the-scikit-learn-estimator-api}
+
+    In the previous section, we used the \emph{Imputer} class from
+scikit-learn to impute missing values in our dataset. The \emph{Imputer}
+class belongs to the so-called \textbf{transformer} classes in
+scikit-learn, which are used for data transformation. The two essential
+methods for those estimators are \emph{fit} and \emph{transform}. The
+\emph{fit} method is used to learn the parameters from the training
+data, and the \emph{transform} method uses those parameters to transform
+the data. Any data array that is transformed needs to have the same
+number of features as the data array that was used to fit the model. The
+following figure illustrates how a transformer, fitten on the training
+data, is used to transform a training dataset as well as a new test
+dataset:
+
+    The classifiers that we used previously belong to the so-called
+\textbf{estimators} in scikit-learn with an API that is conceptually
+very similar to the transformer class. Estimators have a \emph{predict}
+method but can also have a \emph{transform} method, as we will see later
+in this chapter.
+
+As you may recall, we also used the \emph{fit} method to learn the
+parameters of a model when we trained those estimators for
+classification. However, in supervised learning tasks, we additionally
+provide the class labels for fitting the model, which can then be used
+to make predictions about new data samples via the \emph{predict}
+method, as illustrated in the following figure:
+
+    \section{Handling categorial data}\label{handling-categorial-data}
+
+    So far, we have only been working with numerical values. However, it is
+not uncommon that real-world datasets contain one or more categorical
+feature columns. In this section, we will make use of simple yet
+effective examples to see how we deal with this type of data in
+numerical computing libraries.
+
+    \section{Nominal and ordinal
+features}\label{nominal-and-ordinal-features}
+
+    When we are talking about categorical data, we have to further
+distinguish between \textbf{nominal} and \textbf{ordinal} features.
+Ordinal features can be understood as categorical values that can be
+sorted or ordered. For example, t-shirt size would be an ordinal
+feature, because we can define an order XL \textgreater{} L
+\textgreater{} M. In contrast, nominal features do not imply any order
+and, to continue with the previous example, we could think of t-shirt
+color as a nominal feature since it typically does not make sense to say
+that, for example, red is larger than blue.
+
+    \subsection{Creating a example
+dataset}\label{creating-a-example-dataset}
+
+    Before we explore different techniques to handle such categorical data,
+let's create a new \emph{DataFrame} to illustrate the problem:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}
+            \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{10.1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+            \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{13.5}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+            \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{15.3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classlabel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}    color size  price classlabel
+        0  green    M   10.1     class1
+        1    red    L   13.5     class2
+        2   blue   XL   15.3     class1
+\end{Verbatim}
+            
+    As we can see in the preceding output, the newly created
+\emph{DataFrame} contains a nominal feature (\emph{color}), an ordinal
+feature (\emph{size}), and a numerical feature (\emph{price}) column.
+The class labels (assuming that we created a dataset for a supervised
+learning task) are stored in the last column. The learning algorithms
+for classification that we discuss in this book do not use ordinal
+information in class labels.
+
+    \subsection{Mapping ordinal features}\label{mapping-ordinal-features}
+
+    To make sure that the learning algorithm interprets the ordinal features
+correctly, we need to convert the categorical string values into
+integer. Unfortunately, there is no convenient function that can
+automatically derive the correct order of the labels of our \emph{size}
+feature, so we have to define the mapping manually. In the following
+simple example, let's assume that we know the numerical difference
+between features, for example, \(XL = L + 1 = M + 2\):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{size\PYZus{}mapping} \PY{o}{=} \PY{p}{\PYZob{}}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{,} 
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} 
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}
+        \PY{p}{\PYZcb{}}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{size\PYZus{}mapping}\PY{p}{)}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}    color  size  price classlabel
+        0  green     1   10.1     class1
+        1    red     2   13.5     class2
+        2   blue     3   15.3     class1
+\end{Verbatim}
+            
+    If we want to transform the integer values back to the original string
+representation at a later stage, we can simply define a reverse-mapping
+dictionary that can then be used via the pandas \emph{map} method on the
+transformed feature column, similiar to the \emph{size\_mapping}
+dictionary that we used previously. We can use it as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{inv\PYZus{}size\PYZus{}mapping} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{v}\PY{p}{:} \PY{n}{k} \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n}{size\PYZus{}mapping}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{inv\PYZus{}size\PYZus{}mapping}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 0     M
+         1     L
+         2    XL
+         Name: size, dtype: object
+\end{Verbatim}
+            
+    \subsection{Encoding class labels}\label{encoding-class-labels}
+
+    Many machine learning libraries require that class labels are encoded as
+integer values. Although most estimators for classification in
+scikit-learn convert class labels to integers internally, it is
+considered good practice to provide class labels as integer arrays to
+avoid technical glitches. To encode the class labels, we can use an
+approach similar to the mapping of ordinal features discussed
+previously. We need to remember that class labels are not ordinal, and
+it does not matter which integer number we assign to a particular string
+label. Thus, we can simply enumerate the class labels, starting at 0:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{class\PYZus{}mapping} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{label}\PY{p}{:}\PY{n}{idx} \PY{k}{for} \PY{n}{idx}\PY{p}{,}\PY{n}{label} \PY{o+ow}{in} 
+                          \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classlabel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{n}{class\PYZus{}mapping}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} \{'class1': 0, 'class2': 1\}
+\end{Verbatim}
+            
+    Next, we can use the mapping dictionary to transform the class labels
+into integers:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classlabel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classlabel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{class\PYZus{}mapping}\PY{p}{)}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}    color  size  price  classlabel
+         0  green     1   10.1           0
+         1    red     2   13.5           1
+         2   blue     3   15.3           0
+\end{Verbatim}
+            
+    We can reverse the key-value pairs in the mapping dictionary as follows
+to map the converted class labels back to the original string
+representation:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{inv\PYZus{}class\PYZus{}mapping} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{v}\PY{p}{:}\PY{n}{k} \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{class\PYZus{}mapping}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classlabel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classlabel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{inv\PYZus{}class\PYZus{}mapping}\PY{p}{)}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}    color  size  price classlabel
+         0  green     1   10.1     class1
+         1    red     2   13.5     class2
+         2   blue     3   15.3     class1
+\end{Verbatim}
+            
+    Alternatively, there is a convenient \emph{LabelEncoder} class directly
+implemented in scikit-learn to achieve this:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}
+         
+         \PY{n}{class\PYZus{}le} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{class\PYZus{}le}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classlabel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{n}{y}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} array([0, 1, 0])
+\end{Verbatim}
+            
+    Note that the \emph{fit\_transform} method is just a shortcut for
+calling \emph{fit} and \emph{transform} separately, and we can use the
+\emph{inverse\_transform} method to transform the integer class labels
+back to their original string representation:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{class\PYZus{}le}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/lib/python3.6/site-packages/sklearn/preprocessing/label.py:151: DeprecationWarning: The truth value of an empty array is ambiguous. Returning False, but in future this will result in an error. Use `array.size > 0` to check that an array is not empty.
+  if diff:
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} array(['class1', 'class2', 'class1'], dtype=object)
+\end{Verbatim}
+            
+    \subsection{Performing one-hot encoding on nominal
+features}\label{performing-one-hot-encoding-on-nominal-features}
+
+    In the previous section, we used a simple dictionary-mapping approach to
+convert the ordinal \emph{size} feature into integers. Since
+scikit-learn's estimators for classification treat class labels as
+categorical data that does not imply any order (nominal), we used the
+convenient \emph{LabelEncoder} to encode the string labels into
+integers. It may appear that we could use a similar approach to
+transform the nominal \emph{color} column of our dataset, as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{color\PYZus{}le} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{color\PYZus{}le}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} array([[1, 1, 10.1],
+                [2, 2, 13.5],
+                [0, 3, 15.3]], dtype=object)
+\end{Verbatim}
+            
+    After executing the preceding code, the first column of the NumPy array
+\emph{X} now holds the new \emph{color} values, which are encoded as
+follows: * blue = 0 * green = 1 * red = 2
+
+    If we stop at this point and feed the array to our classifier, we will
+make one of the most common mistakes in dealing with categorical data.
+Can you spot the problem? Although the color values do not come in any
+particular order, a learning algorithm will now assume that \emph{green}
+is larger than \emph{blue}, and \emph{red} is largen than \emph{green}.
+Although this assumption is incorrect, the algorithm could still produce
+useful results. However, those results would not be optimal.
+
+A common workaround for this problem is to use a techinique called
+\textbf{one-hot encoding}. The idea behind this approach is to create a
+new dummy feature for each unique value in the nominal feature column.
+Here, we would convert the \emph{color} feature into three new features:
+\emph{blue}, \emph{green} and \emph{red}. Binary values can then be used
+to indicate the particular \emph{color} of a sample; for example, a
+\emph{blue} sample can be encoded as \emph{blue=1,green=0,red=0}. To
+perform this transformation, we can use the \emph{OneHotEncoder} that is
+implemented in the \emph{scikit-learn.preprocessing} module:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{OneHotEncoder}
+         
+         \PY{n}{ohe} \PY{o}{=} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{categorical\PYZus{}features}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ohe}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} array([[ 0. ,  1. ,  0. ,  1. , 10.1],
+                [ 0. ,  0. ,  1. ,  2. , 13.5],
+                [ 1. ,  0. ,  0. ,  3. , 15.3]])
+\end{Verbatim}
+            
+    When we initialized the \emph{OneHotEncoder}, we defined the column
+position of the variable that we want to transform via the
+\emph{categorical\_features} parameter (note that \emph{color} is the
+first column in the feature matrix \emph{X}). By default, the
+\emph{OneHotEncoder} returns a sparse matrix when we use the
+\emph{transform} method, and we converted the sparse matrix
+representation into a regular (dense) NumPy array for the purpose of
+visualization via the \emph{toarray} method. Sparse matrices are a more
+efficient way of storing large dataset and one that is supported by many
+scikit-learn function, which is especially useful if an array contains a
+lot of zeros. To omit the \emph{toarray} step, we could alternatively
+initialize the encoder as \emph{OneHotEncoder(..., sparse=False)} to
+return a regular NumPy array.
+
+An even more convenient way to create those dummy features via one-hot
+encoding is to use the \emph{get\_dummies} method implemented in pandas.
+Applied to a \emph{DataFrame}, the \emph{get\_dummies} method will only
+convert string columns and leave all other columns unchanged:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}    price  size  color\_blue  color\_green  color\_red
+         0   10.1     1           0            1          0
+         1   13.5     2           0            0          1
+         2   15.3     3           1            0          0
+\end{Verbatim}
+            
+    When we are using one-hot encoding datasets, we have to keep in mind
+that it introduces multicollinearity, which can be an issue for certain
+methods (for instance, methods that require matrix inversion). If
+features are highly correlated, matrices are computationally difficult
+to invert, which can lead to numerically unstable estimates. To reduce
+the correlation among variables, we can simply remove one feature column
+from the one-hot encoded array. Note that we do not lose any important
+information by removing a feature column, though, for example, if we
+remove the column \emph{color\_blue}, the feature information is still
+preserved since if observe \emph{color\_green=0} and
+\emph{color\_red=0}, it implies that the observation must be
+\emph{blue}.
+
+If we use the \emph{get\_dummies} function, we can drop the first column
+by passing \emph{True} argument to the \emph{drop\_first} parameter, as
+shown in the following code example:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{drop\PYZus{}first}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}    price  size  color\_green  color\_red
+         0   10.1     1            1          0
+         1   13.5     2            0          1
+         2   15.3     3            0          0
+\end{Verbatim}
+            
+    The \emph{OneHotEncoder} does not have a parameter for column removal,
+but we can simply slice the one-hot encoded NumPy array as shown in the
+following snippet:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{ohe} \PY{o}{=} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{categorical\PYZus{}features}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ohe}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} array([[ 1. ,  0. ,  1. , 10.1],
+                [ 0. ,  1. ,  2. , 13.5],
+                [ 0. ,  0. ,  3. , 15.3]])
+\end{Verbatim}
+            
+    \section{Partitioning a dataset into separate training and test
+sets}\label{partitioning-a-dataset-into-separate-training-and-test-sets}
+
+    We briefly introduced the concept of partitioning a dataset into
+separate datasets for training and testing. Remember that comparing
+predictions to true labels in the test set can be understood as the
+unbiased performance evaluation of our model before we let it loose on
+the real world. In this section, we will prepare a new dataset, the
+\textbf{Wine} dataset. After we have preprocessed the dataset, we will
+explore different techniques for feature selection to reduce the
+dimensionality of the dataset. The Wine dataset is another open-source
+dataset, it consists of 178 wine samples with 13 features describing
+their different chemical properties.
+
+    Using the \emph{pandas} library, we will directly read in the open
+source wine dataset from UCI machine learning repository:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{df\PYZus{}wine} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://archive.ics.uci.edu/}\PY{l+s+s1}{\PYZsq{}}
+                               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ml/machine\PYZhy{}learning\PYZhy{}databases/}\PY{l+s+s1}{\PYZsq{}}
+                               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wine/wine.data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} To read from the local file}
+         \PY{c+c1}{\PYZsh{} df\PYZus{}wine = pd.read\PYZus{}csv(\PYZsq{}wine.data\PYZsq{}, header=None)}
+         
+         \PY{n}{df\PYZus{}wine}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcalinity of ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Magnesium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total phenols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flavanoids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nonflavanoid phenols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proanthocyanins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Color intensity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OD280/OD315 of diluted wines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class labels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{df\PYZus{}wine}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df\PYZus{}wine}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Class labels [1 2 3]
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}    Class label  Alcohol  Malic acid   Ash  Alcalinity of ash  Magnesium  \textbackslash{}
+         0            1    14.23        1.71  2.43               15.6        127   
+         1            1    13.20        1.78  2.14               11.2        100   
+         2            1    13.16        2.36  2.67               18.6        101   
+         3            1    14.37        1.95  2.50               16.8        113   
+         4            1    13.24        2.59  2.87               21.0        118   
+         
+            Total phenols  Flavanoids  Nonflavanoid phenols  Proanthocyanins  \textbackslash{}
+         0           2.80        3.06                  0.28             2.29   
+         1           2.65        2.76                  0.26             1.28   
+         2           2.80        3.24                  0.30             2.81   
+         3           3.85        3.49                  0.24             2.18   
+         4           2.80        2.69                  0.39             1.82   
+         
+            Color intensity   Hue  OD280/OD315 of diluted wines  Proline  
+         0             5.64  1.04                          3.92     1065  
+         1             4.38  1.05                          3.40     1050  
+         2             5.68  1.03                          3.17     1185  
+         3             7.80  0.86                          3.45     1480  
+         4             4.32  1.04                          2.93      735  
+\end{Verbatim}
+            
+    The samples belong to one of three different classes, 1, 2, and 3, which
+refer to the three different types of graph grown in the same region in
+Italy but derived from different wine cultivars, as described in the
+dataset summary.
+
+    A convenient way to randomly partition this dataset into separate test
+and training datasets is to use the \emph{train\_test\_split} function
+from scikit-learn's \emph{model\_selection} submodule:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         
+         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}wine}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{df\PYZus{}wine}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=}\PYZbs{}
+             \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} 
+                              \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} 
+                              \PY{n}{stratify}\PY{o}{=}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    First, we assigned the NumPy array representation of the feature columns
+1-13 to the variable \emph{X}; we assigned the class labels from the
+first column to the variable \emph{y}. Then, we used the
+\emph{train\_test\_split} function to randomly split \emph{X} and
+\emph{y} into separate training and test datasets. By setting
+\emph{test\_size=0.3}, we assigned 30 percent of the wine samples to
+\emph{X\_test} and \emph{y\_test}, and the remaining 70 percent of the
+samples were assigned to \emph{X\_train} and \emph{y\_train},
+respectively. Proving the class label array \emph{y} as an argument to
+\emph{stratify} ensures that both training and test datasets have the
+same class proportions as the original dataset.
+
+    If we are dividing a dataset into training and test datasets, we have to
+keep in mind that we are withholding valuable information that the
+learning algorithm could benefit from. Thus, we do not want to allocate
+too much information to the test set. However, the smaller the test set,
+the more inaccurate the estimation of the generalization error. Dividing
+a dataset into training and test sets is all about balancing this
+trade-off. In practice, the most commonly used splits are 60:40, 70:20,
+or 80:20, depending on the size of the initial dataset. However, for
+large datasets, 90:10 or 99:1 splits into training and test subsets are
+also common and appropriate. Instead of discarding the allocated test
+data after model training and evaluation, it is a common practice to
+retrain a classifier on the entire dataset as it can improve the
+predictive performance of the model. While this approach is generally
+recommended, it could lead to worse generalization performance if the
+dataset is small and the test set contains outliers, for example. Also,
+after refitting the model on the whole dataset, we do not have any
+independent data left to evaluate its performance.
+
+    \section{Bringing features onto the same
+scale}\label{bringing-features-onto-the-same-scale}
+
+    \textbf{Feature scaling} is a crucial step in our preprocessing pipeline
+that can easily be forgotten. Decision trees and random forests are two
+of the very few machine learning algorithms where we do not need to
+worry about feature scaling. Those algorithms are scale invariant.
+However, the majority of machine learning and optimization algorithms
+behave much faster if features are on the same scale, as we have seen
+before when we implemented the \textbf{gradient descent} optimization
+algorithm.
+
+The importance of feature scaling can be illustrated by a simple
+example. Let's assume that we have two features where one feature is
+measured on a scale from 1 to 10 and the second feature is measured on a
+scale from 1 to 100000, respectively. When we think of the squared error
+function in Adaline, it is intuitive to say that the algorithm will
+mostly be busy optimizing the weights according to the larger errors in
+the second feature. Another example is the \textbf{k-nearest neighbors
+(KNN)} algorithm with a Euclidean distance measure; the computed
+distances between samples will be dominated by the second feature axis.
+
+Now, there are two common approaches to bring different features onto
+the same scale: \textbf{normalization} and \textbf{standardization}.
+Those terms are often used quite loosely in different fields, and the
+meaning has to be derived from the context. Most often, normalization
+refers to the rescaling of the features to a range of {[}0, 1{]}, which
+is a special case of \textbf{min-max scaling}. To normalize our data, we
+can simply apply the min-max scaling to each feature column, where the
+new value \(x^{(i)}_{norm}\) of a sample \(x^{(i)}\) can be calculated
+as follows:
+
+\[x^{(i)}_{norm} = \frac{x^{(i)} - x_{min}}{x_{max} - x_{min}}\]
+
+Here, \(x^{(i)}\) is a particular sample, \(x_{min}\) is the smallest
+value in the feature column, and \(x_{max}\) the largest value.
+
+The min-max scaling procedure is implemented in scikit-learn and can be
+used as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{MinMaxScaler}
+         
+         \PY{n}{mms} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}train\PYZus{}norm} \PY{o}{=} \PY{n}{mms}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{X\PYZus{}test\PYZus{}norm} \PY{o}{=} \PY{n}{mms}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    Although normalization via min-max scaling is a commonly used technique
+that is useful when we need values in a bounded interval,
+stardardization can be more practical for many machine learning
+algorithms, especially for optimization algorithms such as gradient
+descent. The reason is that many linear models, such as the logistic
+regression and SVM, initialize the weights to 0 or small random values
+close to 0. Using standardization, we center the features columns at
+mean 0 with standard deviation 1 so that the feature columns takes the
+form of a normal distribution, which makes it easier to learn the
+weights. Furthermore, stardardization maintains useful information about
+outliers and makes the algorithm less sensitive to them in contrast to
+min-max scaling, which scales the data to a limited range of values.
+
+The procedure for standardization can be expressed by the following
+equation:
+
+\[x^{(i)}_{std} = \frac{x^{(i)} - \mu_x}{\sigma_x}\]
+
+Here, \(\mu_x\) is the sample mean of a particular feature column and
+\(\sigma_x\) is the corresponding standard deviation.
+
+You can perform the standardization and normalization example by
+executing the following code examples:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{ex} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{standardized:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{n}{ex}\PY{o}{\PYZhy{}}\PY{n}{ex}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{ex}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{normalized:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{(}\PY{n}{ex} \PY{o}{\PYZhy{}} \PY{n}{ex}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{ex}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{ex}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+standardized: [-1.46385011 -0.87831007 -0.29277002  0.29277002  0.87831007  1.46385011]
+normalized: [0.  0.2 0.4 0.6 0.8 1. ]
+
+    \end{Verbatim}
+
+    Similar to the \emph{MinMaxScaler} class, scikit-learn also implements a
+class for standardization:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+         
+         \PY{n}{stdsc} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}train\PYZus{}std} \PY{o}{=} \PY{n}{stdsc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{X\PYZus{}test\PYZus{}std} \PY{o}{=} \PY{n}{stdsc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    Again, it is also important to highlight that we fit the
+\emph{StandardScaler} class only once, on the training data, and use
+those parameters to transform the test set or any new data point.
+
+    \section{Selecting meaningful
+features}\label{selecting-meaningful-features}
+
+    If we notice that a model performs much better on a training dataset
+than on the test dataset, this observation is a strong indicator of
+\textbf{overfitting}. As we discussed before, overfitting means the
+models fits the parameters too closely with regard to the particular
+observations in the training dataset, but does not generalize well to
+new data, and we say the model has a \emph{high variance}. The reason
+for the overfitting is that our model is too complex for the given
+training data. Common solutions to reduce the generalization error are
+listed as follows: * Collect more training data * Introduce a penalty
+for complexity via regularization * Choose a simpler model with fewer
+parameters * Reduce the dimensionaly of the data Collecting more
+training data is often not applicable. Later we will learn about a
+useful technique to check whether more training data is helpful at all.
+In the following section, we will look at common ways to reduce
+overfitting by regularization and dimensionality reduction via feature
+selection, which leads to simpler models by requiring fewer parameters
+to be fitted to the data.
+
+    \subsection{L1 and L2 regularization as penalties against model
+complexity}\label{l1-and-l2-regularization-as-penalties-against-model-complexity}
+
+    We recall that \textbf{L2 regularization} is one approach to reduce the
+complexity of a model by penalizing large individual weights, where we
+defined the L2 norm of our weight vector \emph{w} as follows:
+
+\[L2: ||w||^2_2 = \sum^{m}_{j=1}w^2_j\]
+
+Another approach to reduce the model complexity is the related
+\textbf{L1 regularization}:
+
+\[L1: ||w||_1 = \sum^{m}_{j=1}|w_j|\]
+
+Here, we simply replaced the square of the weights by the sum of the
+absolute values of the weights. In contrast to L2 regularization, L1
+regularization usually yields sparse feature vector; most features
+weights will be zero. Sparsity can be useful in practice if we have a
+high-dimensional dataset with many features that are irrelevant,
+especially cases where we have more irrelevant dimensions than samples.
+In this sense, L1 regularization can be understood as a technique for
+feature selection.
+
+    \subsection{A geometric interpretation of L2
+regularization}\label{a-geometric-interpretation-of-l2-regularization}
+
+    As mentioned in the previous section, L2 regularization adds a penalty
+term to the cost function that effectively results in less extreme weigh
+values compared to a model trained with an unregularized cost function.
+To better understand how L1 regularization encourages sparsity, let's
+take a step back and take a look at a geometric interpretation of
+regularization. Let us plot the contours of a convex cost function for
+two weight coefficients, \(w_1\) and \(w_2\). Here, we will consider the
+\textbf{Sum of Squared Errors (SSE)} cost function that we used for
+Adaline, since it is spherical and easier to draw than the cost function
+of logistic regression; however, the same concepts apply to the latter.
+Remember that our goal is to find the combination of weight coefficients
+that minimize the cost function for the training data, as shown in the
+following figure (the point in the center of the ellipses):
+
+    Now, we can think of regularization as adding a penalty term to the cost
+function to encourage smaller weights; or in other words, we penalize
+large weights.
+
+Thus, by increasing the regularization strength via the regularization
+parameter \(\lambda\), we shrink the weights towards zero and decrease
+the dependence of our model on the training data. Let us illustrate this
+concept in the following figure for the L2 penalty term:
+
+    The quadratic L2 regularization term is represented by the shaded ball.
+Here, our weight coefficients cannot exceed our regularization budget;
+the combination of the weight coefficients cannot fall outside the
+shaded area. On the other hand, we still want to minimize the cost
+function. Under the penalty constraint, our best effort is to choose the
+point where the L2 ball intersects with the contours of the unpenalized
+cost function. The larger the value of the regularization \(\lambda\)
+gets, the faster the penalized cost grows, which leads to a narrower L2
+ball. For example, if we increase the regularization parameter towards
+infinity, the weight coefficients will become effectively zero, denoted
+by the center of the L2 ball. To summarize the main message of the
+example, our goal is to minimize the sum of the unpenalized cost plus
+the penalty term, which can be understood as adding bias and preferring
+a simpler model to reduce the variance in the absence of sufficient
+training data to fit the model.
+
+    \subsection{Sparse solutions with L1
+regularization}\label{sparse-solutions-with-l1-regularization}
+
+    Now, let us discuss L1 regularization and sparsity. The main concept
+behind L1 regularization is similar to what we have discussed in the
+previous section. However, since the L1 penalty is the sum of the
+absolute weight coefficients (remember that the L2 term is quadratic),
+we can represent it as a diamond-shape budget, as shown in the following
+figure:
+
+    In the preceding figure, we can see that the contour of the cost
+function touches the L1 diamond at \(w_1=0\). Since the contours of an
+L1 regularized system are sharp, it is more likely that the optimum;
+that is, the intersection between the ellipses of the cost function and
+the boundary of the L1 diamond, is located on the axes, which encourages
+sparsity.
+
+    For regularized models in scikit-learn that support L1 regularization,
+we can simply set the \emph{penalty} parameter to \emph{'l1'} to obtain
+a sparse solution:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+         
+         \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} LogisticRegression(C=1.0, class\_weight=None, dual=False, fit\_intercept=True,
+                   intercept\_scaling=1, max\_iter=100, multi\_class='ovr', n\_jobs=1,
+                   penalty='l1', random\_state=None, solver='liblinear', tol=0.0001,
+                   verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    Applied to the standardized Wine data, the L1 regularized logistic
+regression would yield the following sparse solution:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{lr} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}
+         \PY{n}{lr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training accuracy:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lr}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test accuracy:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lr}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training accuracy: 1.0
+Test accuracy: 1.0
+
+    \end{Verbatim}
+
+    Both training and test accuracies (both 100 percent) indicate that our
+model does a perfect job on both datasets. When we access the intercept
+terms via the \emph{lr.intercept\_} attribute, we can see that the array
+returns these values:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{lr}\PY{o}{.}\PY{n}{intercept\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} array([-1.26345948, -1.21637638, -2.37039433])
+\end{Verbatim}
+            
+    Since, we fit the \emph{LogisticRegression} object on a multiclass
+dataset, it uses the \textbf{One-versus-Rest (OvR)} approach by default,
+where the first intercept belongs to the model that fits class 1 versus
+class and 3, the second value is the intercept of the model that fits
+class 2 versus class 1 and 3, and the third value is the intercept of
+the model that fits class 3 versus class 1 and 2:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{lr}\PY{o}{.}\PY{n}{coef\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} array([[ 1.24560149,  0.18083923,  0.74356908, -1.16123559,  0.        ,
+                  0.        ,  1.16996853,  0.        ,  0.        ,  0.        ,
+                  0.        ,  0.54700546,  2.51062974],
+                [-1.5373154 , -0.38690538, -0.99465785,  0.36398878, -0.05964683,
+                  0.        ,  0.66766912,  0.        ,  0.        , -1.93424417,
+                  1.23440971,  0.        , -2.23195484],
+                [ 0.13574068,  0.16844252,  0.35727549,  0.        ,  0.        ,
+                  0.        , -2.43803574,  0.        ,  0.        ,  1.56372255,
+                 -0.81879496, -0.49238285,  0.        ]])
+\end{Verbatim}
+            
+    The weight array that we accessed via the \emph{lr.coef\_} attribute
+contains three rows of weight coefficients, one weight vector for each
+class. Each row consists of 13 weights where each weight is multiplied
+by the respective feature in the 13-dimensional Wine dataset to
+calculate the net input.
+
+    As a result of L1 regularization, which serves as a method for feature
+selection, we just trained a model that is robust to the potentially
+irrelevant feature in this dataset.
+
+Stricly speaking, the weight vectors from the previous example are not
+necessarily sparse, though, because they contain more non-zero than zero
+entries. However, we could enforce sparsity (more zero entries) by
+further increasing the regularization strength, that is, choosing lower
+values for the \emph{C} parameter.
+
+In the last example on regularization in this chapter, we will vary the
+regularization strength and plot the regularization path; the weight
+coefficients of the different features for different regularization
+strengths:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+         
+         \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{magenta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pink}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{indigo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{weights}\PY{p}{,} \PY{n}{params} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{4.0}\PY{p}{,} \PY{l+m+mf}{6.0}\PY{p}{)}\PY{p}{:}
+             \PY{n}{lr} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=}\PY{l+m+mf}{10.}\PY{o}{*}\PY{o}{*}\PY{n}{c}\PY{p}{,} 
+                                     \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{lr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{weights}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{lr}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{params}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{n}{c}\PY{p}{)}
+             
+         \PY{n}{weights} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{weights}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{column}\PY{p}{,} \PY{n}{color} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{weights}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{colors}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{params}\PY{p}{,} \PY{n}{weights}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{column}\PY{p}{]}\PY{p}{,} 
+                      \PY{n}{label}\PY{o}{=}\PY{n}{df\PYZus{}wine}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{column}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                      \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                   \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{1.38}\PY{p}{,} \PY{l+m+mf}{1.03}\PY{p}{)}\PY{p}{,} 
+                   \PY{n}{ncol}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{fancybox}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_101_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The resulting plot provide us with further insights into the behavior of
+L1 regularization. As we can see, all feature weights will be zero if we
+penalize the model with strong regularization parameter (\(C < 0.1\));
+\emph{C} is the inverse of the regularization parameter \(\lambda\).
+
+    \subsection{Sequential feature selection
+algorithms}\label{sequential-feature-selection-algorithms}
+
+    An alternative way to reduce the complexity of the model and avoid
+overfitting is \textbf{dimensionality reduction} via feature selection,
+which is especially useful for unregularized models. There are two main
+categories of dimensionality reduction techniques: \textbf{feature
+selection} and \textbf{feature extraction}. Via feature selection, we
+select a subset of the original features, whereas in feature extraction,
+we derive information from the feature set and construct a new feature
+subspace.
+
+Sequential feature selection algorithms are a family of greedy search
+algorithms that are used to reduce an initial \emph{d}-dimensional
+feature space to a \emph{k}-dimensional feature subspace where \(k<d\).
+The motivation behind feature selection algorithms is to automatically
+select a subset of features that are most relevant to the problem, to
+improve computational efficiency or reduce the generalization error of
+the model by removing irrelevant features or noise, which can be useful
+for algorithms that do not support regularization.
+
+A classic sequential feature selection algorithm is \textbf{Sequential
+Backward Selection (SBS)}, which aims to reduce the dimensionality of
+the initial feature subspace with a minimum decay in performance of the
+classifier to improve upon computational efficiency. In certain cases,
+SBS can even improve the predictive power of the model if a model
+suffers from overfitting.
+
+The idea behind the SBS algorithm is quite simple: SBS sequentially
+removes features from the full feature subset until the new feature
+subspace contains the desired number of features. In order to determine
+which feature is to be removed at each stage, we need to define the
+criterion function \(J\) that we want to minimize. The criterion
+calculated by the criterion function can simply be the difference in
+performance of the classifier before and after the removal of a
+particular feature. Then, the feature to be removed at each stage can
+simply be defined as the feature that maximizes the criterion; or in
+more intuitive terms, at each stage we eliminate the feature that causes
+the least performance loss after removal. Based on the preceding
+definition of SBS, we can outline the algorithm in four simple steps: 1.
+Initialize the algorithm with \(k=d\), where d is the dimensionality of
+the full feature space \(X_d\). 2. Determine the feature \(x^-\) that
+maximizes the criterion: \(x^- = \text{arg max} J(X_k - x)\), where
+\(X \in X_k\). 3. Remove the feature \(x\) from the feature set:
+\(X_{k-1} = X_k = x^-; k = k - 1\). 4. Terminate if \(k\) equals the
+number of desired features; otherwise, go to step 2.
+
+    Unfortunately, the SBS algorithm has not been implemented in
+scikit-learn yet. But since it is so simple, let us go ahead and
+implement it in Python from scratch:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{base} \PY{k}{import} \PY{n}{clone}
+         \PY{k+kn}{from} \PY{n+nn}{itertools} \PY{k}{import} \PY{n}{combinations}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         
+         \PY{k}{class} \PY{n+nc}{SBS}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{estimator}\PY{p}{,} \PY{n}{k\PYZus{}features}\PY{p}{,} 
+                          \PY{n}{scoring}\PY{o}{=}\PY{n}{accuracy\PYZus{}score}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} 
+                          \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{scoring} \PY{o}{=} \PY{n}{scoring}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{estimator} \PY{o}{=} \PY{n}{clone}\PY{p}{(}\PY{n}{estimator}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{k\PYZus{}features} \PY{o}{=} \PY{n}{k\PYZus{}features}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{test\PYZus{}size} \PY{o}{=} \PY{n}{test\PYZus{}size}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state} \PY{o}{=} \PY{n}{random\PYZus{}state}
+                 
+             \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 
+                 \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PYZbs{}
+                     \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{test\PYZus{}size}\PY{p}{,} 
+                                      \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}state}\PY{p}{)}
+                 
+                 \PY{n}{dim} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{indices\PYZus{}} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{dim}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{subsets\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{indices\PYZus{}}\PY{p}{]}
+                 \PY{n}{score} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}calc\PYZus{}score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} 
+                                          \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} 
+                                          \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{indices\PYZus{}}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{scores\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{n}{score}\PY{p}{]}
+                 
+                 \PY{k}{while} \PY{n}{dim} \PY{o}{\PYZgt{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{k\PYZus{}features}\PY{p}{:}
+                     \PY{n}{scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                     \PY{n}{subsets} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                     
+                     \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{combinations}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{indices\PYZus{}}\PY{p}{,} \PY{n}{r}\PY{o}{=}\PY{n}{dim}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{score} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}calc\PYZus{}score}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} 
+                                                  \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{p}\PY{p}{)}
+                         \PY{n}{scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{score}\PY{p}{)}
+                         \PY{n}{subsets}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+                         
+                     \PY{n}{best} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{scores}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{indices\PYZus{}} \PY{o}{=} \PY{n}{subsets}\PY{p}{[}\PY{n}{best}\PY{p}{]}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{subsets\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{indices\PYZus{}}\PY{p}{)}
+                     \PY{n}{dim} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+                     
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{scores\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{scores}\PY{p}{[}\PY{n}{best}\PY{p}{]}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{k\PYZus{}score\PYZus{}} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{scores\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                 
+                 \PY{k}{return} \PY{n+nb+bp}{self}
+             
+             \PY{k}{def} \PY{n+nf}{transform}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{indices\PYZus{}}\PY{p}{]}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}calc\PYZus{}score}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} 
+                             \PY{n}{indices}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{estimator}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{indices}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{estimator}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{indices}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{score} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{scoring}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{score}
+\end{Verbatim}
+
+
+    In the preceding implementation, we defined the \emph{k\_features}
+parameter to specify the desired number of features we want to return.
+By default, we use the \emph{accuracy\_score} from scikit-learn to
+evaluate the performance of a model (an estimator for classification) on
+the feature subsets. Inside the \emph{while} loop of the fit method, the
+feature subsets created by the \emph{itertools.combination} function are
+evaluated and reduced until the feature subset has the desired
+dimensionality. In each iteration, the accuracy score of the best subset
+is collected in a list, \emph{self.scores\_}, based on the internally
+created test dataset \emph{X\_test}. We will use those scores later to
+evaluate the results. The column indices of the final feature subset are
+assigned to \emph{self.indices\_}, which we can use via the
+\emph{transform} method to return a new data array with the selected
+feaure columns. Note that, instead of calculating the criterion
+explicity inside the \emph{fit} method, we simply removed the feature
+that is not contained in the best performing feature subset.
+
+Now, let us see our SBS implementation in action using the KNN
+classifier from scikit-learn:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+         
+         \PY{n}{knn} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{n}{sbs} \PY{o}{=} \PY{n}{SBS}\PY{p}{(}\PY{n}{knn}\PY{p}{,} \PY{n}{k\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{sbs}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} <\_\_main\_\_.SBS at 0x7f6ae98feef0>
+\end{Verbatim}
+            
+    Although our SBS implementation already splits the dataset into a test
+and training dataset inside the \emph{fit} function, we still fed the
+training dataset \emph{X\_train} to the algorithm. The SBS \emph{fit}
+method will then create new training subsets for testing (validation)
+and training, which is why this test set is also called the
+\textbf{validation dataset}. This approach is necessary to prevent our
+\emph{original} test set from becoming part of the training data.
+
+Remember that our SBS algorithm collects the scores of the best feature
+subset at each stage, so let us move on to the more exciting part of our
+implementation and plot the classification accuracy of the KNN
+classifier that was calculated on the validation dataset. The code is as
+follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{k\PYZus{}feat} \PY{o}{=} \PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{k}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{sbs}\PY{o}{.}\PY{n}{subsets\PYZus{}}\PY{p}{]}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{k\PYZus{}feat}\PY{p}{,} \PY{n}{sbs}\PY{o}{.}\PY{n}{scores\PYZus{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{l+m+mf}{1.02}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_110_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the preceding figure, the accuracy of the KNN
+classifier improved on the validation dataset as we reduced the number
+of features, which is likely due to a decrease of the \textbf{curse of
+dimensionality} that we discussed in the context of the KNN algorithms.
+Also, we can see in the preceding plot that the classifier achieved 100
+percent accuracy for \(k={3, 7, 8, 9, 10, 11, 12}\).
+
+    To satisfy our own curiosity, let's see what the smallest feature subset
+(\(k=3\)) that yielded such a good performance on the validation dataset
+looks like:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{k3} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{sbs}\PY{o}{.}\PY{n}{subsets\PYZus{}}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}wine}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{n}{k3}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['Alcohol', 'Malic acid', 'OD280/OD315 of diluted wines'], dtype='object')
+
+    \end{Verbatim}
+
+    Using the preceding code, we obtained the column indices of the
+tree-feature subset from the 10th position in the \emph{sbs.subsets\_}
+attribute and returned the corresponding feature names from the
+column-index of the pandas Wine \emph{DataFrame}.
+
+Next let's evaluate the performance of the KNN classifier on the
+original test set:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training accuracy:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test accuracy:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training accuracy: 0.967741935483871
+Test accuracy: 0.9629629629629629
+
+    \end{Verbatim}
+
+    In the preceding code section, we used the complete feature set and
+obtained approximately 97 percent accuracy on the training dataset and
+approximately 96 percent accuracy on the test, which indicates that our
+model already generalizes well to new data. Now, let us see the selected
+three-feature subset and see how well KNN performs:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{knn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{k3}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training accuracy:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{k3}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test accuracy:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{knn}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}std}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{k3}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training accuracy: 0.9516129032258065
+Test accuracy: 0.9259259259259259
+
+    \end{Verbatim}
+
+    Using less than a quarter of the original features in the Wine dataset,
+the prediction accuracy on the test declined slightly. This may indicate
+that those three features do not provide less discriminatory information
+than the original dataset. However, we also have to keep in mind that
+the Wine dataset is a small dataset, which is very susceptible to
+randomness; that is, the way we split the dataset into training and test
+subsets, and how we split the training dataset further into a training
+and validation subset.
+
+While we did not increase the performance of the KNN model by reducing
+the number of features, we shrank the size of the dataset, which can be
+useful in real-world applications that may involve expensive data
+collection steps. Also, by substantially reducing the number of
+features, we obtain simpler models, which are easier to interpret.
+
+\textbf{Feature selection algorithms in scikit-learn}
+
+There are many more feature selection algorithms available via
+scikit-learn. Those include \textbf{recursive backward elimination}
+based on feature weights, tree-based methods to select features by
+importance, and univariate statistical tests.
+
+    \subsection{Assessing feature importance with random
+forests}\label{assessing-feature-importance-with-random-forests}
+
+    In previous chapter, you learned how to use L1 regularization to zero
+out irrelevant features via logistic regression, and use the SBS
+algorithm for feature selection and apply it to a KNN algorithm. Another
+useful approach to select relevant features from a dataset is to use a
+\textbf{random forest}, an ensemble technique. Using a random forest, we
+can measure the feature importance as the averaged impurity decrease
+computed from all decision trees in the forest, without making any
+assumptions about whether our data is linearly separable or not.
+Conveniently, the random forest implementation in scikit-learn already
+collects the feature importance values for us so that we can access them
+via the \emph{feature\_importances\_} attribute after fitting a
+\emph{RandomForestClassifier}. By executing the following code, we will
+now train a forest of 10000 three on the Wine dataset and rank the 13
+features by their respective importance measures, remember that we do
+not need to use stardardized or normalized features in tree-based
+models:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+         
+         \PY{n}{feat\PYZus{}labels} \PY{o}{=} \PY{n}{df\PYZus{}wine}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+         
+         \PY{n}{forest} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,} 
+                                         \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{forest}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{importances} \PY{o}{=} \PY{n}{forest}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+         
+         \PY{n}{indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{importances}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}2d}\PY{l+s+s1}{) }\PY{l+s+si}{\PYZpc{}\PYZhy{}*s}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{f}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{feat\PYZus{}labels}\PY{p}{[}\PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{]}\PY{p}{,} 
+                                     \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feature Importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                 \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                    \PY{n}{feat\PYZus{}labels}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ 1) Proline                        0.185453
+ 2) Flavanoids                     0.174751
+ 3) Color intensity                0.143920
+ 4) OD280/OD315 of diluted wines   0.136162
+ 5) Alcohol                        0.118529
+ 6) Hue                            0.058739
+ 7) Total phenols                  0.050872
+ 8) Magnesium                      0.031357
+ 9) Malic acid                     0.025648
+10) Proanthocyanins                0.025570
+11) Alcalinity of ash              0.022366
+12) Nonflavanoid phenols           0.013354
+13) Ash                            0.013279
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_121_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    After executing the code, we created a plot that ranks the different
+features in the Wine dataset, by their relative importance; note that
+the feature importance values are normalized so that they sum up to 1.0.
+
+We can conclude that the proline and flavanoid levels, the color
+intensity, the OD280/OD315 diffraction, and the alcohol concentration
+are the most discriminative features in the dataset based on the average
+impurity decrease in the 500 decision trees, Interestingly, two of the
+top-ranked features in the plot are also in the tree-feature subset
+selection from the SBS algorithm that we implemented in the previous
+section (alcohol concentration and OD280/OD315 of diluted wines).
+However, as far as interpretability is concerned, the random forest
+technique comes with an important \emph{gotcha} that is worth
+mentioning. If two or more features are highly correlated, one feature
+may be ranked very highly while the information of the other features(s)
+may not be fully captured. On the other hand, we do not need to be
+concerned about this problem if we are merely interested in the
+predictive performance of a model rather than the interpretation of
+feature importance values.
+
+To conclude this section about feature importance values and random
+forests, it is worth mentioning that scikit-learn also implements a
+\emph{SelectFromModel} object that selects features based on a
+user-specified threshold after model fitting, which is useful if we want
+to use the \emph{RandomForestClassifier} as a feature selector and
+intermediate step in a scikit-learn \emph{Pipeline} object, which allows
+us to connect different preprocessing steps with an estimator. For
+example, we could set the \emph{threshold} to 0.1 to reduce the dataset
+to five most important features using the following code:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k}{import} \PY{n}{SelectFromModel}
+         
+         \PY{n}{sfm} \PY{o}{=} \PY{n}{SelectFromModel}\PY{p}{(}\PY{n}{forest}\PY{p}{,} \PY{n}{threshold}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{prefit}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{X\PYZus{}selected} \PY{o}{=} \PY{n}{sfm}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of samples that meet this criterion:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}selected}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}selected}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}2d}\PY{l+s+s1}{) }\PY{l+s+si}{\PYZpc{}\PYZhy{}*s}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{f}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{n}{feat\PYZus{}labels}\PY{p}{[}\PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{]}\PY{p}{,} 
+                                     \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of samples that meet this criterion: 124
+ 1) Proline                        0.185453
+ 2) Flavanoids                     0.174751
+ 3) Color intensity                0.143920
+ 4) OD280/OD315 of diluted wines   0.136162
+ 5) Alcohol                        0.118529
+
+    \end{Verbatim}
+
+    \section{Summary}\label{summary}
+
+    We started this chapter by looking at useful techniques to make sure
+that we handle missing data correctly. Before we feed data to a machine
+learning algorithm, we also have to make sure that we encode categorical
+variables correctly, and we have seen how we can map ordinal and nominal
+feature values to integer representations.
+
+Moveover, we briefly discussed L1 regularization, which can help us to
+avoid overfitting by reducing the complexity of a model. As an
+alternative approach to removing irrelevant features, we used a
+sequential feature selection algorithm to select meaning features from
+the dataset.
+
+In the next chapter, you will learn about yet another useful approach to
+dimensionality reduction: feature extraction. It allows us to compress
+features onto a lower-dimensional subpace; rather than removing features
+entirely as in feature selection.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

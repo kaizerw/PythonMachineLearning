@@ -1,0 +1,1433 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{7\_Combining\_Different\_Models\_For\_Ensemble\_Learning}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Combining Different Models for Ensemble
+Learning}\label{combining-different-models-for-ensemble-learning}
+
+    In the previous chapter, we focused on the best practices for tuning and
+evaluating different models for classification. In this chapter, we will
+build upon these techniques and explore different methods for
+constructing a set of classifiers that can often have a better
+predictive performance than any of its individual members. We will learn
+how to do the following:
+
+\begin{itemize}
+\tightlist
+\item
+  Make predictions based on majority voting
+\item
+  Use bagging to reduce overfitting by drawing random combinations of
+  the training set with repetition
+\item
+  Apply boosting to build powerful models from \emph{weak learners} that
+  learn from their mistakes
+\end{itemize}
+
+    \section{Learning with ensembles}\label{learning-with-ensembles}
+
+    The goal of \textbf{ensemble methods} is to combine different
+classifiers into a meta-classifier that has better generalization
+performance than each individual classifier alone. For example, assuming
+that we collected predictions from 10 experts, ensemble methods would
+allow us to strategically combine these predictions by the 10 experts to
+come up with a prediction that is more accurate and robust than the
+predictions bt each individual expert. As we will see later in this
+chapter, there are several different approaches for creating an ensemble
+of classifiers. In this section, we will introduce a basic perception of
+how ensembles work and why they are typically recognized for yielding a
+good generalization performance.
+
+In this chapter, we will focus on the most popular ensemble method that
+use the \textbf{majority voting} principle. Majority voting simply means
+that we select the class label that has been predicted by the majority
+of classifiers, that is, received more than 50 percent of the votes.
+Strictly speaking, the term \textbf{majority vote} refers to binary
+class settings only. However, it is easy to generalize the majority
+voting principle to multi-class settings, which is called
+\textbf{plurality voting}. Here, we select the class label that received
+the most votes (mode). The following diagram illustrates the concept of
+majority and plurality voting for an ensemble of 10 classifiers where
+each unique symbol (triangle, square and circle) represents a unique
+class label:
+
+Using the training set, we start by training \emph{m} different
+classifiers (\(C_1, \ldots, C_m\)). Depending on the technique, the
+ensemble can be built from different classification algorithms, for
+example, decision trees, suport vector machines, logistic regression
+classifiers, and so on. Alternatively, we can also use the same class
+classification algorithm, fitting different subsets of the training set.
+One prominent example of this approach is the random forest algorithm,
+which combines different decision tree classifiers. The following figure
+illustrates the concept of a general ensemble approach using majority
+voting:
+
+To predict a class label via simple majority or plurality voting, we
+combine the predicted class labels of each individual classifier and
+select the class label that received the most votes.
+
+To illustrate why ensemble methods can work betten than individual
+classifiers alone, let's apply the simple concepts of combinatorics. For
+the following example, we make the assumption that all \(n\)-base
+classifiers for a binary classification task have an equal error rate
+\(\epsilon\). Furthermore, we assume that the classifiers are
+independent and the error rates are not correlated. Under those
+assumptions, we can simply express the error probability of an ensemble
+of base classifiers as a probability mass function of a binomial
+distribution:
+
+\[P(y \ge k) = \sum_k^n {n \choose k} \epsilon^k (1 - 0.25)^{n-k} = \epsilon_{ensemble}\]
+
+Here, \({n \choose k}\) is the binomial coefficient \textbf{n choose k}.
+In other words, we compute the probability that the prediction of the
+ensemble is wrong. Now let's take a look at a more concrete example of
+11 base classifiers (\(n = 11\)), where each classifier has an error
+rate of 0.25 (\(\epsilon = 0.25\)):
+
+\[P(y \ge k) = \sum_{k=6}^{11} {11 \choose k} 0.25^k (1 - \epsilon)^{11-k} = 0.034\]
+
+    As we can see, the error rate of ensemble (0.034) is much lower than the
+error rate of each individual classifier (0.25) if all the assumptions
+are met. Note that, in this simplified illustration, a 50-50 split by an
+even number of classifiers \(n\) is treated as an error, whereas this is
+only true half of time. To compare such an idealistic ensemble
+classifier to a base classifier over a range of different base error
+rates, let's implement the probability mass function in Python:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{special} \PY{k}{import} \PY{n}{comb}
+         \PY{k+kn}{import} \PY{n+nn}{math}
+         
+         \PY{k}{def} \PY{n+nf}{ensemble\PYZus{}error}\PY{p}{(}\PY{n}{n\PYZus{}classifier}\PY{p}{,} \PY{n}{error}\PY{p}{)}\PY{p}{:}
+             \PY{n}{k\PYZus{}start} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{ceil}\PY{p}{(}\PY{n}{n\PYZus{}classifier} \PY{o}{/} \PY{l+m+mf}{2.0}\PY{p}{)}\PY{p}{)}
+             \PY{n}{probs} \PY{o}{=} \PY{p}{[}\PY{n}{comb}\PY{p}{(}\PY{n}{n\PYZus{}classifier}\PY{p}{,} \PY{n}{k}\PY{p}{)} \PY{o}{*} \PY{n}{error}\PY{o}{*}\PY{o}{*}\PY{n}{k} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{error}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{n}{n\PYZus{}classifier} \PY{o}{\PYZhy{}} \PY{n}{k}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{k\PYZus{}start}\PY{p}{,} \PY{n}{n\PYZus{}classifier} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+             \PY{k}{return} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{probs}\PY{p}{)}
+         
+         \PY{n}{ensemble\PYZus{}error}\PY{p}{(}\PY{n}{n\PYZus{}classifier}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{,} \PY{n}{error}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 0.03432750701904297
+\end{Verbatim}
+            
+    After we have implemented the \emph{ensemble\_error} function, we can
+compute the ensemble error rates for a range of different base errors
+from 0.0 to 1.0 to visualize the relationship between ensemble and base
+errors in a line graph:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         
+         \PY{n}{error\PYZus{}range} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.01}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{)}
+         \PY{n}{ens\PYZus{}errors} \PY{o}{=} \PY{p}{[}\PY{n}{ensemble\PYZus{}error}\PY{p}{(}\PY{n}{n\PYZus{}classifier}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{,} \PY{n}{error}\PY{o}{=}\PY{n}{error}\PY{p}{)}
+                       \PY{k}{for} \PY{n}{error} \PY{o+ow}{in} \PY{n}{error\PYZus{}range}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{error\PYZus{}range}\PY{p}{,} \PY{n}{ens\PYZus{}errors}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ensemble error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{error\PYZus{}range}\PY{p}{,} \PY{n}{error\PYZus{}range}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Base error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Base error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Base/Ensemble error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting plot, the error probability of an
+ensemble is always better than the error of an individual base
+classifier, as long as the base classifiers perform betten than random
+guessing (\(\epsilon < 0.5\)). Note that the \(y\)-axis depicts the base
+error (dotted line) as well as the ensemble error (continuous line).
+
+    \subsection{Combining classifiers via majority
+vote}\label{combining-classifiers-via-majority-vote}
+
+    After the short introduction to ensemble learning in the previous
+section, let's start with a warm-up exercise and implement a simple
+ensemble classifier for majority voting in Python.
+
+Although the majority voting algorithm that we will discuss in this
+section also generalizes to multi-class settings via plurarity voting,
+we will use the term majority voting for simplicity, as it is also often
+done in the literature.
+
+    \subsection{Implementing a simple majority vote
+classifier}\label{implementing-a-simple-majority-vote-classifier}
+
+    The algorithm we we are going ot implement in this section will allow us
+to combine different classification algorithms associated with
+individual weights for confidence. Our goal is to build a stronger
+meta-classifier that balances out the individual classifiers's
+weaknesses on a particular dataset.
+
+To translate the concept of the weighted majority vote into Python, we
+can use NumPy's convenient \emph{argmax} and \emph{bincount} functions:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{bincount}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 1
+\end{Verbatim}
+            
+    As we remember from the discussion on logistic regression, certain
+classifiers in scikit-learn can also return the probability of a
+predicted class label via the \emph{predict\_proba} method. Using the
+predicted class probabilities instead of the class labels for majority
+voting can be useful if the classifiers in our ensemble are well
+calibrated.
+
+To implement the weighted majority vote based on class probabilities, we
+can again make use of NumPy using \emph{numpy.average} and
+\emph{np.argmax}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{ex} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{]}\PY{p}{,} 
+                        \PY{p}{[}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{]}\PY{p}{,} 
+                        \PY{p}{[}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{p} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{average}\PY{p}{(}\PY{n}{ex}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{]}\PY{p}{)}  
+         \PY{n}{p}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} array([0.58, 0.42])
+\end{Verbatim}
+            
+    Putting everything together, let's new implement
+\emph{MajorityVoteClassifier} in Python:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{base} \PY{k}{import} \PY{n}{BaseEstimator}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{base} \PY{k}{import} \PY{n}{ClassifierMixin}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{externals} \PY{k}{import} \PY{n}{six}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{base} \PY{k}{import} \PY{n}{clone}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{\PYZus{}name\PYZus{}estimators}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{operator}
+         
+         \PY{k}{class} \PY{n+nc}{MajorityVoteClassifier}\PY{p}{(}\PY{n}{BaseEstimator}\PY{p}{,} \PY{n}{ClassifierMixin}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} A majority vote ensemble classifier}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Parameters}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    classifiers : array\PYZhy{}like, shape = [n\PYZus{}classifiers]}
+         \PY{l+s+sd}{        Different classifiers for the ensemble}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    vote : str, \PYZob{}\PYZsq{}classlabel\PYZsq{}, \PYZsq{}probability\PYZsq{}\PYZcb{}}
+         \PY{l+s+sd}{        Default: \PYZsq{}classlabel\PYZsq{}}
+         \PY{l+s+sd}{        If \PYZsq{}classlabel\PYZsq{} the prediction is based on }
+         \PY{l+s+sd}{        the argmax of class labels. Else if }
+         \PY{l+s+sd}{        \PYZsq{}probability\PYZsq{}, the argmax of the sum of the }
+         \PY{l+s+sd}{        probabilities is used to predict the class label }
+         \PY{l+s+sd}{        (recommended for calibrated classifiers). }
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{    weights : array\PYZhy{}like, shape = [n\PYZus{}classifiers]}
+         \PY{l+s+sd}{        Optional, default: None}
+         \PY{l+s+sd}{        If a list of \PYZsq{}int\PYZsq{} or \PYZsq{}float\PYZsq{} values are provided, }
+         \PY{l+s+sd}{        the classifiers are weighted by importance; }
+         \PY{l+s+sd}{        Uses uniform weights if \PYZsq{}weights=None\PYZsq{}. }
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{classifiers}\PY{p}{,} \PY{n}{vote}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classlabel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{n}{weights}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{classifiers} \PY{o}{=} \PY{n}{classifiers}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{named\PYZus{}classifiers} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{key}\PY{p}{:} \PY{n}{value} \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} 
+                                           \PY{n}{\PYZus{}name\PYZus{}estimators}\PY{p}{(}\PY{n}{classifiers}\PY{p}{)}\PY{p}{\PYZcb{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{vote} \PY{o}{=} \PY{n}{vote}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weights} \PY{o}{=} \PY{n}{weights}
+                 
+             \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Fit classifiers.}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        Parameters}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        X : \PYZob{}array\PYZhy{}like, sparse matrix\PYZcb{}, }
+         \PY{l+s+sd}{            shape = [n\PYZus{}samples, n\PYZus{}features]}
+         \PY{l+s+sd}{            Matrix of training samples. }
+         \PY{l+s+sd}{        y : array\PYZhy{}like, shape = [n\PYZus{}samples]}
+         \PY{l+s+sd}{            Vector of target class labels.}
+         \PY{l+s+sd}{            }
+         \PY{l+s+sd}{        Returns}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        self : object }
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{c+c1}{\PYZsh{} Use LabelEncoder to ensure class labels start}
+                 \PY{c+c1}{\PYZsh{} with 0, which is important for np.argmax}
+                 \PY{c+c1}{\PYZsh{} call in self.predict}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lablenc\PYZus{}} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lablenc\PYZus{}}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{classes\PYZus{}} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lablenc\PYZus{}}\PY{o}{.}\PY{n}{classes\PYZus{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{classifiers\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 \PY{k}{for} \PY{n}{clf} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{classifiers}\PY{p}{:}
+                     \PY{n}{fitted\PYZus{}clf} \PY{o}{=} \PY{n}{clone}\PY{p}{(}\PY{n}{clf}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lablenc\PYZus{}}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{classifiers\PYZus{}}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{fitted\PYZus{}clf}\PY{p}{)}
+                 \PY{k}{return} \PY{n+nb+bp}{self}
+             
+             \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Predict class labels for X.}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        Parameters}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        X : \PYZob{}array\PYZhy{}like, sparse matrix\PYZcb{}, }
+         \PY{l+s+sd}{            Shape = [n\PYZus{}samples, n\PYZus{}features]}
+         \PY{l+s+sd}{            Matrix of training samples. }
+         \PY{l+s+sd}{            }
+         \PY{l+s+sd}{        Returns}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        maj\PYZus{}vote : array\PYZhy{}like, shape = [n\PYZus{}samples]}
+         \PY{l+s+sd}{            Predicted class labels.}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{vote} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{probability}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{maj\PYZus{}vote}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:} \PY{c+c1}{\PYZsh{} \PYZsq{}classlabel\PYZsq{} vote}
+                     \PY{c+c1}{\PYZsh{} Collect results from clf.predict calls}
+                     \PY{n}{predictions} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}\PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)} 
+                                               \PY{k}{for} \PY{n}{clf} \PY{o+ow}{in} 
+                                               \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{classifiers\PYZus{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+                     \PY{n}{maj\PYZus{}vote} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{apply\PYZus{}along\PYZus{}axis}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}
+                                                    \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{bincount}\PY{p}{(}\PY{n}{x}\PY{p}{,} 
+                                                              \PY{n}{weights}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weights}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                                                    \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{arr}\PY{o}{=}\PY{n}{predictions}\PY{p}{)}
+                 \PY{n}{maj\PYZus{}vote} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lablenc\PYZus{}}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{maj\PYZus{}vote}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{maj\PYZus{}vote}
+             
+             \PY{k}{def} \PY{n+nf}{predict\PYZus{}proba}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Predict class probabilities for X.}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        Parameters}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        X : \PYZob{}array\PYZhy{}like, sparse matrix\PYZcb{}, }
+         \PY{l+s+sd}{            shape = [n\PYZus{}samples, n\PYZus{}features]}
+         \PY{l+s+sd}{            Training vectors, where n\PYZus{}samples is }
+         \PY{l+s+sd}{            the number of samples and n\PYZus{}features is the }
+         \PY{l+s+sd}{            number of features. }
+         
+         \PY{l+s+sd}{        Returns}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        avg\PYZus{}proba : array\PYZhy{}like, }
+         \PY{l+s+sd}{            shape = [n\PYZus{}samples, n\PYZus{}classes]}
+         \PY{l+s+sd}{            Weighted average probability for }
+         \PY{l+s+sd}{            each class per sample. }
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{n}{probas} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{clf}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                                    \PY{k}{for} \PY{n}{clf} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{classifiers\PYZus{}}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{avg\PYZus{}proba} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{average}\PY{p}{(}\PY{n}{probas}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{weights}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{weights}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{avg\PYZus{}proba}
+             
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}params}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{deep}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Get classifier parameter names for GridSearch}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n}{deep}\PY{p}{:}
+                     \PY{k}{return} \PY{n+nb}{super}\PY{p}{(}\PY{n}{MajorityVoteClassifier}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n}{get\PYZus{}params}\PY{p}{(}\PY{n}{deep}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{named\PYZus{}classifiers}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                     \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{step} \PY{o+ow}{in} \PY{n}{six}\PY{o}{.}\PY{n}{iteritems}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{named\PYZus{}classifiers}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{six}\PY{o}{.}\PY{n}{iteritems}\PY{p}{(}\PY{n}{step}\PY{o}{.}\PY{n}{get\PYZus{}params}\PY{p}{(}\PY{n}{deep}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZus{}\PYZus{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{name}\PY{p}{,} \PY{n}{key}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{value}
+                     \PY{k}{return} \PY{n}{out}
+\end{Verbatim}
+
+
+    Also, note that we defined our own modified version of the
+\emph{get\_params} method to use the *\_name\_estimators* function to
+access the paramters of individual classifiers in the ensemble; this may
+look a little bit complicated at first, but it will make perfect sense
+when we use grid search for hyperparameter tuning in later sections.
+
+    \subsection{Using the majority voting principle to make
+predictions}\label{using-the-majority-voting-principle-to-make-predictions}
+
+    Now it is about time to put the \emph{MajorityVoteClassifier} that we
+implemented into action. But first, let's prepare a dataset that we can
+test it on. Since we are already familiar with techniques to load
+datasets from CSV files, we will take a shortcut and load the Iris
+dataset from scikit-learn's dataset module. Furthermore, we will only
+select two features, \textbf{sepal width} and \textbf{petal length}, to
+make the classification task more challenging for illustration purposes.
+Although our \emph{MajorityVoteClassifier} generalizes to multiclass
+problems, we will only classify flower samples from the
+\emph{Iris-versicolor} and \emph{Iris-virginica} classes, with which we
+will compute the ROC AUC later. The code is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{datasets}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}
+         \PY{n}{iris} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{iris}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{iris}\PY{o}{.}\PY{n}{target}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{:}\PY{p}{]}
+         \PY{n}{le} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{le}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    Next, we split the Iris samples into 50 percent training and 50 percent
+test data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PYZbs{}
+             \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                              \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{stratify}\PY{o}{=}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    Using the training dataset, we now will train three different
+classifiers: * Logistic regression classifier * Decision tree classifier
+* k-nearest neighbors classifier
+
+We then evaluate the model performance of each classifier via 10-fold
+cross-validation on the training dataset before we combine them into an
+ensemble classifier:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{clf1} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{clf2} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{clf3} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{minkowski}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{pipe1} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+                           \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{pipe3} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+                           \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf3}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{clf\PYZus{}labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Logistic regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Decision tree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KNN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10\PYZhy{}fold cross validation:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{clf}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{p}{[}\PY{n}{pipe1}\PY{p}{,} \PY{n}{clf2}\PY{p}{,} \PY{n}{pipe3}\PY{p}{]} \PY{p}{,} \PY{n}{clf\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+             \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{clf}\PY{p}{,} \PY{n}{X}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{p}{,} 
+                                      \PY{n}{y}\PY{o}{=}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roc\PYZus{}auc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ROC AUC: }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{ (+/\PYZhy{} }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{) [}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}
+                   \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{scores}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scores}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10-fold cross validation:
+
+ROC AUC: 0.87 (+/- 0.17) [Logistic regression]
+ROC AUC: 0.89 (+/- 0.16) [Decision tree]
+ROC AUC: 0.88 (+/- 0.15) [KNN]
+
+    \end{Verbatim}
+
+    Now let's move on to the more exciting part and combine the individual
+classifiers for majority rule voting in our
+\emph{MajorityVoteClassifier}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{mv\PYZus{}clf} \PY{o}{=} \PY{n}{MajorityVoteClassifier}\PY{p}{(}\PY{n}{classifiers}\PY{o}{=}\PY{p}{[}\PY{n}{pipe1}\PY{p}{,} \PY{n}{clf2}\PY{p}{,} \PY{n}{pipe3}\PY{p}{]}\PY{p}{)}
+         \PY{n}{clf\PYZus{}labels} \PY{o}{+}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Majority voting}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{all\PYZus{}clf} \PY{o}{=} \PY{p}{[}\PY{n}{pipe1}\PY{p}{,} \PY{n}{clf2}\PY{p}{,} \PY{n}{pipe3}\PY{p}{,} \PY{n}{mv\PYZus{}clf}\PY{p}{]}
+         \PY{k}{for} \PY{n}{clf}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{all\PYZus{}clf}\PY{p}{,} \PY{n}{clf\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+             \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{clf}\PY{p}{,} 
+                                      \PY{n}{X}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y\PYZus{}train}\PY{p}{,} 
+                                      \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roc\PYZus{}auc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy: }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{ (+/\PYZhy{} }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{) [}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}
+                   \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{scores}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scores}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy: 0.87 (+/- 0.17) [Logistic regression]
+Accuracy: 0.89 (+/- 0.16) [Decision tree]
+Accuracy: 0.88 (+/- 0.15) [KNN]
+Accuracy: 0.94 (+/- 0.13) [Majority voting]
+
+    \end{Verbatim}
+
+    As we can see, the performance of \emph{MajorityVoteClassifier} has
+improved over the individual classifiers in the 10-fold cross-validation
+evaluation.
+
+    \subsection{Evaluating and tuning the ensemble
+classifier}\label{evaluating-and-tuning-the-ensemble-classifier}
+
+    In this section, we are going to compute the ROC curves from the test
+set to check that \emph{MajorityVoteClassifier} generalizes well with
+unseen data. We shall remember that the test set is not to be used for
+model selection; its purpose is merely to report the unbiased estimate
+of the generalization performance for a classifier system:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{roc\PYZus{}curve}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{auc}
+         
+         \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{linestyles} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{clf}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{clr}\PY{p}{,} \PY{n}{ls} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{all\PYZus{}clf}\PY{p}{,} \PY{n}{clf\PYZus{}labels}\PY{p}{,} \PY{n}{colors}\PY{p}{,} \PY{n}{linestyles}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} assuming the label of the positive class is 1}
+             \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{,} \PY{n}{thresholds} \PY{o}{=} \PY{n}{roc\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}score}\PY{o}{=}\PY{n}{y\PYZus{}pred}\PY{p}{)}
+             \PY{n}{roc\PYZus{}auc} \PY{o}{=} \PY{n}{auc}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{fpr}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{tpr}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fpr}\PY{p}{,} \PY{n}{tpr}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{clr}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{n}{ls}\PY{p}{,} 
+                      \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ (auc = }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{n}{roc\PYZus{}auc}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{1.1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{1.1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{False positive rate (FPR)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True positive rate (TPR)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting ROC, the ensemble classifier also
+performs well on the test set (ROC AUC = 0.95). However, we can see that
+the logistic regression classifier performs similarly well on the same
+dataset, which is probably due to the high variance (in this case,
+sensitivity of how we split the dataset) given the small size of the
+dataset.
+
+    Since we only selected two features for the classification examples, it
+would be interesting to see what the decision region of the ensemble
+classifier actually looks like. Although it is not necessary to
+standardize the training features prior to model fitting, because our
+logistic regression and k-nearest neighbors pipelines will automatically
+take care of it, we will standardize the training set so that the
+decision regions of the decision tree will be on the same scale for
+visual purposes. The code is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{from} \PY{n+nn}{itertools} \PY{k}{import} \PY{n}{product}
+         
+         \PY{n}{sc} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}train\PYZus{}std} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+         \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+         \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+         \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+         
+         \PY{n}{xx}\PY{p}{,} \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{,} 
+                              \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{f}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                 \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{clf}\PY{p}{,} \PY{n}{tt} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{product}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{all\PYZus{}clf}\PY{p}{,} \PY{n}{clf\PYZus{}labels}\PY{p}{)}\PY{p}{:}
+             \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{Z} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{xx}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{yy}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n}{Z} \PY{o}{=} \PY{n}{Z}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{xx}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                           \PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                           \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                           \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                           \PY{n}{X\PYZus{}train\PYZus{}std}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                           \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                           \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{idx}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{tt}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{3.5}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{4.5}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sepal width [standardized]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{10.5}\PY{p}{,} \PY{l+m+mf}{4.5}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Petal length [standardized]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/lib/python3.6/site-packages/sklearn/preprocessing/label.py:151: DeprecationWarning: The truth value of an empty array is ambiguous. Returning False, but in future this will result in an error. Use `array.size > 0` to check that an array is not empty.
+  if diff:
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Interestingly, but also as expected, the decision regions of the
+ensemble classifier seem to be a hybrid of the decision regions from the
+individual classifiers. At first glance, the majority vote decision
+boundary looks a lot like the decision of the decision tree stump, which
+is orthogonal to the \(y\) axis for \(sepal width \ge 1\). However, we
+also notice the non-linearity from the k-nearest neighbor classifier
+mixen in.
+
+    Before we tune the individual classifier's parameters for ensemble
+classification, let's call the \emph{get\_params} method to get a basic
+idea of how we can access the individual parameters inside a
+\emph{GridSeach} object:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{mv\PYZus{}clf}\PY{o}{.}\PY{n}{get\PYZus{}params}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} \{'decisiontreeclassifier': DecisionTreeClassifier(class\_weight=None, criterion='entropy', max\_depth=1,
+                      max\_features=None, max\_leaf\_nodes=None,
+                      min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                      min\_samples\_leaf=1, min\_samples\_split=2,
+                      min\_weight\_fraction\_leaf=0.0, presort=False, random\_state=0,
+                      splitter='best'),
+          'decisiontreeclassifier\_\_class\_weight': None,
+          'decisiontreeclassifier\_\_criterion': 'entropy',
+          'decisiontreeclassifier\_\_max\_depth': 1,
+          'decisiontreeclassifier\_\_max\_features': None,
+          'decisiontreeclassifier\_\_max\_leaf\_nodes': None,
+          'decisiontreeclassifier\_\_min\_impurity\_decrease': 0.0,
+          'decisiontreeclassifier\_\_min\_impurity\_split': None,
+          'decisiontreeclassifier\_\_min\_samples\_leaf': 1,
+          'decisiontreeclassifier\_\_min\_samples\_split': 2,
+          'decisiontreeclassifier\_\_min\_weight\_fraction\_leaf': 0.0,
+          'decisiontreeclassifier\_\_presort': False,
+          'decisiontreeclassifier\_\_random\_state': 0,
+          'decisiontreeclassifier\_\_splitter': 'best',
+          'pipeline-1': Pipeline(memory=None,
+               steps=[('sc', StandardScaler(copy=True, with\_mean=True, with\_std=True)), ['clf', LogisticRegression(C=0.001, class\_weight=None, dual=False, fit\_intercept=True,
+                    intercept\_scaling=1, max\_iter=100, multi\_class='ovr', n\_jobs=1,
+                    penalty='l2', random\_state=1, solver='liblinear', tol=0.0001,
+                    verbose=0, warm\_start=False)]]),
+          'pipeline-1\_\_clf': LogisticRegression(C=0.001, class\_weight=None, dual=False, fit\_intercept=True,
+                    intercept\_scaling=1, max\_iter=100, multi\_class='ovr', n\_jobs=1,
+                    penalty='l2', random\_state=1, solver='liblinear', tol=0.0001,
+                    verbose=0, warm\_start=False),
+          'pipeline-1\_\_clf\_\_C': 0.001,
+          'pipeline-1\_\_clf\_\_class\_weight': None,
+          'pipeline-1\_\_clf\_\_dual': False,
+          'pipeline-1\_\_clf\_\_fit\_intercept': True,
+          'pipeline-1\_\_clf\_\_intercept\_scaling': 1,
+          'pipeline-1\_\_clf\_\_max\_iter': 100,
+          'pipeline-1\_\_clf\_\_multi\_class': 'ovr',
+          'pipeline-1\_\_clf\_\_n\_jobs': 1,
+          'pipeline-1\_\_clf\_\_penalty': 'l2',
+          'pipeline-1\_\_clf\_\_random\_state': 1,
+          'pipeline-1\_\_clf\_\_solver': 'liblinear',
+          'pipeline-1\_\_clf\_\_tol': 0.0001,
+          'pipeline-1\_\_clf\_\_verbose': 0,
+          'pipeline-1\_\_clf\_\_warm\_start': False,
+          'pipeline-1\_\_memory': None,
+          'pipeline-1\_\_sc': StandardScaler(copy=True, with\_mean=True, with\_std=True),
+          'pipeline-1\_\_sc\_\_copy': True,
+          'pipeline-1\_\_sc\_\_with\_mean': True,
+          'pipeline-1\_\_sc\_\_with\_std': True,
+          'pipeline-1\_\_steps': [('sc',
+            StandardScaler(copy=True, with\_mean=True, with\_std=True)),
+           ['clf',
+            LogisticRegression(C=0.001, class\_weight=None, dual=False, fit\_intercept=True,
+                      intercept\_scaling=1, max\_iter=100, multi\_class='ovr', n\_jobs=1,
+                      penalty='l2', random\_state=1, solver='liblinear', tol=0.0001,
+                      verbose=0, warm\_start=False)]],
+          'pipeline-2': Pipeline(memory=None,
+               steps=[('sc', StandardScaler(copy=True, with\_mean=True, with\_std=True)), ['clf', KNeighborsClassifier(algorithm='auto', leaf\_size=30, metric='minkowski',
+                     metric\_params=None, n\_jobs=1, n\_neighbors=1, p=2,
+                     weights='uniform')]]),
+          'pipeline-2\_\_clf': KNeighborsClassifier(algorithm='auto', leaf\_size=30, metric='minkowski',
+                     metric\_params=None, n\_jobs=1, n\_neighbors=1, p=2,
+                     weights='uniform'),
+          'pipeline-2\_\_clf\_\_algorithm': 'auto',
+          'pipeline-2\_\_clf\_\_leaf\_size': 30,
+          'pipeline-2\_\_clf\_\_metric': 'minkowski',
+          'pipeline-2\_\_clf\_\_metric\_params': None,
+          'pipeline-2\_\_clf\_\_n\_jobs': 1,
+          'pipeline-2\_\_clf\_\_n\_neighbors': 1,
+          'pipeline-2\_\_clf\_\_p': 2,
+          'pipeline-2\_\_clf\_\_weights': 'uniform',
+          'pipeline-2\_\_memory': None,
+          'pipeline-2\_\_sc': StandardScaler(copy=True, with\_mean=True, with\_std=True),
+          'pipeline-2\_\_sc\_\_copy': True,
+          'pipeline-2\_\_sc\_\_with\_mean': True,
+          'pipeline-2\_\_sc\_\_with\_std': True,
+          'pipeline-2\_\_steps': [('sc',
+            StandardScaler(copy=True, with\_mean=True, with\_std=True)),
+           ['clf',
+            KNeighborsClassifier(algorithm='auto', leaf\_size=30, metric='minkowski',
+                       metric\_params=None, n\_jobs=1, n\_neighbors=1, p=2,
+                       weights='uniform')]]\}
+\end{Verbatim}
+            
+    Based on the values returned by the \emph{get\_params} method, we now
+know how to access the individual classifier's attributes. Let's now
+tune the inverse regularization parameter C of the logistic regression
+classifier and the decision tree depth via a grid search for
+demonstration purposes:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+         
+         \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{decisiontreeclassifier\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} 
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pipeline\PYZhy{}1\PYZus{}\PYZus{}clf\PYZus{}\PYZus{}C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{100.0}\PY{p}{]}\PY{p}{\PYZcb{}}
+         \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{mv\PYZus{}clf}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{params}\PY{p}{,} 
+                             \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roc\PYZus{}auc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{k}{for} \PY{n}{params}\PY{p}{,} \PY{n}{mean\PYZus{}score}\PY{p}{,} \PY{n}{scores} \PY{o+ow}{in} \PY{n}{grid}\PY{o}{.}\PY{n}{grid\PYZus{}scores\PYZus{}}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s1}{ +/\PYZhy{} 0.2}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{ }\PY{l+s+si}{\PYZpc{}r}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} 
+                   \PY{p}{(}\PY{n}{mean\PYZus{}score}\PY{p}{,} \PY{n}{scores}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{params}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best parameters: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy: }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.933 +/- 0.20.066898 \{'decisiontreeclassifier\_\_max\_depth': 1, 'pipeline-1\_\_clf\_\_C': 0.001\}
+0.947 +/- 0.20.066667 \{'decisiontreeclassifier\_\_max\_depth': 1, 'pipeline-1\_\_clf\_\_C': 0.1\}
+0.973 +/- 0.20.033333 \{'decisiontreeclassifier\_\_max\_depth': 1, 'pipeline-1\_\_clf\_\_C': 100.0\}
+0.947 +/- 0.20.066667 \{'decisiontreeclassifier\_\_max\_depth': 2, 'pipeline-1\_\_clf\_\_C': 0.001\}
+0.947 +/- 0.20.066667 \{'decisiontreeclassifier\_\_max\_depth': 2, 'pipeline-1\_\_clf\_\_C': 0.1\}
+0.973 +/- 0.20.033333 \{'decisiontreeclassifier\_\_max\_depth': 2, 'pipeline-1\_\_clf\_\_C': 100.0\}
+Best parameters: \{'decisiontreeclassifier\_\_max\_depth': 1, 'pipeline-1\_\_clf\_\_C': 100.0\}
+Accuracy: 0.97
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/lib/python3.6/site-packages/sklearn/model\_selection/\_search.py:761: DeprecationWarning: The grid\_scores\_ attribute was deprecated in version 0.18 in favor of the more elaborate cv\_results\_ attribute. The grid\_scores\_ attribute will not be available from 0.20
+  DeprecationWarning)
+
+    \end{Verbatim}
+
+    As we can see, we get the best cross-validation results when we choose a
+lower regularization strength (\emph{C=100.0}), whereas the tree depth
+does not seem to affect the performance at all, suggesting that a
+decision stump is sufficient to separate the data. To remind ourselves
+that it is a bad practice to use the test dataset more than once for
+model evaluation, we are not going to estimate the generalization
+performance of the tuned hyperparameters in this section. We will move
+on swiftly to an alternative approach for ensemble learning:
+\textbf{bagging}.
+
+The majority vote approach we implemented in this section is not to be
+confused with \textbf{stacking}. The stacking algorithm can be
+understood as a two-layer ensemble, where the first layer consists of
+individual classifiers that feed their predictions to the second level,
+where another classifier (typically logistic regression) is fit to the
+level 1 classifier predictions to make the final predictions.
+
+    \section{Bagging - building an ensemble of classifiers from bootstrap
+samples}\label{bagging---building-an-ensemble-of-classifiers-from-bootstrap-samples}
+
+    Bagging is an ensemble technique that is closely related to the
+\emph{MajorityVoteClassifier} than we implemented in the previous
+section. However, instead of using the same training set to fit the
+individual classifiers in the ensemble, we draw bootstraps samples
+(random samples with replacement) from the initial training set, which
+is why bagging is also known as a bootstrap aggregating.
+
+The concept of bagging is summarized in the following diagram:
+
+In the following subsections, we will work through a simple example of
+bagging by hand and use scikit-learn for classifying wine samples.
+
+    \subsection{Bagging in a nutshell}\label{bagging-in-a-nutshell}
+
+    To provide a more concrete example of how the bootstrapping aggregating
+of a bagging classifier works, let's consider the example shown in the
+following figure. Here, we have seven different training instances
+(denoted as indices 1-7) that are sampled randomly with replacement in
+each round of bagging. Each bootstrap sample is then used to fit a
+classifier \(C_j\), which is most typically an unpruned decision tree:
+
+As we can see from the previous illustration, each classifier receives a
+random subset of samples from the training set. Each subset contains a
+certain portion of duplicates and some of the original samples do not
+appear in a resampled dataset at all due to the sampling with
+replacement. Once the individual classifiers are fit to the bootstrap
+samples, the predictions are combined using majority voting.
+
+Note that bagging is also related to the random forest classifier. In
+fact, random forests are a special case of bagging where we also use
+random feature subsets when fitting the individual decision trees.
+
+    \subsection{Applying bagging to classify samples of the Wine
+dataset}\label{applying-bagging-to-classify-samples-of-the-wine-dataset}
+
+    To see bagging in action, let's create a more complex classification
+problem using the Wine dataset. Here, we will only consider the Wine
+classes 2 and 3, and we select two features: \emph{Alcohol} and
+\emph{OD280/OD315 of diluted wines}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{df\PYZus{}wine} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://archive.ics.uci.edu/ml/}\PY{l+s+s1}{\PYZsq{}}
+                               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{machine\PYZhy{}learning\PYZhy{}databases/wine/wine.data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                               \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{df\PYZus{}wine} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wine.data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         
+         \PY{n}{df\PYZus{}wine}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Malic acid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcalinity of ash}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Magnesium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total phenols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flavanoids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nonflavanoid phenols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proanthocyanins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Color intensity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OD280/OD315 of diluted wines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} drop 1 class}
+         \PY{n}{df\PYZus{}wine} \PY{o}{=} \PY{n}{df\PYZus{}wine}\PY{p}{[}\PY{n}{df\PYZus{}wine}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{!=}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{df\PYZus{}wine}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Class label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{X} \PY{o}{=} \PY{n}{df\PYZus{}wine}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OD280/OD315 of diluted wines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    Next, we encode the class labels into binary format and split the
+dataset into 80 percent training and 20 percent test sets, respectively:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         
+         \PY{n}{le} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{le}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PYZbs{}
+             \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{stratify}\PY{o}{=}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    A \emph{BaggingClassifier} algorithm is already implemented in
+scikit-learn, which we can import from the \emph{ensemble} submodule.
+Here, we will use an unpruned decision tree as the base classifier and
+create an ensemble of 500 decision trees fit on different bootstrap
+samples of the training dataset:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{BaggingClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+         
+         \PY{n}{tree} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                       \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                       \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{bag} \PY{o}{=} \PY{n}{BaggingClassifier}\PY{p}{(}\PY{n}{base\PYZus{}estimator}\PY{o}{=}\PY{n}{tree}\PY{p}{,} 
+                                 \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,} 
+                                 \PY{n}{max\PYZus{}samples}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,} 
+                                 \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,} 
+                                 \PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                                 \PY{n}{bootstrap\PYZus{}features}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} 
+                                 \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    Next, we will calculate the accuracy score of the prediction on the
+training and test dataset to compare the perfomance of the bagging
+classifier to the performance of a single unpruned decision tree:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+         
+         \PY{n}{tree} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{tree\PYZus{}train} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}
+         \PY{n}{tree\PYZus{}test} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Decision tree train/test accuracies }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{/}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} 
+               \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{tree\PYZus{}train}\PY{p}{,} \PY{n}{tree\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Decision tree train/test accuracies 1.000/0.833
+
+    \end{Verbatim}
+
+    Based on the accuracy values that we printed here, the unpruned decision
+tree predict all the class labels of the training samples correctly;
+however, the substantially lower test accuracy indicates high variance
+(overfitting) of the model:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{bag} \PY{o}{=} \PY{n}{bag}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{bag}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{bag}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{bag\PYZus{}train} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}
+         \PY{n}{bag\PYZus{}test} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bagging train/test accuracies }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{/}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}}
+               \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{bag\PYZus{}train}\PY{p}{,} \PY{n}{bag\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Bagging train/test accuracies 1.000/0.917
+
+    \end{Verbatim}
+
+    Although the training accuracies of the decision tree and bagging
+classifier are similar on the training set (both 100 percent), we can
+see that the bagging classifier has a slightly better generalization
+performance, as estimated on the test set. Next, let's compare the
+decision regions between the decision tree and the bagging classifier:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+         \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+         \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+         \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+         \PY{n}{xx}\PY{p}{,} \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{,} 
+                              \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{f}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                 \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{clf}\PY{p}{,} \PY{n}{tt} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                 \PY{p}{[}\PY{n}{tree}\PY{p}{,} \PY{n}{bag}\PY{p}{]}\PY{p}{,} 
+                                 \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Decision tree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bagging}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             
+             \PY{n}{Z} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{xx}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{yy}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n}{Z} \PY{o}{=} \PY{n}{Z}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{xx}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{tt}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{10.2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.2}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OD280/OD315 of diluted wines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see in the resulting plot, the piece-wise linear decision
+boundary of the three-node deep decision tree looks smoother in the
+bagging ensemble.
+
+We only looked at a very simple bagging example in this section. In
+practice, more complex classification tasks and dataset's high
+dimensionality can easily lead to overfitting in single decision trees,
+and this is where the bagging algorithm can really play to it strengths.
+Finally, we shall note that the bagging algorithm can be an effective
+approach to reduce the variance of the model. However, bagging is
+ineffective in reducing model bias, that is, models that are too simple
+to capture the trent in the data well. This is why we want to perform
+bagging on an ensemble of classifiers with low bias, for example,
+unpruned decision trees.
+
+    \section{Leveraging weak learners via adaptive
+boosting}\label{leveraging-weak-learners-via-adaptive-boosting}
+
+    In this last section about ensemble methods, we will discuss
+\textbf{boosting} with a special focus on its most common
+implementation, \textbf{AdaBoost (Adaptive Boosting)}.
+
+In boosting, the ensemble consists of very simple base classifiers, also
+often referred to as \textbf{weak learners}, which often only have a
+slight performance advantage of random guessing - a typical example of a
+weak learning is a decision tree stump. The key concept behind boosting
+is to focus on training samples that are hard to classify, that is, to
+let the weak learners subsequently learn from misclassified training
+samples to improve the performance of the ensemble.
+
+The following subsections will introduce the algorithmic procedure
+behind the general concept boosting and a popular variant called
+\textbf{AdaBoost}. Lastly, we will use scikit-learn for a practical
+classification example.
+
+    \subsection{How boosting works}\label{how-boosting-works}
+
+    In contrast to bagging, the initial formulation of boosting, the
+algorithm uses random subsets of training samples drawn from the
+training dataset without replacement; the original boosting procedure is
+summarized in the following four key steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Draw a random subset of training samples \(d_1\) without replacement
+  from training set \(D\) to train a weak learner \(C_1\).
+\item
+  Draw a second random training subset \(d_2\) without replacement from
+  the training set and add 50 percent of the samples that were
+  previously misclassified to train a weak learner \(C_2\).
+\item
+  Find the training samples \(d_3\) in training set D, which \(C_1\) and
+  \(C_2\) disagree upon, to train a third weak learner \(C_3\).
+\item
+  Combine the weak learners \(C_1, C_2, C_3\) via majority voting.
+\end{enumerate}
+
+Boosting can lead to a decrease in bias as well as variance compared to
+bagging models. In practice, however, boosting algorithms such as
+AdaBoost are also known for their high variance, that is, the tendency
+to overfit the training data.
+
+In contrast to the original boosting procedure as described here,
+AdaBoost uses the complete training set to train the weak learners where
+the training samples are reweighted in each iteration to build a strong
+classifier that learns from the mistakes of the previous weak learners
+in the ensemble. Before we dive deeper into the specific details of the
+AdaBoost algorithm, let's take a look at the following figure to get a
+better grasp of the basic concept behind AdaBoost:
+
+To walk through the AdaBoost illustration step by step, we start with
+subfigure 1, which represents a training set for binary classification
+where all training samples are assigned equal weights. Based in this
+training set, we train a decision stump (shown as a dashed line) that
+tries to classify the samples of the two classes (triangles and circle),
+as well as possibly by minimizing the cost function (or the impurity
+score in the special case of decision tree ensembles).
+
+For the next round (subfigure 2), we assign a larger weight to the two
+previously misclassified samples (circles). Furthermore, we lower the
+weight of the correctly classified samples. The next decision stump will
+now be more focused on the training samples that have the largest
+weights - the training samples that are supposedly hard to classify. The
+weak learner shown in subfigure 2 misclassifies three different samples
+from the circle class, which are then assinged a larger weight as shown
+in subfigure 3.
+
+Assuming that our AdaBoost ensemble only consists of three rounds of
+boosting, we would then combine the three weak learners trained on
+different reweighted training subsets by a weighted majority vote, as
+shown in subfigure 4.
+
+    \subsection{Applying AdaBoost using
+scikit-learn}\label{applying-adaboost-using-scikit-learn}
+
+    The previous subsection introduced AdaBoost in a nutshell. Skipping to
+the more practical part, let's now train an AdaBoost ensemble classifier
+via scikit-learn. We will use the same Wine subset that we used in the
+previous section to train the bagging meta-classifier. Via the
+\emph{base\_estimator} attribute, we will train the
+\emph{AdaBoostClassifier} on 500 decision tree stumps:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{AdaBoostClassifier}
+         
+         \PY{n}{tree} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                       \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                                       \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ada} \PY{o}{=} \PY{n}{AdaBoostClassifier}\PY{p}{(}\PY{n}{base\PYZus{}estimator}\PY{o}{=}\PY{n}{tree}\PY{p}{,} 
+                                  \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,} 
+                                  \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} 
+                                  \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{tree} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{tree\PYZus{}train} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}
+         \PY{n}{tree\PYZus{}test} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Decision tree train/test accuracies }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{/}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}}
+               \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{tree\PYZus{}train}\PY{p}{,} \PY{n}{tree\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Decision tree train/test accuracies 0.916/0.875
+
+    \end{Verbatim}
+
+    As we can see, the decision tree seems to underfit the training data in
+contrast to the unpruned decision tree that we saw in the previous
+section:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{ada} \PY{o}{=} \PY{n}{ada}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{ada}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{ada}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{ada\PYZus{}train} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}
+         \PY{n}{ada\PYZus{}test} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AdaBoost train/test accuracies }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{/}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}}
+               \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{ada\PYZus{}train}\PY{p}{,} \PY{n}{ada\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+AdaBoost train/test accuracies 1.000/0.917
+
+    \end{Verbatim}
+
+    As we can see, the AdaBoost model predicts all class labels of the
+training set correctly and also shows a slightly improved test set
+performance compared to the decision tree stump. However, we also see
+that we introduced additional variance by our attempt to reduce the
+model bias - a higher gap between training and test performance.
+
+Although we used another example for demonstration purposes, we can see
+that the performance of the AdaBoost classifier is slightly improved
+compared to the decision tree stump and achieved the very similar
+accuracy scores as the bagging classifier that we trained in the
+previous section. However, we shall note that it is considered bad
+practice to select a model based on the repeated usage of the test set.
+The estimate of the generalization performance may be over-optimistic.
+
+Lastly, let us check what the decision regions look like:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{x\PYZus{}min} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+         \PY{n}{x\PYZus{}max} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+         \PY{n}{y\PYZus{}min} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+         \PY{n}{y\PYZus{}max} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}
+         \PY{n}{xx}\PY{p}{,} \PY{n}{yy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{x\PYZus{}min}\PY{p}{,} \PY{n}{x\PYZus{}max}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{,} 
+                              \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{y\PYZus{}min}\PY{p}{,} \PY{n}{y\PYZus{}max}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{f}\PY{p}{,} \PY{n}{axarr} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                 \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{clf}\PY{p}{,} \PY{n}{tt} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                 \PY{p}{[}\PY{n}{tree}\PY{p}{,} \PY{n}{ada}\PY{p}{]}\PY{p}{,} 
+                                 \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Decision tree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AdaBoost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             
+             \PY{n}{Z} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{xx}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{yy}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+             \PY{n}{Z} \PY{o}{=} \PY{n}{Z}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{xx}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{xx}\PY{p}{,} \PY{n}{yy}\PY{p}{,} \PY{n}{Z}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{axarr}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{tt}\PY{p}{)}
+         \PY{n}{axarr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alcohol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{10.2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OD280/OD315 of diluted wines}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                  \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    By looking at the decision regions, we can see that the decision
+boundary of the AdaBoost is substantially more complex than the decision
+boundary of the decision stump. In addiction, we note that the AdaBoost
+model separates the feature space very similar to the bagging classifier
+that we trained in the previous section.
+
+As concluding remarks about ensemble techniques, it is worth noting that
+ensemble learning increases the computation complexity compared to
+individual classifiers. In practice, we need to think carefully about
+whether we want to pay the price of increased computation costs for an
+often relatively modest improvement in predictive performance.
+
+    \section{Summary}\label{summary}
+
+    In this chapter, we looked at some of the most popular and widely used
+techniques for ensemble learning. Ensemble methods combine different
+classification models to cancel out their individual weaknesses, which
+often results in stable and well-performing models that are very
+attractive for industrial applications as well as machine learning
+competitions.
+
+At the beginning of this chapter, we implemented
+\emph{MajorityVoteClassifier} in Python, which allows us to combine
+different algorithms for classification. We then looked at bagging, a
+useful technique to reduce the variance of a model by drawing random
+bootstraps samples from the training set and combining the individually
+trained classifiers via majority vote. Lastly, we learned about
+AdaBoost, which is an algorithm that is based on weak learners that
+subsequently learn from mistakes.
+
+Throughout the previous chapters, we learned a lot about different
+learning algorithms, tuning, and evaluation techniques. In the next
+chapter, we will look at a particular application of machine learning,
+sentiment analysis, which has become an interesting topic in the
+internet and social media era.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

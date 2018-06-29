@@ -1,0 +1,1965 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{14\_Going\_Deeper\_The\_Mechanics\_Of\_TensorFlow}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Going Deeper - The Mechanics of
+TensorFlow}\label{going-deeper---the-mechanics-of-tensorflow}
+
+    In the previous chapter, we trained a multilayer perceptron to classify
+MNIST digits, using various aspects of the TensorFlow Python API. That
+was a great way to dive us straight into some hands-on experience with
+TensorFlow neural network training and machine learning.
+
+In this chapter, we will now shift our focus squarely on to TensorFlow
+itself, and explore in detail the impressive mechanics and features that
+TensorFlow offers:
+
+\begin{itemize}
+\tightlist
+\item
+  Key features and advantages of TensorFlow
+\item
+  TensorFlow ranks and tensors
+\item
+  Understanding and working with TensorFlow graphs
+\item
+  Working with TensorFlow variables
+\item
+  TensorFlow operations with different scopes
+\item
+  Common tensor transformations: working with ranks, shapes, and types
+\item
+  Transforming tensors as multidimensional arrays
+\item
+  Saving and restoring a model in TensorFlow
+\item
+  Visualizing neural network graphs with TensorBoard
+\end{itemize}
+
+We will stay hands-on in this chapter, of course, and implement graphs
+throughout the chapter to explore the main TensorFlow features and
+concepts. Along the way, we will also revisit a regression model,
+explore neural network graph visualization with TensorBoard, and suggest
+some ways that you could explore visualizing more of the graphs that you
+will make through this chapter.
+
+    \section{Keys features of TensorFlow}\label{keys-features-of-tensorflow}
+
+    TensorFlow gives us a scalable, multiplataform programming interface for
+implementing and running machine learning algorithms. The TensorFlow API
+has been relatively stable and mature since its 1.0 release in 2017.
+There are other deep learning libraries available, but they are still
+very experimental by comparison.
+
+A key feature of TensorFlow that we already noted is its ability to work
+with single or multiple GPUs. This allows users to train machine
+learning models very efficiently on large-scale systems.
+
+TensorFlow has strong growth drivers. Its development in funded and
+supported by Google, and so a large team of software engineers work on
+improvements continuosly. TensorFlow also has strong support from open
+source developers, who avidly contribute and provide user feedback. This
+has made the TensorFlow library more useful to both academic researchers
+and developers in their industry. A further consequence of these factors
+is that TensorFlow has extensive documentation and tutorials to help new
+users.
+
+Last but not least among these key features, TensorFlow supports mobile
+deployment, which makes it a very suitable tool for production.
+
+    \section{TensorFlow ranks and
+tensors}\label{tensorflow-ranks-and-tensors}
+
+    The TensorFlow library lets users define operations and functions over
+tensors as computational graphs. Tensors are a generalizable
+mathematical notation for multidimensional arrays holding data values,
+where the dimensionality of a tensor is typically referred to as its
+\textbf{rank}.
+
+We have worked mostly, so far, with tensors of rank zero to two. For
+instance, a scalar, a single number such as an integer or float, is a
+tensor of rank 0. A vector is a tensor of rank 1, and a matrix is a
+tensor of rank 2. But, it does not stop here. The tensor notation can be
+generalized to higher dimensions - as we will see in the next chapter,
+when we work with an input of rank 3 and weight tensors of rank 4 to
+support images with multiple color channels.
+
+To make the concept of a \textbf{tensor} more intuitive, consider the
+following figure, which represents tensors of ranks 0 and 1 in the first
+row, and tensors of ranks 2 and 3 in the second row:
+
+    \section{How to get the rank and shape of a
+tensor}\label{how-to-get-the-rank-and-shape-of-a-tensor}
+
+    We can use the \emph{tf.rank} function to get the rank of a tensor. It
+is important to note that \emph{tf.rank} will return a tensor as output,
+and in order to get the actual value, we will need to evaluate that
+tensor.
+
+In addition to the tensor rank, we can also get the shape of a TensoFlow
+tensor (similar to the shape of a NumPy array). For example, if \(x\) is
+a tensor, we can get its shape using \emph{x.get\_shape()}, which will
+return an object of a special class called \emph{TensorShape}.
+
+See the following examples on how to use the \emph{tf.rank} function and
+the \emph{get\_shape} method of a tensor. The following code example
+illustrates how to retrieve the rank and shape of the tensor objects in
+a TensorFlow session:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} define the computation graph}
+        \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} define tensors t1, t2, t3}
+            \PY{n}{t1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}
+            \PY{n}{t2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+            \PY{n}{t3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{}\PYZsh{} get their ranks}
+            \PY{n}{r1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{n}{t1}\PY{p}{)}
+            \PY{n}{r2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{n}{t2}\PY{p}{)}
+            \PY{n}{r3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{n}{t3}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{}\PYZsh{} get their shapes}
+            \PY{n}{s1} \PY{o}{=} \PY{n}{t1}\PY{o}{.}\PY{n}{get\PYZus{}shape}\PY{p}{(}\PY{p}{)}
+            \PY{n}{s2} \PY{o}{=} \PY{n}{t2}\PY{o}{.}\PY{n}{get\PYZus{}shape}\PY{p}{(}\PY{p}{)}
+            \PY{n}{s3} \PY{o}{=} \PY{n}{t3}\PY{o}{.}\PY{n}{get\PYZus{}shape}\PY{p}{(}\PY{p}{)}
+            
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shapes:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s1}\PY{p}{,} \PY{n}{s2}\PY{p}{,} \PY{n}{s3}\PY{p}{)}
+            
+        \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ranks:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{r1}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{r2}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{r3}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Shapes: () (4,) (2, 2)
+Ranks: 0 1 2
+
+    \end{Verbatim}
+
+    As we can see, the rank of the \emph{t1} tensor is 0 since it is just a
+scalar (corresponding to the \emph{{[}{]}} shape). The rank of the
+\emph{t2} vector is 1, and since it has four elements, its shape is the
+one-element tuple \emph{(4, )}. Lastly, the shape of the \(2 \times 2\)
+matrix \emph{t3} is 2; thus, its corresponding shape is given by the
+\emph{(2, 2)} tuple.
+
+    \section{Understanding TensorFlow's computation
+graphs}\label{understanding-tensorflows-computation-graphs}
+
+    TensorFlow relies on building a computation graph at its core, and it
+uses this computation graph to derive relationships between tensors from
+the input all the way to the output. Let's say, we have rank 0 (scalars)
+and tensors \emph{a}, \emph{b}, and \emph{c} and we want to evaluate
+\(z = 2 \times (a - b) + c\). This evaluation can be represented as a
+computation graph, as shown in the following figure:
+
+    As we can see, the computation graph is simply a network of nodes. Each
+node resembles an operation, which applies a function to its input
+tensor or tensors and returns zero or more tensors as the output.
+
+TensorFlow builds this computation graph and uses it to compute the
+gradients accordingly. The individual steps for building and compiling
+such a computation graph in TensorFlow are as follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Instantiate a new, empty computation graph.
+\item
+  Add nodes (the tensors and operations) to the computation graph.
+\item
+  Execute the graph:
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Start a new session
+  \item
+    Initialize the variables in the graph
+  \item
+    Run the computation graph in this session
+  \end{enumerate}
+\end{enumerate}
+
+So, let's create a graph for evaluating \(z = 2 \times (a - b) + c\), as
+shown in the previous figure, where \emph{a}, \emph{b}, and \emph{c} are
+scalars (single numbers). Here, we define them as TensorFlows constants.
+A graph can be created by calling \emph{tf.Graph()}, then nodes can be
+added to it as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{a} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{b} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{c} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{n}{z} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{n}{a}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{)} \PY{o}{+} \PY{n}{c}
+\end{Verbatim}
+
+
+    In this code, we added nodes to the \emph{g} graph using \emph{with
+g.as\_default()}. If we do not explicitly create a graph, there is
+always a default graph, and therefore, all the nodes are added to the
+default graph. In this book, we try to avoid working with the default
+graph for clarity. This approach is specially useful when we are
+developing code in a Jupyter notebook, as we avoid pilling up unwanted
+nodes in the default graph by accident.
+
+A TensorFlow session is an environment in which the operations and
+tensors of a graph can be executed. A session object is created by
+calling \emph{tf.Session} that can receive an existing graph (here,
+\emph{g}) as an argument, as in \emph{tf.Session(graph=g)}, otherwise,
+it will launch the default graph, which might be empty.
+
+After launching a graph in a TensorFlow session, we can execute it
+nodes; that is, evaluating its tensors or executing its operators.
+Evaluating each individual tensor involves calling its \emph{eval}
+method inside the current session. When evaluating a specific tensor in
+the graph, TensorFlow has to execute all the preceding nodes in the
+graph until it reaches that particular one. In case there are one or
+more placeholders, they would need to be fed, as we will see later in
+the next section.
+
+Quite similarly, executing operations can be done using a session's
+\emph{run} method. In the previous example, \emph{train\_op} is an
+operator that does not return any tensor. This operator can be executed
+as \emph{train\_op.run()}. Furthermore, there is a universal way of
+runnning both tensors and operators: \emph{tf.Session().run()}. Using
+this method, as we will see later on as well, multiple tensors and
+operators can be placed in a list or tuple. As a result,
+\emph{tf.Session().run()} will return a list or tuple of the same size.
+
+Here, we will launch the previous graph in a TensorFlow session and
+evaluate the tensor \emph{z} as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2*(a\PYZhy{}b)+c =\PYZgt{} }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2*(a-b)+c =>  1
+
+    \end{Verbatim}
+
+    Remember that we define tensors and operations in a computation graph
+context within TensorFlow. A TensorFlow session is then used to execute
+the operations in the graph and fetch and evaluate the results.
+
+In this section, we saw how to define a computation graph, how to add
+nodes to it, and how to evaluate the tensors in a graph within a
+TensorFlow session. We will now take a deeper look into the different
+types of nodes that can appear in a computation graph, including
+placeholders and variables. Along the way, we will see some other
+operators that do not return a tensor as the output.
+
+    \section{Placeholders in TensorFlow}\label{placeholders-in-tensorflow}
+
+    TensorFlow has special mechanisms for feeding data. One of these
+mechanisms is the use of placeholders, which are predefined tensors with
+specific types and shapes.
+
+These tensors are added to the computation graph using the
+\emph{tf.placeholder} function, and they do not contain any data.
+However, upon the execution of certain nodes in the graph, these
+placeholders need to be fed with data arrays.
+
+In the following sections, we will see how to define placeholders in a
+graph and how to feed them with data values upon execution.
+
+    \subsection{Defining placeholders}\label{defining-placeholders}
+
+    As you now know, placeholders are defined using the
+\emph{tf.placeholder} function. When we define placeholders, we need to
+decide what their shape ant type should be, according to the shape and
+type of the data that will be fed through them upn execution.
+
+Let's start with a simple example. In the following code, we will define
+the same graph that was shown in the previous section for evaluating
+\(z = 2 \times (a-b) + c\). This times, however, we use placeholders for
+the scalars \emph{a}, \emph{b}, and \emph{c}. Also, we store the
+intermediate tensors associated with \emph{r1} and \emph{r2}, as
+follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        
+        \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+        \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{tf\PYZus{}a} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{int32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{tf\PYZus{}b} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{int32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{tf\PYZus{}c} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{int32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{n}{r1} \PY{o}{=} \PY{n}{tf\PYZus{}a} \PY{o}{\PYZhy{}} \PY{n}{tf\PYZus{}b}
+            \PY{n}{r2} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{r1}
+            \PY{n}{z} \PY{o}{=} \PY{n}{r2} \PY{o}{+} \PY{n}{tf\PYZus{}c}
+\end{Verbatim}
+
+
+    In this code, we defined three placeholders, named \emph{tf\_a},
+\emph{tf\_b}, and \emph{tf\_c}, using type \emph{tf.int32} (32-bit
+integers) and set their shape via \emph{shape={[}{]}} since they are
+scalars (tensors of rank 0). In the current book, we always precede the
+placeholder objects with \emph{tf\_} for clarity and to be able to
+distinguish them from the other tensors.
+
+Note that in the previous code example, we were dealing with scalars,
+and therefore, their shapes were specified as \emph{shape={[}{]}}
+However, it is very straightforward to define placeholders of higher
+dimensions. For example, a rank 3 placeholder of type \emph{float} and
+shape \(3 \times 4 \times 5\) can be defined as
+\emph{tf.placeholder(dtype=tf.float32, shape={[}2, 3, 4{]})}.
+
+    \subsection{Feeding placeholders with
+data}\label{feeding-placeholders-with-data}
+
+    When we execute a node in the graph, we need to create a Python
+\textbf{dictionary} to feed the values of placeholders with data arrays.
+We do this according to the type and shape of the placeholders. This
+dictionary is passed as the input argument \emph{feed\_dict} to a
+session's \emph{run} method.
+
+In the previous graph, we added three placeholders of the type
+\emph{tf.int32} to feed scalars for computing \emph{z}. Now, in order to
+evaluate the result tensor \emph{z}, we can feed arbitrary integer
+values (here, 1, 2, and 3) to the placeholders, as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+            \PY{n}{feed} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{tf\PYZus{}a}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{tf\PYZus{}b}\PY{p}{:} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{tf\PYZus{}c}\PY{p}{:} \PY{l+m+mi}{3}\PY{p}{\PYZcb{}}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{z:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{n}{feed}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+z: 1
+
+    \end{Verbatim}
+
+    This means that having extra arrays for placeholders does not cause any
+error; it is just redundant to do so. However, if a placeholder is
+needed for the execution of a particular node, and is not provided via
+the \emph{feed\_dict} argument, it will cause a runtime error.
+
+    \subsection{Defining placeholders for data arrays with varying
+batchsizes}\label{defining-placeholders-for-data-arrays-with-varying-batchsizes}
+
+    Sometimes, when we are developing a neural network model, we may deal
+with mini-batches of data that have different sizes. For example, we may
+train a neural network with a specific mini-batch size, but we want to
+use the network to make predictions on one or more data point.
+
+A useful feature of placeholders is that can specify \emph{None} for the
+dimension that is varying in size. For example, we can create a
+placeholder of rank 2, where the first dimension is unknown (or may
+vary), as shown here:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        
+        \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{tf\PYZus{}x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                                  \PY{n}{shape}\PY{o}{=}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} 
+                                  \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{n}{x\PYZus{}mean} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf\PYZus{}x}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Then, we can evaluate \emph{x\_mean} with two different input, \emph{x1}
+and \emph{x2}, which are NumPy arrays of shape \emph{(5, 2)} and
+\emph{(10, 2)}, as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{123}\PY{p}{)}
+        \PY{n}{np}\PY{o}{.}\PY{n}{set\PYZus{}printoptions}\PY{p}{(}\PY{n}{precision}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        
+        \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+            \PY{n}{x1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{low}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{high}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feeding data with shape }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x1}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Result:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{x\PYZus{}mean}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{tf\PYZus{}x}\PY{p}{:} \PY{n}{x1}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{x2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{low}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{high}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feeding data with shape }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x2}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Result:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{x\PYZus{}mean}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{tf\PYZus{}x}\PY{p}{:} \PY{n}{x2}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Feeding data with shape  (5, 2)
+Result: [0.62 0.47]
+Feeding data with shape  (10, 2)
+Result: [0.46 0.49]
+
+    \end{Verbatim}
+
+    Lastly, if we try printing the object \emph{tf\_x}, we will get
+\emph{Tensor("tf\_x:0", shape=(?, 2), dtype=float32)}, which shows that
+the shape of this tensor is \emph{(?, 2)}
+
+    \section{Variables in TensorFlow}\label{variables-in-tensorflow}
+
+    In the context of TensorFlow, variables are a special type of tensor
+objects that allow us to store and update the parameters of our models
+in a TensorFlow session during training. The following sections explain
+how we can define variables in a graph, initialize those variables in a
+session, organize variables via the so-called variable scope, and reuse
+existing variables.
+
+    \subsection{Defining variables}\label{defining-variables}
+
+    TensorFlow variables store the parameters of a model than can be updated
+during training, for example, the weights in the input, hidden and
+output layers of a neural network. When we define a variable, we need to
+initialize it with a tensor of values.
+
+TensorFlow provides two ways for dealing with variables: *
+\emph{tf.Variable(, name='variable-name')} *
+\emph{tf.get\_variable(name, ...)}
+
+The first one, \emph{tf.Variable}, is a class that creates an object for
+a new variable and adds it to the graph. Note that \emph{tf.Variable}
+does not have an explicit way to determine \emph{shape} and
+\emph{dtype}; the shape and type are set to be the same as those of the
+initial values.
+
+The second option, \emph{tf.get\_variable}, can be used to
+\textbf{reuse} an existing variable with a given name (if the name
+exists in the graph) or create a new one if the name does not exist. In
+this case, the name becomes critical; that is probably why it has to be
+placed as the first argument to this function. Furthermore,
+\emph{tf.get\_variable} provides an explicit way to set \emph{shape} and
+\emph{dtype}; these parameters are only required when creating a new
+variable, not reusing existing ones.
+
+The advantage of \emph{tf.get\_variable} over \emph{tf.Variable} is
+twofold: \emph{tf.get\_variable} allows us to reuse existing variables
+and it already uses the popular Xavier/Glorot initialization scheme by
+default. Besides the initializer, the \emph{get\_variable} function
+provides other parameters to control the tensor, such as adding a
+regularizer for the variable.
+
+    \textbf{Xavier/Glorot initialization}
+
+In the early development of deep learning, it was observed that random
+uniform or random normal weight initialization could often result in a
+poor performance of the model during training.
+
+In 2010, Xavier Glorot and Yoshua Bengio investigated the effect of
+initialization and proposed a novel, more robust initialization scheme
+to facilitate the training of deep networks.
+
+The general idea behind Xavier initialization is to roughly balance the
+variance of the gradients across different layers. Otherwise, one layer
+may get too much attention during training while the other layer lags
+behind.
+
+According to the research paper by Glorot and Bengio, if we want to
+initialize the weights from uniform distribution, we should choose the
+interval of this uniform distribution as follows:
+
+\[W ~ Uniform \left(-\frac{\sqrt{6}}{\sqrt{n_{in} + n_{out}}}, \frac{\sqrt{6}}{\sqrt{n_{in} + n_{out}}} \right)\]
+
+Here, \(n_{in}\) is the number of input neurons that are multiplied with
+the weights, and \(n_{out}\) is the number of output neurons that feed
+into the next layer. For initializing the weights from Gaussian (normal)
+distribution, the authors recommended choosing the standard deviation of
+this Gaussian to be
+\(\sigma = \frac{\sqrt{2}}{\sqrt{n_{in} + n_{out}}}\).
+
+TensorFlow support Xavier initialization in both uniform and normal
+distributions of weights.
+
+    In either initialization technique, it is important to note that the
+initial values are not set until we launch the graph in
+\emph{tf.Session} and explicitly run the initializer operator in that
+session. In fact, the required memory for a graph is not allocated until
+we initialize the variables in a TensorFlow session.
+
+Here is an example of creating a variable object where the initial
+values are created from a NumPy array. The \emph{dtype} data type of
+this tensor is \emph{tf.int64}, which is automatically \textbf{inferred}
+from its NumPy array input:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{g1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k}{with} \PY{n}{g1}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{w} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} 
+                                      \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{w}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<tf.Variable 'w:0' shape=(2, 4) dtype=int64\_ref>
+
+    \end{Verbatim}
+
+    \subsection{Initializing variables}\label{initializing-variables}
+
+    Here, it is critical to understand that tensors defined as variables are
+not allocated in memory and contain no values until they are
+initialized. Therefore, before executing any node in the computation
+graph, we \emph{must} initialize the variables that are within the path
+to the node that we want to execute.
+
+This initialization process refers to allocating memory for the
+associated tensors and assigning their initial values. TensorFlow
+provides a function named \emph{tf.global\_variables\_initializer} that
+returns an operator for initializing all the variables that exist in a
+computation graph. Then, executing this operator will initialize the
+variables as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g1}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+            \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1 2 3 4]
+ [5 6 7 8]]
+
+    \end{Verbatim}
+
+    We can also store this operator in an object such as \emph{init\_op =
+tf.global\_variables\_initializer()} and execute this operator later
+using \emph{sess.run(init\_op)} or \emph{init\_op.run()}. However, we
+need to make sure that this operator is created after we define all the
+variables.
+
+For example, in the following code, we define the variable \emph{w1},
+then we define the operator \emph{init\_op}, followed by the variable
+\emph{w2}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         
+         \PY{n}{g2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{with} \PY{n}{g2}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{w1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{init\PYZus{}op} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+             \PY{n}{w2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Now, let's evaluate \emph{w1} as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g2}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{init\PYZus{}op}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w1:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{w1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+w1: 1
+
+    \end{Verbatim}
+
+    This works fine. Now, let's try evaluating \emph{w2}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g2}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{init\PYZus{}op}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w2:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{w2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        FailedPreconditionError                   Traceback (most recent call last)
+
+        /usr/lib/python3.6/site-packages/tensorflow/python/client/session.py in \_do\_call(self, fn, *args)
+       1326     try:
+    -> 1327       return fn(*args)
+       1328     except errors.OpError as e:
+
+
+        /usr/lib/python3.6/site-packages/tensorflow/python/client/session.py in \_run\_fn(feed\_dict, fetch\_list, target\_list, options, run\_metadata)
+       1311       return self.\_call\_tf\_sessionrun(
+    -> 1312           options, feed\_dict, fetch\_list, target\_list, run\_metadata)
+       1313 
+
+
+        /usr/lib/python3.6/site-packages/tensorflow/python/client/session.py in \_call\_tf\_sessionrun(self, options, feed\_dict, fetch\_list, target\_list, run\_metadata)
+       1419             self.\_session, options, feed\_dict, fetch\_list, target\_list,
+    -> 1420             status, run\_metadata)
+       1421 
+
+
+        /usr/lib/python3.6/site-packages/tensorflow/python/framework/errors\_impl.py in \_\_exit\_\_(self, type\_arg, value\_arg, traceback\_arg)
+        515             compat.as\_text(c\_api.TF\_Message(self.status.status)),
+    --> 516             c\_api.TF\_GetCode(self.status.status))
+        517     \# Delete the underlying status object from memory otherwise it stays alive
+
+
+        FailedPreconditionError: Attempting to use uninitialized value w2
+    	 [[Node: \_retval\_w2\_0\_0 = \_Retval[T=DT\_INT32, index=0, \_device="/job:localhost/replica:0/task:0/device:CPU:0"](w2)]]
+
+        
+    During handling of the above exception, another exception occurred:
+
+
+        FailedPreconditionError                   Traceback (most recent call last)
+
+        <ipython-input-12-c10f8d6b307c> in <module>()
+          1 with tf.Session(graph=g2) as sess:
+          2     sess.run(init\_op)
+    ----> 3     print('w2:', sess.run(w2))
+    
+
+        /usr/lib/python3.6/site-packages/tensorflow/python/client/session.py in run(self, fetches, feed\_dict, options, run\_metadata)
+        903     try:
+        904       result = self.\_run(None, fetches, feed\_dict, options\_ptr,
+    --> 905                          run\_metadata\_ptr)
+        906       if run\_metadata:
+        907         proto\_data = tf\_session.TF\_GetBuffer(run\_metadata\_ptr)
+
+
+        /usr/lib/python3.6/site-packages/tensorflow/python/client/session.py in \_run(self, handle, fetches, feed\_dict, options, run\_metadata)
+       1138     if final\_fetches or final\_targets or (handle and feed\_dict\_tensor):
+       1139       results = self.\_do\_run(handle, final\_targets, final\_fetches,
+    -> 1140                              feed\_dict\_tensor, options, run\_metadata)
+       1141     else:
+       1142       results = []
+
+
+        /usr/lib/python3.6/site-packages/tensorflow/python/client/session.py in \_do\_run(self, handle, target\_list, fetch\_list, feed\_dict, options, run\_metadata)
+       1319     if handle is None:
+       1320       return self.\_do\_call(\_run\_fn, feeds, fetches, targets, options,
+    -> 1321                            run\_metadata)
+       1322     else:
+       1323       return self.\_do\_call(\_prun\_fn, handle, feeds, fetches)
+
+
+        /usr/lib/python3.6/site-packages/tensorflow/python/client/session.py in \_do\_call(self, fn, *args)
+       1338         except KeyError:
+       1339           pass
+    -> 1340       raise type(e)(node\_def, op, message)
+       1341 
+       1342   def \_extend\_graph(self):
+
+
+        FailedPreconditionError: Attempting to use uninitialized value w2
+    	 [[Node: \_retval\_w2\_0\_0 = \_Retval[T=DT\_INT32, index=0, \_device="/job:localhost/replica:0/task:0/device:CPU:0"](w2)]]
+
+    \end{Verbatim}
+
+    As shown in the code example, executing the graph raises an error
+because \emph{w2} was not initialized via \emph{sess.run(init\_op)}, and
+therefore, could not be evaluated. The operator \emph{init\_op} was
+defined prior to adding \emph{w2} to the graph; thus, executing
+\emph{init\_op} will not initialize \emph{w2}.
+
+    \subsection{Variable scope}\label{variable-scope}
+
+    In this subsection, we are going to discuss \emph{scoping}, which is an
+important concept in TensorFlow, and especially useful if we are
+constructing large neural network graphs.
+
+With variable scopes, we can organize the variables into separate
+subparts. When we create a variable scope, the name of operations and
+tensors that are created within that scope are prefixed with that scope,
+and those scopes can further be nested. For example, if we have two
+subnetworks, where each subnetwork has several layers, we can define two
+scopes named \emph{'net\_A'} and \emph{'net\_B'}, respectively. Then,
+each layer will be defined within one of these scopes.
+
+Let's see how the variable names will turn out in the following code
+example:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         
+         \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{net\PYZus{}A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{layer\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{w1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{layer\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{w2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{net\PYZus{}B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{layer\PYZhy{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{w3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{w1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{w2}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{w3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<tf.Variable 'net\_A/layer-1/weights:0' shape=(10, 4) dtype=float32\_ref>
+<tf.Variable 'net\_A/layer-2/weights:0' shape=(20, 10) dtype=float32\_ref>
+<tf.Variable 'net\_B/layer-1/weights:0' shape=(10, 4) dtype=float32\_ref>
+
+    \end{Verbatim}
+
+    Notice that the variables names are now prefixed with their nested
+scopes, separated by the forward slash \emph{'/'} symbol.
+
+    \subsection{Reusing variables}\label{reusing-variables}
+
+    Let's imagine that we are developing a somewhat complex neural network
+model that has a classifier whose input data comes from more than once
+source. For example, we will assume that we have data \((X_A, y_A)\)
+coming from source \(A\) and data \((X_B, y_B)\) comes from the source
+\(B\). In this example, we will design our graph in such a way that it
+will use the data from only one source as input tensor to build the
+network. Then, we can feed the data from the other source to the same
+classifier.
+
+In the following example, we assume that data from source \(A\) is fed
+through placeholder, and source \(B\) is the output of a generator
+network. We will build by calling the \emph{build\_generator} function
+within the \emph{generator} scope, then we will add a classifier by
+calling \emph{build\_classifier} within the \emph{classifier} scope:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         
+         \PY{k}{def} \PY{n+nf}{build\PYZus{}classifier}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{n\PYZus{}classes}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{data\PYZus{}shape} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{get\PYZus{}shape}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{as\PYZus{}list}\PY{p}{(}\PY{p}{)}
+             \PY{n}{weights} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}variable}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                       \PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{data\PYZus{}shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                              \PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{,} 
+                                       \PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+             \PY{n}{bias} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{get\PYZus{}variable}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bias}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                    \PY{n}{initializer}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{)}
+             \PY{n}{logits} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{weights}\PY{p}{)}\PY{p}{,} \PY{n}{bias}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{logits}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{softmax}\PY{p}{(}\PY{n}{logits}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{build\PYZus{}generator}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{n\PYZus{}hidden}\PY{p}{)}\PY{p}{:}
+             \PY{n}{data\PYZus{}shape} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{get\PYZus{}shape}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{as\PYZus{}list}\PY{p}{(}\PY{p}{)}
+             \PY{n}{w1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{data\PYZus{}shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{n\PYZus{}hidden}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{b1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{n\PYZus{}hidden}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{hidden} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{w1}\PY{p}{)}\PY{p}{,} \PY{n}{b1}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hidden\PYZus{}pre\PYZhy{}activation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{hidden} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n}{hidden}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hidden\PYZus{}activation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{w2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{n\PYZus{}hidden}\PY{p}{,} \PY{n}{data\PYZus{}shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{b2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{data\PYZus{}shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{output} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{hidden}\PY{p}{,} \PY{n}{w2}\PY{p}{)}\PY{p}{,} \PY{n}{b2}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{output}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{output}\PY{p}{)}
+         
+         \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{64}
+         \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tf\PYZus{}X} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} 
+                                   \PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                                   \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{generator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{gen\PYZus{}out1} \PY{o}{=} \PY{n}{build\PYZus{}generator}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{tf\PYZus{}X}\PY{p}{,} \PY{n}{n\PYZus{}hidden}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+             
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{scope}\PY{p}{:}
+                 \PY{n}{cls\PYZus{}out1} \PY{o}{=} \PY{n}{build\PYZus{}classifier}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{tf\PYZus{}X}\PY{p}{,} 
+                                             \PY{n}{labels}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{scope}\PY{o}{.}\PY{n}{reuse\PYZus{}variables}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{cls\PYZus{}out2} \PY{o}{=} \PY{n}{build\PYZus{}classifier}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{gen\PYZus{}out1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    Notice that we have called the \emph{build\_classifier} function two
+times. The first call causes the building of the network. Then, we call
+\emph{scope.reuse\_variables()} and call that function again. As a
+result, the second call does not create new variables; instead, it
+reuses the same variables. Alternatively, we could reuse the variables
+by specifying the \emph{reuse=True} parameter, as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tf\PYZus{}X} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} 
+                                   \PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                                   \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{generator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{gen\PYZus{}out1} \PY{o}{=} \PY{n}{build\PYZus{}generator}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{tf\PYZus{}X}\PY{p}{,} \PY{n}{n\PYZus{}hidden}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+             
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{cls\PYZus{}out1} \PY{o}{=} \PY{n}{build\PYZus{}classifier}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{tf\PYZus{}X}\PY{p}{,} 
+                                             \PY{n}{labels}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{reuse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{cls\PYZus{}out2} \PY{o}{=} \PY{n}{build\PYZus{}classifier}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{gen\PYZus{}out1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    While we have discussed how to define computational graphs and variables
+in TensorFlow, a detailed discussion of how we can compute gradients in
+a computational graph is beyond the scope of this book, where we use
+TensorFlow's convenient optimizer classes that perform backpropagation
+automatically for us.
+
+    \section{Bulding a regression model}\label{bulding-a-regression-model}
+
+    Since we have explored placeholders and variables, let's build an
+example model for regression analysis, similar to the one we created in
+previous chapter, where our goal is to implement a linear regression
+model: \(ŷ = wx + b\).
+
+In this model, \(w\) and \(b\) are the two parameters of this simple
+regression model that need to be defined as variables. Note that \(x\)
+is the input of the model, which we can define as placeholder.
+Furthermore, recall that for training this model, we need to formulate a
+cost function. Here, we use the \textbf{Mean Squared Error (MSE)} cost
+function:
+
+\[MSE = \frac{1}{n}\sum_{i=1}^n \left(y^{(i)}-ŷ^{(i)}\right)^2\]
+
+Here, \(y\) is the true value, which is given as the input to this model
+for training. Therefore, we need to define \(y\) as a placeholder as
+well. Finally, \(ŷ\) is the prediction output, which will be computed
+using TensorFlow operations - \emph{tf.matmul} and \emph{tf.add}. Recall
+that TensorFlow operations return zero or more tensors; here,
+\emph{tf.matmul} and \emph{tf.add} return one tensor.
+
+We can also use the overloaded operator \emph{+} for adding two tensors;
+however, the advantage of \emph{tf.add} is that we can provide an
+additional name for the resulting tensor via the \emph{name} parameter.
+
+So, let's summarize all our tensors with their mathematical notations
+and coding naming, as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  Input \(x\): \emph{tf\_x} defined as a placeholder
+\item
+  Input \(y\): \emph{tf\_y} defined as a placeholder
+\item
+  Model parameter \(w\): \emph{weight} defined as a variable
+\item
+  Model parameter \(b\): \emph{bias} defined as a variable
+\item
+  Model output \$\$ŷ: \$y\_hat* returned by the TensorFlow operations to
+  compute the prediction using the regression model
+\end{itemize}
+
+The code to implement this simple regression model is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tf}\PY{o}{.}\PY{n}{set\PYZus{}random\PYZus{}seed}\PY{p}{(}\PY{l+m+mi}{123}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} placeholders}
+             \PY{n}{tf\PYZus{}x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{)}\PY{p}{,} 
+                                   \PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                                   \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{tf\PYZus{}y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{k+kc}{None}\PY{p}{)}\PY{p}{,} 
+                                   \PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                                   \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} define the variable (model parameters)}
+             \PY{n}{weight} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} 
+                                                   \PY{n}{stddev}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{)}\PY{p}{,} 
+                                  \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{bias} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bias}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} build the model}
+             \PY{n}{y\PYZus{}hat} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{weight} \PY{o}{*} \PY{n}{tf\PYZus{}x}\PY{p}{,} \PY{n}{bias}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}hat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} compute the cost}
+             \PY{n}{cost} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{tf\PYZus{}y} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}hat}\PY{p}{)}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} train the model}
+             \PY{n}{optim} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{GradientDescentOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}
+             \PY{n}{train\PYZus{}op} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{cost}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}op}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Now that we have built the graph, our next steps are to create a session
+to launch the graph and train the model. But before we go further, let's
+see how we can evaluate tensors and execute operations. We will create a
+random regression data with one feature, using the
+\emph{make\_random\_data} function and visualizing the data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} create a random toy dataset for regression}
+         
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{make\PYZus{}random\PYZus{}data}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{low}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{high}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{x}\PY{p}{:}
+                 \PY{n}{r} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.5} \PY{o}{+} \PY{n}{t}\PY{o}{*}\PY{n}{t}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} 
+                                      \PY{n}{size}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+                 \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{r}\PY{p}{)}
+             \PY{k}{return} \PY{n}{x}\PY{p}{,} \PY{l+m+mf}{1.726}\PY{o}{*}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.84} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+         
+         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{make\PYZus{}random\PYZus{}data}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Now we are ready; let's train the previous model. Let's start by
+creating a TensorFlow session object called \emph{sess}. Then, we want
+to initialize our variables which, as we saw, we can do with
+\emph{sess.run(tf.global\_variables\_initializer())}. After this, we can
+create a \emph{for} loop to execute the train operator and calculate the
+training cost at the same time.
+
+So let's combine the two tasks, the first to execute an operator, and
+the second to evaluate a tensor, into one \emph{sess.run} method call.
+The code for this is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} train/test splits}
+         
+         \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{]}
+         \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{:}\PY{p}{]}
+         
+         \PY{n}{n\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{500}
+         \PY{n}{training\PYZus{}costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} train the model for n\PYZus{}epochs}
+             \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}epochs}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{c}\PY{p}{,} \PY{n}{\PYZus{}}  \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{cost}\PY{p}{,} \PY{n}{train\PYZus{}op}\PY{p}{]}\PY{p}{,} 
+                                  \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{tf\PYZus{}x}\PY{p}{:} \PY{n}{x\PYZus{}train}\PY{p}{,} 
+                                             \PY{n}{tf\PYZus{}y}\PY{p}{:} \PY{n}{y\PYZus{}train}\PY{p}{\PYZcb{}}\PY{p}{)}
+                 \PY{n}{training\PYZus{}costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n}{e} \PY{o}{\PYZpc{}} \PY{l+m+mi}{50}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch }\PY{l+s+si}{\PYZpc{}4d}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{e}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{)}
+                     
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{training\PYZus{}costs}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch    0: 12.2230
+Epoch   50: 8.3876
+Epoch  100: 6.5721
+Epoch  150: 5.6844
+Epoch  200: 5.2269
+Epoch  250: 4.9725
+Epoch  300: 4.8169
+Epoch  350: 4.7119
+Epoch  400: 4.6347
+Epoch  450: 4.5742
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Executing objects in a TensorFlow graph using their
+names}\label{executing-objects-in-a-tensorflow-graph-using-their-names}
+
+    Executing variables and operators by their names is very useful in many
+scenarios. For example, we may develop a model in a separate module; and
+thus the variables are not available in a different Python scope
+according to Python scoping rules. However, if we have a graph, we can
+execute the nodes of the graph using their names in the graph.
+
+This can be done easily by changing the \emph{sess.run} method from the
+previous code example, using the variable name of the \textbf{cost} in
+the graph rather than the Python variable \emph{cost} by changing
+\emph{sess.run({[}cost, train\_op{]}, ...)} to
+\emph{sess.run({[}'cost:0', 'train\_op'{]}, ...)}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{n\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{500}
+         \PY{n}{training\PYZus{}costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} train the model for n\PYZus{}epochs}
+             \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}epochs}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{c}\PY{p}{,} \PY{n}{\PYZus{}}  \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}op}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                  \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{x\PYZus{}train}\PY{p}{,} 
+                                             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}y:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{y\PYZus{}train}\PY{p}{\PYZcb{}}\PY{p}{)}
+                 \PY{n}{training\PYZus{}costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n}{e} \PY{o}{\PYZpc{}} \PY{l+m+mi}{50}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch }\PY{l+s+si}{\PYZpc{}4d}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{e}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{)}
+                     
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{training\PYZus{}costs}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch    0: 12.2230
+Epoch   50: 8.3876
+Epoch  100: 6.5721
+Epoch  150: 5.6844
+Epoch  200: 5.2269
+Epoch  250: 4.9725
+Epoch  300: 4.8169
+Epoch  350: 4.7119
+Epoch  400: 4.6347
+Epoch  450: 4.5742
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Notice that we are evaluating the cost by its name, which is
+\emph{'cost:0'}, and executing the train operator by its name:
+\emph{'train\_op'}. Also, in \emph{feed\_dict}, instead of using
+\emph{tf\_x: x\_train}, we are using \emph{'tf\_x:0': x\_train}.
+
+If we pay attention to the names of the tensors, we will notice that
+TensorFlow adds a sufix \emph{':0'} to the name of the tensors.
+
+However, the names of operators do not have any suffix like that. When a
+tensor with a given name, such as \emph{name='my\_tensor'} is created,
+TensorFlow appends \emph{':0'}; so the name of this tensor will be
+\emph{'my\_tensor:0'}.
+
+Then, if we try to create another tensor with the same name in the same
+graph, TensorFlow will append *'\_1:0'* and so on to the name;
+therefore, the future tensors will be named \emph{'my\_tensor\_1:0'},
+\emph{'my\_tensor\_2:0'}, and so on. This naming assumes that we are not
+trying to reuse the already created tensor.
+
+    \section{Saving and restoring a model in
+TensorFlow}\label{saving-and-restoring-a-model-in-tensorflow}
+
+    In the previous section, we built a graph and trained it. How about
+doing the actual prediction on the held out test set? The problem is
+that we did not save the model parameters; so, once the executing of the
+preceding statements are finished and we exit the \emph{tf.Session}
+environment, all the variables and their allocated memories are freed.
+
+One solution is to train a model, and as soon as the training is
+finished, we can feed it our test set. However, this is not a good
+approach since deep neural network models are typically trained over
+multiple hours, days, or even weeks.
+
+The best approach is to save the trained model for future use. For this
+purpose, we need to add a new node to the Graph, an instance of the
+\emph{tf.train.Saver} class, which we call \emph{saver}.
+
+In the following statement, we can add more nodes to a particular graph.
+In this case, we are addding \emph{saver} to the graph \emph{g}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{saver} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{Saver}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Next, we can retrain the model with an additional call to
+\emph{saver.save()} to save the model as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{n\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{500}
+         \PY{n}{training\PYZus{}costs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} train the model for n\PYZus{}epochs}
+             \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}epochs}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{c}\PY{p}{,} \PY{n}{\PYZus{}}  \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{cost}\PY{p}{,} \PY{n}{train\PYZus{}op}\PY{p}{]}\PY{p}{,} 
+                                  \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{tf\PYZus{}x}\PY{p}{:} \PY{n}{x\PYZus{}train}\PY{p}{,} 
+                                             \PY{n}{tf\PYZus{}y}\PY{p}{:} \PY{n}{y\PYZus{}train}\PY{p}{\PYZcb{}}\PY{p}{)}
+                 \PY{n}{training\PYZus{}costs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n}{e} \PY{o}{\PYZpc{}} \PY{l+m+mi}{50}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch }\PY{l+s+si}{\PYZpc{}4d}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{e}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{)}
+                     
+                 \PY{n}{saver}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./trained\PYZhy{}model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch    0: 12.2230
+Epoch   50: 8.3876
+Epoch  100: 6.5721
+Epoch  150: 5.6844
+Epoch  200: 5.2269
+Epoch  250: 4.9725
+Epoch  300: 4.8169
+Epoch  350: 4.7119
+Epoch  400: 4.6347
+Epoch  450: 4.5742
+
+    \end{Verbatim}
+
+    As a result of this new statement, three files are created with
+extensions \emph{.data}, \emph{.index}, and \emph{.meta}. TensorFlow
+uses Protocol Buffers, which is a language-agnostic way, for serializing
+structured data.
+
+Restoring a trained model requires two steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Rebuild the graph that has the same nodes and names as the saved
+  model.
+\item
+  Restore the saved variables in a new \emph{tf.Session} environment.
+\end{enumerate}
+
+For the first step, we can run the statements, as we did in the first
+place, to build the graph \emph{g}. But there is a much easier way to do
+this. Note that all of the information regarding the graph is saved as
+metadata in the file with the \emph{.meta} extension. Using the
+following code, we rebuild the graph by importing it from the meta file:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{new\PYZus{}saver} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{import\PYZus{}meta\PYZus{}graph}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./trained\PYZhy{}model.meta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    The \emph{tf.train.import\_meta\_graph} function recreates the graph
+that is saved in the \emph{'./trained-model.meta'} file. After
+recreating the graph, we can use the \emph{new\_saver} object to restore
+the parameters of the model in that session and execute it. The complete
+code to run the model on a test set is as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{g2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g2}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{new\PYZus{}saver} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{import\PYZus{}meta\PYZus{}graph}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./trained\PYZhy{}model.meta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{new\PYZus{}saver}\PY{o}{.}\PY{n}{restore}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./trained\PYZhy{}model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}hat:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{x\PYZus{}test}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+INFO:tensorflow:Restoring parameters from ./trained-model
+
+    \end{Verbatim}
+
+    Note that we evaluated \(ŷ\) tensor by its name that was given
+previously: \emph{'y\_hat:0'}. Also, we needed to feed the values for
+the \emph{tf\_x} placeholder, which is also done by its name:
+\emph{'tf\_x:0'}. In this case, there is no need to feed the values for
+the true \(y\) values. This is because executing the \emph{y\_hat} node
+does not depend on \emph{tf\_y} in the computation graph that we built.
+
+Now, let's visualize the predictions, as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{x\PYZus{}arr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}
+         
+         \PY{n}{g2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g2}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{new\PYZus{}saver} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{import\PYZus{}meta\PYZus{}graph}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./trained\PYZhy{}model.meta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{new\PYZus{}saver}\PY{o}{.}\PY{n}{restore}\PY{p}{(}\PY{n}{sess}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./trained\PYZhy{}model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{y\PYZus{}arr} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}hat:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{x\PYZus{}arr}\PY{p}{\PYZcb{}}\PY{p}{)}
+             
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x\PYZus{}arr}\PY{p}{,} \PY{n}{y\PYZus{}arr}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lw}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+INFO:tensorflow:Restoring parameters from ./trained-model
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Saving and restoring a model is very often used during the training
+stage of large models as well. Since the training stage of large models
+can take several hours to days, we can break the training phase into
+smaller tasks. For example, if the intended number of epochs is 100, we
+can break it into 25 tasks, where each task would run four epochs one
+after the other. For this purpose, we can save the trained model and
+restore it in the next task.
+
+    \section{Transforming Tensors as multidimensional data
+arrays}\label{transforming-tensors-as-multidimensional-data-arrays}
+
+    In this section, we explore a selection of operators that can be used to
+transform tensors. Note that some of these operators work very similar
+to NumPy array transformations. However, when we are dealing with
+tensors with ranks higher than 2, we need to be careful in using such
+transformations, for example, the transpose of a tensor.
+
+First, as in NumPy, we can use the attribute \emph{arr.shape} to get the
+shape of a NumPy array. In TensorFlow, we use the \emph{tf.get\_shape}
+function instead:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{arr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{2.}\PY{p}{,} \PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{3.5}\PY{p}{]}\PY{p}{,} 
+                             \PY{p}{[}\PY{l+m+mf}{4.}\PY{p}{,} \PY{l+m+mf}{5.}\PY{p}{,} \PY{l+m+mf}{6.}\PY{p}{,} \PY{l+m+mf}{6.5}\PY{p}{]}\PY{p}{,} 
+                             \PY{p}{[}\PY{l+m+mf}{7.}\PY{p}{,} \PY{l+m+mf}{8.}\PY{p}{,} \PY{l+m+mf}{9.}\PY{p}{,} \PY{l+m+mf}{9.5}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+             \PY{n}{T1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{n}{arr}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{T1}\PY{p}{)}
+             \PY{n}{s} \PY{o}{=} \PY{n}{T1}\PY{o}{.}\PY{n}{get\PYZus{}shape}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shape of T1 is }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{)}
+             \PY{n}{T2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{s}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{T2}\PY{p}{)}
+             \PY{n}{T3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{s}\PY{o}{.}\PY{n}{as\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{T3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("T1:0", shape=(3, 4), dtype=float64)
+Shape of T1 is  (3, 4)
+<tf.Variable 'Variable:0' shape=(3, 4) dtype=float32\_ref>
+<tf.Variable 'Variable\_1:0' shape=(3,) dtype=float32\_ref>
+
+    \end{Verbatim}
+
+    Notice that we used \emph{s} to create \emph{T2}, but we cannot slice or
+index \emph{s} for creating \emph{T3}. Therefore, we converted \emph{s}
+into a regular Python list by \emph{s.as\_list()} and then used the
+usual indexing conventions.
+
+Now, let's see how we can reshape tensors. Recall that in NumPy, we can
+use \emph{np.reshape} or \emph{arr.reshape} for this purpose. In
+TensorFlow, we use the function \emph{tf.reshape} to reshape a tensor.
+As is the case for NumPy, one dimension can be set to -1 so that the
+size of the new dimension will be inferred based on the total size of
+the array and the other remaining dimensions that are specified.
+
+In the following code, we reshape the tensor \emph{T1} to \emph{T4} and
+\emph{T5}, both of which have rank 3:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{T4} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{T1}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{T4}\PY{p}{)}
+             
+             \PY{n}{T5} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{T1}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{T5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("T4:0", shape=(1, 1, 12), dtype=float64)
+Tensor("T5:0", shape=(1, 3, 4), dtype=float64)
+
+    \end{Verbatim}
+
+    Next, let's print the elements of \emph{T4} and \emph{T5}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{T4}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{T5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[[1.  2.  3.  3.5 4.  5.  6.  6.5 7.  8.  9.  9.5]]]
+
+[[[1.  2.  3.  3.5]
+  [4.  5.  6.  6.5]
+  [7.  8.  9.  9.5]]]
+
+    \end{Verbatim}
+
+    As we know, there are there ways to transpose an array in NumPy:
+\emph{arr.T}, \emph{arr.transpose()}, and \emph{np.transpose(arr)}. In
+TensorFlow, we use the \emph{tf.transpose} function instead, and in
+addition to a regular transpose operation, we can change the order of
+dimensions in any way we want by specifying the order in
+\emph{perm={[}...{]}}. Here is an example:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{T6} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{T5}\PY{p}{,} \PY{n}{perm}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{T6}\PY{p}{)}
+             
+             \PY{n}{T7} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{T5}\PY{p}{,} \PY{n}{perm}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{T7}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("T6:0", shape=(4, 3, 1), dtype=float64)
+Tensor("T7:0", shape=(1, 4, 3), dtype=float64)
+
+    \end{Verbatim}
+
+    Next, we can also split a tensor into a list of subtensors using the
+\emph{tf.split} function, as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{t5\PYZus{}split} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{T5}\PY{p}{,} \PY{n}{num\PYZus{}or\PYZus{}size\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{t5\PYZus{}split}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[<tf.Tensor 'T8:0' shape=(1, 3, 2) dtype=float64>, <tf.Tensor 'T8:1' shape=(1, 3, 2) dtype=float64>]
+
+    \end{Verbatim}
+
+    Here, it is important to note that the output is not a tensor object
+anymore; rather, it is a list of tensors. The name of these subtensors
+are \emph{'T8:0'} and \emph{'T8:1'}.
+
+Lastly, another useful transformation is the concatenation of multiple
+tensors. If we have a list of tensors with the same shape and
+\emph{dtype}, we can combine them into one big tensor using the
+\emph{tf.concat} function. An example is given in the following code:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{t1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{t2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{t1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{t2}\PY{p}{)}
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{t3} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{t1}\PY{p}{,} \PY{n}{t2}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{t3}\PY{p}{)}
+             \PY{n}{t4} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{t1}\PY{p}{,} \PY{n}{t2}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{t4}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tensor("t1:0", shape=(5, 1), dtype=float32)
+Tensor("t2:0", shape=(5, 1), dtype=float32)
+Tensor("t3:0", shape=(10, 1), dtype=float32)
+Tensor("t4:0", shape=(5, 2), dtype=float32)
+
+    \end{Verbatim}
+
+    Let's print the values of these concatenated tensors:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{t3}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{t4}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1.]
+ [1.]
+ [1.]
+ [1.]
+ [1.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]
+ [0.]]
+
+[[1. 0.]
+ [1. 0.]
+ [1. 0.]
+ [1. 0.]
+ [1. 0.]]
+
+    \end{Verbatim}
+
+    \section{Utilizing control flow mechanics in building
+graphs}\label{utilizing-control-flow-mechanics-in-building-graphs}
+
+    Now let's learn about an interesting TensorFlow mechanic. TensorFlow
+provides a mechanism for making decisions when building a graph.
+However, there are some subtle differences when we use Python's control
+flow statements compared to TensorFlow's control flow functions, when
+constructing computation graphs.
+
+To illustrate these differences with some simple code examples, let's
+consider implementing the following equation in TensorFlow:
+
+\[
+res = 
+\begin{cases}
+    x + y   &\text{if}\, x < y \\
+    x - y   &\text{otherwise}
+\end{cases}
+\]
+
+In the following code, we may naively use Python's \emph{if} statement
+to build a graph that corresponds to the preceding equation:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         
+         \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}
+         
+         \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tf\PYZus{}x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                                   \PY{n}{shape}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{tf\PYZus{}y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                                   \PY{n}{shape}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{y}\PY{p}{:}
+                 \PY{n}{res} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tf\PYZus{}x}\PY{p}{,} \PY{n}{tf\PYZus{}y}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{result\PYZus{}add}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{res} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{subtract}\PY{p}{(}\PY{n}{tf\PYZus{}x}\PY{p}{,} \PY{n}{tf\PYZus{}y}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{result\PYZus{}sub}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Object:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{res}\PY{p}{)}
+             
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x \PYZlt{} y: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ \PYZhy{}\PYZgt{} Result:}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{res}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}y:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{y}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+             \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{2.0}\PY{p}{,} \PY{l+m+mf}{1.0}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x \PYZlt{} y: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ \PYZhy{}\PYZgt{} Result:}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{res}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}y:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{y}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Object: Tensor("result\_add:0", dtype=float32)
+x < y: True -> Result: 3.0
+x < y: False -> Result: 3.0
+
+    \end{Verbatim}
+
+    As you can see, the \emph{res} object is a tensor named
+\emph{'result\_add:0'}. It is very important to understand that in the
+previous mechanism, the computation graph has only one branch associated
+with the addition operator, and the subtract operator has not been
+called.
+
+The TensorFlow computation graph is static, which means that once the
+computation graph is built, it remains unchanged during the executing
+process. So, even when we change the values of \emph{x} and \emph{y} and
+feed the new values to the graph, these new tensors will go through the
+same path in the graph. Therefore, in both cases, we see the same output
+3.0 for \(x=2,y=1\) and for \(x=1,y=2\).
+
+Now, let's use the control flow mechanics in TensorFlow. In the
+following code, we implement the previous equation using the
+\emph{tf.cond} function instead of Python's \emph{if} statement:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+         
+         \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{2.0}
+         
+         \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tf\PYZus{}x} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{tf\PYZus{}y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{res} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{cond}\PY{p}{(}\PY{n}{tf\PYZus{}x} \PY{o}{\PYZlt{}} \PY{n}{tf\PYZus{}y}\PY{p}{,} \PY{k}{lambda}\PY{p}{:} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{tf\PYZus{}x}\PY{p}{,} \PY{n}{tf\PYZus{}y}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{result\PYZus{}add}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                                        \PY{k}{lambda}\PY{p}{:} \PY{n}{tf}\PY{o}{.}\PY{n}{subtract}\PY{p}{(}\PY{n}{tf\PYZus{}x}\PY{p}{,} \PY{n}{tf\PYZus{}y}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{result\PYZus{}sub}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Object:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{res}\PY{p}{)}
+             
+         \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x \PYZlt{} y: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ \PYZhy{}\PYZgt{} Result:}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{res}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}y:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{y}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+             \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+m+mf}{2.0}\PY{p}{,} \PY{l+m+mf}{1.0}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x \PYZlt{} y: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ \PYZhy{}\PYZgt{} Result:}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{res}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}x:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}y:0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{y}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Object: Tensor("cond/Merge:0", dtype=float32)
+x < y: True -> Result: 3.0
+x < y: False -> Result: 1.0
+
+    \end{Verbatim}
+
+    Here, we can see that the \emph{res} object is named
+\emph{'cond/Merge:0'}. In this case, the computation graph has two
+branches with a mechanism to decide which branch to follow at execution
+time. Therefore, when \(x=2,y=1\), it follows the addition branch and
+the output will be 3.0, while for \(x=1,y=2\), the subtraction branch is
+pursued and the result will be 1.0.
+
+The following figure contrast the differences in the computation graph
+of the previous implementation using the Python \emph{if} statement
+versus TensorFlow's \emph{tf.cond} function:
+
+    In addition to \emph{tf.cond}, TensorFlow offers several other control
+flow tensors, such as \emph{tf.case} and \emph{tf.while\_loop}. For
+instance, \emph{tf.case} is the TensorFlow control equivalent to a
+Python \emph{if...else} statement. Consider the following Python
+expression:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+             \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{k}{else}\PY{p}{:}
+             \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    The \emph{tf.case} equivalent to the previous statement for conditional
+execution in a TensorFlow graph would then be implemented as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{f1} \PY{o}{=} \PY{k}{lambda}\PY{p}{:} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{f2} \PY{o}{=} \PY{k}{lambda}\PY{p}{:} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{result} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{case}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{less}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{f1}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{default}\PY{o}{=}\PY{n}{f2}\PY{p}{)}
+\end{Verbatim}
+
+
+    Similarly, we can add a \emph{while} loop to a TensorFlow graph that
+increments the \emph{i} variable until a threshold value
+(\emph{threshold}) is reached, as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{i} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{constant}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{threshold} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{c} \PY{o}{=} \PY{k}{lambda} \PY{n}{i}\PY{p}{:} \PY{n}{tf}\PY{o}{.}\PY{n}{less}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{k}{lambda} \PY{n}{i}\PY{p}{:} \PY{n}{tf}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{i} \PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{t} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{while\PYZus{}loop}\PY{p}{(}\PY{n}{cond}\PY{o}{=}\PY{n}{c}\PY{p}{,} \PY{n}{body}\PY{o}{=}\PY{n}{b}\PY{p}{,} \PY{n}{loop\PYZus{}vars}\PY{o}{=}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Visualizing the graph with
+TensorBoard}\label{visualizing-the-graph-with-tensorboard}
+
+    A great feature of TensorFlow is TensorBoard, which is a module for
+visualizing the graph as well as visualizing the learning of a model.
+Visualizing the graph allows us to see the connection between nodes,
+explore their dependencies, and debug the model if needed.
+
+So let's visualize a network that we have already built, one which
+consists of a generator and a classifier part. We will repeat some code
+that we previously used for defining the helper functions. So, revisit
+the \emph{Reusing variables} section earlier in this chapter, for the
+function definitions of \emph{build\_generator} and
+\emph{build\_classifier}. Using these two helper functions, we will
+build the graph as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{batch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{64}
+         \PY{n}{g} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Graph}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{with} \PY{n}{g}\PY{o}{.}\PY{n}{as\PYZus{}default}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tf\PYZus{}X} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} 
+                                   \PY{n}{dtype}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,} 
+                                   \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tf\PYZus{}X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} build the generator}
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{generator}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{gen\PYZus{}out1} \PY{o}{=} \PY{n}{build\PYZus{}generator}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{tf\PYZus{}X}\PY{p}{,} \PY{n}{n\PYZus{}hidden}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+                 
+             \PY{c+c1}{\PYZsh{}\PYZsh{} build the classifier}
+             \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{variable\PYZus{}scope}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{scope}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{} classifier for the original data:}
+                 \PY{n}{cls\PYZus{}out1} \PY{o}{=} \PY{n}{build\PYZus{}classifier}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{tf\PYZus{}X}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{} reuse the classifier for generated data}
+                 \PY{n}{scope}\PY{o}{.}\PY{n}{reuse\PYZus{}variables}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{cls\PYZus{}out2} \PY{o}{=} \PY{n}{build\PYZus{}classifier}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{gen\PYZus{}out1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{tf}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{n}{batch\PYZus{}size}\PY{p}{)}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    Note that no changes were needed so far for building the graph. So after
+building the graph, its visualization is straighforward. The following
+lines of code export the graph for visualization purposes:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+             \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{file\PYZus{}writer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{summary}\PY{o}{.}\PY{n}{FileWriter}\PY{p}{(}\PY{n}{logdir}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./logs/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{graph}\PY{o}{=}\PY{n}{g}\PY{p}{)}
+\end{Verbatim}
+
+
+    This will create a new directory: \emph{logs/}. Now, we just need to run
+the following command in a terminal:
+
+\textbf{tensorboard -\/-logdir logs}
+
+This command will print a message, which is a URL address. You can try
+launching TensorBoard by copying the link and pasting it into your
+browser's address bar. You should see the graph that corresponds to this
+model, as shown in the following figure:
+
+    The large rectangular boxes indicate the two subnetworks that we built:
+generator and classifier. Since we used the \emph{tf.variable\_scope}
+function when we built this graph, all the components of each of these
+subnetworks are grouped into those rectangular boxes, as shown in the
+previous figure.
+
+We can expand these boxes to explore their details: using your mouse,
+click on the plus sign on the top-right corner of these boxes to expand
+them. Doing this, we can see the details of the generator subnetwork, as
+shown in the following figure:
+
+    By exploring this graph, we can easily see that the generator has two
+weight tensors, named \emph{w1} and \emph{w2}. Next, let's expand the
+classifier subnetwork, as shown in the following figure:
+
+    As you can see in this figure, the classifier has two sources of input,
+where one input comes from the \emph{tf\_X} placeholder and the other
+one is in fact the output of the generator subnetwork.
+
+    \subsection{Extending your TensorBoard
+experience}\label{extending-your-tensorboard-experience}
+
+    As an interesting exercise, we suggest you use TensorBoard to visualize
+the different graphs we implemented throughout this chapter. For
+example, you could use similar steps for building the graphs, and then
+add extra lines for their visualization. You can also make graphs for
+the control flow section, which will show you the difference between
+graphs made by the Python \emph{if} statement and the \emph{tf.cond}
+function.
+
+    \section{Summary}\label{summary}
+
+    In this chapter, we covered in detail the key features and concepts of
+TensorFlow. We started with discussing TensorFlow's main features and
+advantages, and key TensorFlow concepts such as ranks and tensors. We
+then looked at TensorFlow's computation graphs, and discussed how to
+launch a graph in a session environment, and you learned about
+placeholders and variables. We then saw different ways to evaluate
+tensors and execute operators, using Python variables, or by referring
+to them via their name in the graph.
+
+We went further to explore some of the essential TensorFlow operators
+and functions for transforming tensors, such as \emph{tf.transpose},
+\emph{tf.reshape}, \emph{tf.split}, and \emph{tf.concat}. Finally, we
+saw how to visualize a TensorFlow computation graph using TensorBoard.
+Visualizing computation graphs using this module can be very useful,
+especially when we are debugging complex models.
+
+In the next chapter, we will make use of this library to implement an
+advanced image classifier: a \textbf{Convolutional Neural Network
+(CNN)}. CNNS are powerful models and have shown great performance in
+image classification and computer vision. We will cover the basic
+operations in CNNs, and we will implement deep convolutional networks
+for image classification using TensorFlow.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

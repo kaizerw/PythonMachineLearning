@@ -1,0 +1,1689 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{12\_Implementing\_A\_Multilayer\_Artificial\_Neural\_Network\_From\_Scratch}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Implementing a Multilayer Artificial Neural Network from
+Scratch}\label{implementing-a-multilayer-artificial-neural-network-from-scratch}
+
+    As you may know, deep learning is getting a lot of attention from the
+press and is without any doubt the hottest topic in machine learning
+field. Deep learning can be understood as a set of algorithms that were
+developed to train artificial neural networks with many layers most
+efficiently. In this chapter, you will learn the basic concepts of
+artificial neural networks so that you will be well-equipped for the
+following chapters, which will introduce advanced Python-based deep
+learning libraries and \textbf{Deep Neural Networks (DNN)} architectures
+that are particularly well-suited for image and text-analyses.
+
+The topics that we will cover in this chapter are as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  Getting a conceptual understanding of multilayer neural networks
+\item
+  Implementing the fundamental backpropagation algorithm for neural
+  network training from scratch
+\item
+  Training a basic multilayer neural network for image classfication
+\end{itemize}
+
+    \section{Modeling complex functions with artificial neural
+networks}\label{modeling-complex-functions-with-artificial-neural-networks}
+
+    At the beginning of this book, we started our journey through machine
+learning algorithms with artificial neurons. Artificial neurons
+represent the building blocks of the multilayer artificial neural
+networks that we will discuss in this chapter. The basic concept behind
+artificial neural networks was built upon hypothesis and models of how
+the human brain works to solve complex problem tasks. Although
+artificial neural networks have gained a lot of popularity in recent
+years, early studies of neural networks go back to the 1940s when Warren
+McCulloch and Walter Pitt first described how neurons could work.
+
+However, in the decades that followed the first implementation of the
+\textbf{McCulloch-Pitt neuron} model - Rosenblatt's perceptron in the
+1950s, many researchers and machine learning practitioners slowly began
+to lose interest in neural networks since no one had a good solution for
+training a neural network with multiple layers. Eventually, interest in
+neural networks was rekindled in 1986 when D.E. Rumelhart, G.E. Hinton,
+and R.J. Williams were involved in the (red)discovery and popularization
+of the backpropagation algorithm to train neural networks more
+efficiently, which we will discuss in more detail later in this chapter.
+Readers who are interested in the history of \textbf{Artificial
+Intelligence (AI)}, machine learning, and neural networks are also
+encouraged to read the Wikipedia article on \emph{AI winter}, which are
+periods of time where a large portion of the research community lost
+interest in the study of neural networks.
+
+However, neural networks have never been as popular as they are today,
+thanks to the many major breakthroughs that have been made in the
+previous decade, which resulted in what we now call deep learning
+algorithms and architectures - neural networks that are composed of many
+layers. Neural networks are a hot topic not only in academic research
+but also in big technology companies such as Facebook, Microsoft, and
+Google, who invest heavily in artificial neural networks and deep
+learning research. As of today, complex neural networks powered by deep
+learning algorithms are considered state of the art when it comes to
+complex problem solving such as image and voice recognition. Popular
+examples of the products in our everyday life that are powered by deep
+learning are Google's image search and Google Translate - an application
+for smartphones than can automatically recognize text in images for
+real-time translation into more than 20 languages.
+
+Many exciting applications of DNNs have been developed at major tech
+companies and the pharmaceutical industry as listed in the following,
+non-comprehensive list of examples:
+
+\begin{itemize}
+\tightlist
+\item
+  Facebook's DeepFace for tagging images
+\item
+  Baidu's DeepSpeech, which is able to handle voice queries in Mandarin
+\item
+  Google's new language translation service
+\item
+  Novel techniques for drug discovery and toxicity prediction
+\item
+  A mobile application that can detect skin cancer with an accuracy
+  similar to professionally trained dermatologists
+\end{itemize}
+
+    \subsection{Single-layer neural network
+recap}\label{single-layer-neural-network-recap}
+
+    This chapter is all about multilayer neural networks, how they work, and
+how to train them to solve complex problems. However, before we dig
+deeper into a particular multilayer neural network architecture, let's
+briefly reiterate some of the concepts of single-layer neural networks
+that we introduced in the beginning of this book, namely, the
+\textbf{ADAptive LInear NEuron (Adaline)} algorithm, which is shown is
+the following figure:
+
+Previously, we implemented the Adaline algorithm to perform binary
+classification, and we used the gradient descent optimization algorithm
+to learn the weight coefficients of the model. In every epoch (pass over
+the training set), we updated the weight vector \(w\) using the
+following update rule:
+
+\[w := w + \Delta w, \text{where} \Delta w = \eta J(w)\]
+
+In other words, we computed the gradient based on the whole training set
+and updated the weights of the model by taking a step into the opposite
+direction of the gradient \(J(w)\). In order to find the optimal weights
+of the model, we optimized an objective function that we defined as the
+\textbf{Sum of Squared Errors (SSE)} cost function \(J(w)\).
+Furthermore, we multiplied the gradient by a factor, the learning rate
+\(\eta\), which we had to choose carefully to balance the speed of
+learning against the risk of overshooting the global minimum of the cost
+function.
+
+In gradient descent optimization, we updated all weights simultaneously
+after each epoch, and we defined the partial derivative for each weight
+\(w_j\) in the weight vector \(w\) as follows:
+
+\[\frac{\partial}{\partial w_j}J(w) = -\sum_i{y^{(i)} - a^{(i)}}x^{(i)}_j\]
+
+Here, \(y^{(i)}\) is the target class label of a particular sample
+\(x^{(i)}\), and \(a^{(i)}\) is the activation of the neuron, which is a
+linear function in the special case of Adaline. Furthermore, we defined
+the activation function \(\phi\) as follows:
+
+\[\phi(z) = z = a\]
+
+Here, the net input \(z\) is a linear combination of the weights that
+are connecting the input to the output layer:
+
+\[z = \sum_j w_jx_j = w^Tx\]
+
+While we used the activation \(\phi(z)\) to compute the gradient update,
+we implemented a threshold function to squash the continuous valued
+output into binary class labels for prediction:
+
+\[ŷ = 1 \, \text{if} \, g(z) \ge 0; -1 \, \text{otherwise}\]
+
+Note that although Adaline consists of two layers, one input layer and
+one output layer, it is called single-layer network because of its
+single link between the input and output layers.
+
+Also, we learned about a certain trick to accelerate the model training,
+the so-called \textbf{stochastic gradient descent} optimization.
+Stochastic gradient descent approximates the cost from a single training
+sample (online learning) or a small subset of training samples
+(mini-batch learning). We will make use of this concept later in this
+chapter when we implement and train a multilayer perceptron. Apart from
+faster learning - due to the more frequent weight updates compared to
+gradient descent - its noisy nature is also regarded as beneficial when
+training multilayer neural networks with non-linear activation
+functions, which do not have a convex cost function. Here, the added
+noise can help to escape local cost minima, but we will discuss this
+topic in more detail later in this chapter.
+
+    \subsection{Introducing the multilayer neural network
+architecture}\label{introducing-the-multilayer-neural-network-architecture}
+
+    In this section, you will learn how to connect multiple single neurons
+to a multilayer feedforward neural network; this special type of
+\emph{fully connected} network is also called \textbf{Multilayer
+Perceptron (MLP)}. The following picture illustrates the concept of an
+MLP consisting of three layers:
+
+The MLP depicted in the preceding figure has one input layer, one hidden
+layer, and one output layer. The units in the hidden layear are fully
+connected to the input layer. If such a network has more than one hidden
+layer, we also call it a \textbf{deep artificial neural network}.
+
+We can add an arbitrary number of hidden layers to the MLP to create
+deeper network architectures. Practically, we can think of the number of
+layers and units in a neural network as additional hyperparameters that
+we want to optimize for a given problem task using cross-validation
+techniques.
+
+However, the error gradients that we will calculate later via
+backpropagation will become increasingly small as more layers are added
+to a network. This vanishing gradient problem makes the model learning
+more challenging. Therefore, special algorithms have been developed to
+help train such deep neural network structures; this is known as
+\textbf{deep learning}.
+
+As shown in the preceding figure, we denote the \emph{i}th activation
+unit in the \emph{l}th layer as \(a_i^{(l)}\). To make the math and code
+implementations a bit more intuitive, we will not use numerical indices
+to refer to layers, but we will use the \emph{in} superscript for the
+input layer, the \emph{h} superscript for the hidden layer, and the
+\emph{out} superscript for the output layer. For instance,
+\(a_i^{(in)}\) refers to the \emph{i}th value in the input layer,
+\(a_i^{(h)}\) refers to the \emph{i}th unit in the hidden layer, adn
+\(a_i^{(out)}\) refers to the \emph{i}th unit in the output layer. Here,
+the activation unit \(a_0^{(in)}\) and \(a_0^{(h)}\) are the
+\textbf{bias units}, which we set equal to 1. The activation of the
+units in the input layer is just its input plus the unit bias.
+
+Later in this chapter, we will implement the multilayer perceptron using
+separate vectors for the bias unit, which makes the code implementation
+more efficient and easier to read. This concept is also used by
+TensorFlow, a deep learning library that we will introduce later.
+However, the mathematical equations that will follow, would appear more
+complex or convoluted if we had to work with additional variables for
+the bias. However, note that the computation via appending 1s to the
+input vector (as shown previously) and using a weight variable as bias
+is exactly the same as operating with separate bias vectors; it is
+merely a different convention.
+
+Each unit in layer \emph{l} is connected to all units in layer \(l+1\)
+vi a weight coefficient. For example, the connection between the \(k\)th
+unit in the layer \(l\) to the \(j\)th unit in layer \(l+1\) will be
+written as \(w_{k,j}^{l}\). Referring back to the previous figure, we
+denote the weight matrix that connects the input to the hidden layer as
+\(W^{(h)}\), and write the matrix that connects the hidden layer to the
+output layer as \(W^{(out)}\).
+
+While one unit in the output layer would suffice for a binary
+classification task, we saw a more general form of neural network in the
+preceding figure, which allows us to perform multiclass classification
+via a generalization of the \textbf{One-versus-all (OvA)} technique. To
+better understand how this works, remember the one-hot representation of
+categorical variables. For example, we can encode the three class labels
+in the familiar Iris dataset (0=setosa, 1=versicolor, 2=virginica) as
+follows:
+
+\[0 = [1, 0, 0], 1 = [0, 1, 0], 2 = [0, 0, 1]\]
+
+This one-hot vector representation allows us to tackle classification
+tasks with an arbitrary number of unique class labels present in the
+training set.
+
+If you are new to neural network representations, the indexing notation
+(subscripts and superscripts) may look a little bit confusing at first.
+What may seem overly complicated at first will make much more sense in
+later section when we vectorize the neural network representation. As
+introduced earlier, we summarize the weights that connect the input and
+hidden layers by a matrix \(w^{(h)} \in \mathbb{R}^{m \times d}\), where
+\(d\) is te number of hidden units and \(m\) is the number of input
+units including the bias unit. Since it is important to internalize this
+notation to follow the concepts later in this chapter, let's summarize
+what we have just learned in a descriptive illustration of a simplified
+3-4-3 multilayer perceptron:
+
+    \subsection{Activating a neural network via forward
+propagation}\label{activating-a-neural-network-via-forward-propagation}
+
+    In this section, we will describe the process of \textbf{forward
+propagation} to calculate the output of an MLP model. To understand how
+it fits into the context of learning an MLP model, let's summarize the
+MLP learning procedure in three simple steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Starting at the input layer, we forward propagate the patterns of the
+  training data through the network to generate an output.
+\item
+  Based on the network's output, we calculate the error that we want to
+  minimize using a cost function that we will describe later.
+\item
+  We backpropagate the error, find its derivative with respect to each
+  weight in the network, and update the model.
+\end{enumerate}
+
+Finally, after we repeat these three steps for multiple epochs and learn
+the weights of the MLP, we use forward backpropagation to calculate the
+network output and apply a threshold function to obtain the predicted
+class labels in the one-hot representation, which we described in the
+previous section.
+
+Now, let's walk through the individual steps of forward propagation to
+generate an output from the patters in the training data. Since each
+unit in the hidden layer is connected to all units in the input layers,
+we first calculate the activation unit of the hidden layer \(a_l^{(h)}\)
+as follows:
+
+\[z_1^{(h)} = a_0^{(in)}w_{0,1}^{(h)} + a_1^{(in)}w_{1,1}^{(h)} + \ldots + a_m^{(in)}w_{m,1}^{(h)}\]
+
+\[a_1^{(h)} = \phi(z_1^{(h)})\]
+
+Here, \(z_1^{(h)}\) is the net input and \(\phi\) is the activation
+function, which has to be differentiable to learn the weights that
+connect the neurons using a gradient-based approach. To be able to solve
+complex problem such as image classification, we need non-linear
+activation functions in our MLP model, for example, the sigmoid
+(logistic) activation function that we remember from the section about
+logistic regression:
+
+\[\phi(z) = \frac{1}{1 + e^{-z}}\]
+
+As we can remember, the sigmoid function is an S-shaped curve that maps
+the net input \(z\) onto a logistic distribution in the range 0 to 1,
+which cuts the \(y\)-axis at \(z=0\), as shown in the following graph:
+
+MLP is a typical example of a feedforward artificial neural network. The
+term \textbf{feedforward} refers to the fact that each layer serves as
+the input to the next layer without loops, in contrast to recurrent
+neural network - an architecture that we will discuss later in this
+chapter and discuss in more detail in the last chapter of this book. The
+term \emph{multilayer perceptron} may sound a little bit confusing since
+the artificial neurons in this network architecture are typically
+sigmoid units, not perceptrons. Intuitively, we can think of the neurons
+in the MLP as logistic regression units that return values in the
+continuous range between 0 and 1.
+
+For purposes of code efficiency and readability, we will now write the
+activation in a more compact form using the concepts of basic linear
+algebra, which will allow us to vectorize our code implementation via
+NumPy rather than writing multiple nested and computationally expensive
+Python \emph{for} loops:
+
+\[z^{(h)} = a^{(in)}W^{(h)}\]
+
+\[a^{(h)} = \phi(z^{(h)})\]
+
+Here, \(a^{(in)}\) is our \(l \times m\) dimensional feature vector of a
+sample \(x^{(in)}\) plus a bias unit. \(W^{(h)}\) is an \(m \times d\)
+dimensional weight matrix where \(d\) is the number of units in the
+hidden layer. After matrix-vector multiplication, we obtain the
+\(l \times d\) dimensional net input \(z^{(h)}\) to calculate the
+activation \(a^{(h)}\) (where \(a^{(h)} \in \mathbb{R}^{l \times d}\)).
+Furthermore, we can generalize this computation to all \(n\) samples in
+the training set:
+
+\[Z^{(h)} = A^{(in)}W^{(h)}\]
+
+Here, \$ A\^{}\{(in)\}\$ is not an \(n \times m\) matrix, and the
+matrix-matrix multiplication will result in an \(n \times d\)
+dimensional net input matrix \(Z^{(h)}\). Finally, we apply the
+activation function \(\phi\) to each value in the net input matrix to
+get the \(n \times d\) activation matrix \(A^{(h)}\) for the next layer
+(here, the output layer):
+
+\[a^{(h)} = \phi(z^{(h)})\]
+
+Similarly, we can write the activation of the output layer in vectorized
+form for multiple samples:
+
+\[Z^{(out)} = A^{(h)}W^{(out)}\]
+
+Here, we multiply the \(d \times t\) matrix \(W^{(out)}\) (\(t\) is the
+number of output units) by the \(n \times d\) dimensional matrix
+\(A^{(h)}\) to obtain the \(n \times t\) dimensional matrix
+\(Z^{(out)}\) (the columns in this matrix represent the output for each
+sample).
+
+Lastly, we apply the sigmoid activation function to obtain the
+continuous valued output of our network:
+
+\[a^{(out)} = \phi(z^{(out)})\]
+
+    \subsection{Classifying handwritten
+digits}\label{classifying-handwritten-digits}
+
+    In the previous section, we covered a lot of the theory around neural
+networks, which can be a little bit overwhelming if you are new to this
+topic. Before we continue with the discussion of the algorithm for
+learning the weights of the MLP model, backpropagation, let's take a
+short break from the theory and see a neural network in action.
+
+In this section, we will implement and train our first multilayer neural
+network to classify handwritten digits from the popular \textbf{Mixed
+National Institute of Standards and Technology (MNIST)} dataset that has
+been constructed by Yann LeCun and others, and servers as a popular
+benchmark dataset for machine learning algorithms.
+
+    \subsubsection{Obtaining the MNIST
+dataset}\label{obtaining-the-mnist-dataset}
+
+    The MNIST dataset is publicly available at
+http://yann.lecun.com/exdb/mnist/ and consists of the following four
+parts:
+
+\begin{itemize}
+\tightlist
+\item
+  Training set images: \emph{train-images-idx3-ubyte.gz} (60,000
+  samples)
+\item
+  Training set labels: \emph{train-labels-idx1-ubyte.gz} (60,000 labels)
+\item
+  Test set images: \emph{t10k-images-idx3-ubyte.gz} (10,000 samples)
+\item
+  Test set labels: \emph{t10k-labels-idx1-ubyte.gz} (10,000 labels)
+\end{itemize}
+
+The MNIST dataset was constructed from two datasets from the US
+\textbf{National Institute of Standards and Technology (NIST)}. The
+training dataset consists of handwritten digits from 250 different
+people, 50 percent high school students, and 50 percent employees from
+the Census Bureau. Note that the test set contains handwritten digits
+from different people following the same split.
+
+The images are stored in byte format, and we will read them into NumPy
+arrays that we will use to train and test our MLP implementation. In
+order to do that, we will define the following helper function:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os} 
+        \PY{k+kn}{import} \PY{n+nn}{struct}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k}{def} \PY{n+nf}{load\PYZus{}mnist}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Load MNIST data from \PYZsq{}path\PYZsq{}\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{labels\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZhy{}labels\PYZhy{}idx1\PYZhy{}ubyte}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{kind}\PY{p}{)}
+            \PY{n}{images\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZhy{}images\PYZhy{}idx3\PYZhy{}ubyte}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{kind}\PY{p}{)}
+            
+            \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{labels\PYZus{}path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{lbpath}\PY{p}{:}
+                \PY{n}{magic}\PY{p}{,} \PY{n}{n} \PY{o}{=} \PY{n}{struct}\PY{o}{.}\PY{n}{unpack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}II}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{lbpath}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+                \PY{n}{labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{fromfile}\PY{p}{(}\PY{n}{lbpath}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{uint8}\PY{p}{)}
+                
+            \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{images\PYZus{}path}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{imgpath}\PY{p}{:}
+                \PY{n}{magic}\PY{p}{,} \PY{n}{num}\PY{p}{,} \PY{n}{rows}\PY{p}{,} \PY{n}{cols} \PY{o}{=} \PY{n}{struct}\PY{o}{.}\PY{n}{unpack}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{}IIII}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{imgpath}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+                \PY{n}{images} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{fromfile}\PY{p}{(}\PY{n}{imgpath}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{uint8}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{labels}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{784}\PY{p}{)}
+                \PY{n}{images} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{images} \PY{o}{/} \PY{l+m+mf}{255.}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2}
+            
+            \PY{k}{return} \PY{n}{images}\PY{p}{,} \PY{n}{labels}
+\end{Verbatim}
+
+
+    The \emph{load\_mnist} function returns two arrays, the first being an
+\(n \times m\) dimensional NumPy array (\emph{images}), where \(n\) is
+the number of samples and \(m\) is the number of features (here,
+pixels). The training dataset consists of 60,000 training digits and the
+test set contains 10,000 samples, respectively. The images in the MNIST
+dataset consist of 28 x 28 pixels, and each pixel is represented by a
+gray scale intensity value. Here, we unroll the 28 x 28 pixels into
+one-dimensional row vectors, which represent the rows in our
+\emph{images} array (784 per row or image). The second array
+(\emph{labels}) returned by the \emph{load\_mnist} function contains the
+corresponding target variable, the class labels (integers 0-9) of the
+handwritten digits.
+
+We normalized the pixels values in the MNIST to the range -1 to 1
+(originally 0 to 255). The reason behind this is that gradient-based
+optimization is much more stable under these conditions. Note that we
+scaled the images on a pixel-by-pixel basis, which is different from the
+feature scaling approach that we took in previous chapters. Previously,
+we derived scaling paramters from the training set and used these to
+scale each column in the training set and test set. However, when
+working with image pixels, centering them at zero and rescaling them to
+a {[}-1, 1{]} range is also common and usually works in practice.
+
+Another recently developed trick to improve convergence in
+gradient-based optimization through input scaling is batch
+normalization, which is an advanced topic that we will not cover in this
+book.
+
+By executing the following code, we will now load the 60,000 training
+instances as well as the 10,000 test samples from the local directories
+where we unzipped the MNIST dataset (in the following code snippet, it
+is assumed that the downloaded MNIST files were unzipped to the same
+directory in which this code was executed):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{load\PYZus{}mnist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rows: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, columns: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{load\PYZus{}mnist}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t10k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rows: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{, columns: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Rows: 60000, columns: 784
+Rows: 10000, columns: 784
+
+    \end{Verbatim}
+
+    To get an idea of how those images in MNIST look, let's visualize
+examples of the digits 0-9 after reshaping the 784-pixel vectors from
+our feature matrix into the original 28 x 28 image that we can plot via
+Matplotlib's \emph{imshow} function:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{n}{ax} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{n}{img} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{)}
+            \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Greys}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We should now see a plot of the 2 x 5 subfigures showing a
+representative image of each unique digit.
+
+In addition, let's also plot multiple examples of the same digit to see
+how different the handwritting really is:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{n}{ax} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{:}
+            \PY{n}{img} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{y\PYZus{}train}\PY{o}{==}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{)}
+            \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Greys}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    After executing the code, we should now see the first 25 variantes of
+the digit 7.
+
+After we have gone through all the previous steps, it is a good idea to
+save the scaled images in a format that we can load more quickly into a
+new Python session to avoid the overhead of reading in and processing
+the data again. When we are working with NumPy arrays, an efficient yet
+most convenient method to save multidimensional arrays to disk is
+NumPy's \emph{savez} function.
+
+In short, the \emph{savez} function is analogous to Python's
+\emph{pickle} module that we used before, but optimized for storing
+NumPy arrays. The \emph{savez} function produces zipped archives of our
+data, producing \emph{.npz} files that contain files in the \emph{.npz}
+format. Further, instead of using \emph{savez}, we will use
+\emph{savez\_compressed}, which uses the same syntax as \emph{savez},
+but further compresses the output file down to substantially smaller
+file sizes. The following code snippet will save both the training and
+test datasets to the archive file \emph{'mnist\_scaled.npz'}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{np}\PY{o}{.}\PY{n}{savez\PYZus{}compressed}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mnist\PYZus{}scaled.npz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                            \PY{n}{X\PYZus{}train}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{p}{,} 
+                            \PY{n}{y\PYZus{}train}\PY{o}{=}\PY{n}{y\PYZus{}train}\PY{p}{,} 
+                            \PY{n}{X\PYZus{}test}\PY{o}{=}\PY{n}{X\PYZus{}test}\PY{p}{,} 
+                            \PY{n}{y\PYZus{}test}\PY{o}{=}\PY{n}{y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    After we created the \emph{.npz} files, we can load the preprocessed
+MNIST images arrays using NumPy's \emph{load} function as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{mnist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mnist\PYZus{}scaled.npz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    The \emph{mnist} variable now references to an object that can access
+the four data arrays as we provided them keywork arguments to the
+\emph{savez\_compressed} function, which are listed under the files
+attribute list of the \emph{mnist} object:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{mnist}\PY{o}{.}\PY{n}{files}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} ['X\_train', 'y\_train', 'X\_test', 'y\_test']
+\end{Verbatim}
+            
+    For instance, to load the training data into our current Python session,
+we will access the \emph{'X\_train'} array as follows (similar to a
+Python dictionary):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{mnist}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    Using a list comprehension, we can retrieve all four data arrays as
+follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{n}{mnist}\PY{p}{[}\PY{n}{f}\PY{p}{]} \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n}{mnist}\PY{o}{.}\PY{n}{files}\PY{p}{]}
+\end{Verbatim}
+
+
+    Note that while the preceding \emph{np.savez\_compressed} and
+\emph{np.load} examples are not essential for executing the code at this
+chapter, it serves as a demonstration of how to save and load NumPy
+arrays conveniently and efficiently.
+
+    \subsection{Implementing a multilayer
+perceptron}\label{implementing-a-multilayer-perceptron}
+
+    In subsection, we will now implement the code of an MLP with one input,
+one hidden, and one output layers to classify the images in the MNIST
+dataset. I have tried to keep the code as simple as possible. However,
+it may seem a little bit complicated at first.
+
+The code will contain parts that we have not talked about yet, such as
+the backpropagation algorithm, but most of the code should look familiar
+to you based on the Adaline implementation, and the discussion of
+forward propagation in earlier sections.
+
+DO not worry if not all the code makes immediate sense to you; we will
+follow up on certain parts later in this chapter. However, going over
+the code at this stage can make it easier to follow the theory later.
+
+The following is the implementation of a multilayer perceptron:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{sys}
+         
+         \PY{k}{class} \PY{n+nc}{NeuralNetMLP}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Feedforward neural network / Multi\PYZhy{}layer perceptron classifier}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Parameters}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    n\PYZus{}hidden : int (default: 30)}
+         \PY{l+s+sd}{        Number of hidden units}
+         \PY{l+s+sd}{    l2 : float (default: 0.)}
+         \PY{l+s+sd}{        Lambda value for L2\PYZhy{}regularization.}
+         \PY{l+s+sd}{        No regularization if l2=0. (default)}
+         \PY{l+s+sd}{    epochs : int (default: 100)}
+         \PY{l+s+sd}{        Number of passes over the training set}
+         \PY{l+s+sd}{    eta : float (default: 0.001)}
+         \PY{l+s+sd}{        Learning rate}
+         \PY{l+s+sd}{    shuffle : bool (default: True)}
+         \PY{l+s+sd}{        Shuffles training data every epoch}
+         \PY{l+s+sd}{        if True to prevent cycles}
+         \PY{l+s+sd}{    minibatch\PYZus{}size : int (default: 1)}
+         \PY{l+s+sd}{        Number of training samples per minibatch}
+         \PY{l+s+sd}{    seed : int (default: None)}
+         \PY{l+s+sd}{        Random seed for initializing weights and shuffling}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{    Attributes}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    eval\PYZus{} : dict}
+         \PY{l+s+sd}{        Dictionary collecting the cost, training accuracy, }
+         \PY{l+s+sd}{        and validation accuracy for each epoch during training}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{n\PYZus{}hidden}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{l2}\PY{o}{=}\PY{l+m+mf}{0.}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} 
+                          \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{minibatch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} 
+                          \PY{n}{seed}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}hidden} \PY{o}{=} \PY{n}{n\PYZus{}hidden}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l2} \PY{o}{=} \PY{n}{l2}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{epochs} \PY{o}{=} \PY{n}{epochs}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{=} \PY{n}{eta}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shuffle} \PY{o}{=} \PY{n}{shuffle}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{minibatch\PYZus{}size} \PY{o}{=} \PY{n}{minibatch\PYZus{}size}
+                 
+             \PY{k}{def} \PY{n+nf}{\PYZus{}onehot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{n\PYZus{}classes}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Encode labels into one\PYZhy{}hot representation}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        Parameters}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        y : array, shape = [n\PYZus{}samples]}
+         \PY{l+s+sd}{            Target values}
+         \PY{l+s+sd}{            }
+         \PY{l+s+sd}{        Returns}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        onehot : array = shape = (n\PYZus{}samples, n\PYZus{}labels)        }
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{onehot} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n\PYZus{}classes}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{val} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{onehot}\PY{p}{[}\PY{n}{val}\PY{p}{,} \PY{n}{idx}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}
+                 \PY{k}{return} \PY{n}{onehot}\PY{o}{.}\PY{n}{T}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}sigmoid}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{z}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Compute logistic function (sigmoid)\PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{k}{return} \PY{l+m+mf}{1.} \PY{o}{/} \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{clip}\PY{p}{(}\PY{n}{z}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Compute forward propagation step\PYZdq{}\PYZdq{}\PYZdq{}}
+                 
+                 \PY{c+c1}{\PYZsh{} step 1: net input of hidden layer}
+                 \PY{c+c1}{\PYZsh{} [n\PYZus{}samples, n\PYZus{}features] dot [n\PYZus{}features, n\PYZus{}hidden]}
+                 \PY{c+c1}{\PYZsh{} \PYZhy{}\PYZgt{} [n\PYZus{}samples, n\PYZus{}hidden]}
+                 \PY{n}{z\PYZus{}h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}h}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b\PYZus{}h}
+                 
+                 \PY{c+c1}{\PYZsh{} step 2: activation of hidden layer}
+                 \PY{n}{a\PYZus{}h} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}sigmoid}\PY{p}{(}\PY{n}{z\PYZus{}h}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} step 3: net input of output layer}
+                 \PY{c+c1}{\PYZsh{} [n\PYZus{}samples, n\PYZus{}hidden] dot [n\PYZus{}hidden, n\PYZus{}classlabels]}
+                 \PY{c+c1}{\PYZsh{} \PYZhy{}\PYZgt{} [n\PYZus{}samples, n\PYZus{}classlabels]}
+                 \PY{n}{z\PYZus{}out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{a\PYZus{}h}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}out}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b\PYZus{}out}
+                 
+                 \PY{c+c1}{\PYZsh{} step 4: activation output layer}
+                 \PY{n}{a\PYZus{}out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}sigmoid}\PY{p}{(}\PY{n}{z\PYZus{}out}\PY{p}{)}
+                 
+                 \PY{k}{return} \PY{n}{z\PYZus{}h}\PY{p}{,} \PY{n}{a\PYZus{}h}\PY{p}{,} \PY{n}{z\PYZus{}out}\PY{p}{,} \PY{n}{a\PYZus{}out}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}compute\PYZus{}cost}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{y\PYZus{}enc}\PY{p}{,} \PY{n}{output}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Compute cost function}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        Parameters}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        y\PYZus{}enc : array, shape = (n\PYZus{}samples, n\PYZus{}labels)}
+         \PY{l+s+sd}{            one\PYZhy{}hot encoded class labels}
+         \PY{l+s+sd}{        output : array, shape = [n\PYZus{}samples, n\PYZus{}output\PYZus{}units]}
+         \PY{l+s+sd}{            Activation of the output layer (forward propagation)}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        Returns }
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        cost : float}
+         \PY{l+s+sd}{            Regularized cost}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{L2\PYZus{}term} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l2} \PY{o}{*} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}h} \PY{o}{*}\PY{o}{*} \PY{l+m+mf}{2.}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}out} \PY{o}{*}\PY{o}{*} \PY{l+m+mf}{2.}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{term1} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}enc} \PY{o}{*} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{output}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{term2} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}enc}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{\PYZhy{}} \PY{n}{output}\PY{p}{)}
+                 \PY{n}{cost} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{term1} \PY{o}{\PYZhy{}} \PY{n}{term2}\PY{p}{)} \PY{o}{+} \PY{n}{L2\PYZus{}term}
+                 \PY{k}{return} \PY{n}{cost}
+             
+             \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Predict class labels}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        Parameters}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        X : array, shape = [n\PYZus{}samples, n\PYZus{}features]}
+         \PY{l+s+sd}{            Input layer with original features}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        Returns }
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        y\PYZus{}pred : array, shape = [n\PYZus{}samples]}
+         \PY{l+s+sd}{            Predicted class labels}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{n}{z\PYZus{}h}\PY{p}{,} \PY{n}{a\PYZus{}h}\PY{p}{,} \PY{n}{z\PYZus{}out}\PY{p}{,} \PY{n}{a\PYZus{}out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}forward}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                 \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{z\PYZus{}out}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{y\PYZus{}pred}
+             
+             \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}valid}\PY{p}{,} \PY{n}{y\PYZus{}valid}\PY{p}{)}\PY{p}{:}
+                 \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Learn weights from training data}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{        Parameters}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        X\PYZus{}train : array, shape = [n\PYZus{}samples, n\PYZus{}features]}
+         \PY{l+s+sd}{            Input layer with original features}
+         \PY{l+s+sd}{        y\PYZus{}train : array, shape = [n\PYZus{}samples]}
+         \PY{l+s+sd}{            Target class labels}
+         \PY{l+s+sd}{        X\PYZus{}valid : array, shape = [n\PYZus{}samples, n\PYZus{}features]}
+         \PY{l+s+sd}{            Sample features for validation during training}
+         \PY{l+s+sd}{        y\PYZus{}valid : array, shape = [n\PYZus{}samples]}
+         \PY{l+s+sd}{            Simple labels for validation during training}
+         \PY{l+s+sd}{            }
+         \PY{l+s+sd}{        Returns}
+         \PY{l+s+sd}{        \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{        self}
+         \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                 \PY{c+c1}{\PYZsh{} no. of class labels}
+                 \PY{n}{n\PYZus{}output} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{n\PYZus{}features} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 
+                 \PY{c+c1}{\PYZsh{} Weight initialization}
+                 
+                 \PY{c+c1}{\PYZsh{} weights for input \PYZhy{}\PYZgt{} hidden}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b\PYZus{}h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}hidden}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} 
+                                             \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{n\PYZus{}features}\PY{p}{,} 
+                                                   \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}hidden}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} weights for hidden \PYZhy{}\PYZgt{} output}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b\PYZus{}out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n\PYZus{}output}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} 
+                                                 \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n\PYZus{}hidden}\PY{p}{,} 
+                                                       \PY{n}{n\PYZus{}output}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} for progr. format.}
+                 \PY{n}{epoch\PYZus{}strlen} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{epochs}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eval\PYZus{}} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{]}\PY{p}{,} 
+                               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{]}\PY{p}{,} 
+                               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{]}\PY{p}{\PYZcb{}}
+                 
+                 \PY{n}{y\PYZus{}train\PYZus{}enc} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}onehot}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{n\PYZus{}output}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} iterate over training epochs}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{epochs}\PY{p}{)}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{} iterate over minibatches}
+                     \PY{n}{indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                     
+                     \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{shuffle}\PY{p}{:}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{indices}\PY{p}{)}
+                         
+                     \PY{k}{for} \PY{n}{start\PYZus{}idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{indices}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{minibatch\PYZus{}size} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{minibatch\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{batch\PYZus{}idx} \PY{o}{=} \PY{n}{indices}\PY{p}{[}\PY{n}{start\PYZus{}idx}\PY{p}{:}\PY{n}{start\PYZus{}idx} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{minibatch\PYZus{}size}\PY{p}{]}
+                         
+                         \PY{c+c1}{\PYZsh{} forward propagation}
+                         \PY{n}{z\PYZus{}h}\PY{p}{,} \PY{n}{a\PYZus{}h}\PY{p}{,} \PY{n}{z\PYZus{}out}\PY{p}{,} \PY{n}{a\PYZus{}out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}forward}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{batch\PYZus{}idx}\PY{p}{]}\PY{p}{)}
+                         
+                         \PY{c+c1}{\PYZsh{} Backpropagation}
+                         
+                         \PY{c+c1}{\PYZsh{} [n\PYZus{}samples, n\PYZus{}classlabels]}
+                         \PY{n}{sigma\PYZus{}out} \PY{o}{=} \PY{n}{a\PYZus{}out} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}train\PYZus{}enc}\PY{p}{[}\PY{n}{batch\PYZus{}idx}\PY{p}{]}
+                         
+                         \PY{c+c1}{\PYZsh{} [n\PYZus{}samples, n\PYZus{}hidden]}
+                         \PY{n}{sigmoid\PYZus{}derivative\PYZus{}h} \PY{o}{=} \PY{n}{a\PYZus{}h} \PY{o}{*} \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{\PYZhy{}} \PY{n}{a\PYZus{}h}\PY{p}{)}
+                         
+                         \PY{c+c1}{\PYZsh{} [n\PYZus{}samples, n\PYZus{}classlabels] dot [n\PYZus{}classlabels, n\PYZus{}hidden]}
+                         \PY{c+c1}{\PYZsh{} \PYZhy{}\PYZgt{} [n\PYZus{}samples, n\PYZus{}hidden]}
+                         \PY{n}{sigma\PYZus{}h} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{sigma\PYZus{}out}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}out}\PY{o}{.}\PY{n}{T}\PY{p}{)} \PY{o}{*} \PY{n}{sigmoid\PYZus{}derivative\PYZus{}h}\PY{p}{)}
+                         
+                         \PY{c+c1}{\PYZsh{} [n\PYZus{}features, n\PYZus{}samples] dot [n\PYZus{}samples, n\PYZus{}hidden]}
+                         \PY{c+c1}{\PYZsh{} \PYZhy{}\PYZgt{} [n\PYZus{}features, n\PYZus{}hidden]}
+                         \PY{n}{grad\PYZus{}w\PYZus{}h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{batch\PYZus{}idx}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{sigma\PYZus{}h}\PY{p}{)}
+                         \PY{n}{grad\PYZus{}b\PYZus{}h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{sigma\PYZus{}h}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                         
+                         \PY{c+c1}{\PYZsh{} [n\PYZus{}hidden, n\PYZus{}samples] dot [n\PYZus{}samples, n\PYZus{}classlabels]}
+                         \PY{c+c1}{\PYZsh{} \PYZhy{}\PYZgt{} [n\PYZus{}hidden, n\PYZus{}classlabels]}
+                         \PY{n}{grad\PYZus{}w\PYZus{}out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{a\PYZus{}h}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{sigma\PYZus{}out}\PY{p}{)}
+                         \PY{n}{grad\PYZus{}b\PYZus{}out} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{sigma\PYZus{}out}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                         
+                         \PY{c+c1}{\PYZsh{} Regularization and weight updates}
+                         \PY{n}{delta\PYZus{}w\PYZus{}h} \PY{o}{=} \PY{p}{(}\PY{n}{grad\PYZus{}w\PYZus{}h} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l2}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}h}\PY{p}{)}
+                         \PY{n}{delta\PYZus{}b\PYZus{}h} \PY{o}{=} \PY{n}{grad\PYZus{}b\PYZus{}h} \PY{c+c1}{\PYZsh{} bias is not regularized}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}h} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{*} \PY{n}{delta\PYZus{}w\PYZus{}h}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b\PYZus{}h} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{*} \PY{n}{delta\PYZus{}b\PYZus{}h}
+                         
+                         \PY{n}{delta\PYZus{}w\PYZus{}out} \PY{o}{=} \PY{p}{(}\PY{n}{grad\PYZus{}w\PYZus{}out} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{l2}\PY{o}{*}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}out}\PY{p}{)}
+                         \PY{n}{delta\PYZus{}b\PYZus{}out} \PY{o}{=} \PY{n}{grad\PYZus{}b\PYZus{}out} \PY{c+c1}{\PYZsh{} bias is not regularized}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}out} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{*} \PY{n}{delta\PYZus{}w\PYZus{}out}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b\PYZus{}out} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eta} \PY{o}{*} \PY{n}{delta\PYZus{}b\PYZus{}out}
+                     
+                     \PY{c+c1}{\PYZsh{} Evaluation}
+                     
+                     \PY{c+c1}{\PYZsh{} Evaluation after each epoch during training}
+                     \PY{n}{z\PYZus{}h}\PY{p}{,} \PY{n}{a\PYZus{}h}\PY{p}{,} \PY{n}{z\PYZus{}out}\PY{p}{,} \PY{n}{a\PYZus{}out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}forward}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+                     
+                     \PY{n}{cost} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}compute\PYZus{}cost}\PY{p}{(}\PY{n}{y\PYZus{}enc}\PY{o}{=}\PY{n}{y\PYZus{}train\PYZus{}enc}\PY{p}{,} 
+                                               \PY{n}{output}\PY{o}{=}\PY{n}{a\PYZus{}out}\PY{p}{)}
+                     
+                     \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+                     \PY{n}{y\PYZus{}valid\PYZus{}pred} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}valid}\PY{p}{)}
+                     
+                     \PY{n}{train\PYZus{}acc} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}train} \PY{o}{==} \PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float}\PY{p}{)} \PY{o}{/} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                     \PY{n}{valid\PYZus{}acc} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}valid} \PY{o}{==} \PY{n}{y\PYZus{}valid\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float}\PY{p}{)} \PY{o}{/} \PY{n}{X\PYZus{}valid}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                     
+                     \PY{n}{sys}\PY{o}{.}\PY{n}{stderr}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}r}\PY{l+s+si}{\PYZpc{}0*d}\PY{l+s+s1}{/}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ | Cost: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}
+                                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ | Train/Valid Acc.: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{/}\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}
+                                      \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{epoch\PYZus{}strlen}\PY{p}{,} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{epochs}\PY{p}{,} 
+                                         \PY{n}{cost}\PY{p}{,} \PY{n}{train\PYZus{}acc}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{valid\PYZus{}acc}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{sys}\PY{o}{.}\PY{n}{stderr}\PY{o}{.}\PY{n}{flush}\PY{p}{(}\PY{p}{)}
+                     
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eval\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cost}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eval\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}acc}\PY{p}{)}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eval\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{valid\PYZus{}acc}\PY{p}{)}
+                 
+                 \PY{k}{return} \PY{n+nb+bp}{self}
+\end{Verbatim}
+
+
+    Once you are done with executing this code, let's now initialize a new
+784-100-10 MLP - a neural network with 784 input units
+(\emph{n\_features}), 100 hidden units (\emph{n\_hidden}), and 10 output
+units (\emph{n\_output}):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{nn} \PY{o}{=} \PY{n}{NeuralNetMLP}\PY{p}{(}\PY{n}{n\PYZus{}hidden}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} 
+                           \PY{n}{l2}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} 
+                           \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} 
+                           \PY{n}{eta}\PY{o}{=}\PY{l+m+mf}{0.0005}\PY{p}{,} 
+                           \PY{n}{minibatch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} 
+                           \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} 
+                           \PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    If you read through the \emph{NeuralNetMLP} code, you have probably
+already guessed what these parameters are for. Here, you find a short
+summary of these:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{l2}: This is the \(\lambda\) parameter for L2 regularization to
+  decrease the degree of overfitting.
+\item
+  \emph{epochs}: This is the number of passes over the training set.
+\item
+  \emph{eta}: This is the learning rate \(\eta\).
+\item
+  \emph{shuffle}: This is for shuffling the training set prior to every
+  epoch to prevent that the algorithm gets stuck in circles.
+\item
+  \emph{seed}: This is a random seed for shuffling and weigh
+  initialization.
+\item
+  \emph{minibatch\_size}: This is the number of training samples in each
+  mini-batch when splitting of the training data in each epoch for
+  stochastic gradient descent. The gradient descent is computed for each
+  mini-batch separately instead of the entire training data for faster
+  learning.
+\end{itemize}
+
+Next, we train the MLP using 55,000 samples from the already shuffled
+MNIST training dataset and used the remaining 5,000 samples for
+validation during training. Note that training the neural network may
+take up to 5 minutes on standard desktop computer hardware.
+
+As you may have noticed from the preceding code implementation, we
+implemented the \emph{fit} method so that it takes four input arguments:
+training images, training labels, validation images, and validation
+labels. In neural network training, it is really useful to already
+compare training and validation accuracy during training, which helps us
+judge whether the network model performs well, given the architecture
+and hyperparameters.
+
+In general, training (deep) neural networks is relatively expensive
+compared with the other models we discussed so far. Thus, we want to
+stop it early in certain circumstances and start over with different
+hyperparameter setting. Alternatively, if we find that it increasingly
+tends to overfit the training data (noticeable by an increasing gap
+between training and validation set performance), we may want to stop
+the training early as well.
+
+Now, to start the training, we execute the following code:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{nn}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{55000}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{o}{=}\PY{n}{y\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{55000}\PY{p}{]}\PY{p}{,} 
+                \PY{n}{X\PYZus{}valid}\PY{o}{=}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{55000}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{y\PYZus{}valid}\PY{o}{=}\PY{n}{y\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{55000}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+200/200 | Cost: 5047.08  | Train/Valid Acc.: 99.29\%/97.94\%  
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} <\_\_main\_\_.NeuralNetMLP at 0x7f16158d4a20>
+\end{Verbatim}
+            
+    In our \emph{NeuralNetMLP} implementation, we also defined an
+\emph{eval\_} attribute that collects the cost, training, and validation
+accuracy for each epoch so that we can visualize the results using
+Matplotlib:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{epochs}\PY{p}{)}\PY{p}{,} \PY{n}{nn}\PY{o}{.}\PY{n}{eval\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see, the cost decreased substantially during the first 100
+epochs and seems to slowly converge in the last 100 epochs. However, the
+small slope between epoch 175 and epoch 200 indicates that the cost
+would further decrease with a training over additional epochs.
+
+Next, let's take a look at the training and validation accuracy:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{epochs}\PY{p}{)}\PY{p}{,} \PY{n}{nn}\PY{o}{.}\PY{n}{eval\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{epochs}\PY{p}{)}\PY{p}{,} \PY{n}{nn}\PY{o}{.}\PY{n}{eval\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{validation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The plot reveals that the gap between training and validation accuracy
+increases the more epochs we train the network. At approximately the
+50th epoch, the training and validation accuracy values are equal, and
+then, the network starts overfitting the training data.
+
+Note that this example was chosen deliberately to illustrate the effect
+of overfitting and demonstrate why it is useful to compare the
+validation and training accuracy values during training. One way to
+decrease the effect of overfitting is to increase the regularization
+strength - for example, by setting \emph{l2=0.1}. Another useful
+technique to tackle overfitting in neural networks, dropout, will be
+covered later.
+
+Finally, let's evaluate the generalization performance of the model by
+calculating the prediction accuracy on the test set:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{acc} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{y\PYZus{}test} \PY{o}{==} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{float}\PY{p}{)} \PY{o}{/} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training accuracy: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{acc} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training accuracy: 97.53\%
+
+    \end{Verbatim}
+
+    Despite the slight overfitting on the training data, our relatively
+simple one-hidden layer neural network achieved a relatively good
+performance on the test dataset, similar to the validation set accuracy
+(97.98 percent).
+
+To further fine-tune the model, we could change the number of hidden
+units, values of the regularization parameters, and the learning rate or
+use various other tricks that have been developed over the years but are
+beyond the scope of this book. In a next chapter, you will learn about a
+different neural network architecture that is known for its good
+performance on image datasets. Also, the chapter will introduce
+additional performance-enhancing tricks such as adaptive learning rates,
+momentum learning, and dropout.
+
+Lastly, let's take a look at some of the images that our MLP struggles
+with:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{miscl\PYZus{}img} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{y\PYZus{}test} \PY{o}{!=} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{25}\PY{p}{]}
+         \PY{n}{correct\PYZus{}lab} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{y\PYZus{}test} \PY{o}{!=} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{25}\PY{p}{]}
+         \PY{n}{miscl\PYZus{}lab} \PY{o}{=} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{[}\PY{n}{y\PYZus{}test} \PY{o}{!=} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{25}\PY{p}{]}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{:}
+             \PY{n}{img} \PY{o}{=} \PY{n}{miscl\PYZus{}img}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{28}\PY{p}{,} \PY{l+m+mi}{28}\PY{p}{)}
+             \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Greys}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{) t: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ p: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}
+                             \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{correct\PYZus{}lab}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{miscl\PYZus{}lab}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We should now see a 5 x 5 subplot matrix where the first number of
+subtitles indicates the plot index, the second number represents the
+true class label (\emph{t}), and the third number stands for the
+predicted class label (\emph{p}).
+
+As we can see in the preceding figure, some of those images are even
+challenging for us humans to classify correctly. For example, the 6 in
+subplot 8 really looks like a carelessly drawn 0, and the 8 in subplot
+23 could be a 9 due to the narrow lower part combined with the bold
+line.
+
+    \subsection{Training an artificial neural
+network}\label{training-an-artificial-neural-network}
+
+    Now that we have seen a neural network in action and have gained a basic
+understanding of how it works by looking over the code, let's dig a
+little bit deeper into some of the concepts, such as the logistic cost
+function and the backpropagation algorithm that we implemented to learn
+the weights.
+
+    \subsubsection{Computing the logistic cost
+function}\label{computing-the-logistic-cost-function}
+
+    The logistic cost function that we implemented as the *\_compute\_cost*
+method is actually pretty simple to follow since it is the same cost
+function that we described in the logistic regression previously.
+
+\[J(w) = -\sum_{i=1}^n y^{[i]}\log(a^{[i]}) + (1 - y^{[i]})\log(1-a^{[i]})\]
+
+Here, \(a^{[i]}\) is the sigmoid activation of the \(i\)th sample in the
+dataset, which we compute in the forward propagation step:
+
+\[a^{[i]} = \phi(z^{[i]})\]
+
+Again, note that in this context, the superscript \emph{{[}i{]}} is an
+index for training samples, not layers.
+
+Now, let's add a regularization term, which allows us to reduce the
+degree of overfitting. As you recall from earlier chapters, the L2
+regularization term is defined as follows (remember that we do not
+regularize the bias units):
+
+\[L2 = \lambda||w||_2^2 = \lambda\sum_{j=1}^m w_j^2\]
+
+By adding the L2 regularization term to our logistic cost function, we
+obtain the following equation:
+
+\[J(w) = \left[-\sum_{i=1}^n y^{[i]}\log(a^{[i]}) + (1 - y^{[i]})\log(1-a^{[i]})\right] + \lambda||w||_2^2\]
+
+Since we implemented an MLP for multiclass classification that returns
+an output vector of \(t\) elements that we need to compare to the
+\(t \times l\) dimensional target vector in the one-hot encoding
+representation, for, example, the activation of the third layer and the
+target class (here, class 2) for a particular sample may look like this:
+
+\[
+a^{out} = 
+\begin{bmatrix}
+0.1 \\
+0.9 \\
+\vdots \\
+0.3
+\end{bmatrix}, 
+y = 
+\begin{bmatrix}
+0 \\
+1 \\
+\vdots \\
+0
+\end{bmatrix}
+\]
+
+Thus, we need to generalize the logistic cost function to all \(t\)
+activation units in our network. Thus, the cost function (without the
+regularization term) becomes the following:
+
+\[J(w) = -\sum_{i=1}^n\sum_{j=1}^t y_j^{[i]}\log(a_j^{[i]}) + (1 - y_j^{[i]})\log(1-a_j^{[i]})\]
+
+Here, again, the superscript \([i]\) is the index of a particular sample
+in our training set.
+
+The following generalized regularization term may look a little bit
+complicated at first, but we are just calculating the sum of all weights
+in an \(l\) layer (without the bias term) that we added to the first
+column:
+
+\[J(w) = -\left[\sum_{i=1}^n\sum_{j=1}^t y_j^{[i]}\log(a_j^{[i]}) + (1 - y_j^{[i]})\log(1-a_j^{[i]})\right] + \frac{\lambda}{2}\sum_{l=1}^{L-1}\sum_{i=1}^{u_l}\sum_{j=1}^{u_{l+1}}(w_{j,i}^{(t)})^2\]
+
+Here, \(u_l\) refers to the number of units of a given layer l, and the
+following expression represents the penalty term:
+
+\[\frac{\lambda}{2}\sum_{l=1}^{L-1}\sum_{i=1}^{u_l}\sum_{j=1}^{u_{l+1}}(w_{j,i}^{(t)})^2\]
+
+Remember that our goal is to minimize the cost function \(J(W)\); thus
+we need to calculate the partial derivative of the parameters \(W\) with
+respect to each weight for every layer in the network:
+
+\[\frac{\partial}{\partial w_{j,i}^{(l)}} J(W)\]
+
+In the next section, we will talk about the backpropagation algorithm,
+which allows us to calculate those partial derivatives to minimize the
+cost function.
+
+Note that \(W\) consists of multiple matrices. In a multilayer
+perceptron with one hidden unit, we have the weight matrix \(W^{(h)}\),
+which connects the input to the hidden layer, and \(W^{out}\), which
+connects the hidden layer to the output layer. An intuitive
+visualization of the three-dimensional tensor \(W\) is provided in the
+following figure:
+
+In this simplified figure, it may seem that both \(W^{(h)}\) and
+\(Ẁ^{(out)}\) have the same number of rows and columns, which is
+typically not the case unless we initialize an MLP with the same number
+of hidden layers, output units, and input features. If this sounds
+confusing, stay tuned for the next section, where we will discuss the
+dimensionality of \(W^{(h)}\) and \(W^{(out)}\) in more detail in the
+context of the backpropagation algorithm. Also, I want to encourage you
+to read through the code of the \emph{NeuralNetMLP} again, which I
+annotated with helpful comments about the dimensionality with regard to
+the different matrices and vector transformations.
+
+    \subsubsection{Developing your intuition for
+backpropagation}\label{developing-your-intuition-for-backpropagation}
+
+    Although backpropagation was rediscovered and popularized more than 30
+years ago, it still remains one of the most widely used algorithms to
+train artificial neural networks very efficiently.
+
+In this section, I intend to provide a short and intuitive summary and
+the bigger picture of how this fascinating algorithm works before we
+dive into more mathematical details. In essence, we can think of
+backpropagation as a very computationally efficient approach to compute
+the partial derivatives of a complex cost function in multilayer neural
+networks. Here, our goal is to use those derivatives to learn the weight
+coefficients for parametrizing such a multilayer artificial neural
+network. The challenge in the parametrization of neural networks is that
+we are typically dealing with a very large number of weight coefficients
+in a high-dimensional feature space. In contrast to cost functions of
+single-layer neural networks such as Adaline or logistic regression,
+which we have seen in previous chapter, the error surface of a neural
+network cost function is not convex or smooth with respect to the
+parameters. There are many bumps in this high-dimensional cost surface
+(local minima) that we have to overcome in order to find the global
+minimum of the cost function.
+
+You may recall the concept of the chain rule from your introductory
+calculus. The chain rule is an approach to compute the derivative of a
+complex, nested, function, such as \(f(g(x))\). In the context of
+computer algebra, a set of techniques has been developed to solve such
+problems very efficiently, which is also known as \textbf{automatic
+differentiation}.
+
+Automatic differentiation comes with two modes, the forward and reverse
+modes; backpropagation is simply just a special case of reverse mode
+automatic differentiation. The key point is that applying the chain rule
+in the forward mode can be quite expensive since we would have to
+multiply large matrices for each layer (Jacobians) that we eventually
+multiply by a vector to obtain the output. The trick of reverse mode is
+that we start from right to left: we multiply a matrix by a vector,
+which yields another vector that is multiplied by the next matrix and so
+on. Matrix-vector multiplication is computationally much cheaper than
+matrix-matrix multiplication, which is why backpropagation is one of the
+most popular algorithms used in neural network training.
+
+    \subsubsection{Training neural networks via
+backpropagation}\label{training-neural-networks-via-backpropagation}
+
+    In this section, we will go through the math of backpropagation to
+understand how you can learn the weights in a neural network very
+efficiently. Depending on how comfortable you are with mathematical
+representations, the following equations may seem relatively complicated
+at first.
+
+In a previous section, we saw how to calculate the cost as the
+difference between the activation of the last layer and the target class
+label. Now, we will see how the backpropagation algorithm works to
+update the weights in our MLP model from a mathematical perspective,
+which we implemented in the \emph{\# Backpropagation} section inside the
+\emph{fit} method. As we recall from the beginning of this chapter, we
+first need to apply forward propagation in order to obtain the
+activation of the output layer, which we formulated as follows:
+
+\[Z^{(h)} = A^{(in)}W^{(h)} \quad \text{net input of the hidden layer}\]
+
+\[A^{(h)} = \phi(Z^{(h)}) \quad \text{activation of the hidden layer}\]
+
+\[Z^{(out)} = A^{(h)}W^{(out)} \quad \text{net input of the output layer}\]
+
+\[A^{(out)} = \phi(Z^{(out)}) \quad \text{activation of the output layer}\]
+
+Concisely, we just forward-propagate the input features through the
+connection in the network, as shown in the following illustration:
+
+In backpropagation, we propagate the error from right to left. We start
+by calculating the error vector of the output layer:
+
+\[\delta^{(out)} = a^{(out)} - y\]
+
+Here, \(y\) is the vector of the true class labels (the corresponding
+variable in the \emph{NeuralNetMLP} code is \(sigma_out\)).
+
+Next, we calculate the error term of the hidden layer:
+
+\[\delta^{(h)} = \delta^{(out)}(W^{(out)})^T \odot \frac{\partial \phi(z^{(h)})}{\partial z^{(h)}}\]
+
+Here, \(\frac{\partial \phi(z^{(h)})}{\partial z^{(h)}}\) is simply the
+derivative of the sigmoid activation function, which we computed as
+\emph{sigmoid\_derivative\_h = a\_h (1. - a\_h)} in the \emph{fit}
+method of the \emph{NeuralNetMLP}:
+
+\[\frac{\partial \phi(z^{(h)})}{\partial z^{(h)}} = (a^{(h)} \odot (1 - a^{(h)}))\]
+
+Note that the \(\odot\) symbol means element-wise multiplication in this
+context.
+
+    Next, we compute the \(\delta^{(h)}\) layer error matrix
+(\emph{sigma\_h}) as follows:
+
+\[\delta^{(h)} = \delta^{(out)} (W^{(out)})^T \odot (a^{(h)} \odot (1 - a^{(h)}))\]
+
+To better understand how we computed this \(\delta^{(h)}\) term, let's
+walk through it in more detail. In the preceding equation, we used the
+transpose \((W^{(out)})^T\) of the \(h \times t\)-dimensional matrix
+\(W^{(out)}\). Here, \(t\) is the number of output class labels and
+\(h\) is the number of hidden units. The matrix multiplication between
+the \(n \times t\)-dimensional \(\delta^{(out)}\) matrix and the
+\(t \times h\)-dimensional matrix \((W^{(out)})^T\), results in an
+\(n \times t\)-dimensional matrix that we multiplied elementwise by the
+sigmoid derivative of the same dimension to obtain the
+\(n \times t\)-dimensional matrix \(\delta^{(h)}\). Eventually, after
+obtaining the \(\delta\) terms, we can now write the derivation of the
+cost function as follows:
+
+\[\frac{\partial}{\partial w_{i,j}^{out}} J(W) = a_j^{(h)} \delta_i^{(out)}\]
+
+\[\frac{\partial}{\partial w_{i,j}^{h}} J(W) = a_j^{(in)} \delta_i^{(h)}\]
+
+Next, we need to accumulate the partial derivative of every node in each
+layer and the error of the node in the next layer. However, remember
+that we need to compute \(\Delta_{i,j}^{(l)}\) for every sample in the
+training set. Thus, it is easier to implement it as a vectorized version
+like in our \emph{NeuralNetMLP} code implementation:
+
+\[\Delta^{(h)} = \Delta^{(h)} + (A^{(in)})^T \delta^{(h)}\]
+
+\[\Delta^{(out)} = \Delta^{(out)} + (A^{(h)})^T \delta^{(out)}\]
+
+And after we have accumulated the partial derivatives, we can add the
+regularization term:
+
+\[\Delta^{(l)} := \Delta^{(l)} + \lambda^{(l)} \quad \text{except for the bias term}\]
+
+The two previous mathematical equations correspond to the code variables
+\emph{delta\_w\_h}, \emph{delta\_b\_h}, \emph{delta\_w\_out}, and
+\emph{delta\_b\_out} in \emph{NeuralNetMLP}.
+
+Lastly, after we have computed the gradients, we can now update the
+weights by taking an opposite step towards the gradient for each layer
+\(l\):
+
+\[W^{(l)} := W^{(l)} - \eta \delta^{(l)}\]
+
+To bring everything together, let's summarize backpropagation in the
+following figure:
+
+    \subsection{About the convergence in neural
+networks}\label{about-the-convergence-in-neural-networks}
+
+    You might be wondering why we did not use regular gradient descent but
+instead used mini-batch learning to train our neural network for the
+handwrittten digit classification. You may recall our discussion on
+stochastic gradient descent that we used to implement online learning.
+In online learning, we compute the gradient based on a single training
+sample (\(k=1\)) at a time to perform the weight update. Although this
+is a stochastic approach, it often leads to very accurate solutions with
+a much faster convergence than regular gradient descent. Mini-batch
+learning is a special form of stochastic gradient descent where we
+compute the gradient based on a subset \(k\) of the \(n\) training
+samples with \(l < k < n\). Mini-batch learning has the advantage over
+online learning that we can make use of our vectorized implementations
+to improve computational efficiency. However, we can update the weights
+much faster than in regular gradient descent. Intuitively, you can think
+of mini-batch learning as predicting the voter turnout of a presidential
+election from a poll asking only a representative subset of the
+population rather than asking the entire population (which would be
+equal to running to actual election).
+
+Multilayer neural networks are much harder to train than simpler
+algorithms such as Adaline, logistic regression, or support vector
+machines. In multilayer neural networks, we typically have hundreds,
+thousands, or even billions of weights that we need to optimize.
+Unfortunately, the output function has a rough surface and the
+optimization algorithm can easily become trapped in local minima, as
+shown in the following figure:
+
+    Note that this representation is extremely simplified since our neural
+network has many dimensions; it makes it impossible to visualize the
+actual cost surface for the human eye. Here, we only show the cost
+surface for a single weight on the \(x\)-axis. However, the main message
+is that we do not want our algorithm to get trapped in local minima. By
+increasing the learning rate, we can more readily escape such local
+minima. On the other hand, we also increase the chance of overshooting
+the global optimum if the learning rate is too large. Since we
+initialize the weights randomly, we start with a solution to the
+optimization problem that is typically hopelessly wrong.
+
+    \section{A few last words about the neural network
+implementation}\label{a-few-last-words-about-the-neural-network-implementation}
+
+    You may be wondering why we went through all of this theory just to
+implement a simple multilayer network that can classify handwritten
+digits instead of using an open source Python machine learning library.
+In fact, we will introduce more complex neural network models in the
+next chapters, which we will train using the open source TensorFlow
+library. Although the from scratch implementation in this chapter seems
+a bit tedious at first, it was a good exercise for understanding the
+basics behind backpropagation and neural network training, and a basic
+understanding of algorithms is crucial for applying machine learning
+techniques appropriately and successfully.
+
+Now that you have learned how feedforward neural network work, we are
+ready to explore more sophisticated deep neural networks, such as
+TensorFlow and Keras, which allow us to construct neural networks more
+efficiently. Over the past two years, since its release in November
+2015, Tensorflow has gained a lot of popularity among machine learning
+researchers, who use it to construct deep neural networks because of its
+ability to optimize mathematical expressions for computations on multi
+dimensional arrays utilizing \textbf{Graphical Processing Units (GPUs)}.
+While TensorFlow can be considered a low-level deep learning library,
+simplifying API such as Keras have been developed that make the
+construction of common deep learning models even more convenient.
+
+    \section{Summary}\label{summary}
+
+    In this chapter, you have learned the basic concepts behind multilayer
+artificial neural networks, which are currently the hottest topics in
+machine learning research. In a previous chapter, we started our journey
+with simple-layer neural network structures and now we have connected
+multiple neurons to a powerful neural network architecture to solve
+complex problems such as handwritten digit recognition. We demystified
+the popular backpropagation algorithm, which is one of the building
+blocks of many neural networks models that are used in deep learning.
+After learning about the backpropagation algorithm in this chapter, we
+are well-equipped for exploring more complex deep neural network
+architectures. In the remaining chapters, we will introduce TensorFlow,
+an open source library geared towards deep learning, which allows us to
+implement and train multilayer neural networks more efficiently.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
